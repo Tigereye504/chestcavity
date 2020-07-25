@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        jcenter()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        maven {
+        	name = "Ladysnake Libs"
+        	url = 'https://dl.bintray.com/ladysnake/libs'
+    	}
+        gradlePluginPortal()
+    }
+}

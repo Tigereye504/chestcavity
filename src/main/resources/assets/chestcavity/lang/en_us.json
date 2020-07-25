@@ -1,0 +1,23 @@
+{
+    "item.chestcavity.chest_opener": "Chest Opener",
+    "item.chestcavity.apendix": "Apendix",
+    "item.chestcavity.heart": "Heart",
+    "item.chestcavity.intestine": "Intestine",
+    "item.chestcavity.kidney": "Kidney",
+    "item.chestcavity.liver": "Liver",
+    "item.chestcavity.lung": "Lung",
+    "item.chestcavity.muscle": "Muscle",
+    "item.chestcavity.rib": "Rib",
+    "item.chestcavity.spine": "Spine",
+    "item.chestcavity.spleen": "Spleen",
+    "item.chestcavity.stomach": "Stomach",
+    "item.chestcavity.rotten_apendix": "Rotten Apendix",
+    "item.chestcavity.rotten_heart": "Rotten Heart",
+    "item.chestcavity.rotten_intestine": "Rotten Intestine",
+    "item.chestcavity.rotten_kidney": "Rotten Kidney",
+    "item.chestcavity.rotten_liver": "Rotten Liver",
+    "item.chestcavity.rotten_lung": "Rotten Lung",
+    "item.chestcavity.rotten_spine": "Decayed Spine",
+    "item.chestcavity.rotten_spleen": "Rotten Spleen",
+    "item.chestcavity.rotten_stomach": "Rotten Stomach"
+}
