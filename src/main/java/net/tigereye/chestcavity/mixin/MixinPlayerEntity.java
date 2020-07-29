@@ -68,6 +68,8 @@ public class MixinPlayerEntity extends LivingEntity {
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
 		amount = chestCavity.applyBoneDefense(amount);
+		info.setReturnValue(amount == 0.0F ? false : super.damage(source, amount));
+		info.cancel();
 	}
 
 	@Overwrite
