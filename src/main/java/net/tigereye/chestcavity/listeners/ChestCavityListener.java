@@ -138,7 +138,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 			}
 		}
 		
-		System.out.println("Heart: " + heartScore + " Intestine: " + intestineScore
+		/*System.out.println("Heart: " + heartScore + " Intestine: " + intestineScore
 				+ " Kidney: " + kidneyScore + " Liver: " + liverScore
 				+ " Lung: " + lungScore + " Muscle: " + muscleScore
 				+ " Rib: " + ribScore + " Spine: " + spineScore

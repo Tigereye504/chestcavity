@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "chestcavity",
-  "version": "${version}",
+  "version": "1.0.0",
 
   "name": "Chest Cavity",
   "description": "Perfectly Safe Extra Storage",
