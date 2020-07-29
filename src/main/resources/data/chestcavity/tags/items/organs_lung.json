@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:rotten_lung",
+      "chestcavity:animal_lung",
+      "chestcavity:lung"
+    ]
+  }

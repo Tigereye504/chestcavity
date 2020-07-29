@@ -6,9 +6,8 @@ import java.util.Map.Entry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
@@ -17,7 +16,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.attribute.EntityAttributes;
-
+import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.RegisterItems;
 //import net.tigereye.chestcavity.mixin.*;
 
@@ -29,8 +28,9 @@ public class ChestCavityListener implements InventoryChangedListener {
 	private int hearttimer = 0;
 	private int kidneytimer = 0;
 	private int livertimer = 0;
-	private float lungtimer = 0;
+	//private float lungtimer = 0;
 	private int spleentimer;
+	private float lungleftover;
 
 	private float heartScore = 0;
 	private static final UUID heartID = UUID.fromString("edb1e124-a951-48bd-b711-782ec1364722");
@@ -97,123 +97,58 @@ public class ChestCavityListener implements InventoryChangedListener {
 		for (int i = 0; i < inv.size(); i++)
 		{
 			ItemStack slot = inv.getStack(i);
-			if (slot == null)
+			if (slot != null)
 			{
-				
-			}
-			//hearts
-			else if (slot.getItem() == RegisterItems.heart)
-			{
-				heartScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenHeart)
-			{
-				heartScore += ((float)slot.getCount())*.5;
-			}
-			//intestines
-			else if (slot.getItem() == RegisterItems.intestine)
-			{
-				intestineScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenIntestine)
-			{
-				intestineScore += ((float)slot.getCount())*.5;
-			}
-			//kidneys
-			else if (slot.getItem() == RegisterItems.kidney)
-			{
-				kidneyScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenKidney)
-			{
-				kidneyScore += ((float)slot.getCount())*.5;
-			}
-			//livers
-			else if (slot.getItem() == RegisterItems.liver)
-			{
-				liverScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenLiver)
-			{
-				liverScore += ((float)slot.getCount())*.5;
-			}
-			//lungs
-			else if (slot.getItem() == RegisterItems.lung)
-			{
-				lungScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenLung)
-			{
-				lungScore += ((float)slot.getCount())*.5;
-			}
-			//muscles
-			else if (slot.getItem() == RegisterItems.muscle)
-			{
-				muscleScore += slot.getCount();
-			}
-			else if (slot.getItem() == Items.BEEF)
-			{
-				muscleScore += ((float)slot.getCount())*.75;
-			}
-			else if (slot.getItem() == Items.PORKCHOP)
-			{
-				muscleScore += ((float)slot.getCount())*.75;
-			}
-			else if (slot.getItem() == Items.MUTTON)
-			{
-				muscleScore += ((float)slot.getCount())*.75;
-			}
-			else if (slot.getItem() == Items.ROTTEN_FLESH)
-			{
-				muscleScore += ((float)slot.getCount())*.5;
-			}
-			//ribs
-			else if (slot.getItem() == RegisterItems.rib)
-			{
-				ribScore += slot.getCount();
-			}
-			else if (slot.getItem() == Items.BONE)
-			{
-				ribScore += ((float)slot.getCount())/32;
-			}
-			//spines
-			else if (slot.getItem() == RegisterItems.spine)
-			{
-				spineScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenSpine)
-			{
-				spineScore += ((float)slot.getCount())*.5;
-			}
-			else if (slot.getItem().isIn(ItemTags.FENCES))
-			{
-				spineScore += Math.min(((float)slot.getCount())*.5,1);
-			}
-			//spleens
-			else if (slot.getItem() == RegisterItems.spleen)
-			{
-				spleenScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenSpleen)
-			{
-				spleenScore += ((float)slot.getCount())*.5;
-			}
-			//stomachs
-			else if (slot.getItem() == RegisterItems.stomach)
-			{
-				stomachScore += slot.getCount();
-			}
-			else if (slot.getItem() == RegisterItems.rottenStomach)
-			{
-				stomachScore += ((float)slot.getCount())*.5;
+				Item slotitem = slot.getItem();
+
+				if (slotitem.isIn(RegisterItems.ORGANS_HEART)) {
+					heartScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_INTESTINE)) {
+					intestineScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_KIDNEY)) {
+					kidneyScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_LIVER)) {
+					kidneyScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_LUNG)) {
+					lungScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_MUSCLE)) {
+					//TODO: Mixin for pig meat, cow meat, lamb meat, and rotten flesh(optional)
+					//TODO: add pig, cow, and lamb meat to muscle tag
+					muscleScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_RIB)) {
+					//TODO: Mixin for bone, iron bars, sticks
+					//TODO: add bone, iron bars, and sticks to rib tag
+					ribScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_SPINE)) {
+					//TODO: Mixin for fences, iron bars, sticks
+					//TODO: add fences, to spine tag
+					//note: unlike other organs, you cannot get more than 1 point of spinescore per slot
+					spineScore += Math.min(getOrganQuality(slotitem)*slot.getCount(),1);
+				}
+				if (slotitem.isIn(RegisterItems.ORGANS_SPLEEN)) {
+					spleenScore += getOrganQuality(slotitem)*slot.getCount();
+				}
+				//stomachs
+				if (slotitem.isIn(RegisterItems.ORGANS_STOMACH)) {
+					//TODO: Mixin for bucket?
+					//TODO: add bucket to stomach tag?
+					stomachScore += getOrganQuality(slotitem)*slot.getCount();
+				}
 			}
 		}
-		/*
+		
 		System.out.println("Heart: " + heartScore + " Intestine: " + intestineScore
 				+ " Kidney: " + kidneyScore + " Liver: " + liverScore
 				+ " Lung: " + lungScore + " Muscle: " + muscleScore
 				+ " Rib: " + ribScore + " Spine: " + spineScore
-				+ " Stomach: " + stomachScore + "\n");*/
+				+ " Stomach: " + stomachScore + "\n");/**/
 		if( //check if anything changed
 			oldHeartScore != heartScore
 			//|| oldIntestineScore != intestineScore
@@ -247,8 +182,8 @@ public class ChestCavityListener implements InventoryChangedListener {
 	}
 	//returns how much air we should attempt to lose
 	public int applyLungCapacityInWater(){
-		lungtimer++; //one tick has passed
-		int airloss = 0;
+		/*lungtimer++; //one tick has passed
+		float airloss//int airloss = 0;
 		if(lungtimer >= (lungScore/2))
 		{ //if lung capacity has been reached
 			lungtimer -= (lungScore/2); //deduct lung capacity from timer
@@ -258,12 +193,23 @@ public class ChestCavityListener implements InventoryChangedListener {
 				airloss = 2;
 			}
 		}
-		return airloss;
+		return airloss;*/
+
+		//alt version
+		float airloss = 2f/Math.max(lungScore,.1f) + lungleftover;
+		lungleftover = airloss % 1;
+		return (int) airloss;
+		
+
 	}
 
 	//returns air gain
 	public int applyLungCapacityOnLand(){
-		return ((int)(lungScore*3))-2;
+		//return ((int)(lungScore*3))-2;
+		if (lungScore == 0) {
+			player.damage(DamageSource.DROWN, 2.0F);
+		}
+		return 4;
 	}
 
 	public int applySpleenMetabolism(int metatimer){
@@ -271,6 +217,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 		if(spleentimer>=2){
 			metatimer += spleenScore - 1;
 		}
+		spleentimer = 0;
 		return metatimer;
 	}
 	public void TickHeart(){
@@ -289,16 +236,16 @@ public class ChestCavityListener implements InventoryChangedListener {
 	public void TickKidney(){
 		if (kidneyScore < 1){
 			kidneytimer++;
-			if(kidneytimer >= 60){
-			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 60));
+			if(kidneytimer >= 100){
+			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
 			kidneytimer = 0;
 			}
 		}
-		else if (kidneyScore < 2)
+		if(kidneyScore < 2)
 		{
 			kidneytimer++;
-			if(kidneytimer >= 2){
-			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 1));
+			if(kidneytimer >= 40){
+			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 50-((int)(kidneyScore*30))));
 			kidneytimer = 0;
 			}
 		}
@@ -368,5 +315,14 @@ public class ChestCavityListener implements InventoryChangedListener {
 
 	public float getSpineScore(){
 		return spineScore;
+	}
+
+	private float getOrganQuality(Item slotitem){
+		if(slotitem instanceof ChestCavityOrgan){
+			return ((ChestCavityOrgan)slotitem).getOrganQuality();
+		}
+		else{ //default behavior: assume .5 quality
+			return .5f;
+		}
 	}
 }

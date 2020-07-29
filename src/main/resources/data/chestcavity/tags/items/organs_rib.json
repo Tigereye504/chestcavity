@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:rib",
+      "chestcavity:animal_rib",
+      "chestcavity:rotten_rib"
+    ]
+  }

@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:rotten_stomach",
+      "chestcavity:animal_stomach",
+      "chestcavity:stomach"
+    ]
+}

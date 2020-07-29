@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:rotten_apendix",
+      "chestcavity:rotten_heart",
+      "chestcavity:rotten_intestine",
+      "chestcavity:rotten_kidney",
+      "chestcavity:rotten_liver",
+      "chestcavity:rotten_lung",
+      "chestcavity:rotten_stomach",
+      "chestcavity:rotten_spleen"
+    ]
+}
