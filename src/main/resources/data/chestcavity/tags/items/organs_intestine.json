@@ -3,6 +3,7 @@
     "values": [
       "chestcavity:rotten_intestine",
       "chestcavity:animal_intestine",
-      "chestcavity:intestine"
+      "chestcavity:intestine",
+      "minecraft:hopper"
     ]
   }

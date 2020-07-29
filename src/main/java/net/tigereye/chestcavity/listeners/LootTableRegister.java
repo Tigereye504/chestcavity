@@ -20,6 +20,12 @@ public class LootTableRegister {
     private static final Identifier WANDERING_TRADER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/wandering_trader");
     private static final Identifier ILLUSIONER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/illusioner");
 
+    private static final Identifier COW_LOOT_TABLE_ID = new Identifier("minecraft", "entities/cow");
+    private static final Identifier PIG_LOOT_TABLE_ID = new Identifier("minecraft", "entities/pig");
+    private static final Identifier SHEEP_LOOT_TABLE_ID = new Identifier("minecraft", "entities/sheep");
+    private static final Identifier HORSE_LOOT_TABLE_ID = new Identifier("minecraft", "entities/horse");
+    private static final Identifier PIGLIN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/piglin");
+
     private static final Identifier ZOMBIE_LOOT_TABLE_ID = new Identifier("minecraft", "entities/zombie");
     private static final Identifier ZOMBIE_PIGLIN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/zombified_piglin");
     private static final Identifier HUSK_LOOT_TABLE_ID = new Identifier("minecraft", "entities/husk");
@@ -81,6 +87,29 @@ public class LootTableRegister {
                     .with(ItemEntry.builder(RegisterItems.spine))
                     .with(ItemEntry.builder(RegisterItems.spleen))
                     .with(ItemEntry.builder(RegisterItems.stomach))
+                    .conditionally(KilledByPlayerLootCondition.builder())
+                    .conditionally(RandomChanceWithLootingLootCondition.builder(.025f, .01f));
+                supplier.pool(poolBuilder);
+            }
+            
+            if (COW_LOOT_TABLE_ID.equals(id) 
+                || PIG_LOOT_TABLE_ID.equals(id)
+                || SHEEP_LOOT_TABLE_ID.equals(id)
+                || HORSE_LOOT_TABLE_ID.equals(id)
+                || PIGLIN_LOOT_TABLE_ID.equals(id)
+                ) {
+                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                    .rolls(BinomialLootTableRange.create(4,9))
+                    .with(ItemEntry.builder(RegisterItems.animalApendix))
+                    .with(ItemEntry.builder(RegisterItems.animalHeart))
+                    .with(ItemEntry.builder(RegisterItems.animalIntestine))
+                    .with(ItemEntry.builder(RegisterItems.animalKidney))
+                    .with(ItemEntry.builder(RegisterItems.animalLiver))
+                    .with(ItemEntry.builder(RegisterItems.animalLung))
+                    .with(ItemEntry.builder(RegisterItems.animalRib).weight(4))
+                    .with(ItemEntry.builder(RegisterItems.animalSpine))
+                    .with(ItemEntry.builder(RegisterItems.animalSpleen))
+                    .with(ItemEntry.builder(RegisterItems.animalStomach))
                     .conditionally(KilledByPlayerLootCondition.builder())
                     .conditionally(RandomChanceWithLootingLootCondition.builder(.025f, .01f));
                 supplier.pool(poolBuilder);

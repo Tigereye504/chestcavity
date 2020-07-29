@@ -3,6 +3,9 @@
     "values": [
       "chestcavity:rib",
       "chestcavity:animal_rib",
-      "chestcavity:rotten_rib"
+      "chestcavity:rotten_rib",
+      "minecraft:bone",
+      "minecraft:stick",
+      "minecraft:iron_bars"
     ]
   }

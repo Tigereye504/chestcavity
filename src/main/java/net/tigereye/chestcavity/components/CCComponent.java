@@ -143,14 +143,13 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 
     private void insertWelfareOrgans(){
         //urgently essential organs are: heart, spine, lung
-        //TODO: reenable welfare lungs once people can choke on air properly
         if(inventory.count(RegisterItems.heart) == 0){
             forcefullyAddStack(new ItemStack(RegisterItems.rottenHeart),4);
         }
-        //if(inventory.count(RegisterItems.lung) == 0){
-        //    forcefullyAddStack(new ItemStack(RegisterItems.rottenLung),3);
-        //    forcefullyAddStack(new ItemStack(RegisterItems.rottenLung),5);
-        //}
+        if(inventory.count(RegisterItems.lung) == 0){
+            forcefullyAddStack(new ItemStack(RegisterItems.rottenLung),3);
+            forcefullyAddStack(new ItemStack(RegisterItems.rottenLung),5);
+        }
         if(inventory.count(RegisterItems.spine) == 0){
             forcefullyAddStack(new ItemStack(RegisterItems.rottenSpine),13);
         }

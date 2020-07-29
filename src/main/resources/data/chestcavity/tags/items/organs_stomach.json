@@ -3,6 +3,10 @@
     "values": [
       "chestcavity:rotten_stomach",
       "chestcavity:animal_stomach",
-      "chestcavity:stomach"
+      "chestcavity:stomach",
+      "minecraft:furnace",
+      "minecraft:bucket",
+      "minecraft:chest",
+      "minecraft:ender_chest"
     ]
 }

@@ -8,6 +8,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tag.Tag;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
@@ -19,6 +20,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.RegisterItems;
 //import net.tigereye.chestcavity.mixin.*;
+import net.tigereye.chestcavity.items.VanillaOrgans;
 
 public class ChestCavityListener implements InventoryChangedListener {
 	private static final int HEARTBLEEDSPEED = 20; //bigger is slower
@@ -102,44 +104,36 @@ public class ChestCavityListener implements InventoryChangedListener {
 				Item slotitem = slot.getItem();
 
 				if (slotitem.isIn(RegisterItems.ORGANS_HEART)) {
-					heartScore += getOrganQuality(slotitem)*slot.getCount();
+					heartScore += getOrganQuality(slotitem,RegisterItems.ORGANS_HEART)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_INTESTINE)) {
-					intestineScore += getOrganQuality(slotitem)*slot.getCount();
+					intestineScore += getOrganQuality(slotitem,RegisterItems.ORGANS_INTESTINE)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_KIDNEY)) {
-					kidneyScore += getOrganQuality(slotitem)*slot.getCount();
+					kidneyScore += getOrganQuality(slotitem,RegisterItems.ORGANS_KIDNEY)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_LIVER)) {
-					kidneyScore += getOrganQuality(slotitem)*slot.getCount();
+					kidneyScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LIVER)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_LUNG)) {
-					lungScore += getOrganQuality(slotitem)*slot.getCount();
+					lungScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LUNG)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_MUSCLE)) {
-					//TODO: Mixin for pig meat, cow meat, lamb meat, and rotten flesh(optional)
-					//TODO: add pig, cow, and lamb meat to muscle tag
-					muscleScore += getOrganQuality(slotitem)*slot.getCount();
+					muscleScore += getOrganQuality(slotitem,RegisterItems.ORGANS_MUSCLE)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_RIB)) {
-					//TODO: Mixin for bone, iron bars, sticks
-					//TODO: add bone, iron bars, and sticks to rib tag
-					ribScore += getOrganQuality(slotitem)*slot.getCount();
+					ribScore += getOrganQuality(slotitem,RegisterItems.ORGANS_RIB)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_SPINE)) {
-					//TODO: Mixin for fences, iron bars, sticks
-					//TODO: add fences, to spine tag
 					//note: unlike other organs, you cannot get more than 1 point of spinescore per slot
-					spineScore += Math.min(getOrganQuality(slotitem)*slot.getCount(),1);
+					spineScore += Math.min(getOrganQuality(slotitem,RegisterItems.ORGANS_SPINE)*slot.getCount(),1);
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_SPLEEN)) {
-					spleenScore += getOrganQuality(slotitem)*slot.getCount();
+					spleenScore += getOrganQuality(slotitem,RegisterItems.ORGANS_SPLEEN)*slot.getCount();
 				}
 				//stomachs
 				if (slotitem.isIn(RegisterItems.ORGANS_STOMACH)) {
-					//TODO: Mixin for bucket?
-					//TODO: add bucket to stomach tag?
-					stomachScore += getOrganQuality(slotitem)*slot.getCount();
+					stomachScore += getOrganQuality(slotitem,RegisterItems.ORGANS_STOMACH)*slot.getCount();
 				}
 			}
 		}
@@ -182,20 +176,6 @@ public class ChestCavityListener implements InventoryChangedListener {
 	}
 	//returns how much air we should attempt to lose
 	public int applyLungCapacityInWater(){
-		/*lungtimer++; //one tick has passed
-		float airloss//int airloss = 0;
-		if(lungtimer >= (lungScore/2))
-		{ //if lung capacity has been reached
-			lungtimer -= (lungScore/2); //deduct lung capacity from timer
-			airloss = 1; //lose some air
-			if(lungtimer >= 1)//at least one tick still remains because your lungs suck
-			{
-				airloss = 2;
-			}
-		}
-		return airloss;*/
-
-		//alt version
 		float airloss = 2f/Math.max(lungScore,.1f) + lungleftover;
 		lungleftover = airloss % 1;
 		return (int) airloss;
@@ -317,12 +297,12 @@ public class ChestCavityListener implements InventoryChangedListener {
 		return spineScore;
 	}
 
-	private float getOrganQuality(Item slotitem){
+	private float getOrganQuality(Item slotitem, Tag<Item> tag){
 		if(slotitem instanceof ChestCavityOrgan){
 			return ((ChestCavityOrgan)slotitem).getOrganQuality();
 		}
 		else{ //default behavior: assume .5 quality
-			return .5f;
+			return VanillaOrgans.getStrength(slotitem,tag);
 		}
 	}
 }

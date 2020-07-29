@@ -3,6 +3,7 @@
     "values": [
       "chestcavity:rotten_liver",
       "chestcavity:animal_liver",
-      "chestcavity:liver"
+      "chestcavity:liver",
+      "minecraft:milk_bucket"
     ]
   }
