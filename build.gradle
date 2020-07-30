@@ -30,6 +30,13 @@ dependencies {
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.4.2"
 }
 
+repositories {
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://dl.bintray.com/ladysnake/libs/'
+    }
+}
+
 processResources {
 	inputs.property "version", project.version
 
