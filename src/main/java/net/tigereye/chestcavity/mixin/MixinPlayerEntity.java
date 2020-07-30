@@ -78,12 +78,16 @@ public class MixinPlayerEntity extends LivingEntity {
 	public ItemStack eatFood(World world, ItemStack stack) {
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
+
+		//Reimplementation of hunger manager's eat class
+		//TODO: seperate into standalone class to overwrite HungerManager?
 		if (stack.getItem().isFood()) {
 			FoodComponent foodComponent = stack.getItem().getFoodComponent();
 			((PlayerEntity) (Object) this).getHungerManager().add(
 				chestCavity.applyStomachHunger(foodComponent.getHunger()), 
 				chestCavity.applyIntestinesSaturation(foodComponent.getSaturationModifier()));
 		}
+
 		((PlayerEntity) (Object) this).incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
 		world.playSound((PlayerEntity) null, ((PlayerEntity) (Object) this).getX(),
 				((PlayerEntity) (Object) this).getY(), ((PlayerEntity) (Object) this).getZ(),
@@ -120,33 +124,3 @@ public class MixinPlayerEntity extends LivingEntity {
 		return null;
 	}
 }
-
-/*
-package net.fabricmc.example.mixin;
-
-import net.minecraft.client.MinecraftClient;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-@Mixin(MinecraftClient.class)
-public class ExampleMixin {
-	@Inject(at = @At("HEAD"), method = "init()V")
-	private void init(CallbackInfo info) {
-		System.out.println("This line is printed by an example mod mixin!");
-	}
-}
-
-  // Method descriptor #2199 ()Lnet/minecraft/inventory/EnderChestInventory;
-  // Stack: 1, Locals: 1
-  public net.minecraft.inventory.EnderChestInventory getEnderChestInventory();
-    0  aload_0 [this]
-    1  getfield net.minecraft.entity.player.PlayerEntity.enderChestInventory : net.minecraft.inventory.EnderChestInventory [123]
-    4  areturn
-      Line numbers:
-        [pc: 0, line: 1812]
-      Local variable table:
-        [pc: 0, pc: 5] local: this index: 0 type: net.minecraft.entity.player.PlayerEntity
-        
-        */
