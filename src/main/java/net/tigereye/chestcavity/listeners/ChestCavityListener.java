@@ -237,14 +237,16 @@ public class ChestCavityListener implements InventoryChangedListener {
 		if(livertimer >= 2)
 		{
 			for(Entry<StatusEffect,StatusEffectInstance> iter : player.getActiveStatusEffects().entrySet()){
-				if(!iter.getValue().isPermanent()){
+				//if(!iter.getValue().isPermanent()){
 					newDur = Math.max(iter.getValue().getDuration() - ((int)((liverScore-1))),0);
 					iter.setValue(new StatusEffectInstance(iter.getValue().getEffectType(),newDur,iter.getValue().getAmplifier()));
-				}
+				//}
 			}
 			livertimer = 0;
 		}
 	}
+
+
 
 	private void UpdateHeart() {
 		//Update Max Health Modifier

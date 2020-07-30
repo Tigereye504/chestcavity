@@ -8,24 +8,20 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
+
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.components.CCComponent;
 import net.tigereye.chestcavity.listeners.ChestCavityListener;
+import net.tigereye.chestcavity.interfaces.CCHungerManagerInterface;
 
 @Mixin(PlayerEntity.class)
 public class MixinPlayerEntity extends LivingEntity {
@@ -72,6 +68,12 @@ public class MixinPlayerEntity extends LivingEntity {
 		info.cancel();
 	}
 
+	@Inject(at = @At("HEAD"), method = "eatFood")
+	public void chestCavityPlayerEatFoodMixin(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> info){
+		((CCHungerManagerInterface)((PlayerEntity) (Object) this).getHungerManager()).ccEat(stack.getItem(), ((PlayerEntity) (Object) this));
+	}
+	//and you though eatFood was bad before... time to engage ULTIMATE HACK MODE
+	/*
 	@Overwrite
 	public ItemStack eatFood(World world, ItemStack stack) {
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
@@ -86,15 +88,15 @@ public class MixinPlayerEntity extends LivingEntity {
 		world.playSound((PlayerEntity) null, ((PlayerEntity) (Object) this).getX(),
 				((PlayerEntity) (Object) this).getY(), ((PlayerEntity) (Object) this).getZ(),
 				SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
-		if (((PlayerEntity) (Object) this) instanceof ServerPlayerEntity) {
+		if (this instanceof ServerPlayerEntity) {
 			Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) ((PlayerEntity) (Object) this), stack);
 		}
 
 		return super.eatFood(world, stack);
-	}
+	}*/
 
 	@Inject(at = @At("HEAD"), method = "dropInventory")
-	public void chestCavityPlayerEntityDamageMixin(CallbackInfo info){
+	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
 		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();
 	}
 
