@@ -12,8 +12,8 @@ Also uses Onyx Studio's Cardinal Components.
 
 
 ## Images
-(https://user-images.githubusercontent.com/12503726/88764949-a4af3980-d12a-11ea-9f2a-0ee53b49c71d.png)
+![The Chest Cavity itself](https://user-images.githubusercontent.com/12503726/88764949-a4af3980-d12a-11ea-9f2a-0ee53b49c71d.png)
 
-(https://user-images.githubusercontent.com/12503726/88764973-abd64780-d12a-11ea-8b7c-fde617e9e492.png)
+![Health changes](https://user-images.githubusercontent.com/12503726/88764973-abd64780-d12a-11ea-8b7c-fde617e9e492.png)
 
-(https://user-images.githubusercontent.com/12503726/88764937-a11bb280-d12a-11ea-8fd4-dc8cac6e8fe3.png)
+![Demonstration of crafting and item variants](https://user-images.githubusercontent.com/12503726/88764937-a11bb280-d12a-11ea-8fd4-dc8cac6e8fe3.png)
