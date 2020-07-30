@@ -1,7 +1,6 @@
 package net.tigereye.chestcavity.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -72,7 +71,7 @@ public class MixinPlayerEntity extends LivingEntity {
 	public void chestCavityPlayerEatFoodMixin(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> info){
 		((CCHungerManagerInterface)((PlayerEntity) (Object) this).getHungerManager()).ccEat(stack.getItem(), ((PlayerEntity) (Object) this));
 	}
-	
+
 	@Inject(at = @At("HEAD"), method = "dropInventory")
 	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
 		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();

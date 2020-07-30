@@ -42,23 +42,16 @@ public class MixinHungerManager implements CCHungerManagerInterface {
                                 .getCCListener();
                         FoodComponent foodComponent = item.getFoodComponent();
                         int hungerToRestore = chestCavity.applyStomachHunger(foodComponent.getHunger());
-                        System.out.println("Restoring up to "+hungerToRestore+" saturation\n");
                         this.foodLevel = Math.min(hungerToRestore + this.foodLevel, 20);
                         float saturationToRestore = (float)foodComponent.getHunger() * chestCavity.applyIntestinesSaturation(foodComponent.getSaturationModifier()) * 2.0F;
-                        System.out.println("Restoring up to "+saturationToRestore+" saturation\n");
-                        this.foodSaturationLevel = Math.min(
-                                this.foodSaturationLevel + (float)foodComponent.getHunger() *
-                                chestCavity.applyIntestinesSaturation(foodComponent.getSaturationModifier()) * 2.0F
-                                , (float)this.foodLevel);
+                        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + saturationToRestore, (float)this.foodLevel);
                 }
                 justCCAte = true;
-                System.out.println("Digesting Food, ");
         }
 
         @Inject(at = @At("HEAD"), method = "eat", cancellable = true)
         public void chestCavityEatMixin(Item item, ItemStack stack, CallbackInfo info) {
                 if(justCCAte){
-                        System.out.println("Refusing Seconds.\n");
                         justCCAte = false;
                         info.cancel();
                 }
