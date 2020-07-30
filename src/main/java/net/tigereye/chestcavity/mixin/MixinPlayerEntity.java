@@ -72,33 +72,7 @@ public class MixinPlayerEntity extends LivingEntity {
 	public void chestCavityPlayerEatFoodMixin(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> info){
 		((CCHungerManagerInterface)((PlayerEntity) (Object) this).getHungerManager()).ccEat(stack.getItem(), ((PlayerEntity) (Object) this));
 	}
-	//and you though eatFood was bad before... time to engage ULTIMATE HACK MODE
-	/*
-	@Overwrite
-	public ItemStack eatFood(World world, ItemStack stack) {
-		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
-				.get((PlayerEntity) (Object) this))).getCCListener();
-
-		//Reimplementation of hunger manager's eat class
-		//TODO: seperate into standalone class to overwrite HungerManager?
-		if (stack.getItem().isFood()) {
-			FoodComponent foodComponent = stack.getItem().getFoodComponent();
-			((PlayerEntity) (Object) this).getHungerManager().add(
-				chestCavity.applyStomachHunger(foodComponent.getHunger()), 
-				chestCavity.applyIntestinesSaturation(foodComponent.getSaturationModifier()));
-		}
-
-		((PlayerEntity) (Object) this).incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
-		world.playSound((PlayerEntity) null, ((PlayerEntity) (Object) this).getX(),
-				((PlayerEntity) (Object) this).getY(), ((PlayerEntity) (Object) this).getZ(),
-				SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
-		if (this instanceof ServerPlayerEntity) {
-			Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) ((PlayerEntity) (Object) this), stack);
-		}
-
-		return super.eatFood(world, stack);
-	}*/
-
+	
 	@Inject(at = @At("HEAD"), method = "dropInventory")
 	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
 		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();
