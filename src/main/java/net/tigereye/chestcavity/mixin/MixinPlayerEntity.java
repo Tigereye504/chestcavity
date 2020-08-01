@@ -4,14 +4,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.components.CCComponent;
 import net.tigereye.chestcavity.listeners.ChestCavityListener;
-import net.tigereye.chestcavity.interfaces.CCHungerManagerInterface;
+//import net.tigereye.chestcavity.interfaces.CCHungerManagerInterface;
 
 @Mixin(PlayerEntity.class)
 public class MixinPlayerEntity extends LivingEntity {
@@ -58,20 +58,18 @@ public class MixinPlayerEntity extends LivingEntity {
 		 }
 	 }
 */
-	@Inject(at = @At("TAIL"), method = "damage", cancellable = true)
-	public void chestCavityPlayerEntityDamageMixin(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info){
+	@ModifyVariable(at = @At("HEAD"), method = "damage")
+	public float chestCavityPlayerEntityDamageMixin(float amount){
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
-		amount = chestCavity.applyBoneDefense(amount);
-		info.setReturnValue(amount == 0.0F ? false : super.damage(source, amount));
-		info.cancel();
+		return chestCavity.applyBoneDefense(amount);
 	}
-
+	/*
 	@Inject(at = @At("HEAD"), method = "eatFood")
-	public void chestCavityPlayerEatFoodMixin(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> info){
+	public void chestCavityPlayerEntityEatFoodMixin(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> info){
 		((CCHungerManagerInterface)((PlayerEntity) (Object) this).getHungerManager()).ccEat(stack.getItem(), ((PlayerEntity) (Object) this));
 	}
-
+	*/
 	@Inject(at = @At("HEAD"), method = "dropInventory")
 	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
 		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();

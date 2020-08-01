@@ -172,8 +172,10 @@ public class ChestCavityListener implements InventoryChangedListener {
 	
 	public int applyStomachHunger(int hunger){
 		//TODO: BUG: hunger UI pretends to fill even when gains are set to nothing
-		return (int)(hunger*stomachScore);
+		//sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatability
+		return Math.max((int)(hunger*stomachScore),1);
 	}
+	
 	//returns how much air we should attempt to lose
 	public int applyLungCapacityInWater(){
 		float airloss = 2f/Math.max(lungScore,.1f) + lungleftover;
