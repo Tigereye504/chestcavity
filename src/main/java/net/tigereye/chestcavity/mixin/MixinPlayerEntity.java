@@ -45,7 +45,7 @@ public class MixinPlayerEntity extends LivingEntity {
 		return i > 0 && this.random.nextInt(i + 1) > 0 ? air : Math.max(air - chestCavity.applyLungCapacityInWater(),-20);
 	 }
 /*
-	//TODO: Bug: gui doesn't sync up properly with air meter if land recovery is changed...
+	//Bug: gui doesn't sync up properly with air meter if land recovery is changed...
 	//this part honestly isn't important, so I'll just turn it off and focus elsewhere for now.
 	 protected int getNextAirOnLand(int air) {
 		 if(air == this.getMaxAir()){
