@@ -304,7 +304,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 		if(slotitem instanceof ChestCavityOrgan){
 			return ((ChestCavityOrgan)slotitem).getOrganQuality();
 		}
-		else{ //default behavior: assume .5 quality
+		else{ //default behavior: assume 0 quality
 			return VanillaOrgans.getStrength(slotitem,tag);
 		}
 	}
