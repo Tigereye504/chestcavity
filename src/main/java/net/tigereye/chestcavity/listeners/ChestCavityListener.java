@@ -302,7 +302,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 
 	private float getOrganQuality(Item slotitem, Tag<Item> tag){
 		if(slotitem instanceof ChestCavityOrgan){
-			return ((ChestCavityOrgan)slotitem).getOrganQuality();
+			return ((ChestCavityOrgan)slotitem).getOrganQuality(tag);
 		}
 		else{ //default behavior: assume 0 quality
 			return VanillaOrgans.getStrength(slotitem,tag);

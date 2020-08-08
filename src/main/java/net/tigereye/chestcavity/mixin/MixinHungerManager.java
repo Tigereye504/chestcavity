@@ -46,7 +46,7 @@ public class MixinHungerManager {
                                 .getCCListener();
                         //saturation gains are equal to hungerValue*saturationModifier*2
                         //this is kinda stupid, if I half the hunger gains from food I don't want to also half saturation gains
-                        //so before hunger changes, calculate the saturation gain intended
+                        //so before hunger changes, calculate the saturation gain I intend
                         float saturationGain = chestCavity.applyIntestinesSaturation(item.getFoodComponent().getSaturationModifier())*item.getFoodComponent().getHunger()*2.0F;
                         //now find the modified hunger gains
                         int hungerGain = chestCavity.applyStomachHunger(item.getFoodComponent().getHunger());

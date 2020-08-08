@@ -9,38 +9,56 @@ public class VanillaOrgans {
     public static float getStrength(Item item, Tag<Item> tag){
         if(tag == RegisterItems.ORGANS_APENDIX){
             if(item == Items.DIRT){
-                return 1.25f/64;
+                return 1f/64;
             }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_HEART){
+            if(item == Items.DIRT){
+                return 1f/(64*27);
+            }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_INTESTINE){
+            if(item == Items.DIRT){
+                return 4f/(64*27);
+            }
             if(item == Items.HOPPER){
                 return 1.25f/64;
             }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_KIDNEY){
+            if(item == Items.DIRT){
+                return 1f/(64*27);
+            }
             if(item == Items.HONEY_BOTTLE){
                 return 1.25f/16;
             }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_LIVER){
+            if(item == Items.DIRT){
+                return 1f/(64*27);
+            }
             if(item == Items.MILK_BUCKET){
                 return .75f;
             }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_LUNG){
+            if(item == Items.DIRT){
+                return 2f/(64*27);
+            }
             if(item == Items.PUFFERFISH){
                 return 1.25f/64;
             }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_MUSCLE){
+            if(item == Items.DIRT){
+                return 8f/27;
+            }
             if(item == Items.PORKCHOP || item == Items.MUTTON || item == Items.BEEF){
                 return 0.75f;
             }
@@ -56,6 +74,9 @@ public class VanillaOrgans {
             return 0;
         }
         if(tag == RegisterItems.ORGANS_RIB){
+            if(item == Items.DIRT){
+                return 16f/(64*27);
+            }
             if(item == Items.STICK){
                 return .25f/16;
             }
@@ -68,12 +89,21 @@ public class VanillaOrgans {
             return 0;
         }
         if(tag == RegisterItems.ORGANS_SPINE){
+            if(item == Items.DIRT){
+                return 1f/(64*27);
+            }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_SPLEEN){
+            if(item == Items.DIRT){
+                return 1f/(64*27);
+            }
             return 0;
         }
         if(tag == RegisterItems.ORGANS_STOMACH){
+            if(item == Items.DIRT){
+                return 1f/(64*27);
+            }
             if(item == Items.FURNACE | item == Items.CHEST){
                 return .5f;
             }

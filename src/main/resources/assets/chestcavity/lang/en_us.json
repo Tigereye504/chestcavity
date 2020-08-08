@@ -31,6 +31,8 @@
     "item.chestcavity.animal_spine": "Animal Spine",
     "item.chestcavity.animal_spleen": "animal Spleen",
     "item.chestcavity.animal_stomach": "animal Stomach",
+    "item.chestcavity.saltwater_heart": "Saltwater Heart",
+    "item.chestcavity.saltwater_lung": "Saltwater Lung",
     "item.chestcavity.raw_organ_meat": "Raw Organ Meat",
     "item.chestcavity.cooked_organ_meat": "Cooked Organ Meat"
 }

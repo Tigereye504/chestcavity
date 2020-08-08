@@ -3,6 +3,7 @@
     "values": [
       "chestcavity:rotten_spleen",
       "chestcavity:animal_spleen",
-      "chestcavity:spleen"
+      "chestcavity:spleen",
+      "minecraft:dirt"
     ]
   }

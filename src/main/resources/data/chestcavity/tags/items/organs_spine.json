@@ -3,6 +3,7 @@
     "values": [
       "chestcavity:spine",
       "chestcavity:animal_spine",
-      "chestcavity:rotten_spine"
+      "chestcavity:rotten_spine",
+      "minecraft:dirt"
     ]
   }

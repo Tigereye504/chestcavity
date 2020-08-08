@@ -4,6 +4,7 @@
       "chestcavity:rotten_intestine",
       "chestcavity:animal_intestine",
       "chestcavity:intestine",
-      "minecraft:hopper"
+      "minecraft:hopper",
+      "minecraft:dirt"
     ]
   }
