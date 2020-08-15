@@ -29,13 +29,13 @@ public class RegisterItems {
 	public static final Tag<Item> ORGANS_SPLEEN = TagRegistry.item(new Identifier(ChestCavity.MODID,"organs_spleen"));
 	public static final Tag<Item> ORGANS_STOMACH = TagRegistry.item(new Identifier(ChestCavity.MODID,"organs_stomach"));
 
-	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ItemGroup.TOOLS);
-	public static final Item.Settings ORGAN_SETTINGS_1 = new Item.Settings().maxCount(1).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_2 = new Item.Settings().maxCount(2).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_4 = new Item.Settings().maxCount(4).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_64 = new Item.Settings().maxCount(64).group(ItemGroup.MISC);
-	public static final Item.Settings RAW_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(4).saturationModifier(2.5f).build());
-	public static final Item.Settings COOKED_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(9).saturationModifier(18f).build());
+	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ChestCavity.CC_ITEM_GROUP);
+	public static final Item.Settings ORGAN_SETTINGS_1 = new Item.Settings().maxCount(1).group(ChestCavity.CC_ITEM_GROUP);
+	public static final Item.Settings ORGAN_SETTINGS_2 = new Item.Settings().maxCount(2).group(ChestCavity.CC_ITEM_GROUP);
+	public static final Item.Settings ORGAN_SETTINGS_4 = new Item.Settings().maxCount(4).group(ChestCavity.CC_ITEM_GROUP);
+	public static final Item.Settings ORGAN_SETTINGS_64 = new Item.Settings().maxCount(64).group(ChestCavity.CC_ITEM_GROUP);
+	public static final Item.Settings RAW_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ChestCavity.CC_FOOD_GROUP).food(new FoodComponent.Builder().hunger(4).saturationModifier(2.5f).build());
+	public static final Item.Settings COOKED_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ChestCavity.CC_FOOD_GROUP).food(new FoodComponent.Builder().hunger(9).saturationModifier(18f).build());
 	
 	public static final Item chest_opener = new ChestOpener();
 
