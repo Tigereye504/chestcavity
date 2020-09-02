@@ -35,7 +35,7 @@ public class RegisterItems {
 	public static final Item.Settings ORGAN_SETTINGS_4 = new Item.Settings().maxCount(4).group(ItemGroup.MISC);
 	public static final Item.Settings ORGAN_SETTINGS_64 = new Item.Settings().maxCount(64).group(ItemGroup.MISC);
 	public static final Item.Settings RAW_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(4).saturationModifier(2.5f).build());
-	public static final Item.Settings COOKED_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(9).saturationModifier(18f).build());
+	public static final Item.Settings COOKED_ORGAN_MEAT_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(9).saturationModifier(2f).build());
 	
 	public static final Item chest_opener = new ChestOpener();
 

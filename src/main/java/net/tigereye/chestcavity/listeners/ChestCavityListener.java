@@ -277,14 +277,10 @@ public class ChestCavityListener implements InventoryChangedListener {
 	private void ReplaceAttributeModifier(EntityAttributeInstance att, EntityAttributeModifier mod)
 	{
 		//removes any existing mod and replaces it with the updated one.
-		//System.out.println(att.toString());
-		//System.out.println(att.getModifiers().toString());
 		if(att.hasModifier(mod));
 		{
-			//System.out.println("found modifier, removing it");
 			att.removeModifier(mod);
 		}
-		//System.out.println("adding modifier");
 		att.addPersistentModifier(mod);
 	}
 	
@@ -304,7 +300,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 		if(slotitem instanceof ChestCavityOrgan){
 			return ((ChestCavityOrgan)slotitem).getOrganQuality(tag);
 		}
-		else{ //default behavior: assume 0 quality
+		else{ //note that default behavior is to assume 0 quality
 			return VanillaOrgans.getStrength(slotitem,tag);
 		}
 	}
