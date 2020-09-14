@@ -17,13 +17,16 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.RegisterItems;
 //import net.tigereye.chestcavity.mixin.*;
 import net.tigereye.chestcavity.items.VanillaOrgans;
 
 public class ChestCavityListener implements InventoryChangedListener {
-	private static final int HEARTBLEEDSPEED = 20; //bigger is slower
+	private static final int HEARTBLEEDSPEED = 20; //how fast you die from lacking a heart
+	private static final int LIVERSPEED = 40; //how often the liver purifes status effects
+	private static final int KIDNEYSPEED = 59; //how often the kidneys prevent blood poisoning, avoid clean multiples of LIVERSPEED
 	
 	PlayerEntity player;
 	
@@ -113,7 +116,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 					kidneyScore += getOrganQuality(slotitem,RegisterItems.ORGANS_KIDNEY)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_LIVER)) {
-					kidneyScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LIVER)*slot.getCount();
+					liverScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LIVER)*slot.getCount();
 				}
 				if (slotitem.isIn(RegisterItems.ORGANS_LUNG)) {
 					lungScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LUNG)*slot.getCount();
@@ -131,14 +134,13 @@ public class ChestCavityListener implements InventoryChangedListener {
 				if (slotitem.isIn(RegisterItems.ORGANS_SPLEEN)) {
 					spleenScore += getOrganQuality(slotitem,RegisterItems.ORGANS_SPLEEN)*slot.getCount();
 				}
-				//stomachs
 				if (slotitem.isIn(RegisterItems.ORGANS_STOMACH)) {
 					stomachScore += getOrganQuality(slotitem,RegisterItems.ORGANS_STOMACH)*slot.getCount();
 				}
 			}
 		}
 		
-		/*System.out.println("Heart: " + heartScore + " Intestine: " + intestineScore
+		System.out.println("Heart: " + heartScore + " Intestine: " + intestineScore
 				+ " Kidney: " + kidneyScore + " Liver: " + liverScore
 				+ " Lung: " + lungScore + " Muscle: " + muscleScore
 				+ " Rib: " + ribScore + " Spine: " + spineScore
@@ -215,33 +217,27 @@ public class ChestCavityListener implements InventoryChangedListener {
 	}
 	
 	public void TickKidney(){
-		if (kidneyScore < 1){
-			kidneytimer++;
-			if(kidneytimer >= 100){
-			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
-			kidneytimer = 0;
-			}
-		}
 		if(kidneyScore < 2)
 		{
 			kidneytimer++;
-			if(kidneytimer >= 40){
-			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 50-((int)(kidneyScore*30))));
+			if(kidneytimer >= KIDNEYSPEED){
+			player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)(24*(2-kidneyScore))));
 			kidneytimer = 0;
 			}
 		}
 	}
 
 	public void TickLiver(){
-		int newDur = 0;
+		int newDur;
 		livertimer++;
-		if(livertimer >= 2)
+		if(livertimer >= LIVERSPEED)
 		{
 			for(Entry<StatusEffect,StatusEffectInstance> iter : player.getActiveStatusEffects().entrySet()){
-				//if(!iter.getValue().isPermanent()){
-					newDur = Math.max(iter.getValue().getDuration() - ((int)((liverScore-1))),0);
-					iter.setValue(new StatusEffectInstance(iter.getValue().getEffectType(),newDur,iter.getValue().getAmplifier()));
-				//}
+				//
+				if(!iter.getValue().getEffectType().isBeneficial()){
+					newDur = Math.max(0, iter.getValue().getDuration() + ((int)(LIVERSPEED*(.5-(liverScore/2)))));
+					((CCStatusEffectInstance)iter.getValue()).CC_setDuration(newDur);
+				}
 			}
 			livertimer = 0;
 		}
@@ -263,7 +259,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 		ReplaceAttributeModifier(att,mod);
 		//Update Move Speeeeed
 		EntityAttributeInstance att2 = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-		EntityAttributeModifier mod2 = new EntityAttributeModifier(muscleID2, "ChestCavityMuscleMovementSpeed", (muscleScore/(64*8))-1, Operation.MULTIPLY_BASE);
+		EntityAttributeModifier mod2 = new EntityAttributeModifier(muscleID2, "ChestCavityMuscleMovementSpeed", (muscleScore/(64*8*2))-.5, Operation.MULTIPLY_BASE);
 		ReplaceAttributeModifier(att2,mod2);
 	}
 
@@ -277,10 +273,10 @@ public class ChestCavityListener implements InventoryChangedListener {
 	private void ReplaceAttributeModifier(EntityAttributeInstance att, EntityAttributeModifier mod)
 	{
 		//removes any existing mod and replaces it with the updated one.
-		if(att.hasModifier(mod));
-		{
+		//if(att.hasModifier(mod))
+		//{
 			att.removeModifier(mod);
-		}
+		//}
 		att.addPersistentModifier(mod);
 	}
 	

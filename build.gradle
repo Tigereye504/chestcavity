@@ -23,11 +23,11 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	// Replace modImplementation with modApi if you expose components in your own API
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.4.2"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.4.2"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.6.0"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.6.0"
     // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.4.2"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.4.2"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.6.0"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.6.0"
 }
 
 repositories {
