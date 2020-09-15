@@ -19,7 +19,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
-import net.tigereye.chestcavity.items.RegisterItems;
+import net.tigereye.chestcavity.items.CC_Items;
 //import net.tigereye.chestcavity.mixin.*;
 import net.tigereye.chestcavity.items.VanillaOrgans;
 
@@ -106,36 +106,36 @@ public class ChestCavityListener implements InventoryChangedListener {
 			{
 				Item slotitem = slot.getItem();
 
-				if (slotitem.isIn(RegisterItems.ORGANS_HEART)) {
-					heartScore += getOrganQuality(slotitem,RegisterItems.ORGANS_HEART)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_HEART)) {
+					heartScore += getOrganQuality(slotitem, CC_Items.ORGANS_HEART)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_INTESTINE)) {
-					intestineScore += getOrganQuality(slotitem,RegisterItems.ORGANS_INTESTINE)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_INTESTINE)) {
+					intestineScore += getOrganQuality(slotitem, CC_Items.ORGANS_INTESTINE)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_KIDNEY)) {
-					kidneyScore += getOrganQuality(slotitem,RegisterItems.ORGANS_KIDNEY)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_KIDNEY)) {
+					kidneyScore += getOrganQuality(slotitem, CC_Items.ORGANS_KIDNEY)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_LIVER)) {
-					liverScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LIVER)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_LIVER)) {
+					liverScore += getOrganQuality(slotitem, CC_Items.ORGANS_LIVER)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_LUNG)) {
-					lungScore += getOrganQuality(slotitem,RegisterItems.ORGANS_LUNG)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_LUNG)) {
+					lungScore += getOrganQuality(slotitem, CC_Items.ORGANS_LUNG)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_MUSCLE)) {
-					muscleScore += getOrganQuality(slotitem,RegisterItems.ORGANS_MUSCLE)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_MUSCLE)) {
+					muscleScore += getOrganQuality(slotitem, CC_Items.ORGANS_MUSCLE)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_RIB)) {
-					ribScore += getOrganQuality(slotitem,RegisterItems.ORGANS_RIB)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_RIB)) {
+					ribScore += getOrganQuality(slotitem, CC_Items.ORGANS_RIB)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_SPINE)) {
+				if (slotitem.isIn(CC_Items.ORGANS_SPINE)) {
 					//note: unlike other organs, you cannot get more than 1 point of spinescore per slot
-					spineScore += Math.min(getOrganQuality(slotitem,RegisterItems.ORGANS_SPINE)*slot.getCount(),1);
+					spineScore += Math.min(getOrganQuality(slotitem, CC_Items.ORGANS_SPINE)*slot.getCount(),1);
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_SPLEEN)) {
-					spleenScore += getOrganQuality(slotitem,RegisterItems.ORGANS_SPLEEN)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_SPLEEN)) {
+					spleenScore += getOrganQuality(slotitem, CC_Items.ORGANS_SPLEEN)*slot.getCount();
 				}
-				if (slotitem.isIn(RegisterItems.ORGANS_STOMACH)) {
-					stomachScore += getOrganQuality(slotitem,RegisterItems.ORGANS_STOMACH)*slot.getCount();
+				if (slotitem.isIn(CC_Items.ORGANS_STOMACH)) {
+					stomachScore += getOrganQuality(slotitem, CC_Items.ORGANS_STOMACH)*slot.getCount();
 				}
 			}
 		}

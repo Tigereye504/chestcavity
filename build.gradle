@@ -25,9 +25,11 @@ dependencies {
 	// Replace modImplementation with modApi if you expose components in your own API
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.6.0"
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.6.0"
-    // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
+	modImplementation 'com.github.tigereye504:modify-drops-api:0.2.0'
+	// Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.6.0"
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.6.0"
+	include 'com.github.tigereye504:modify-drops-api:0.2.0'
 }
 
 repositories {
@@ -35,6 +37,7 @@ repositories {
         name = "Ladysnake Libs"
         url = 'https://dl.bintray.com/ladysnake/libs/'
     }
+	maven { url = 'https://jitpack.io' }
 }
 
 processResources {

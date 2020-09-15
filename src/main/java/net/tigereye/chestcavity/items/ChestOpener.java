@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class ChestOpener extends Item {
 	
 	public ChestOpener() {
-		super(RegisterItems.CHEST_OPENER_SETTINGS);
+		super(CC_Items.CHEST_OPENER_SETTINGS);
 	}
 
 	@Override

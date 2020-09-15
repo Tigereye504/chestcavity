@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.tag.TagRegistry;
 
 import net.tigereye.chestcavity.ChestCavity;
 
-public class RegisterItems {
+public class CC_Items {
 	
 	public static final Tag<Item> HUMAN_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"human_organs"));
 	public static final Tag<Item> SALVAGEABLE_ROTTEN_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_rotten_organs"));

@@ -7,19 +7,19 @@ import net.minecraft.tag.Tag;
 public class VanillaOrgans {
     //a strength of 0 means nothing was found
     public static float getStrength(Item item, Tag<Item> tag){
-        if(tag == RegisterItems.ORGANS_APENDIX){
+        if(tag == CC_Items.ORGANS_APENDIX){
             if(item == Items.DIRT){
                 return 1f/64;
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_HEART){
+        if(tag == CC_Items.ORGANS_HEART){
             if(item == Items.DIRT){
                 return 1f/(64*27);
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_INTESTINE){
+        if(tag == CC_Items.ORGANS_INTESTINE){
             if(item == Items.DIRT){
                 return 4f/(64*27);
             }
@@ -28,7 +28,7 @@ public class VanillaOrgans {
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_KIDNEY){
+        if(tag == CC_Items.ORGANS_KIDNEY){
             if(item == Items.DIRT){
                 return 1f/(64*27);
             }
@@ -37,7 +37,7 @@ public class VanillaOrgans {
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_LIVER){
+        if(tag == CC_Items.ORGANS_LIVER){
             if(item == Items.DIRT){
                 return 1f/(64*27);
             }
@@ -46,7 +46,7 @@ public class VanillaOrgans {
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_LUNG){
+        if(tag == CC_Items.ORGANS_LUNG){
             if(item == Items.DIRT){
                 return 2f/(64*27);
             }
@@ -55,7 +55,7 @@ public class VanillaOrgans {
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_MUSCLE){
+        if(tag == CC_Items.ORGANS_MUSCLE){
             if(item == Items.DIRT){
                 return 8f/27;
             }
@@ -73,7 +73,7 @@ public class VanillaOrgans {
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_RIB){
+        if(tag == CC_Items.ORGANS_RIB){
             if(item == Items.DIRT){
                 return 16f/(64*27);
             }
@@ -88,19 +88,19 @@ public class VanillaOrgans {
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_SPINE){
+        if(tag == CC_Items.ORGANS_SPINE){
             if(item == Items.DIRT){
                 return 1f/(64*27);
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_SPLEEN){
+        if(tag == CC_Items.ORGANS_SPLEEN){
             if(item == Items.DIRT){
                 return 1f/(64*27);
             }
             return 0;
         }
-        if(tag == RegisterItems.ORGANS_STOMACH){
+        if(tag == CC_Items.ORGANS_STOMACH){
             if(item == Items.DIRT){
                 return 1f/(64*27);
             }

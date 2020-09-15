@@ -1,7 +1,7 @@
 package net.tigereye.chestcavity.components;
 
 //import dev.onyxstudios.cca.api.v3.util.PlayerComponent;
-import net.tigereye.chestcavity.items.RegisterItems;
+import net.tigereye.chestcavity.items.CC_Items;
 import net.tigereye.chestcavity.listeners.*;
 
 import dev.onyxstudios.cca.api.v3.entity.PlayerComponent;
@@ -89,33 +89,33 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 	{
 		
         inventory = new EnderChestInventory();
-        inventory.setStack(0, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(1, new ItemStack(RegisterItems.rib, 4));
-        inventory.setStack(2, new ItemStack(RegisterItems.apendix, 1));
-        inventory.setStack(3, new ItemStack(RegisterItems.lung, 1));
-        inventory.setStack(4, new ItemStack(RegisterItems.heart, 1));
-        inventory.setStack(5, new ItemStack(RegisterItems.lung, 1));
+        inventory.setStack(0, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(1, new ItemStack(CC_Items.rib, 4));
+        inventory.setStack(2, new ItemStack(CC_Items.apendix, 1));
+        inventory.setStack(3, new ItemStack(CC_Items.lung, 1));
+        inventory.setStack(4, new ItemStack(CC_Items.heart, 1));
+        inventory.setStack(5, new ItemStack(CC_Items.lung, 1));
         //inventory.setStack(6, new ItemStack(NOTHING));
-        inventory.setStack(7, new ItemStack(RegisterItems.rib, 4));
-        inventory.setStack(8, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(9, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(10, new ItemStack(RegisterItems.rib, 4));
-        inventory.setStack(11, new ItemStack(RegisterItems.spleen, 1));
-        inventory.setStack(12, new ItemStack(RegisterItems.kidney, 1));
-        inventory.setStack(13, new ItemStack(RegisterItems.spine, 1));
-        inventory.setStack(14, new ItemStack(RegisterItems.kidney, 1));
-        inventory.setStack(15, new ItemStack(RegisterItems.liver, 1));
-        inventory.setStack(16, new ItemStack(RegisterItems.rib, 4));
-        inventory.setStack(17, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(18, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(19, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(20, new ItemStack(RegisterItems.intestine));
-        inventory.setStack(21, new ItemStack(RegisterItems.intestine));
-        inventory.setStack(22, new ItemStack(RegisterItems.stomach));
-        inventory.setStack(23, new ItemStack(RegisterItems.intestine));
-        inventory.setStack(24, new ItemStack(RegisterItems.intestine));
-        inventory.setStack(25, new ItemStack(RegisterItems.muscle, 64));
-        inventory.setStack(26, new ItemStack(RegisterItems.muscle, 64));
+        inventory.setStack(7, new ItemStack(CC_Items.rib, 4));
+        inventory.setStack(8, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(9, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(10, new ItemStack(CC_Items.rib, 4));
+        inventory.setStack(11, new ItemStack(CC_Items.spleen, 1));
+        inventory.setStack(12, new ItemStack(CC_Items.kidney, 1));
+        inventory.setStack(13, new ItemStack(CC_Items.spine, 1));
+        inventory.setStack(14, new ItemStack(CC_Items.kidney, 1));
+        inventory.setStack(15, new ItemStack(CC_Items.liver, 1));
+        inventory.setStack(16, new ItemStack(CC_Items.rib, 4));
+        inventory.setStack(17, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(18, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(19, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(20, new ItemStack(CC_Items.intestine));
+        inventory.setStack(21, new ItemStack(CC_Items.intestine));
+        inventory.setStack(22, new ItemStack(CC_Items.stomach));
+        inventory.setStack(23, new ItemStack(CC_Items.intestine));
+        inventory.setStack(24, new ItemStack(CC_Items.intestine));
+        inventory.setStack(25, new ItemStack(CC_Items.muscle, 64));
+        inventory.setStack(26, new ItemStack(CC_Items.muscle, 64));
 			
 	}
 
@@ -126,17 +126,17 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 
     private void rejectForeignObjects(){
         for(int i = 0; i < inventory.size(); i++){
-            if(inventory.getStack(i).getItem() != RegisterItems.apendix
-            && inventory.getStack(i).getItem() != RegisterItems.heart
-            && inventory.getStack(i).getItem() != RegisterItems.intestine
-            && inventory.getStack(i).getItem() != RegisterItems.kidney
-            && inventory.getStack(i).getItem() != RegisterItems.liver
-            && inventory.getStack(i).getItem() != RegisterItems.lung
-            && inventory.getStack(i).getItem() != RegisterItems.muscle
-            && inventory.getStack(i).getItem() != RegisterItems.rib
-            && inventory.getStack(i).getItem() != RegisterItems.spine
-            && inventory.getStack(i).getItem() != RegisterItems.spleen
-            && inventory.getStack(i).getItem() != RegisterItems.stomach
+            if(inventory.getStack(i).getItem() != CC_Items.apendix
+            && inventory.getStack(i).getItem() != CC_Items.heart
+            && inventory.getStack(i).getItem() != CC_Items.intestine
+            && inventory.getStack(i).getItem() != CC_Items.kidney
+            && inventory.getStack(i).getItem() != CC_Items.liver
+            && inventory.getStack(i).getItem() != CC_Items.lung
+            && inventory.getStack(i).getItem() != CC_Items.muscle
+            && inventory.getStack(i).getItem() != CC_Items.rib
+            && inventory.getStack(i).getItem() != CC_Items.spine
+            && inventory.getStack(i).getItem() != CC_Items.spleen
+            && inventory.getStack(i).getItem() != CC_Items.stomach
             )
             owner.dropStack(inventory.removeStack(i));
         }
@@ -144,15 +144,15 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 
     private void insertWelfareOrgans(){
         //urgently essential organs are: heart, spine, lung
-        if(inventory.count(RegisterItems.heart) == 0){
-            forcefullyAddStack(new ItemStack(RegisterItems.rottenHeart),4);
+        if(inventory.count(CC_Items.heart) == 0){
+            forcefullyAddStack(new ItemStack(CC_Items.rottenHeart),4);
         }
-        if(inventory.count(RegisterItems.lung) == 0){
-            forcefullyAddStack(new ItemStack(RegisterItems.rottenLung),3);
-            forcefullyAddStack(new ItemStack(RegisterItems.rottenLung),5);
+        if(inventory.count(CC_Items.lung) == 0){
+            forcefullyAddStack(new ItemStack(CC_Items.rottenLung),3);
+            forcefullyAddStack(new ItemStack(CC_Items.rottenLung),5);
         }
-        if(inventory.count(RegisterItems.spine) == 0){
-            forcefullyAddStack(new ItemStack(RegisterItems.rottenSpine),13);
+        if(inventory.count(CC_Items.spine) == 0){
+            forcefullyAddStack(new ItemStack(CC_Items.rottenSpine),13);
         }
     }
 

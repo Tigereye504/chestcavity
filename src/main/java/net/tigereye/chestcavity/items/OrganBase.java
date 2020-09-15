@@ -19,11 +19,11 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 
 
 	public OrganBase() {
-		super(RegisterItems.ORGAN_SETTINGS_1);
+		super(CC_Items.ORGAN_SETTINGS_1);
 	}
 
 	public OrganBase(float quality,Tag<Item> tag) {
-		super(RegisterItems.ORGAN_SETTINGS_1);
+		super(CC_Items.ORGAN_SETTINGS_1);
 		setOrganQuality(quality,tag);
 	}
 
@@ -32,74 +32,74 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 	}
 
 	public float getOrganQuality(Tag<Item> tag) {
-		if(tag == RegisterItems.ORGANS_APENDIX){
+		if(tag == CC_Items.ORGANS_APENDIX){
 			return apendixQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_HEART){
+		else if(tag == CC_Items.ORGANS_HEART){
 			return heartQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_INTESTINE){
+		else if(tag == CC_Items.ORGANS_INTESTINE){
 			return intestineQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_KIDNEY){
+		else if(tag == CC_Items.ORGANS_KIDNEY){
 			return kidneyQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_LIVER){
+		else if(tag == CC_Items.ORGANS_LIVER){
 			return liverQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_LUNG){
+		else if(tag == CC_Items.ORGANS_LUNG){
 			return lungQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_MUSCLE){
+		else if(tag == CC_Items.ORGANS_MUSCLE){
 			return muscleQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_RIB){
+		else if(tag == CC_Items.ORGANS_RIB){
 			return ribQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_SPINE){
+		else if(tag == CC_Items.ORGANS_SPINE){
 			return spineQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_SPLEEN){
+		else if(tag == CC_Items.ORGANS_SPLEEN){
 			return spleenQuality;
 		}
-		else if(tag == RegisterItems.ORGANS_STOMACH){
+		else if(tag == CC_Items.ORGANS_STOMACH){
 			return stomachQuality;
 		}
 		return 0;
 	}
 
 	public OrganBase setOrganQuality(float quality, Tag<Item> tag){
-		if(tag == RegisterItems.ORGANS_APENDIX){
+		if(tag == CC_Items.ORGANS_APENDIX){
 			apendixQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_HEART){
+		else if(tag == CC_Items.ORGANS_HEART){
 			heartQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_INTESTINE){
+		else if(tag == CC_Items.ORGANS_INTESTINE){
 			intestineQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_KIDNEY){
+		else if(tag == CC_Items.ORGANS_KIDNEY){
 			kidneyQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_LIVER){
+		else if(tag == CC_Items.ORGANS_LIVER){
 			liverQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_LUNG){
+		else if(tag == CC_Items.ORGANS_LUNG){
 			lungQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_MUSCLE){
+		else if(tag == CC_Items.ORGANS_MUSCLE){
 			muscleQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_RIB){
+		else if(tag == CC_Items.ORGANS_RIB){
 			ribQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_SPINE){
+		else if(tag == CC_Items.ORGANS_SPINE){
 			spineQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_SPLEEN){
+		else if(tag == CC_Items.ORGANS_SPLEEN){
 			spleenQuality = quality;
 		}
-		else if(tag == RegisterItems.ORGANS_STOMACH){
+		else if(tag == CC_Items.ORGANS_STOMACH){
 			stomachQuality = quality;
 		}
 		return this;

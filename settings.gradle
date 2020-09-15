@@ -9,6 +9,7 @@ pluginManagement {
         	name = "Ladysnake Libs"
         	url = 'https://dl.bintray.com/ladysnake/libs'
     	}
+        maven { url = 'https://jitpack.io' }
         gradlePluginPortal()
     }
 }
