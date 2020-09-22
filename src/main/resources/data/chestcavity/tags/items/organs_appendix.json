@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:rotten_appendix",
+      "chestcavity:animal_appendix",
+      "chestcavity:appendix",
+      "minecraft:dirt"
+    ]
+  }

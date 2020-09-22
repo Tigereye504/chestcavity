@@ -10,6 +10,8 @@ import nerdhub.cardinal.components.api.event.EntityComponentCallback;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.listeners.OrganTickListeners;
+import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
 
 public class ChestCavity implements ModInitializer {
 	public static final String MODID = "chestcavity";
@@ -25,8 +27,9 @@ public class ChestCavity implements ModInitializer {
 		CC_Items.register();
 		EntityComponentCallback.event(PlayerEntity.class).register((player, components) -> components.put(INVENTORYCOMPONENT, new CCComponent(player)));
 		LootRegister.register();
-
-		
+		OrganUpdateListeners.register();
+		OrganTickListeners.register();
+		VanillaOrgans.init();
 
 	}
 }

@@ -1,5 +1,9 @@
 package net.tigereye.chestcavity.mixin;
 
+import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
+import net.tigereye.chestcavity.items.CC_Items;
+import net.tigereye.chestcavity.listeners.OrganTickCallback;
+import net.tigereye.chestcavity.listeners.OrganTickListeners;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +27,13 @@ import net.tigereye.chestcavity.listeners.ChestCavityListener;
 //import net.tigereye.chestcavity.interfaces.CCHungerManagerInterface;
 
 @Mixin(PlayerEntity.class)
-public class MixinPlayerEntity extends LivingEntity {
+public class MixinPlayerEntity extends LivingEntity implements CCPlayerEntityInterface {
+
+	private int CCHeartTimer = 0;
+	private int CCKidneyTimer = 0;
+	private int CCLiverTimer = 0;
+	private int CCSpleenTimer = 0;
+	private int CCLungRemainder = 0;
 
 	protected MixinPlayerEntity(PlayerEntity entityType, World world) {
 		super(EntityType.PLAYER, world);
@@ -32,9 +42,7 @@ public class MixinPlayerEntity extends LivingEntity {
 	public void baseTick() {
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
-		chestCavity.TickHeart();
-		chestCavity.TickKidney();
-		chestCavity.TickLiver();
+		OrganTickCallback.EVENT.invoker().onOrganTick(((PlayerEntity) (Object) this), chestCavity);
 		super.baseTick();
 	}
 
@@ -43,33 +51,15 @@ public class MixinPlayerEntity extends LivingEntity {
 				.get((PlayerEntity) (Object) this))).getCCListener();
 		int i = EnchantmentHelper.getRespiration(this);
 		return i > 0 && this.random.nextInt(i + 1) > 0 ? air : Math.max(air - chestCavity.applyLungCapacityInWater(),-20);
-	 }
-/*
-	//Bug: gui doesn't sync up properly with air meter if land recovery is changed...
-	//this part honestly isn't important, so I'll just turn it off and focus elsewhere for now.
-	 protected int getNextAirOnLand(int air) {
-		 if(air == this.getMaxAir()){
-			return air;
-		 }
-		 else{
-			ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
-			.get((PlayerEntity) (Object) this))).getCCListener();
-			return Math.max(Math.min(air + ((int)(chestCavity.applyLungCapacityOnLand())), this.getMaxAir()),-20);
-		 }
-	 }
-*/
+	}
+
 	@ModifyVariable(at = @At("HEAD"), method = "damage")
 	public float chestCavityPlayerEntityDamageMixin(float amount){
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
 		return chestCavity.applyBoneDefense(amount);
 	}
-	/*
-	@Inject(at = @At("HEAD"), method = "eatFood")
-	public void chestCavityPlayerEntityEatFoodMixin(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> info){
-		((CCHungerManagerInterface)((PlayerEntity) (Object) this).getHungerManager()).ccEat(stack.getItem(), ((PlayerEntity) (Object) this));
-	}
-	*/
+
 	@Inject(at = @At("HEAD"), method = "dropInventory")
 	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
 		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();
@@ -86,12 +76,50 @@ public class MixinPlayerEntity extends LivingEntity {
 	}
 
 	@Shadow
-	public void equipStack(EquipmentSlot slot, ItemStack stack) {
-
-	}
+	public void equipStack(EquipmentSlot slot, ItemStack stack) {}
 
 	@Shadow
 	public Arm getMainArm() {
 		return null;
+	}
+
+	public int getCCHeartTimer() {
+		return CCHeartTimer;
+	}
+
+	public void setCCHeartTimer(int CCHeartTimer) {
+		this.CCHeartTimer = CCHeartTimer;
+	}
+
+	public int getCCKidneyTimer() {
+		return CCKidneyTimer;
+	}
+
+	public void setCCKidneyTimer(int CCKidneyTimer) {
+		this.CCKidneyTimer = CCKidneyTimer;
+	}
+
+	public int getCCLiverTimer() {
+		return CCLiverTimer;
+	}
+
+	public void setCCLiverTimer(int CCLiverTimer) {
+		this.CCLiverTimer = CCLiverTimer;
+	}
+
+	public int getCCSpleenTimer() {
+		return CCSpleenTimer;
+	}
+
+	public void setCCSpleenTimer(int CCSpleenTimer) {
+		this.CCSpleenTimer = CCSpleenTimer;
+	}
+
+	public int getCCLungRemainder() {
+		return CCLungRemainder;
+	}
+
+	public void setCCLungRemainder(int CCLungRemainder) {
+		this.CCLungRemainder = CCLungRemainder;
 	}
 }

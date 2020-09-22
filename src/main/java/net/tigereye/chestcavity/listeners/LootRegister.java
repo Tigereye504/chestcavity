@@ -9,10 +9,8 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.BinomialLootTableRange;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.condition.KilledByPlayerLootCondition;
-import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
+import net.minecraft.loot.ConstantLootTableRange;
+import net.minecraft.loot.condition.*;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.items.CC_Items;
@@ -25,27 +23,10 @@ import java.util.Random;
 public class LootRegister {
     
 
-    private static final Identifier VILLAGER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/villager");
-    private static final Identifier PILLAGER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/pillager");
-    private static final Identifier EVOKER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/evoker");
-    private static final Identifier WITCH_LOOT_TABLE_ID = new Identifier("minecraft", "entities/witch");
-    private static final Identifier WANDERING_TRADER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/wandering_trader");
-    private static final Identifier ILLUSIONER_LOOT_TABLE_ID = new Identifier("minecraft", "entities/illusioner");
+    private static final Identifier DESERT_PYRAMID_LOOT_TABLE_ID = new Identifier("minecraft", "chests/desert_pyramid");
 
-    private static final Identifier COW_LOOT_TABLE_ID = new Identifier("minecraft", "entities/cow");
-    private static final Identifier PIG_LOOT_TABLE_ID = new Identifier("minecraft", "entities/pig");
-    private static final Identifier SHEEP_LOOT_TABLE_ID = new Identifier("minecraft", "entities/sheep");
-    private static final Identifier HORSE_LOOT_TABLE_ID = new Identifier("minecraft", "entities/horse");
-    private static final Identifier PIGLIN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/piglin");
 
-    private static final Identifier ZOMBIE_LOOT_TABLE_ID = new Identifier("minecraft", "entities/zombie");
-    private static final Identifier ZOMBIE_PIGLIN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/zombified_piglin");
-    private static final Identifier HUSK_LOOT_TABLE_ID = new Identifier("minecraft", "entities/husk");
-    private static final Identifier DROWNED_PIGLIN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/drowned");
 
-    private static final Identifier SKELETON_LOOT_TABLE_ID = new Identifier("minecraft", "entities/skeleton");
-    private static final Identifier WITHER_SKELETON_LOOT_TABLE_ID = new Identifier("minecraft", "entities/wither_skeleton");
-    
     public static void register(){
         LivingEntityDropLootCallback_AddDrops.EVENT.register((entity, source, causedByPlayer) -> {
             List<ItemStack> loot = new ArrayList<>();
@@ -59,28 +40,28 @@ public class LootRegister {
                             int roll = random.nextInt(8);
                             switch (roll) {
                                 case 0:
-                                    loot.add(new ItemStack(CC_Items.rottenApendix));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_APPENDIX));
                                     break;
                                 case 1:
-                                    loot.add(new ItemStack(CC_Items.rottenHeart));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_HEART));
                                     break;
                                 case 2:
-                                    loot.add(new ItemStack(CC_Items.rottenIntestine));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_INTESTINE));
                                     break;
                                 case 3:
-                                    loot.add(new ItemStack(CC_Items.rottenKidney));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_KIDNEY));
                                     break;
                                 case 4:
-                                    loot.add(new ItemStack(CC_Items.rottenLiver));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_LIVER));
                                     break;
                                 case 5:
-                                    loot.add(new ItemStack(CC_Items.rottenLung));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_LUNG));
                                     break;
                                 case 6:
-                                    loot.add(new ItemStack(CC_Items.rottenSpleen));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_SPLEEN));
                                     break;
                                 case 7:
-                                    loot.add(new ItemStack(CC_Items.rottenStomach));
+                                    loot.add(new ItemStack(CC_Items.ROTTEN_STOMACH));
                                     break;
                             }
                         }
@@ -92,10 +73,10 @@ public class LootRegister {
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(5);
                             if(roll == 4) {
-                                loot.add(new ItemStack(CC_Items.rottenSpine));
+                                loot.add(new ItemStack(CC_Items.ROTTEN_SPINE));
                             }
                             else{
-                                loot.add(new ItemStack(CC_Items.rottenRib));
+                                loot.add(new ItemStack(CC_Items.ROTTEN_RIB));
                             }
                         }
                     }
@@ -106,82 +87,98 @@ public class LootRegister {
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(14);
                             if(roll < 4) {
-                                loot.add(new ItemStack(CC_Items.animalRib));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_RIB));
                             }
                             else if(roll == 5){
-                                loot.add(new ItemStack(CC_Items.animalApendix));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_APPENDIX));
                             }
                             else if(roll == 6){
-                                loot.add(new ItemStack(CC_Items.animalHeart));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_HEART));
                             }
                             else if(roll == 7){
-                                loot.add(new ItemStack(CC_Items.animalIntestine));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_INTESTINE));
                             }
                             else if(roll == 8){
-                                loot.add(new ItemStack(CC_Items.animalKidney));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_KIDNEY));
                             }
                             else if(roll == 9){
-                                loot.add(new ItemStack(CC_Items.animalLiver));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_LIVER));
                             }
                             else if(roll == 10){
-                                loot.add(new ItemStack(CC_Items.animalLung));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_LUNG));
                             }
                             else if(roll == 11){
-                                loot.add(new ItemStack(CC_Items.animalSpine));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_SPINE));
                             }
                             else if(roll == 12){
-                                loot.add(new ItemStack(CC_Items.animalSpleen));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_SPLEEN));
                             }
                             else{
-                                loot.add(new ItemStack(CC_Items.animalStomach));
+                                loot.add(new ItemStack(CC_Items.ANIMAL_STOMACH));
                             }
                         }
                     }
                 }
                 else if (entity instanceof PatrolEntity || entity instanceof VillagerEntity || entity instanceof WanderingTraderEntity) {
                     if(random.nextFloat() < .025 + (.01f*EnchantmentHelper.getLooting(player))) {
-                        int rolls = 13 + random.nextInt(52);
+                        int rolls = 4 + random.nextInt(6);
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(78);
                             if(roll < 4) {
-                                loot.add(new ItemStack(CC_Items.rib));
+                                loot.add(new ItemStack(CC_Items.RIB));
                             }
                             else if(roll == 5){
-                                loot.add(new ItemStack(CC_Items.apendix));
+                                loot.add(new ItemStack(CC_Items.APPENDIX));
                             }
                             else if(roll == 6){
-                                loot.add(new ItemStack(CC_Items.heart));
+                                loot.add(new ItemStack(CC_Items.HEART));
                             }
                             else if(roll == 7){
-                                loot.add(new ItemStack(CC_Items.intestine));
+                                loot.add(new ItemStack(CC_Items.INTESTINE));
                             }
                             else if(roll == 8){
-                                loot.add(new ItemStack(CC_Items.kidney));
+                                loot.add(new ItemStack(CC_Items.KIDNEY));
                             }
                             else if(roll == 9){
-                                loot.add(new ItemStack(CC_Items.liver));
+                                loot.add(new ItemStack(CC_Items.LIVER));
                             }
                             else if(roll == 10){
-                                loot.add(new ItemStack(CC_Items.lung));
+                                loot.add(new ItemStack(CC_Items.LUNG));
                             }
                             else if(roll == 11){
-                                loot.add(new ItemStack(CC_Items.spine));
+                                loot.add(new ItemStack(CC_Items.SPINE));
                             }
                             else if(roll == 12){
-                                loot.add(new ItemStack(CC_Items.spleen));
+                                loot.add(new ItemStack(CC_Items.SPLEEN));
                             }
                             else if(roll == 13){
-                                loot.add(new ItemStack(CC_Items.stomach));
+                                loot.add(new ItemStack(CC_Items.STOMACH));
                             }
-                            else{
-                                loot.add(new ItemStack(CC_Items.muscle));
-                            }
+                        }
+                        //16+4d8 muscles, added as single stacks because I like how it makes targets explode into meat
+                        rolls = 20 + random.nextInt(8) + random.nextInt(8) + random.nextInt(8) + random.nextInt(8);
+                        for (int i = 0; i < rolls; i++){
+                            loot.add(new ItemStack(CC_Items.MUSCLE));
                         }
                     }
                 }
             }
 
             return loot;
+        });
+        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
+            if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
+                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                        .rolls(ConstantLootTableRange.create(4))
+                        .with(ItemEntry.builder(CC_Items.ROTTEN_RIB))
+                        .conditionally(RandomChanceLootCondition.builder(.25f));
+                supplier.pool(poolBuilder);
+                poolBuilder = FabricLootPoolBuilder.builder()
+                        .rolls(ConstantLootTableRange.create(1))
+                                .with(ItemEntry.builder(CC_Items.ROTTEN_RIB))
+                                .conditionally(RandomChanceLootCondition.builder(.3f));
+                supplier.pool(poolBuilder);
+            }
         });
     }
 }
