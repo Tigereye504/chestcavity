@@ -101,15 +101,6 @@ public class ChestCavityListener implements InventoryChangedListener {
 		return (int) airloss;
 	}
 
-	//returns air gain
-	public int applyLungCapacityOnLand(){
-		if (organScores.getOrDefault(CC_Items.ORGANS_LUNG,0f) == 0) {
-			player.damage(DamageSource.DROWN, 2.0F);
-		}
-		//return ((int)(lungScore*3))-2;
-		return 4; //TODO: why is applyLungCapacityOnLand returning 4?
-	}
-
 	public int applySpleenMetabolism(int metatimer){
 		spleenTimer++;
 		if(spleenTimer >=2){

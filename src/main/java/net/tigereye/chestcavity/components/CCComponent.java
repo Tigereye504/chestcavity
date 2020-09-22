@@ -125,21 +125,10 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
     }
 
     private void rejectForeignObjects(){
-        //TODO: use human_organ tag
         for(int i = 0; i < inventory.size(); i++){
-            if(inventory.getStack(i).getItem() != CC_Items.APPENDIX
-            && inventory.getStack(i).getItem() != CC_Items.HEART
-            && inventory.getStack(i).getItem() != CC_Items.INTESTINE
-            && inventory.getStack(i).getItem() != CC_Items.KIDNEY
-            && inventory.getStack(i).getItem() != CC_Items.LIVER
-            && inventory.getStack(i).getItem() != CC_Items.LUNG
-            && inventory.getStack(i).getItem() != CC_Items.MUSCLE
-            && inventory.getStack(i).getItem() != CC_Items.RIB
-            && inventory.getStack(i).getItem() != CC_Items.SPINE
-            && inventory.getStack(i).getItem() != CC_Items.SPLEEN
-            && inventory.getStack(i).getItem() != CC_Items.STOMACH
-            )
-            owner.dropStack(inventory.removeStack(i));
+            if(!inventory.getStack(i).getItem().isIn(CC_Items.HUMAN_ORGANS)) {
+                owner.dropStack(inventory.removeStack(i));
+            }
         }
     }
 
