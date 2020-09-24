@@ -13,7 +13,7 @@ import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.condition.*;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.items.CC_Items;
+import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.modifydropsapi.api.LivingEntityDropLootCallback_AddDrops;
 
 import java.util.ArrayList;
@@ -40,28 +40,28 @@ public class LootRegister {
                             int roll = random.nextInt(8);
                             switch (roll) {
                                 case 0:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_APPENDIX));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_APPENDIX));
                                     break;
                                 case 1:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_HEART));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_HEART));
                                     break;
                                 case 2:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_INTESTINE));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_INTESTINE));
                                     break;
                                 case 3:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_KIDNEY));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_KIDNEY));
                                     break;
                                 case 4:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_LIVER));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_LIVER));
                                     break;
                                 case 5:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_LUNG));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_LUNG));
                                     break;
                                 case 6:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_SPLEEN));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_SPLEEN));
                                     break;
                                 case 7:
-                                    loot.add(new ItemStack(CC_Items.ROTTEN_STOMACH));
+                                    loot.add(new ItemStack(CCItems.ROTTEN_STOMACH));
                                     break;
                             }
                         }
@@ -73,10 +73,10 @@ public class LootRegister {
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(5);
                             if(roll == 4) {
-                                loot.add(new ItemStack(CC_Items.ROTTEN_SPINE));
+                                loot.add(new ItemStack(CCItems.ROTTEN_SPINE));
                             }
                             else{
-                                loot.add(new ItemStack(CC_Items.ROTTEN_RIB));
+                                loot.add(new ItemStack(CCItems.ROTTEN_RIB));
                             }
                         }
                     }
@@ -87,34 +87,34 @@ public class LootRegister {
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(14);
                             if(roll < 4) {
-                                loot.add(new ItemStack(CC_Items.ANIMAL_RIB));
+                                loot.add(new ItemStack(CCItems.ANIMAL_RIB));
                             }
                             else if(roll == 5){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_APPENDIX));
+                                loot.add(new ItemStack(CCItems.ANIMAL_APPENDIX));
                             }
                             else if(roll == 6){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_HEART));
+                                loot.add(new ItemStack(CCItems.ANIMAL_HEART));
                             }
                             else if(roll == 7){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_INTESTINE));
+                                loot.add(new ItemStack(CCItems.ANIMAL_INTESTINE));
                             }
                             else if(roll == 8){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_KIDNEY));
+                                loot.add(new ItemStack(CCItems.ANIMAL_KIDNEY));
                             }
                             else if(roll == 9){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_LIVER));
+                                loot.add(new ItemStack(CCItems.ANIMAL_LIVER));
                             }
                             else if(roll == 10){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_LUNG));
+                                loot.add(new ItemStack(CCItems.ANIMAL_LUNG));
                             }
                             else if(roll == 11){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_SPINE));
+                                loot.add(new ItemStack(CCItems.ANIMAL_SPINE));
                             }
                             else if(roll == 12){
-                                loot.add(new ItemStack(CC_Items.ANIMAL_SPLEEN));
+                                loot.add(new ItemStack(CCItems.ANIMAL_SPLEEN));
                             }
                             else{
-                                loot.add(new ItemStack(CC_Items.ANIMAL_STOMACH));
+                                loot.add(new ItemStack(CCItems.ANIMAL_STOMACH));
                             }
                         }
                     }
@@ -125,40 +125,40 @@ public class LootRegister {
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(78);
                             if(roll < 4) {
-                                loot.add(new ItemStack(CC_Items.RIB));
+                                loot.add(new ItemStack(CCItems.RIB));
                             }
                             else if(roll == 5){
-                                loot.add(new ItemStack(CC_Items.APPENDIX));
+                                loot.add(new ItemStack(CCItems.APPENDIX));
                             }
                             else if(roll == 6){
-                                loot.add(new ItemStack(CC_Items.HEART));
+                                loot.add(new ItemStack(CCItems.HEART));
                             }
                             else if(roll == 7){
-                                loot.add(new ItemStack(CC_Items.INTESTINE));
+                                loot.add(new ItemStack(CCItems.INTESTINE));
                             }
                             else if(roll == 8){
-                                loot.add(new ItemStack(CC_Items.KIDNEY));
+                                loot.add(new ItemStack(CCItems.KIDNEY));
                             }
                             else if(roll == 9){
-                                loot.add(new ItemStack(CC_Items.LIVER));
+                                loot.add(new ItemStack(CCItems.LIVER));
                             }
                             else if(roll == 10){
-                                loot.add(new ItemStack(CC_Items.LUNG));
+                                loot.add(new ItemStack(CCItems.LUNG));
                             }
                             else if(roll == 11){
-                                loot.add(new ItemStack(CC_Items.SPINE));
+                                loot.add(new ItemStack(CCItems.SPINE));
                             }
                             else if(roll == 12){
-                                loot.add(new ItemStack(CC_Items.SPLEEN));
+                                loot.add(new ItemStack(CCItems.SPLEEN));
                             }
                             else if(roll == 13){
-                                loot.add(new ItemStack(CC_Items.STOMACH));
+                                loot.add(new ItemStack(CCItems.STOMACH));
                             }
                         }
                         //16+4d8 muscles, added as single stacks because I like how it makes targets explode into meat
                         rolls = 20 + random.nextInt(8) + random.nextInt(8) + random.nextInt(8) + random.nextInt(8);
                         for (int i = 0; i < rolls; i++){
-                            loot.add(new ItemStack(CC_Items.MUSCLE));
+                            loot.add(new ItemStack(CCItems.MUSCLE));
                         }
                     }
                 }
@@ -170,12 +170,12 @@ public class LootRegister {
             if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
                         .rolls(ConstantLootTableRange.create(4))
-                        .with(ItemEntry.builder(CC_Items.ROTTEN_RIB))
+                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB))
                         .conditionally(RandomChanceLootCondition.builder(.25f));
                 supplier.pool(poolBuilder);
                 poolBuilder = FabricLootPoolBuilder.builder()
                         .rolls(ConstantLootTableRange.create(1))
-                                .with(ItemEntry.builder(CC_Items.ROTTEN_RIB))
+                                .with(ItemEntry.builder(CCItems.ROTTEN_RIB))
                                 .conditionally(RandomChanceLootCondition.builder(.3f));
                 supplier.pool(poolBuilder);
             }

@@ -2,7 +2,6 @@ package net.tigereye.chestcavity.items;
 
 import com.google.common.collect.Maps;
 import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
@@ -14,7 +13,7 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 
 
 	public OrganBase() {
-		super(CC_Items.ORGAN_SETTINGS_1);
+		super(CCItems.ORGAN_SETTINGS_1);
 	}
 
 	public OrganBase(Item.Settings settings) {

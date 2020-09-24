@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
-import net.tigereye.chestcavity.items.CC_Items;
+import net.tigereye.chestcavity.items.CCItems;
 
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public class OrganTickListeners {
     }
 
     public static void TickHeart(PlayerEntity player,ChestCavityListener chestCavity){
-        if (chestCavity.getOrganScore(CC_Items.ORGANS_HEART) <= 0)
+        if (chestCavity.getOrganScore(CCItems.ORGANS_HEART) <= 0)
         {
             int heartTimer =((CCPlayerEntityInterface)player).getCCHeartTimer()+1;
             ((CCPlayerEntityInterface)player).setCCHeartTimer(heartTimer);
@@ -38,7 +38,7 @@ public class OrganTickListeners {
     }
 
     public static void TickKidney(PlayerEntity player,ChestCavityListener chestCavity){
-        float kidneyScore = chestCavity.getOrganScore(CC_Items.ORGANS_KIDNEY);
+        float kidneyScore = chestCavity.getOrganScore(CCItems.ORGANS_KIDNEY);
         if(kidneyScore < 2)
         {
             int kidneyTimer =((CCPlayerEntityInterface)player).getCCKidneyTimer()+1;
@@ -51,7 +51,7 @@ public class OrganTickListeners {
     }
 
     public static void TickLiver(PlayerEntity player,ChestCavityListener chestCavity){
-        float liverScore = chestCavity.getOrganScore(CC_Items.ORGANS_LIVER);
+        float liverScore = chestCavity.getOrganScore(CCItems.ORGANS_LIVER);
         int newDur;
         int liverTimer = ((CCPlayerEntityInterface)player).getCCLiverTimer()+1;
         if(liverTimer >= LIVER_SPEED)
@@ -69,7 +69,7 @@ public class OrganTickListeners {
     }
 
     public static void TickLung(PlayerEntity player,ChestCavityListener chestCavity){
-        if (chestCavity.getOrganScore(CC_Items.ORGANS_LUNG) <= 0)
+        if (chestCavity.getOrganScore(CCItems.ORGANS_LUNG) <= 0)
         {
             player.damage(DamageSource.DROWN, 1);
         }

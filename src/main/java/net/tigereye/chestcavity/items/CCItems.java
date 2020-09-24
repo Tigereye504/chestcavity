@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.tag.TagRegistry;
 
 import net.tigereye.chestcavity.ChestCavity;
 
-public class CC_Items {
+public class CCItems {
 	
 	public static final Identifier ORGANS_APPENDIX = new Identifier(ChestCavity.MODID, "organs_appendix");
 	public static final Identifier ORGANS_HEART = new Identifier(ChestCavity.MODID, "organs_heart");

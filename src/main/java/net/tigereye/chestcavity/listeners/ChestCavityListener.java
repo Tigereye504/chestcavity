@@ -8,10 +8,9 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
-import net.tigereye.chestcavity.items.CC_Items;
+import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.chestcavity.items.VanillaOrgans;
 
 
@@ -80,23 +79,23 @@ public class ChestCavityListener implements InventoryChangedListener {
 	}
 
 	public float applyBoneDefense(float damage){
-		float boneScore = organScores.getOrDefault(CC_Items.ORGANS_RIB,0f)
-							+(organScores.getOrDefault(CC_Items.ORGANS_SPINE,0f)*3);
+		float boneScore = organScores.getOrDefault(CCItems.ORGANS_RIB,0f)
+							+(organScores.getOrDefault(CCItems.ORGANS_SPINE,0f)*3);
 		return damage*(20/(1+boneScore));
 	}
 	
 	public float applyIntestinesSaturation(float sat){
-		return sat*organScores.getOrDefault(CC_Items.ORGANS_INTESTINE,0f)/4;
+		return sat*organScores.getOrDefault(CCItems.ORGANS_INTESTINE,0f)/4;
 	}
 	
 	public int applyStomachHunger(int hunger){
 		//sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatability
-		return Math.max((int)(hunger*organScores.getOrDefault(CC_Items.ORGANS_STOMACH,0f)),1);
+		return Math.max((int)(hunger*organScores.getOrDefault(CCItems.ORGANS_STOMACH,0f)),1);
 	}
 	
 	//returns how much air we should attempt to lose
 	public int applyLungCapacityInWater(){
-		float airloss = 2f/Math.max(organScores.getOrDefault(CC_Items.ORGANS_LUNG,0f),.1f) + lungLeftover;
+		float airloss = 2f/Math.max(organScores.getOrDefault(CCItems.ORGANS_LUNG,0f),.1f) + lungLeftover;
 		lungLeftover = airloss % 1;
 		return (int) airloss;
 	}
@@ -104,7 +103,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 	public int applySpleenMetabolism(int metatimer){
 		spleenTimer++;
 		if(spleenTimer >=2){
-			metatimer += organScores.getOrDefault(CC_Items.ORGANS_SPLEEN,0f) - 1;
+			metatimer += organScores.getOrDefault(CCItems.ORGANS_SPLEEN,0f) - 1;
 		}
 		spleenTimer = 0;
 		return metatimer;

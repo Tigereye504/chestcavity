@@ -24,7 +24,7 @@ public class ChestCavity implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		//Register mod resources
-		CC_Items.register();
+		CCItems.register();
 		EntityComponentCallback.event(PlayerEntity.class).register((player, components) -> components.put(INVENTORYCOMPONENT, new CCComponent(player)));
 		LootRegister.register();
 		OrganUpdateListeners.register();

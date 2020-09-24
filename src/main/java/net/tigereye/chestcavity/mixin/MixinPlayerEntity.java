@@ -1,9 +1,7 @@
 package net.tigereye.chestcavity.mixin;
 
 import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
-import net.tigereye.chestcavity.items.CC_Items;
 import net.tigereye.chestcavity.listeners.OrganTickCallback;
-import net.tigereye.chestcavity.listeners.OrganTickListeners;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
