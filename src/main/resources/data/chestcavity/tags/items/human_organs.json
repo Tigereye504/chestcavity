@@ -9,6 +9,8 @@
       "chestcavity:lung",
       "chestcavity:muscle",
       "chestcavity:stomach",
-      "chestcavity:spleen"
+      "chestcavity:spleen",
+      "chestcavity:rib",
+      "chestcavity:spine"
     ]
 }
