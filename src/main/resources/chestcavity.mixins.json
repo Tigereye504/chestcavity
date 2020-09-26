@@ -6,6 +6,7 @@
   "mixins": [
     "MixinPlayerEntity",
     "MixinHungerManager",
+    "MixinStatusEffect",
     "MixinStatusEffectInstance"
   ],
   "client": [

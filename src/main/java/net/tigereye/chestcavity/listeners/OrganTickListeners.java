@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
+import net.tigereye.chestcavity.interfaces.CCStatusEffect;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.items.CCItems;
 
@@ -38,6 +39,9 @@ public class OrganTickListeners {
     }
 
     public static void TickKidney(PlayerEntity player,ChestCavityListener chestCavity){
+        if(player.getEntityWorld().isClient()){ //this is a server-side event
+            return;
+        }
         float kidneyScore = chestCavity.getOrganScore(CCItems.ORGANS_KIDNEY);
         if(kidneyScore < 2)
         {
@@ -51,16 +55,19 @@ public class OrganTickListeners {
     }
 
     public static void TickLiver(PlayerEntity player,ChestCavityListener chestCavity){
+        if(player.getEntityWorld().isClient()){ //this is a server-side event
+            return;
+        }
         float liverScore = chestCavity.getOrganScore(CCItems.ORGANS_LIVER);
         int newDur;
         int liverTimer = ((CCPlayerEntityInterface)player).getCCLiverTimer()+1;
-        if(liverTimer >= LIVER_SPEED)
+        if(liverTimer >= LIVER_SPEED && liverScore != 1)
         {
             for(Map.Entry<StatusEffect,StatusEffectInstance> iter : player.getActiveStatusEffects().entrySet()){
-                //
-                if(!iter.getValue().getEffectType().isBeneficial()){
-                    newDur = Math.max(0, iter.getValue().getDuration() + ((int)(LIVER_SPEED *(.5-liverScore))));
-                    ((CCStatusEffectInstance)iter.getValue()).CC_setDuration(newDur);
+                if (((CCStatusEffect)iter.getValue().getEffectType()).CC_IsHarmful()) {
+                    newDur = Math.max(0, iter.getValue().getDuration() + Math.round(LIVER_SPEED * (1 - liverScore) / 2));
+                    System.out.println("updating status effect: old duration "+iter.getValue().getDuration()+", new duration "+newDur+".");
+                    ((CCStatusEffectInstance) iter.getValue()).CC_setDuration(newDur);
                 }
             }
             liverTimer = 0;
