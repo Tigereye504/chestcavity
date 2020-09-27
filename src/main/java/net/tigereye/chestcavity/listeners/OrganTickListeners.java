@@ -66,7 +66,6 @@ public class OrganTickListeners {
             for(Map.Entry<StatusEffect,StatusEffectInstance> iter : player.getActiveStatusEffects().entrySet()){
                 if (((CCStatusEffect)iter.getValue().getEffectType()).CC_IsHarmful()) {
                     newDur = Math.max(0, iter.getValue().getDuration() + Math.round(LIVER_SPEED * (1 - liverScore) / 2));
-                    System.out.println("updating status effect: old duration "+iter.getValue().getDuration()+", new duration "+newDur+".");
                     ((CCStatusEffectInstance) iter.getValue()).CC_setDuration(newDur);
                 }
             }

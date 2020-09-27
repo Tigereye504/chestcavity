@@ -26,7 +26,13 @@ public class OrganUpdateListeners {
     private static void UpdateHeart(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         //Update Max Health Modifier
         if(oldScores.getOrDefault(CCItems.ORGANS_HEART,0f) != newScores.getOrDefault(CCItems.ORGANS_HEART,0f)){
-            EntityAttributeInstance att = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+            EntityAttributeInstance att;
+            try {
+                att = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+            }
+            catch(NullPointerException e){
+                return;
+            }
             EntityAttributeModifier mod = new EntityAttributeModifier(heartID, "ChestCavityHeartMaxHP",
                     (newScores.getOrDefault(CCItems.ORGANS_HEART,0f)*6)-6, EntityAttributeModifier.Operation.ADDITION);
             ReplaceAttributeModifier(att,mod);
@@ -35,13 +41,19 @@ public class OrganUpdateListeners {
 
     private static void UpdateMuscle(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         if(oldScores.getOrDefault(CCItems.ORGANS_MUSCLE,0f) != newScores.getOrDefault(CCItems.ORGANS_MUSCLE,0f)) {
-            //Update Damage Modifier
-            EntityAttributeInstance att = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+            //Update Damage Modifier and Speed Modifier
+            EntityAttributeInstance att;
+            EntityAttributeInstance att2;
+            try {
+                att = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+                att2 = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            }
+            catch(NullPointerException e){
+                return;
+            }
             EntityAttributeModifier mod = new EntityAttributeModifier(muscleID1, "ChestCavityMuscleAttackDamage",
                     (newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8)) - 1, EntityAttributeModifier.Operation.MULTIPLY_BASE);
             ReplaceAttributeModifier(att, mod);
-            //Update Move Speeeeed
-            EntityAttributeInstance att2 = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             EntityAttributeModifier mod2 = new EntityAttributeModifier(muscleID2, "ChestCavityMuscleMovementSpeed",
                     (newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8 * 2)) - .5, EntityAttributeModifier.Operation.MULTIPLY_BASE);
             ReplaceAttributeModifier(att2, mod2);
@@ -51,7 +63,13 @@ public class OrganUpdateListeners {
     private static void UpdateSpine(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         if(oldScores.getOrDefault(CCItems.ORGANS_SPINE,0f) != newScores.getOrDefault(CCItems.ORGANS_SPINE,0f)) {
             //Update Speed Modifier. No spine? NO MOVING.
-            EntityAttributeInstance att = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            EntityAttributeInstance att;
+            try {
+            att = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            }
+            catch(NullPointerException e){
+                return;
+            }
             EntityAttributeModifier mod = new EntityAttributeModifier(spineID, "ChestCavitySpineMovement",
                     Math.min(0, newScores.getOrDefault(CCItems.ORGANS_SPINE, 0f) - 1), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
             ReplaceAttributeModifier(att, mod);

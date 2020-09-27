@@ -15,6 +15,7 @@ import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
 
 public class ChestCavity implements ModInitializer {
 	public static final String MODID = "chestcavity";
+	public static final boolean DEBUG_MODE = false;
 
 	//public static final ComponentKey<InventoryComponent> INVENTORY_COMPONENT = ComponentRegistry.INSTANCE.registerStatic(new Identifier("chestcavity","inventory_component"), InventoryComponent.class);
 	public static final ComponentType<InventoryComponent> INVENTORYCOMPONENT =

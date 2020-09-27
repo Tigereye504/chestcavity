@@ -75,9 +75,9 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 
     public void initCCListener()
 	{
-		System.out.println("Initializing Chest Cavity Listener!");
 		if(CCListener == null)
 		{
+            System.out.println("Initializing Chest Cavity Listener!");
 			CCListener = new ChestCavityListener(owner);
             inventory.addListener(CCListener);
             CCListener.EvaluateChestCavity(inventory);

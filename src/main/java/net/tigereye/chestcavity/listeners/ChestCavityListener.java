@@ -9,6 +9,7 @@ import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.chestcavity.items.VanillaOrgans;
@@ -61,13 +62,14 @@ public class ChestCavityListener implements InventoryChangedListener {
 				}
 			}
 		}
-
-		organScores.forEach((key,value) ->
-			System.out.print(key.toString()+": "+value+" "));
-		System.out.print("\n");
-
-		if(oldScores.equals(organScores))
+		if(!oldScores.equals(organScores))
 		{
+			if(ChestCavity.DEBUG_MODE) {
+				System.out.println("Displaying organ scores:");
+				organScores.forEach((key, value) ->
+						System.out.print(key.toString() + ": " + value + " "));
+				System.out.print("\n");
+			}
 			OrganUpdateCallback.EVENT.invoker().onOrganUpdate(player, oldScores, organScores);
 			return true;
 		}
