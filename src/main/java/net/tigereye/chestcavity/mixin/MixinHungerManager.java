@@ -50,7 +50,7 @@ public class MixinHungerManager {
                         float saturationGain = chestCavity.applyIntestinesSaturation(item.getFoodComponent().getSaturationModifier())*item.getFoodComponent().getHunger()*2.0F;
                         //now find the modified hunger gains
                         int hungerGain = chestCavity.applyStomachHunger(item.getFoodComponent().getHunger());
-                        //now caluclate the saturation modifier that gives me what I want
+                        //now calculate the saturation modifier that gives me what I want
                         float newSaturation = saturationGain / (hungerGain*2);
                         //now make a dummy food item with the modified stats and feed it to HungerManager.eat();
                         FoodComponent dummyFood = new FoodComponent.Builder().hunger(hungerGain).saturationModifier(newSaturation).build();

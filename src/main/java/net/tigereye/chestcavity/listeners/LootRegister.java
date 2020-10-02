@@ -3,12 +3,15 @@ package net.tigereye.chestcavity.listeners;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.condition.*;
 import net.minecraft.loot.entry.ItemEntry;
@@ -17,6 +20,7 @@ import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.modifydropsapi.api.LivingEntityDropLootCallback_AddDrops;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -30,133 +34,106 @@ public class LootRegister {
     public static void register(){
         LivingEntityDropLootCallback_AddDrops.EVENT.register((entity, source, causedByPlayer) -> {
             List<ItemStack> loot = new ArrayList<>();
-            if (source.getAttacker() instanceof PlayerEntity) {
-                Random random = new Random();
-                PlayerEntity player = (PlayerEntity) source.getAttacker();
+            if (causedByPlayer) {
+                int lootingLevel;
+                Random random;
+                if(source.getAttacker() instanceof LivingEntity){
+                    lootingLevel = EnchantmentHelper.getLooting((LivingEntity) source.getAttacker());
+                    random = ((LivingEntity) source.getAttacker()).getRandom();
+                }
+                else{
+                    lootingLevel = 0;
+                    random = new Random();
+                }
+
                 if (entity instanceof ZombieEntity) {
-                    if(random.nextFloat() < .025 + (.01f*EnchantmentHelper.getLooting(player))) {
-                        int rolls = 3 + random.nextInt(5);
+                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                        LinkedList<Item> organPile = new LinkedList<>();
+                        organPile.add(CCItems.ROTTEN_APPENDIX);
+                        organPile.add(CCItems.ROTTEN_HEART);
+                        organPile.add(CCItems.ROTTEN_INTESTINE);
+                        organPile.add(CCItems.ROTTEN_KIDNEY);
+                        organPile.add(CCItems.ROTTEN_LIVER);
+                        organPile.add(CCItems.ROTTEN_LUNG);
+                        organPile.add(CCItems.ROTTEN_SPLEEN);
+                        organPile.add(CCItems.ROTTEN_STOMACH);
+                        int rolls = 1 + random.nextInt(3) + random.nextInt(3);
                         for (int i = 0; i < rolls; i++){
-                            int roll = random.nextInt(8);
-                            switch (roll) {
-                                case 0:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_APPENDIX));
-                                    break;
-                                case 1:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_HEART));
-                                    break;
-                                case 2:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_INTESTINE));
-                                    break;
-                                case 3:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_KIDNEY));
-                                    break;
-                                case 4:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_LIVER));
-                                    break;
-                                case 5:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_LUNG));
-                                    break;
-                                case 6:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_SPLEEN));
-                                    break;
-                                case 7:
-                                    loot.add(new ItemStack(CCItems.ROTTEN_STOMACH));
-                                    break;
-                            }
+                            int roll = random.nextInt(organPile.size());
+                            loot.add(new ItemStack(organPile.remove(roll)));
+
                         }
                     }
                 }
                 else if (entity instanceof SkeletonEntity) {
-                    if(random.nextFloat() < .025 + (.01f*EnchantmentHelper.getLooting(player))) {
-                        int rolls = 1 + random.nextInt(4);
+                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                        LinkedList<Item> organPile = new LinkedList<>();
+                        organPile.add(CCItems.ROTTEN_SPINE);
+                        for(int i = 0; i < 16; i++){
+                            organPile.add(CCItems.ROTTEN_RIB);
+                        }
+                        int rolls = 1 + random.nextInt(3) + random.nextInt(3);
                         for (int i = 0; i < rolls; i++){
-                            int roll = random.nextInt(5);
-                            if(roll == 4) {
-                                loot.add(new ItemStack(CCItems.ROTTEN_SPINE));
-                            }
-                            else{
-                                loot.add(new ItemStack(CCItems.ROTTEN_RIB));
-                            }
+                            int roll = random.nextInt(organPile.size());
+                            loot.add(new ItemStack(organPile.remove(roll)));
+
                         }
                     }
                 }
                 else if (entity instanceof AnimalEntity || entity instanceof AbstractPiglinEntity) {
-                    if(random.nextFloat() < .025 + (.01f*EnchantmentHelper.getLooting(player))) {
-                        int rolls = 4 + random.nextInt(6);
+                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                        LinkedList<Item> organPile = new LinkedList<>();
+                        for(int i = 0; i < 16; i++){
+                            organPile.add(CCItems.ANIMAL_RIB);
+                        }
+                        organPile.add(CCItems.ANIMAL_APPENDIX);
+                        organPile.add(CCItems.ANIMAL_HEART);
+                        organPile.add(CCItems.ANIMAL_INTESTINE);
+                        organPile.add(CCItems.ANIMAL_INTESTINE);
+                        organPile.add(CCItems.ANIMAL_INTESTINE);
+                        organPile.add(CCItems.ANIMAL_INTESTINE);
+                        organPile.add(CCItems.ANIMAL_KIDNEY);
+                        organPile.add(CCItems.ANIMAL_KIDNEY);
+                        organPile.add(CCItems.ANIMAL_LIVER);
+                        organPile.add(CCItems.ANIMAL_LUNG);
+                        organPile.add(CCItems.ANIMAL_LUNG);
+                        organPile.add(CCItems.ANIMAL_SPINE);
+                        organPile.add(CCItems.ANIMAL_SPLEEN);
+                        organPile.add(CCItems.ANIMAL_STOMACH);
+                        int rolls = 3 + random.nextInt(3) + random.nextInt(3);
                         for (int i = 0; i < rolls; i++){
-                            int roll = random.nextInt(14);
-                            if(roll < 4) {
-                                loot.add(new ItemStack(CCItems.ANIMAL_RIB));
-                            }
-                            else if(roll == 5){
-                                loot.add(new ItemStack(CCItems.ANIMAL_APPENDIX));
-                            }
-                            else if(roll == 6){
-                                loot.add(new ItemStack(CCItems.ANIMAL_HEART));
-                            }
-                            else if(roll == 7){
-                                loot.add(new ItemStack(CCItems.ANIMAL_INTESTINE));
-                            }
-                            else if(roll == 8){
-                                loot.add(new ItemStack(CCItems.ANIMAL_KIDNEY));
-                            }
-                            else if(roll == 9){
-                                loot.add(new ItemStack(CCItems.ANIMAL_LIVER));
-                            }
-                            else if(roll == 10){
-                                loot.add(new ItemStack(CCItems.ANIMAL_LUNG));
-                            }
-                            else if(roll == 11){
-                                loot.add(new ItemStack(CCItems.ANIMAL_SPINE));
-                            }
-                            else if(roll == 12){
-                                loot.add(new ItemStack(CCItems.ANIMAL_SPLEEN));
-                            }
-                            else{
-                                loot.add(new ItemStack(CCItems.ANIMAL_STOMACH));
-                            }
+                            int roll = random.nextInt(organPile.size());
+                            loot.add(new ItemStack(organPile.remove(roll)));
                         }
                     }
                 }
                 else if (entity instanceof PatrolEntity || entity instanceof VillagerEntity || entity instanceof WanderingTraderEntity) {
-                    if(random.nextFloat() < .025 + (.01f*EnchantmentHelper.getLooting(player))) {
-                        int rolls = 4 + random.nextInt(6);
-                        for (int i = 0; i < rolls; i++){
-                            int roll = random.nextInt(78);
-                            if(roll < 4) {
-                                loot.add(new ItemStack(CCItems.RIB));
-                            }
-                            else if(roll == 5){
-                                loot.add(new ItemStack(CCItems.APPENDIX));
-                            }
-                            else if(roll == 6){
-                                loot.add(new ItemStack(CCItems.HEART));
-                            }
-                            else if(roll == 7){
-                                loot.add(new ItemStack(CCItems.INTESTINE));
-                            }
-                            else if(roll == 8){
-                                loot.add(new ItemStack(CCItems.KIDNEY));
-                            }
-                            else if(roll == 9){
-                                loot.add(new ItemStack(CCItems.LIVER));
-                            }
-                            else if(roll == 10){
-                                loot.add(new ItemStack(CCItems.LUNG));
-                            }
-                            else if(roll == 11){
-                                loot.add(new ItemStack(CCItems.SPINE));
-                            }
-                            else if(roll == 12){
-                                loot.add(new ItemStack(CCItems.SPLEEN));
-                            }
-                            else if(roll == 13){
-                                loot.add(new ItemStack(CCItems.STOMACH));
-                            }
+                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                        LinkedList<Item> organPile = new LinkedList<>();
+                        for(int i = 0; i < 16; i++){
+                            organPile.add(CCItems.RIB);
                         }
-                        //16+4d8 muscles, added as single stacks because I like how it makes targets explode into meat
-                        rolls = 20 + random.nextInt(8) + random.nextInt(8) + random.nextInt(8) + random.nextInt(8);
+                        organPile.add(CCItems.APPENDIX);
+                        organPile.add(CCItems.HEART);
+                        organPile.add(CCItems.INTESTINE);
+                        organPile.add(CCItems.INTESTINE);
+                        organPile.add(CCItems.INTESTINE);
+                        organPile.add(CCItems.INTESTINE);
+                        organPile.add(CCItems.KIDNEY);
+                        organPile.add(CCItems.KIDNEY);
+                        organPile.add(CCItems.LIVER);
+                        organPile.add(CCItems.LUNG);
+                        organPile.add(CCItems.LUNG);
+                        organPile.add(CCItems.SPINE);
+                        organPile.add(CCItems.SPLEEN);
+                        organPile.add(CCItems.STOMACH);
+                        int rolls = 3 + random.nextInt(3) + random.nextInt(3);
+                        for (int i = 0; i < rolls; i++){
+                            int roll = random.nextInt(organPile.size());
+                            loot.add(new ItemStack(organPile.remove(roll)));
+                        }
+                        //14+4d8 (32) muscles, added as single stacks because I like how it makes targets explode into meat
+                        rolls = 28 + random.nextInt(8) + random.nextInt(8) + random.nextInt(8) + random.nextInt(8);
                         for (int i = 0; i < rolls; i++){
                             loot.add(new ItemStack(CCItems.MUSCLE));
                         }
@@ -169,14 +146,12 @@ public class LootRegister {
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
             if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(ConstantLootTableRange.create(4))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB))
-                        .conditionally(RandomChanceLootCondition.builder(.25f));
+                        .rolls(BinomialLootTableRange.create(4,.25f))
+                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
                 supplier.pool(poolBuilder);
                 poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(ConstantLootTableRange.create(1))
-                                .with(ItemEntry.builder(CCItems.ROTTEN_RIB))
-                                .conditionally(RandomChanceLootCondition.builder(.3f));
+                        .rolls(BinomialLootTableRange.create(1,.3f))
+                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
                 supplier.pool(poolBuilder);
             }
         });
