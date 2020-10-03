@@ -27,7 +27,7 @@ public class VanillaOrgans {
         Map<Identifier,Float> rottenFlesh = new HashMap<>();
         rottenFlesh.put(CCItems.ORGANS_MUSCLE,.5f);
         Map<Identifier,Float> animalFlesh = new HashMap<>();
-        rottenFlesh.put(CCItems.ORGANS_MUSCLE,.75f);
+        animalFlesh.put(CCItems.ORGANS_MUSCLE,.75f);
         Map<Identifier,Float> bone = new HashMap<>();
         rottenFlesh.put(CCItems.ORGANS_RIB,.5f/16);
         map.put(Items.DIRT,dirt);
