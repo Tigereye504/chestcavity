@@ -5,6 +5,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.CCItems;
 
 import java.util.Map;
@@ -12,15 +13,33 @@ import java.util.UUID;
 
 public class OrganUpdateListeners {
 
+    private static final UUID appendixID = UUID.fromString("ac606ec3-4cc3-42b5-9399-7fa8ceba8722");
     private static final UUID heartID = UUID.fromString("edb1e124-a951-48bd-b711-782ec1364722");
     private static final UUID muscleID1 = UUID.fromString("bf560396-9855-496e-a942-99824467e1ad");
     private static final UUID muscleID2 = UUID.fromString("979aa156-3f01-45d3-8784-56185eeef96d");
     private static final UUID spineID = UUID.fromString("8f56feed-589f-416f-86c5-315765d41f57");
 
     public static void register(){
+        OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateAppendix);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateHeart);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateMuscle);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateSpine);
+    }
+
+    private static void UpdateAppendix(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
+        //Update Max Health Modifier
+        if(oldScores.getOrDefault(CCItems.ORGANS_APPENDIX,0f) != newScores.getOrDefault(CCItems.ORGANS_APPENDIX,0f)){
+            EntityAttributeInstance att;
+            try {
+                att = player.getAttributeInstance(EntityAttributes.GENERIC_LUCK);
+            }
+            catch(NullPointerException e){
+                return;
+            }
+            EntityAttributeModifier mod = new EntityAttributeModifier(appendixID, "ChestCavityAppendixLuck",
+                    (newScores.getOrDefault(CCItems.ORGANS_APPENDIX,0f)-1)* ChestCavity.config.APPENDIX_LUCK, EntityAttributeModifier.Operation.ADDITION);
+            ReplaceAttributeModifier(att,mod);
+        }
     }
 
     private static void UpdateHeart(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
@@ -34,7 +53,7 @@ public class OrganUpdateListeners {
                 return;
             }
             EntityAttributeModifier mod = new EntityAttributeModifier(heartID, "ChestCavityHeartMaxHP",
-                    (newScores.getOrDefault(CCItems.ORGANS_HEART,0f)*6)-6, EntityAttributeModifier.Operation.ADDITION);
+                    (newScores.getOrDefault(CCItems.ORGANS_HEART,0f)-1)* ChestCavity.config.HEART_HP, EntityAttributeModifier.Operation.ADDITION);
             ReplaceAttributeModifier(att,mod);
         }
     }
@@ -52,10 +71,12 @@ public class OrganUpdateListeners {
                 return;
             }
             EntityAttributeModifier mod = new EntityAttributeModifier(muscleID1, "ChestCavityMuscleAttackDamage",
-                    (newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8)) - 1, EntityAttributeModifier.Operation.MULTIPLY_BASE);
+                    ((newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8))-1)
+                            * ChestCavity.config.MUSCLE_STRENGTH, EntityAttributeModifier.Operation.MULTIPLY_BASE);
             ReplaceAttributeModifier(att, mod);
             EntityAttributeModifier mod2 = new EntityAttributeModifier(muscleID2, "ChestCavityMuscleMovementSpeed",
-                    (newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8 * 2)) - .5, EntityAttributeModifier.Operation.MULTIPLY_BASE);
+                    ((newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8))-1)
+                            * ChestCavity.config.MUSCLE_SPEED, EntityAttributeModifier.Operation.MULTIPLY_BASE);
             ReplaceAttributeModifier(att2, mod2);
         }
     }

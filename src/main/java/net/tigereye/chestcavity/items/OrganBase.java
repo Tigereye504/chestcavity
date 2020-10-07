@@ -1,15 +1,19 @@
 package net.tigereye.chestcavity.items;
 
 import com.google.common.collect.Maps;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 
 import java.util.Map;
 
 public class OrganBase extends Item implements ChestCavityOrgan {
 
 
-	private Map<Identifier, Float> organQualityMap = Maps.newHashMap();
+	protected Map<Identifier, Float> organQualityMap = Maps.newHashMap();
 
 
 	public OrganBase() {
@@ -22,6 +26,9 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 
 	public Map<Identifier, Float> getOrganQualityMap() {
 		return organQualityMap;
+	}
+	public Map<Identifier, Float> getOrganQualityMap(ItemStack item) {
+		return getOrganQualityMap();
 	}
 
 	public float getOrganQuality(Identifier id) {

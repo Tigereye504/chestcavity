@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "chestcavity",
-  "version": "1.2.5",
+  "version": "${version}",
 
   "name": "Chest Cavity",
   "description": "Perfectly Safe Extra Storage",
@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.tigereye.chestcavity.ChestCavity"
+    ],
+    "modmenu": [
+      "net.tigereye.chestcavity.config.CCModMenuIntegration"
     ]
   },
   "mixins": [
@@ -32,6 +35,7 @@
     "minecraft": "1.16.x"
   },
   "suggests": {
-    "flamingo": "*"
+    "flamingo": "*",
+    "wendigoism": "*"
   }
 }

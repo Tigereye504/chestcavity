@@ -37,14 +37,14 @@ public class MixinPlayerEntity extends LivingEntity implements CCPlayerEntityInt
 		super(EntityType.PLAYER, world);
 	}
 
-	public void baseTick() {
+	public void baseTick() { //TODO: consider moving this to LivingEntity and check if its a PlayerEntity
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
 		OrganTickCallback.EVENT.invoker().onOrganTick(((PlayerEntity) (Object) this), chestCavity);
 		super.baseTick();
 	}
 
-	protected int getNextAirUnderwater(int air) {
+	protected int getNextAirUnderwater(int air) { //TODO: consider moving this to LivingEntity and check if its a PlayerEntity
 		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
 				.get((PlayerEntity) (Object) this))).getCCListener();
 		int i = EnchantmentHelper.getRespiration(this);
@@ -61,24 +61,6 @@ public class MixinPlayerEntity extends LivingEntity implements CCPlayerEntityInt
 	@Inject(at = @At("HEAD"), method = "dropInventory")
 	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
 		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();
-	}
-
-	@Shadow
-	public Iterable<ItemStack> getArmorItems() {
-		return null;
-	}
-
-	@Shadow
-	public ItemStack getEquippedStack(EquipmentSlot slot) {
-		return null;
-	}
-
-	@Shadow
-	public void equipStack(EquipmentSlot slot, ItemStack stack) {}
-
-	@Shadow
-	public Arm getMainArm() {
-		return null;
 	}
 
 	public int getCCHeartTimer() {
@@ -120,4 +102,24 @@ public class MixinPlayerEntity extends LivingEntity implements CCPlayerEntityInt
 	public void setCCLungRemainder(int CCLungRemainder) {
 		this.CCLungRemainder = CCLungRemainder;
 	}
+
+	@Shadow
+	public Iterable<ItemStack> getArmorItems() {
+		return null;
+	}
+
+	@Shadow
+	public ItemStack getEquippedStack(EquipmentSlot slot) {
+		return null;
+	}
+
+	@Shadow
+	public void equipStack(EquipmentSlot slot, ItemStack stack) {}
+
+	@Shadow
+	public Arm getMainArm() {
+		return null;
+	}
+
+
 }

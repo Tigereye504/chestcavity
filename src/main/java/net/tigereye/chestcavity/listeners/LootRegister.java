@@ -8,14 +8,12 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.BinomialLootTableRange;
-import net.minecraft.loot.ConstantLootTableRange;
-import net.minecraft.loot.condition.*;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.modifydropsapi.api.LivingEntityDropLootCallback_AddDrops;
 
@@ -47,7 +45,7 @@ public class LootRegister {
                 }
 
                 if (entity instanceof ZombieEntity) {
-                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                    if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         organPile.add(CCItems.ROTTEN_APPENDIX);
                         organPile.add(CCItems.ROTTEN_HEART);
@@ -66,7 +64,7 @@ public class LootRegister {
                     }
                 }
                 else if (entity instanceof SkeletonEntity) {
-                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                    if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         organPile.add(CCItems.ROTTEN_SPINE);
                         for(int i = 0; i < 16; i++){
@@ -81,7 +79,7 @@ public class LootRegister {
                     }
                 }
                 else if (entity instanceof AnimalEntity || entity instanceof AbstractPiglinEntity) {
-                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                    if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         for(int i = 0; i < 16; i++){
                             organPile.add(CCItems.ANIMAL_RIB);
@@ -108,7 +106,7 @@ public class LootRegister {
                     }
                 }
                 else if (entity instanceof PatrolEntity || entity instanceof VillagerEntity || entity instanceof WanderingTraderEntity) {
-                    if(random.nextFloat() < .025 + (.01f*lootingLevel)) {
+                    if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         for(int i = 0; i < 16; i++){
                             organPile.add(CCItems.RIB);

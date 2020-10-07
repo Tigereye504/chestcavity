@@ -50,7 +50,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 			{
 				Item slotitem = slot.getItem();
 				if(slotitem instanceof ChestCavityOrgan){
-					((ChestCavityOrgan) slotitem).getOrganQualityMap().forEach((key,value) ->
+					((ChestCavityOrgan) slotitem).getOrganQualityMap(slot).forEach((key,value) ->
 							organScores.put(key,organScores.getOrDefault(key,0f)+(value*slot.getCount())));
 				}
 				else {
@@ -78,6 +78,10 @@ public class ChestCavityListener implements InventoryChangedListener {
 
 	public float getOrganScore(Identifier id) {
 		return organScores.getOrDefault(id, 0f);
+	}
+	
+	public void setOrganScore(Identifier id, float value){
+		organScores.put(id,value);
 	}
 
 	public float applyBoneDefense(float damage){

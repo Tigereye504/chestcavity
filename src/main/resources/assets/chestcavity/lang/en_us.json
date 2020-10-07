@@ -34,5 +34,18 @@
     "item.chestcavity.saltwater_heart": "Saltwater Heart",
     "item.chestcavity.saltwater_lung": "Saltwater Lung",
     "item.chestcavity.raw_organ_meat": "Raw Organ Meat",
-    "item.chestcavity.cooked_organ_meat": "Cooked Organ Meat"
+    "item.chestcavity.cooked_organ_meat": "Cooked Organ Meat",
+    "item.chestcavity.cannibal_heart": "Cannibal Heart",
+    "item.chestcavity.tethered_cannibal_heart": "Tethered Cannibal Heart",
+    "text.autoconfig.chestcavity.title": "Chest Cavity",
+    "text.autoconfig.chestcavity.option.ORGAN_BUNDLE_DROP_RATE": "Organ Bundle Drop Rate",
+    "text.autoconfig.chestcavity.option.ORGAN_BUNDLE_LOOTING_BOOST": "Organ Bundle Looting Boost",
+    "text.autoconfig.chestcavity.option.HEARTBLEED_RATE": "Heartbleed Frequency",
+    "text.autoconfig.chestcavity.option.LIVER_RATE": "Liver Cleansing Frequency",
+    "text.autoconfig.chestcavity.option.KIDNEY_RATE": "Kidney Poison Frequency",
+    "text.autoconfig.chestcavity.option.APPENDIX_LUCK": "Luck per Appendix",
+    "text.autoconfig.chestcavity.option.HEART_HP": "HP Per Heart",
+    "text.autoconfig.chestcavity.option.MUSCLE_STRENGTH": "Muscle Strength",
+    "text.autoconfig.chestcavity.option.MUSCLE_SPEED": "Muscle Speed",
+    "text.autoconfig.chestcavity.option.WENDIGOISM_INTEGRATION": "Wendigoism Integration (Requires Restart)"
 }

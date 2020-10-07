@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:appendix",
+      "chestcavity:heart",
+      "chestcavity:intestine",
+      "chestcavity:kidney",
+      "chestcavity:liver",
+      "chestcavity:lung",
+      "chestcavity:stomach",
+      "chestcavity:spleen"
+    ]
+}

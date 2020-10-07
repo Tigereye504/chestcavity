@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
 import net.tigereye.chestcavity.interfaces.CCStatusEffect;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
@@ -13,9 +14,6 @@ import net.tigereye.chestcavity.items.CCItems;
 import java.util.Map;
 
 public class OrganTickListeners {
-    private static final int HEARTBLEED_SPEED = 20; //how fast you die from lacking a heart
-    private static final int LIVER_SPEED = 40; //how often the liver purifies status effects
-    private static final int KIDNEY_SPEED = 59; //how often the kidneys prevent blood poisoning, avoid clean multiples of LIVERSPEED
 
     public static void register(){
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHeart);
@@ -29,8 +27,8 @@ public class OrganTickListeners {
         {
             int heartTimer =((CCPlayerEntityInterface)player).getCCHeartTimer()+1;
             ((CCPlayerEntityInterface)player).setCCHeartTimer(heartTimer);
-            if(heartTimer % HEARTBLEED_SPEED == 0){
-                player.damage(DamageSource.STARVE, (heartTimer / HEARTBLEED_SPEED));
+            if(heartTimer % ChestCavity.config.HEARTBLEED_RATE == 0){
+                player.damage(DamageSource.STARVE, (heartTimer / ChestCavity.config.HEARTBLEED_RATE));
             }
         }
         else{
@@ -46,7 +44,7 @@ public class OrganTickListeners {
         if(kidneyScore < 2)
         {
             int kidneyTimer =((CCPlayerEntityInterface)player).getCCKidneyTimer()+1;
-            if(kidneyTimer >= KIDNEY_SPEED){
+            if(kidneyTimer >= ChestCavity.config.KIDNEY_RATE){
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)(24*(2-kidneyScore))));
                 kidneyTimer = 0;
             }
@@ -61,11 +59,11 @@ public class OrganTickListeners {
         float liverScore = chestCavity.getOrganScore(CCItems.ORGANS_LIVER);
         int newDur;
         int liverTimer = ((CCPlayerEntityInterface)player).getCCLiverTimer()+1;
-        if(liverTimer >= LIVER_SPEED && liverScore != 1)
+        if(liverTimer >= ChestCavity.config.LIVER_RATE && liverScore != 1)
         {
             for(Map.Entry<StatusEffect,StatusEffectInstance> iter : player.getActiveStatusEffects().entrySet()){
                 if (((CCStatusEffect)iter.getValue().getEffectType()).CC_IsHarmful()) {
-                    newDur = Math.max(0, iter.getValue().getDuration() + Math.round(LIVER_SPEED * (1 - liverScore) / 2));
+                    newDur = Math.max(0, iter.getValue().getDuration() + Math.round(ChestCavity.config.LIVER_RATE * (1 - liverScore) / 2));
                     ((CCStatusEffectInstance) iter.getValue()).CC_setDuration(newDur);
                 }
             }
