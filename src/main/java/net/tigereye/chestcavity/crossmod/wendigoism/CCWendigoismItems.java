@@ -40,7 +40,7 @@ public class CCWendigoismItems {
     private static void addWindegoismHeartsToExternalOrgans(int i, Identifier identifier, Item item) {
         if(item == WDItems.FLESH){
             Map<Identifier,Float> flesh = new HashMap<>();
-            flesh.put(CCItems.ORGANS_MUSCLE,.75f);
+            flesh.put(CCItems.ORGANS_MUSCLE,1f);
             VanillaOrgans.map.put(WDItems.FLESH,flesh);
         }
         if(item == WDItems.CORRUPT_FLESH){
