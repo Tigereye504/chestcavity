@@ -3,6 +3,7 @@ package net.tigereye.chestcavity.listeners;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -11,11 +12,13 @@ import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.BinomialLootTableRange;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.CCItems;
-import net.tigereye.modifydropsapi.api.LivingEntityDropLootCallback_AddDrops;
+import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -30,14 +33,15 @@ public class LootRegister {
 
 
     public static void register(){
-        LivingEntityDropLootCallback_AddDrops.EVENT.register((entity, source, causedByPlayer) -> {
+        GenerateEntityLootCallbackAddLoot.EVENT.register((type, lootContext) -> {
             List<ItemStack> loot = new ArrayList<>();
-            if (causedByPlayer) {
+            if (lootContext.hasParameter(LootContextParameters.LAST_DAMAGE_PLAYER)) {
                 int lootingLevel;
                 Random random;
-                if(source.getAttacker() instanceof LivingEntity){
-                    lootingLevel = EnchantmentHelper.getLooting((LivingEntity) source.getAttacker());
-                    random = ((LivingEntity) source.getAttacker()).getRandom();
+                Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
+                if(lootContext.get(LootContextParameters.KILLER_ENTITY) instanceof LivingEntity){
+                    lootingLevel = EnchantmentHelper.getLooting((LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY));
+                    random = lootContext.getRandom();
                 }
                 else{
                     lootingLevel = 0;

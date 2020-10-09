@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.components;
 
 //import dev.onyxstudios.cca.api.v3.util.PlayerComponent;
+import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.chestcavity.listeners.*;
 
@@ -120,7 +121,9 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 	}
 
     public void chestCavityPostMortem(){
-        rejectForeignObjects();
+        if(owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
+            rejectForeignObjects();
+        }
         insertWelfareOrgans();
     }
 
@@ -146,9 +149,16 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
     }
 
     private void forcefullyAddStack(ItemStack stack, int slot){
-        if(!inventory.canInsert(stack)){
+        if(inventory.canInsert(stack)){
+            inventory.addStack(stack);
+        }
+        else if(owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
+            if(!owner.inventory.insertStack(stack)){
+                owner.dropStack(inventory.removeStack(slot));
+            }
+        }
+        else {
             owner.dropStack(inventory.removeStack(slot));
         }
-        inventory.addStack(stack);
     }
 }

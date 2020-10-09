@@ -19,6 +19,9 @@ public class CCWendigoismItems {
     public static final Identifier ORGANS_CANNIBAL_HEART = new Identifier(ChestCavity.MODID, "organs_cannibal_heart");
     public static final Identifier ORGANS_TETHERED_CANNIBAL_HEART = new Identifier(ChestCavity.MODID, "organs_tethered_cannibal_heart");
 
+    private static final Identifier WENDIGOISM_FLESH = new Identifier("wendigoism", "flesh");
+    private static final Identifier WENDIGOISM_CORRUPT_FLESH = new Identifier("wendigoism", "corrupt_flesh");
+
     public static final Item CANNIBAL_HEART = new OrganBase()
             .setOrganQuality(CCItems.ORGANS_HEART,.5f)
             .setOrganQuality(ORGANS_CANNIBAL_HEART,1);
@@ -38,12 +41,12 @@ public class CCWendigoismItems {
     }
 
     private static void addWindegoismHeartsToExternalOrgans(int i, Identifier identifier, Item item) {
-        if(item == WDItems.FLESH){
+        if(identifier == WENDIGOISM_FLESH){
             Map<Identifier,Float> flesh = new HashMap<>();
             flesh.put(CCItems.ORGANS_MUSCLE,1f);
             VanillaOrgans.map.put(WDItems.FLESH,flesh);
         }
-        if(item == WDItems.CORRUPT_FLESH){
+        if(identifier == WENDIGOISM_CORRUPT_FLESH){
             Map<Identifier,Float> corruptedFlesh = new HashMap<>();
             corruptedFlesh.put(CCItems.ORGANS_MUSCLE,1f);
             VanillaOrgans.map.put(WDItems.CORRUPT_FLESH,corruptedFlesh);
