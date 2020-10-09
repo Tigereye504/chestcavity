@@ -121,7 +121,7 @@ public class CCComponent implements InventoryComponent, EntitySyncedComponent, P
 	}
 
     public void chestCavityPostMortem(){
-        if(owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
+        if(!owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
             rejectForeignObjects();
         }
         insertWelfareOrgans();
