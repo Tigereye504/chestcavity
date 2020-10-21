@@ -85,7 +85,7 @@ public class ChestCavityListener implements InventoryChangedListener {
 	}
 
 	public float applyBoneDefense(float damage){
-		float boneScore = organScores.getOrDefault(CCItems.ORGANS_RIB,0f)
+		float boneScore = organScores.getOrDefault(CCItems.ORGANS_BONE,0f)
 							+(organScores.getOrDefault(CCItems.ORGANS_SPINE,0f)*3);
 		return damage*(20/(1+boneScore));
 	}

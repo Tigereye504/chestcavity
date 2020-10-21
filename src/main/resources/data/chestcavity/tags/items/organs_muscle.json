@@ -5,9 +5,6 @@
       "minecraft:beef",
       "minecraft:porkchop",
       "minecraft:mutton",
-      "chestcavity:muscle",
-      "minecraft:piston",
-      "minecraft:sticky_piston",
-      "minecraft:dirt"
+      "chestcavity:muscle"
     ]
   }

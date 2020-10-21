@@ -1,5 +1,14 @@
 package net.tigereye.chestcavity.mixin;
 
+import com.mojang.authlib.GameProfile;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.ChestCavityManager;
 import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
 import net.tigereye.chestcavity.listeners.OrganTickCallback;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,88 +28,72 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
 
-import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.components.CCComponent;
-import net.tigereye.chestcavity.listeners.ChestCavityListener;
-//import net.tigereye.chestcavity.interfaces.CCHungerManagerInterface;
-
 @Mixin(PlayerEntity.class)
 public class MixinPlayerEntity extends LivingEntity implements CCPlayerEntityInterface {
 
-	private int CCHeartTimer = 0;
-	private int CCKidneyTimer = 0;
-	private int CCLiverTimer = 0;
-	private int CCSpleenTimer = 0;
-	private int CCLungRemainder = 0;
+	private ChestCavityManager chestCavityManager  = new ChestCavityManager((PlayerEntity)(Object)this);
 
 	protected MixinPlayerEntity(PlayerEntity entityType, World world) {
 		super(EntityType.PLAYER, world);
 	}
 
 	public void baseTick() { //TODO: consider moving this to LivingEntity and check if its a PlayerEntity
-		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
-				.get((PlayerEntity) (Object) this))).getCCListener();
-		OrganTickCallback.EVENT.invoker().onOrganTick(((PlayerEntity) (Object) this), chestCavity);
+		chestCavityManager.onTick();
 		super.baseTick();
 	}
 
 	protected int getNextAirUnderwater(int air) { //TODO: consider moving this to LivingEntity and check if its a PlayerEntity
-		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
-				.get((PlayerEntity) (Object) this))).getCCListener();
 		int i = EnchantmentHelper.getRespiration(this);
-		return i > 0 && this.random.nextInt(i + 1) > 0 ? air : Math.max(air - chestCavity.applyLungCapacityInWater(),-20);
+		return i > 0 && this.random.nextInt(i + 1) > 0 ? air : Math.max(air - chestCavityManager.applyLungCapacityInWater(),-20);
 	}
 
 	@ModifyVariable(at = @At("HEAD"), method = "damage")
 	public float chestCavityPlayerEntityDamageMixin(float amount){
-		ChestCavityListener chestCavity = ((CCComponent) (ChestCavity.INVENTORYCOMPONENT
-				.get((PlayerEntity) (Object) this))).getCCListener();
-		return chestCavity.applyBoneDefense(amount);
+		return chestCavityManager.applyBoneDefense(amount);
 	}
 
 	@Inject(at = @At("HEAD"), method = "dropInventory")
 	public void chestCavityPlayerEntityDropInventoryMixin(CallbackInfo info){
-		((CCComponent) (ChestCavity.INVENTORYCOMPONENT.get((PlayerEntity) (Object) this))).chestCavityPostMortem();
+		chestCavityManager.chestCavityPostMortem();
 	}
 
-	public int getCCHeartTimer() {
-		return CCHeartTimer;
+	public ChestCavityManager getChestCavityManager() {
+		return chestCavityManager;
 	}
 
-	public void setCCHeartTimer(int CCHeartTimer) {
-		this.CCHeartTimer = CCHeartTimer;
+	public void setChestCavityManager(ChestCavityManager chestCavityManager) {
+		this.chestCavityManager = chestCavityManager;
 	}
 
-	public int getCCKidneyTimer() {
-		return CCKidneyTimer;
+	@Inject(method = "readCustomDataFromTag", at = @At("TAIL"))
+	private void readCustomDataFromTag(CompoundTag tag, CallbackInfo callbackInfo) {
+		chestCavityManager.fromTag(tag,(PlayerEntity)(Object)this);
 	}
 
-	public void setCCKidneyTimer(int CCKidneyTimer) {
-		this.CCKidneyTimer = CCKidneyTimer;
+	@Inject(method = "writeCustomDataToTag", at = @At("TAIL"))
+	private void writeCustomDataToTag(CompoundTag tag, CallbackInfo callbackInfo) {
+		chestCavityManager.toTag(tag);
 	}
 
-	public int getCCLiverTimer() {
-		return CCLiverTimer;
-	}
+	@Mixin(ServerPlayerEntity.class)
+	private static abstract class Server extends PlayerEntity {
+		public Server(World world, BlockPos pos, float yaw, GameProfile profile) {
+			super(world, pos, yaw, profile);
+		}
 
-	public void setCCLiverTimer(int CCLiverTimer) {
-		this.CCLiverTimer = CCLiverTimer;
-	}
-
-	public int getCCSpleenTimer() {
-		return CCSpleenTimer;
-	}
-
-	public void setCCSpleenTimer(int CCSpleenTimer) {
-		this.CCSpleenTimer = CCSpleenTimer;
-	}
-
-	public int getCCLungRemainder() {
-		return CCLungRemainder;
-	}
-
-	public void setCCLungRemainder(int CCLungRemainder) {
-		this.CCLungRemainder = CCLungRemainder;
+		@Inject(method = "copyFrom", at = @At("TAIL"))
+		public void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo callbackInfo) {
+			if(ChestCavity.DEBUG_MODE){
+				System.out.println("Attempting to load ChestCavityManager");
+			}
+			CCPlayerEntityInterface.of(this).ifPresent(ccPlayerEntityInterface -> CCPlayerEntityInterface.of(oldPlayer).ifPresent(oldCCPlayerEntityInterface -> {
+				if(ChestCavity.DEBUG_MODE){
+					System.out.println("Copying ChestCavityManager");
+				}
+				ccPlayerEntityInterface.getChestCavityManager().clone(oldCCPlayerEntityInterface.getChestCavityManager());
+				//TODO: we might need to change the owner from oldPlayer to newPlayer, we shall see...
+			}));
+		}
 	}
 
 	@Shadow

@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.listeners;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -26,7 +27,7 @@ public class OrganUpdateListeners {
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateSpine);
     }
 
-    private static void UpdateAppendix(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
+    private static void UpdateAppendix(LivingEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         //Update Max Health Modifier
         if(oldScores.getOrDefault(CCItems.ORGANS_APPENDIX,0f) != newScores.getOrDefault(CCItems.ORGANS_APPENDIX,0f)){
             EntityAttributeInstance att;
@@ -42,7 +43,7 @@ public class OrganUpdateListeners {
         }
     }
 
-    private static void UpdateHeart(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
+    private static void UpdateHeart(LivingEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         //Update Max Health Modifier
         if(oldScores.getOrDefault(CCItems.ORGANS_HEART,0f) != newScores.getOrDefault(CCItems.ORGANS_HEART,0f)){
             EntityAttributeInstance att;
@@ -58,7 +59,7 @@ public class OrganUpdateListeners {
         }
     }
 
-    private static void UpdateMuscle(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
+    private static void UpdateMuscle(LivingEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         if(oldScores.getOrDefault(CCItems.ORGANS_MUSCLE,0f) != newScores.getOrDefault(CCItems.ORGANS_MUSCLE,0f)) {
             //Update Damage Modifier and Speed Modifier
             EntityAttributeInstance att;
@@ -71,17 +72,17 @@ public class OrganUpdateListeners {
                 return;
             }
             EntityAttributeModifier mod = new EntityAttributeModifier(muscleID1, "ChestCavityMuscleAttackDamage",
-                    ((newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8))-1)
+                    ((newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / 8)-1)
                             * ChestCavity.config.MUSCLE_STRENGTH, EntityAttributeModifier.Operation.MULTIPLY_BASE);
             ReplaceAttributeModifier(att, mod);
             EntityAttributeModifier mod2 = new EntityAttributeModifier(muscleID2, "ChestCavityMuscleMovementSpeed",
-                    ((newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / (64 * 8))-1)
+                    ((newScores.getOrDefault(CCItems.ORGANS_MUSCLE, 0f) / 8)-1)
                             * ChestCavity.config.MUSCLE_SPEED, EntityAttributeModifier.Operation.MULTIPLY_BASE);
             ReplaceAttributeModifier(att2, mod2);
         }
     }
 
-    private static void UpdateSpine(PlayerEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
+    private static void UpdateSpine(LivingEntity player, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
         if(oldScores.getOrDefault(CCItems.ORGANS_SPINE,0f) != newScores.getOrDefault(CCItems.ORGANS_SPINE,0f)) {
             //Update Speed Modifier. No spine? NO MOVING.
             EntityAttributeInstance att;

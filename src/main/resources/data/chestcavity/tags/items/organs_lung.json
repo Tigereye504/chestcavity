@@ -4,9 +4,6 @@
       "chestcavity:rotten_lung",
       "chestcavity:animal_lung",
       "chestcavity:lung",
-      "chestcavity:saltwater_lung",
-      "chestcavity:saltwater_heart",
-      "minecraft:pufferfish",
-      "minecraft:dirt"
+      "chestcavity:saltwater_lung"
     ]
   }

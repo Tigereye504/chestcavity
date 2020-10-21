@@ -1,14 +1,19 @@
 package net.tigereye.chestcavity.interfaces;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.tigereye.chestcavity.ChestCavityManager;
+
+import java.util.Optional;
+
 public interface CCPlayerEntityInterface {
-    int getCCHeartTimer();
-    void setCCHeartTimer(int CCHeartTimer);
-    int getCCKidneyTimer();
-    void setCCKidneyTimer(int CCKidneyTimer);
-    int getCCLiverTimer();
-    void setCCLiverTimer(int CCLiverTimer);
-    int getCCSpleenTimer();
-    void setCCSpleenTimer(int CCSpleenTimer);
-    int getCCLungRemainder();
-    void setCCLungRemainder(int CCLungRemainder);
+    static Optional<CCPlayerEntityInterface> of(PlayerEntity playerEntity) {
+        if (playerEntity instanceof CCPlayerEntityInterface) {
+            return Optional.of(((CCPlayerEntityInterface) playerEntity));
+        }
+        return Optional.empty();
+    }
+
+    ChestCavityManager getChestCavityManager();
+    void setChestCavityManager(ChestCavityManager chestCavityManager);
 }

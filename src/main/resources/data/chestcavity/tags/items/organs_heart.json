@@ -4,8 +4,6 @@
       "chestcavity:rotten_heart",
       "chestcavity:animal_heart",
       "chestcavity:heart",
-      "chestcavity:saltwater_lung",
-      "chestcavity:saltwater_heart",
-      "minecraft:dirt"
+      "chestcavity:saltwater_heart"
     ]
 }

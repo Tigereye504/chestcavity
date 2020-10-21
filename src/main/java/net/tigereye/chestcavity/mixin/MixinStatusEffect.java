@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.components.CCComponent;
 import net.tigereye.chestcavity.interfaces.CCStatusEffect;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.listeners.ChestCavityListener;

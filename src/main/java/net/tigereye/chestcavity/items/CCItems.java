@@ -20,7 +20,7 @@ public class CCItems {
 	public static final Identifier ORGANS_LIVER = new Identifier(ChestCavity.MODID, "organs_liver");
 	public static final Identifier ORGANS_LUNG = new Identifier(ChestCavity.MODID, "organs_lung");
 	public static final Identifier ORGANS_MUSCLE = new Identifier(ChestCavity.MODID, "organs_muscle");
-	public static final Identifier ORGANS_RIB = new Identifier(ChestCavity.MODID, "organs_rib");
+	public static final Identifier ORGANS_BONE = new Identifier(ChestCavity.MODID, "organs_bone");
 	public static final Identifier ORGANS_SPINE = new Identifier(ChestCavity.MODID, "organs_spine");
 	public static final Identifier ORGANS_SPLEEN = new Identifier(ChestCavity.MODID, "organs_spleen");
 	public static final Identifier ORGANS_STOMACH = new Identifier(ChestCavity.MODID, "organs_stomach");
@@ -33,17 +33,6 @@ public class CCItems {
 	public static final Tag<Item> SALVAGEABLE_ROTTEN_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_rotten_organs"));
 	public static final Tag<Item> SALVAGEABLE_MEAT_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_meat_organs"));
 	public static final Tag<Item> SALVAGEABLE_BONE_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_bone_organs"));
-	public static final Tag<Item> ORGANS_APPENDIX_TAG = TagRegistry.item(ORGANS_APPENDIX);
-	public static final Tag<Item> ORGANS_HEART_TAG = TagRegistry.item(ORGANS_HEART);
-	public static final Tag<Item> ORGANS_INTESTINE_TAG = TagRegistry.item(ORGANS_INTESTINE);
-	public static final Tag<Item> ORGANS_KIDNEY_TAG = TagRegistry.item(ORGANS_KIDNEY);
-	public static final Tag<Item> ORGANS_LIVER_TAG = TagRegistry.item(ORGANS_LIVER);
-	public static final Tag<Item> ORGANS_LUNG_TAG = TagRegistry.item(ORGANS_LUNG);
-	public static final Tag<Item> ORGANS_MUSCLE_TAG = TagRegistry.item(ORGANS_MUSCLE);
-	public static final Tag<Item> ORGANS_RIB_TAG = TagRegistry.item(ORGANS_RIB);
-	public static final Tag<Item> ORGANS_SPINE_TAG = TagRegistry.item(ORGANS_SPINE);
-	public static final Tag<Item> ORGANS_SPLEEN_TAG = TagRegistry.item(ORGANS_SPLEEN);
-	public static final Tag<Item> ORGANS_STOMACH_TAG = TagRegistry.item(ORGANS_STOMACH);
 
 	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ItemGroup.TOOLS);
 	public static final Item.Settings ORGAN_SETTINGS_1 = new Item.Settings().maxCount(1).group(ItemGroup.MISC);
@@ -62,8 +51,8 @@ public class CCItems {
 	public static final Item LIVER = new OrganBase().setOrganQuality(ORGANS_LIVER,1f);
 	public static final Item LUNG = new OrganBase().setOrganQuality(ORGANS_LUNG,1f);
 	public static final Item MUSCLE = new OrganBase(ORGAN_SETTINGS_64).setOrganQuality(ORGANS_MUSCLE,1f);
-	public static final Item RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(ORGANS_RIB,1f);
-	public static final Item SPINE = new OrganBase().setOrganQuality(ORGANS_SPINE,1f);
+	public static final Item RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(ORGANS_BONE,1f);
+	public static final Item SPINE = new OrganBase().setOrganQuality(ORGANS_SPINE,1f).setOrganQuality(ORGANS_BONE,.75f);
 	public static final Item SPLEEN = new OrganBase().setOrganQuality(ORGANS_SPLEEN,1f);
 	public static final Item STOMACH = new OrganBase().setOrganQuality(ORGANS_STOMACH,1f);
 
@@ -73,8 +62,8 @@ public class CCItems {
 	public static final Item ROTTEN_KIDNEY = new OrganBase().setOrganQuality(ORGANS_KIDNEY,.5f);
 	public static final Item ROTTEN_LIVER = new OrganBase().setOrganQuality(ORGANS_LIVER,.5f);
 	public static final Item ROTTEN_LUNG = new OrganBase().setOrganQuality(ORGANS_LUNG,.5f);
-	public static final Item ROTTEN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(ORGANS_RIB,.5f);
-	public static final Item ROTTEN_SPINE = new OrganBase().setOrganQuality(ORGANS_SPINE,.5f);
+	public static final Item ROTTEN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(ORGANS_BONE,.5f);
+	public static final Item ROTTEN_SPINE = new OrganBase().setOrganQuality(ORGANS_SPINE,.5f).setOrganQuality(ORGANS_BONE,.375f);
 	public static final Item ROTTEN_SPLEEN = new OrganBase().setOrganQuality(ORGANS_SPLEEN,.5f);
 	public static final Item ROTTEN_STOMACH = new OrganBase().setOrganQuality(ORGANS_STOMACH,.5f);
 
@@ -84,8 +73,8 @@ public class CCItems {
 	public static final Item ANIMAL_KIDNEY = new OrganBase().setOrganQuality(ORGANS_KIDNEY,.75f);
 	public static final Item ANIMAL_LIVER = new OrganBase().setOrganQuality(ORGANS_LIVER,.75f);
 	public static final Item ANIMAL_LUNG = new OrganBase().setOrganQuality(ORGANS_LUNG,.75f);
-	public static final Item ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(ORGANS_RIB,.75f);
-	public static final Item ANIMAL_SPINE = new OrganBase().setOrganQuality(ORGANS_SPINE,.75f);
+	public static final Item ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(ORGANS_BONE,.75f);
+	public static final Item ANIMAL_SPINE = new OrganBase().setOrganQuality(ORGANS_SPINE,.75f).setOrganQuality(ORGANS_BONE,.5625f);
 	public static final Item ANIMAL_SPLEEN = new OrganBase().setOrganQuality(ORGANS_SPLEEN,.75f);
 	public static final Item ANIMAL_STOMACH = new OrganBase().setOrganQuality(ORGANS_STOMACH,.75f);
 
