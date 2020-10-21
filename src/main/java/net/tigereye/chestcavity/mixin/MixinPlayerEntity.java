@@ -91,7 +91,6 @@ public class MixinPlayerEntity extends LivingEntity implements CCPlayerEntityInt
 					System.out.println("Copying ChestCavityManager");
 				}
 				ccPlayerEntityInterface.getChestCavityManager().clone(oldCCPlayerEntityInterface.getChestCavityManager());
-				//TODO: we might need to change the owner from oldPlayer to newPlayer, we shall see...
 			}));
 		}
 	}
