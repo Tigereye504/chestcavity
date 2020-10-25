@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.ChestCavityManager;
+import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.interfaces.CCStatusEffect;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.items.CCItems;

@@ -4,10 +4,10 @@
   "package": "net.tigereye.chestcavity.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinLivingEntity",
-    "MixinPlayerEntity",
-    "MixinPlayerEntity$Server",
     "MixinHungerManager",
+    "MixinLivingEntity",
+    "MixinLivingEntity$Server",
+    "MixinSlimeEntity",
     "MixinStatusEffect",
     "MixinStatusEffectInstance"
   ],

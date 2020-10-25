@@ -1,6 +1,6 @@
 package net.tigereye.chestcavity.mixin;
 
-import net.tigereye.chestcavity.interfaces.CCPlayerEntityInterface;
+import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,12 +23,12 @@ public class MixinHungerManager {
         @Shadow
         private float foodSaturationLevel;
 
-        private CCPlayerEntityInterface CC_player = null;
+        private ChestCavityEntity CC_player = null;
 
         @Inject(at = @At("HEAD"), method = "update", cancellable = true)
         public void chestCavityUpdateMixin(PlayerEntity player, CallbackInfo info) {
                 if(CC_player == null){
-                        CCPlayerEntityInterface.of(player).ifPresent(ccPlayerEntityInterface -> {
+                        ChestCavityEntity.of(player).ifPresent(ccPlayerEntityInterface -> {
                                 CC_player = ccPlayerEntityInterface;
                         });
                 }

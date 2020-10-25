@@ -1,8 +1,7 @@
-package net.tigereye.chestcavity;
+package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
@@ -10,8 +9,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.GameRules;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.CCItems;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.VanillaOrgans;
@@ -26,24 +27,39 @@ import java.util.Map;
 public class ChestCavityManager implements InventoryChangedListener {
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private LivingEntity owner;
-    private EnderChestInventory chestCavity = new EnderChestInventory();
-    private Map<Identifier,Float> organScores = new HashMap<>();
+    protected LivingEntity owner;
+    protected ChestCavityInventory chestCavity;
+    protected Map<Identifier,Float> organScores = new HashMap<>();
 
-    private int heartTimer = 0;
-    private int kidneyTimer = 0;
-    private int liverTimer = 0;
-    private int spleenTimer = 0;
-    private float lungRemainder = 0;
+    protected int heartTimer = 0;
+    protected int kidneyTimer = 0;
+    protected int liverTimer = 0;
+    protected int spleenTimer = 0;
+    protected float lungRemainder = 0;
 
     public ChestCavityManager(LivingEntity owner){
+        this.chestCavity = new ChestCavityInventory(27);
         this.owner = owner;
         LOGGER.debug("[Chest Cavity] Initializing ChestCavityManager");
+
+    }
+    public ChestCavityManager(LivingEntity owner, int size){
+        this.chestCavity = new ChestCavityInventory(size);
+        this.owner = owner;
+        LOGGER.debug("[Chest Cavity] Initializing ChestCavityManager");
+    }
+
+    public static void init(LivingEntity owner){
+        ChestCavityManager chestCavityManager = new ChestCavityManager(owner);
+        init(owner,chestCavityManager);
+    }
+
+    public static void init(LivingEntity owner, ChestCavityManager chestCavityManager){
         if(!owner.getEntityWorld().isClient()) {
-            initChestCavityInventory();
-            EvaluateChestCavity();
+            chestCavityManager.fillChestCavityInventory();
+            chestCavityManager.EvaluateChestCavity();
         }
-        chestCavity.addListener(this);
+        chestCavityManager.getChestCavity().addListener(chestCavityManager);
     }
 
     public SimpleInventory getChestCavity() {
@@ -132,7 +148,14 @@ public class ChestCavityManager implements InventoryChangedListener {
         if(!oldScores.equals(organScores))
         {
             if(ChestCavity.DEBUG_MODE) {
-                System.out.println("[Chest Cavity] Displaying organ scores:");
+                try {
+                    Text name = owner.getName();
+                    System.out.println("[Chest Cavity] Displaying " + name.getString() +"'s organ scores:");
+                }
+                catch(Exception e){
+                    Text name = owner.getType().getName();
+                    System.out.println("[Chest Cavity] Displaying "+ name.getString() +"'s organ scores:");
+                }
                 organScores.forEach((key, value) ->
                         System.out.print(key.toString() + ": " + value + " "));
                 System.out.print("\n");
@@ -147,7 +170,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
     }
 
-    public void initChestCavityInventory() {
+    public void fillChestCavityInventory() {
         chestCavity.setStack(0, new ItemStack(CCItems.MUSCLE, 64));
         chestCavity.setStack(1, new ItemStack(CCItems.RIB, 4));
         chestCavity.setStack(2, new ItemStack(CCItems.APPENDIX, 1));
@@ -240,7 +263,7 @@ public class ChestCavityManager implements InventoryChangedListener {
             }
             else{
                 LOGGER.warn("[Chest Cavity] "+owner.getName().asString()+"'s Chest Cavity is mangled. It will be replaced");
-                initChestCavityInventory();
+                fillChestCavityInventory();
             }
             chestCavity.addListener(this);
         }
@@ -260,7 +283,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         else{
             LOGGER.warn("[Chest Cavity] Cannot find "+owner.getName().asString()+"'s Chest Cavity, It will be replaced.");
             chestCavity.removeListener(this);
-            initChestCavityInventory();
+            fillChestCavityInventory();
             chestCavity.addListener(this);
         }
         EvaluateChestCavity();

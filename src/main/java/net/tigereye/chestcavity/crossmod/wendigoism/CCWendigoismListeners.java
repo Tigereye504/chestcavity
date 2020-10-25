@@ -5,11 +5,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.ChestCavityManager;
-import net.tigereye.chestcavity.listeners.ChestCavityListener;
+import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.listeners.OrganTickCallback;
 import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
 
