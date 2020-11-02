@@ -14,18 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CCWendigoismItems {
-    public static final Identifier ORGANS_CANNIBAL_HEART = new Identifier(ChestCavity.MODID, "organs_cannibal_heart");
-    public static final Identifier ORGANS_TETHERED_CANNIBAL_HEART = new Identifier(ChestCavity.MODID, "organs_tethered_cannibal_heart");
 
     private static final Identifier WENDIGOISM_FLESH = new Identifier("wendigoism", "flesh");
     private static final Identifier WENDIGOISM_CORRUPT_FLESH = new Identifier("wendigoism", "corrupt_flesh");
 
     public static final Item CANNIBAL_HEART = new OrganBase()
             .setOrganQuality(CCOrganScores.HEART,.5f)
-            .setOrganQuality(ORGANS_CANNIBAL_HEART,1);
+            .setOrganQuality(CCWendigoismOrganScores.CANNIBAL_HEART,1);
     public static final Item TETHERED_CANNIBAL_HEART = new TetheredCannibalHeart()
             .setOrganQuality(CCOrganScores.HEART,.75f)
-            .setOrganQuality(ORGANS_TETHERED_CANNIBAL_HEART,1);
+            .setOrganQuality(CCWendigoismOrganScores.TETHERED_CANNIBAL_HEART,1);
 
     public static void register() {
         registerItem("cannibal_heart", CANNIBAL_HEART);

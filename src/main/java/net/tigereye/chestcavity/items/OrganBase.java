@@ -18,6 +18,7 @@ import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static net.tigereye.chestcavity.managers.ChestCavityManager.COMPATIBILITY_TAG;
 
@@ -57,6 +58,7 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 		if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
 			tag = tag.getCompound(COMPATIBILITY_TAG.toString());
 			if (tag.getInt("type") == ChestCavityManager.COMPATIBILITY_TYPE_PERSONAL) {
+				UUID uuid = tag.getUuid("owner");
 				LiteralText text = new LiteralText("Soulbound");
 				tooltip.add(text);
 			}

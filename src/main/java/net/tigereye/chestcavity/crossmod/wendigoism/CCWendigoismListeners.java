@@ -28,24 +28,24 @@ public class CCWendigoismListeners {
     }
 
     private static void UpdateCannibalHeart(LivingEntity entity, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
-        if(oldScores.getOrDefault(CCWendigoismItems.ORGANS_CANNIBAL_HEART,0f) != newScores.getOrDefault(CCWendigoismItems.ORGANS_CANNIBAL_HEART,0f)) {
-            SetCannibalHeartBonusHP(entity, newScores.getOrDefault(CCWendigoismItems.ORGANS_CANNIBAL_HEART,0f));
+        if(oldScores.getOrDefault(CCWendigoismOrganScores.CANNIBAL_HEART,0f) != newScores.getOrDefault(CCWendigoismOrganScores.CANNIBAL_HEART,0f)) {
+            SetCannibalHeartBonusHP(entity, newScores.getOrDefault(CCWendigoismOrganScores.CANNIBAL_HEART,0f));
         }
         //this lets us detect when the user's wendigoism changes
-        if((!entity.world.isClient()) && entity instanceof WendigoAccessor && newScores.getOrDefault(CCWendigoismItems.ORGANS_CANNIBAL_HEART,0f) > 0) {
+        if((!entity.world.isClient()) && entity instanceof WendigoAccessor && newScores.getOrDefault(CCWendigoismOrganScores.CANNIBAL_HEART,0f) > 0) {
             WendigoAccessor accessor = (WendigoAccessor)entity;
             newScores.put(WENDIGOISM_TRACKER,(float)accessor.getWendigoLevel());
         }
     }
 
     public static void TickTetheredCannibalHeart(LivingEntity entity, ChestCavityManager chestCavity){
-        if ((!entity.world.isClient()) && chestCavity.getOrganScore(CCWendigoismItems.ORGANS_TETHERED_CANNIBAL_HEART) > 0 && entity instanceof WendigoAccessor){
+        if ((!entity.world.isClient()) && chestCavity.getOrganScore(CCWendigoismOrganScores.TETHERED_CANNIBAL_HEART) > 0 && entity instanceof WendigoAccessor){
             if(chestCavity.getOrganScore(WENDIGOISM_TARGET) > ((WendigoAccessor)entity).getWendigoLevel()){
                 if(ChestCavity.DEBUG_MODE && ((WendigoAccessor)entity).getWendigoLevel() % 10 == 0){
                     System.out.println("Tethered Cabbibal Heart Increasing Wendigoism");
                 }
                 int newWendigoismLevel = Math.min(
-                        ((WendigoAccessor)entity).getWendigoLevel() + (int)chestCavity.getOrganScore(CCWendigoismItems.ORGANS_TETHERED_CANNIBAL_HEART),
+                        ((WendigoAccessor)entity).getWendigoLevel() + (int)chestCavity.getOrganScore(CCWendigoismOrganScores.TETHERED_CANNIBAL_HEART),
                         (int)chestCavity.getOrganScore(WENDIGOISM_TARGET));
                 newWendigoismLevel = Math.min(newWendigoismLevel,300);
                 ((WendigoAccessor)entity).setWendigoLevel(newWendigoismLevel);
@@ -55,7 +55,7 @@ public class CCWendigoismListeners {
                     System.out.println("Tethered Cabbibal Heart Decreasing Wendigoism");
                 }
                 int newWendigoismLevel = Math.max(
-                        ((WendigoAccessor)entity).getWendigoLevel() - (int)chestCavity.getOrganScore(CCWendigoismItems.ORGANS_TETHERED_CANNIBAL_HEART),
+                        ((WendigoAccessor)entity).getWendigoLevel() - (int)chestCavity.getOrganScore(CCWendigoismOrganScores.TETHERED_CANNIBAL_HEART),
                         (int)chestCavity.getOrganScore(WENDIGOISM_TARGET));
                 newWendigoismLevel = Math.max(newWendigoismLevel,0);
                 ((WendigoAccessor)entity).setWendigoLevel(newWendigoismLevel);
@@ -63,10 +63,10 @@ public class CCWendigoismListeners {
         }
     }
     public static void TickCannibalHeart(LivingEntity entity,ChestCavityManager chestCavity){
-        if ((!entity.world.isClient()) && chestCavity.getOrganScore(CCWendigoismItems.ORGANS_CANNIBAL_HEART) > 0 && entity instanceof WendigoAccessor){
+        if ((!entity.world.isClient()) && chestCavity.getOrganScore(CCWendigoismOrganScores.CANNIBAL_HEART) > 0 && entity instanceof WendigoAccessor){
             if(chestCavity.getOrganScore(WENDIGOISM_TRACKER) != ((WendigoAccessor)entity).getWendigoLevel()){
                 chestCavity.setOrganScore(WENDIGOISM_TRACKER,((WendigoAccessor)entity).getWendigoLevel());
-                SetCannibalHeartBonusHP(entity,chestCavity.getOrganScore(CCWendigoismItems.ORGANS_CANNIBAL_HEART));
+                SetCannibalHeartBonusHP(entity,chestCavity.getOrganScore(CCWendigoismOrganScores.CANNIBAL_HEART));
             }
         }
     }
