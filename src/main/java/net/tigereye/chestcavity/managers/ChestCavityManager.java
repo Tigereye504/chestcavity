@@ -43,13 +43,13 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public ChestCavityManager(LivingEntity owner){
-        this.chestCavity = new ChestCavityInventory(27);
+        this.chestCavity = new ChestCavityInventory(27,this);
         this.owner = owner;
         LOGGER.debug("[Chest Cavity] Initializing ChestCavityManager");
 
     }
     public ChestCavityManager(LivingEntity owner, int size){
-        this.chestCavity = new ChestCavityInventory(size);
+        this.chestCavity = new ChestCavityInventory(size,this);
         this.owner = owner;
         LOGGER.debug("[Chest Cavity] Initializing ChestCavityManager");
     }
