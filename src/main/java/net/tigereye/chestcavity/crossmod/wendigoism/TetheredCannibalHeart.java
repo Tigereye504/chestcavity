@@ -52,6 +52,7 @@ public class TetheredCannibalHeart extends OrganBase {
         }
     }
 
+    @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         int wendigoism = -1;
         if(itemStack.getTag() == null){
@@ -62,5 +63,6 @@ public class TetheredCannibalHeart extends OrganBase {
         }
         LiteralText text = new LiteralText("Wendigoism: "+wendigoism);
         tooltip.add(text);
+        super.appendTooltip(itemStack,world,tooltip,tooltipContext);
     }
 }

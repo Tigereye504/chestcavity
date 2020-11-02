@@ -12,18 +12,18 @@ import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.BinomialLootTableRange;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.CCItems;
+import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.managers.ChestCavityManager;
+import net.tigereye.chestcavity.managers.SkeletonChestCavityManager;
+import net.tigereye.chestcavity.managers.ZombieChestCavityManager;
+import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class LootRegister {
     
@@ -32,13 +32,24 @@ public class LootRegister {
 
 
 
-    public static void register(){
+    public static void register(){ //TODO: only use loot for organs if target is unopened
         GenerateEntityLootCallbackAddLoot.EVENT.register((type, lootContext) -> {
             List<ItemStack> loot = new ArrayList<>();
             if (lootContext.hasParameter(LootContextParameters.LAST_DAMAGE_PLAYER)) {
                 int lootingLevel;
                 Random random;
                 Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
+                Optional<ChestCavityEntity> chestCavityEntity = ChestCavityEntity.of(entity);
+                //check that the entity does have a chest cavity
+                if(!chestCavityEntity.isPresent()){
+                    return loot;
+                }
+                ChestCavityManager ccManager = chestCavityEntity.get().getChestCavityManager();
+                //check if loot is already generated due to having opened the target's chest cavity
+                if(ccManager.getOpened()){
+                    return loot;
+                }
+                //get looting level and random
                 if(lootContext.get(LootContextParameters.KILLER_ENTITY) instanceof LivingEntity){
                     lootingLevel = EnchantmentHelper.getLooting((LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY));
                     random = lootContext.getRandom();
@@ -47,8 +58,10 @@ public class LootRegister {
                     lootingLevel = 0;
                     random = new Random();
                 }
-
-                if (entity instanceof ZombieEntity) {
+                //with all this passed, finally we ask the chest cavity manager what the loot will actually be.
+                loot.addAll(ccManager.generateLootDrops(random,lootingLevel));
+                /*
+                if (ccManager instanceof ZombieChestCavityManager) {
                     if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         organPile.add(CCItems.ROTTEN_APPENDIX);
@@ -67,7 +80,7 @@ public class LootRegister {
                         }
                     }
                 }
-                else if (entity instanceof SkeletonEntity) {
+                else if (ccManager instanceof SkeletonChestCavityManager) {
                     if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         organPile.add(CCItems.ROTTEN_SPINE);
@@ -113,22 +126,22 @@ public class LootRegister {
                     if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*lootingLevel)) {
                         LinkedList<Item> organPile = new LinkedList<>();
                         for(int i = 0; i < 16; i++){
-                            organPile.add(CCItems.RIB);
+                            organPile.add(CCItems.HUMAN_RIB);
                         }
-                        organPile.add(CCItems.APPENDIX);
-                        organPile.add(CCItems.HEART);
-                        organPile.add(CCItems.INTESTINE);
-                        organPile.add(CCItems.INTESTINE);
-                        organPile.add(CCItems.INTESTINE);
-                        organPile.add(CCItems.INTESTINE);
-                        organPile.add(CCItems.KIDNEY);
-                        organPile.add(CCItems.KIDNEY);
-                        organPile.add(CCItems.LIVER);
-                        organPile.add(CCItems.LUNG);
-                        organPile.add(CCItems.LUNG);
-                        organPile.add(CCItems.SPINE);
-                        organPile.add(CCItems.SPLEEN);
-                        organPile.add(CCItems.STOMACH);
+                        organPile.add(CCItems.HUMAN_APPENDIX);
+                        organPile.add(CCItems.HUMAN_HEART);
+                        organPile.add(CCItems.HUMAN_INTESTINE);
+                        organPile.add(CCItems.HUMAN_INTESTINE);
+                        organPile.add(CCItems.HUMAN_INTESTINE);
+                        organPile.add(CCItems.HUMAN_INTESTINE);
+                        organPile.add(CCItems.HUMAN_KIDNEY);
+                        organPile.add(CCItems.HUMAN_KIDNEY);
+                        organPile.add(CCItems.HUMAN_LIVER);
+                        organPile.add(CCItems.HUMAN_LUNG);
+                        organPile.add(CCItems.HUMAN_LUNG);
+                        organPile.add(CCItems.HUMAN_SPINE);
+                        organPile.add(CCItems.HUMAN_SPLEEN);
+                        organPile.add(CCItems.HUMAN_STOMACH);
                         int rolls = 3 + random.nextInt(3) + random.nextInt(3);
                         for (int i = 0; i < rolls; i++){
                             int roll = random.nextInt(organPile.size());
@@ -137,10 +150,11 @@ public class LootRegister {
                         //14+4d8 (32) muscles, added as single stacks because I like how it makes targets explode into meat
                         rolls = 28 + random.nextInt(8) + random.nextInt(8) + random.nextInt(8) + random.nextInt(8);
                         for (int i = 0; i < rolls; i++){
-                            loot.add(new ItemStack(CCItems.MUSCLE));
+                            loot.add(new ItemStack(CCItems.HUMAN_MUSCLE));
                         }
                     }
                 }
+                */
             }
 
             return loot;

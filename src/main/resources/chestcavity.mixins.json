@@ -7,7 +7,7 @@
     "MixinHungerManager",
     "MixinLivingEntity",
     "MixinLivingEntity$Server",
-    "MixinSlimeEntity",
+    "MixinLivingEntity$Mob",
     "MixinStatusEffect",
     "MixinStatusEffectInstance"
   ],

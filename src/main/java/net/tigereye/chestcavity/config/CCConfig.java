@@ -8,7 +8,7 @@ import net.tigereye.chestcavity.ChestCavity;
 public class CCConfig implements ConfigData {
     public float ORGAN_BUNDLE_DROP_RATE = .025f;
     public float ORGAN_BUNDLE_LOOTING_BOOST = .01f;
-
+    public float UNIVERSAL_DONOR_RATE = .06f;
 
     public int HEARTBLEED_RATE = 20; //how fast you die from lacking a heart in ticks
     public int LIVER_RATE = 40; //how often the liver purifies status effects in ticks
@@ -18,6 +18,9 @@ public class CCConfig implements ConfigData {
     public float HEART_HP = 4; //how much health each heart is worth
     public float MUSCLE_STRENGTH = 1f; //how much 8 stacks of muscles contribute to attack damage
     public float MUSCLE_SPEED = .5f; //how much 8 stacks of muscles contribute to movement speed
+
+    public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
+    public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection
 
     public boolean WENDIGOISM_INTEGRATION = true;
 }

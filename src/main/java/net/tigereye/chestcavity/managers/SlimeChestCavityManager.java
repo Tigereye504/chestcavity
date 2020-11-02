@@ -1,97 +1,58 @@
 package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.CCItems;
-import net.tigereye.chestcavity.items.ChestCavityOrgan;
-import net.tigereye.chestcavity.items.VanillaOrgans;
-import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
-
-import java.util.HashMap;
-import java.util.Map;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 
 public class SlimeChestCavityManager extends ChestCavityManager{
 
 
     public SlimeChestCavityManager(LivingEntity owner) {
-        super(owner,1);
+        super(owner);
     }
     public SlimeChestCavityManager(LivingEntity owner,int size) {
         super(owner,size);
     }
 
+    @Override
+    public void fillChestCavityInventory() {
+        chestCavity.clear();
+        chestCavity.setStack(0, ItemStack.EMPTY);
+        chestCavity.setStack(1, ItemStack.EMPTY);
+        chestCavity.setStack(2, ItemStack.EMPTY);
+        chestCavity.setStack(3, ItemStack.EMPTY);
+        chestCavity.setStack(4, new ItemStack(Items.SLIME_BALL, 1));
+        for(int i = 5; i < chestCavity.size(); i++){
+            chestCavity.setStack(i, ItemStack.EMPTY);
+        }
+    }
 
     @Override
-    public boolean EvaluateChestCavity() {
-        Map<Identifier,Float> oldScores = new HashMap<>(organScores);
-        ResetOrganScores();
+    protected void ResetOrganScores(){
+        //slimes are amorphous goo, they don't really have or need organs
+        organScores.clear();
+        organScores.put(CCOrganScores.APPENDIX, 1f);
+        organScores.put(CCOrganScores.BONE, 3.75f);
+        organScores.put(CCOrganScores.HEART, 0.5f);
+        organScores.put(CCOrganScores.INTESTINE, 4f);
+        organScores.put(CCOrganScores.KIDNEY, 2f);
+        organScores.put(CCOrganScores.LIVER, 1f);
+        organScores.put(CCOrganScores.MUSCLE, 7f);
+        organScores.put(CCOrganScores.SPINE, 1f);
+        organScores.put(CCOrganScores.SPLEEN, 1f);
+        organScores.put(CCOrganScores.STOMACH, 1f);
+        organScores.put(CCOrganScores.LUNG, 2f);
+    }
 
-        for (int i = 0; i < chestCavity.size(); i++)
-        {
-            ItemStack slot = chestCavity.getStack(i);
-            if (slot != null)
-            {
-                Item slotitem = slot.getItem();
-                if(slotitem instanceof ChestCavityOrgan){
-                    ((ChestCavityOrgan) slotitem).getOrganQualityMap(slot).forEach((key,value) ->
-                            organScores.put(key,organScores.getOrDefault(key,0f)+(value*slot.getCount()/slot.getMaxCount())));
-                }
-                else if(slotitem == Items.SLIME_BALL){
-                    organScores.put(CCItems.ORGANS_HEART, organScores.getOrDefault(CCItems.ORGANS_HEART,0f)+slot.getCount());
-                    organScores.put(CCItems.ORGANS_MUSCLE, organScores.getOrDefault(CCItems.ORGANS_MUSCLE,0f)+8*slot.getCount());
-                    organScores.put(CCItems.ORGANS_BONE, organScores.getOrDefault(CCItems.ORGANS_BONE,0f)+4*slot.getCount());
-                }
-                else {
-                    //check vanilla organs
-                    if(VanillaOrgans.map.containsKey(slotitem)){
-                        VanillaOrgans.map.get(slotitem).forEach((key,value) ->
-                                organScores.put(key,organScores.getOrDefault(key,0f)+(value*slot.getCount()/slot.getMaxCount())));
-                    }
-                }
-
-            }
-        }
-        if(!oldScores.equals(organScores))
-        {
-            if(ChestCavity.DEBUG_MODE) {
-                try {
-                    Text name = owner.getName();
-                    System.out.println("[Chest Cavity] Displaying " + name.getString() +"'s organ scores:");
-                }
-                catch(Exception e){
-                    Text name = owner.getType().getName();
-                    System.out.println("[Chest Cavity] Displaying "+ name.getString() +"'s organ scores:");
-                }
-                organScores.forEach((key, value) ->
-                        System.out.print(key.toString() + ": " + value + " "));
-                System.out.print("\n");
-            }
-            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, oldScores, organScores);
+    @Override
+    protected boolean catchExceptionalOrgan(ItemStack slot){
+        if(slot.getItem() == Items.SLIME_BALL){
+            organScores.put(CCOrganScores.HEART, organScores.getOrDefault(CCOrganScores.HEART,0f)+(slot.getCount()*.5f));
+            organScores.put(CCOrganScores.MUSCLE, organScores.getOrDefault(CCOrganScores.MUSCLE,0f)+slot.getCount());
+            organScores.put(CCOrganScores.BONE, organScores.getOrDefault(CCOrganScores.BONE,0f)+slot.getCount());
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void fillChestCavityInventory() {
-        chestCavity.setStack(0, new ItemStack(Items.SLIME_BALL, 1));
-    }
-
-    protected void ResetOrganScores(){
-        organScores.clear();
-        organScores.put(CCItems.ORGANS_APPENDIX, 100f);
-        organScores.put(CCItems.ORGANS_INTESTINE, 4f);
-        organScores.put(CCItems.ORGANS_KIDNEY, 2f);
-        organScores.put(CCItems.ORGANS_LIVER, 1f);
-        organScores.put(CCItems.ORGANS_SPINE, 1f);
-        organScores.put(CCItems.ORGANS_BONE, .75f);
-        organScores.put(CCItems.ORGANS_SPLEEN, 1f);
-        organScores.put(CCItems.ORGANS_STOMACH, 1f);
-        organScores.put(CCItems.ORGANS_LUNG, 2f);
     }
 }

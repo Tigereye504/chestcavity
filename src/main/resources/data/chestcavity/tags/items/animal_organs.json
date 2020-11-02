@@ -1,0 +1,16 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:animal_appendix",
+      "chestcavity:animal_heart",
+      "chestcavity:animal_intestine",
+      "chestcavity:animal_kidney",
+      "chestcavity:animal_liver",
+      "chestcavity:animal_lung",
+      "chestcavity:animal_muscle",
+      "chestcavity:animal_stomach",
+      "chestcavity:animal_spleen",
+      "chestcavity:animal_rib",
+      "chestcavity:animal_spine"
+    ]
+}

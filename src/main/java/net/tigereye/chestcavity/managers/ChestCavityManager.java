@@ -4,38 +4,43 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.CCItems;
-import net.tigereye.chestcavity.items.ChestCavityOrgan;
-import net.tigereye.chestcavity.items.VanillaOrgans;
+import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.OrganTickCallback;
 import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ChestCavityManager implements InventoryChangedListener {
     public static final Logger LOGGER = LogManager.getLogger();
-
+    public static final Identifier COMPATIBILITY_TAG = new Identifier(ChestCavity.MODID,"organ_compatibility");
+    public static final int COMPATIBILITY_TYPE_PERSONAL = 1;
+    public static final int COMPATIBILITY_TYPE_SPECIES = 2;
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
     protected LivingEntity owner;
     protected ChestCavityInventory chestCavity;
     protected Map<Identifier,Float> organScores = new HashMap<>();
 
+    protected boolean opened = false;
     protected int heartTimer = 0;
     protected int kidneyTimer = 0;
     protected int liverTimer = 0;
     protected int spleenTimer = 0;
     protected float lungRemainder = 0;
+
+    static{
+        initializeDefaultOrgans();
+    }
 
     public ChestCavityManager(LivingEntity owner){
         this.chestCavity = new ChestCavityInventory(27);
@@ -49,25 +54,42 @@ public class ChestCavityManager implements InventoryChangedListener {
         LOGGER.debug("[Chest Cavity] Initializing ChestCavityManager");
     }
 
-    public static void init(LivingEntity owner){
-        ChestCavityManager chestCavityManager = new ChestCavityManager(owner);
-        init(owner,chestCavityManager);
-    }
-
-    public static void init(LivingEntity owner, ChestCavityManager chestCavityManager){
+    public void init(){
         if(!owner.getEntityWorld().isClient()) {
-            chestCavityManager.fillChestCavityInventory();
-            chestCavityManager.EvaluateChestCavity();
+            //generateChestCavity();
+            evaluateChestCavity();
         }
-        chestCavityManager.getChestCavity().addListener(chestCavityManager);
+        getChestCavity().addListener(this);
     }
 
-    public SimpleInventory getChestCavity() {
+    protected static void initializeDefaultOrgans(){
+        defaultOrganScores.put(CCOrganScores.APPENDIX,1f);
+        defaultOrganScores.put(CCOrganScores.BONE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.INTESTINE,4f);
+        defaultOrganScores.put(CCOrganScores.KIDNEY,2f);
+        defaultOrganScores.put(CCOrganScores.LIVER,1f);
+        defaultOrganScores.put(CCOrganScores.LUNG,2f);
+        defaultOrganScores.put(CCOrganScores.MUSCLE,8f);
+        defaultOrganScores.put(CCOrganScores.SPINE,1f);
+        defaultOrganScores.put(CCOrganScores.SPLEEN,1f);
+        defaultOrganScores.put(CCOrganScores.STOMACH,1f);
+    }
+
+    public ChestCavityInventory getChestCavity() {
         return chestCavity;
     }
 
     public void setOwner(LivingEntity owner){
         this.owner = owner;
+    }
+
+    public boolean getOpened(){
+        return this.opened;
+    }
+
+    public void setOpened(boolean b) {
+        this.opened = b;
     }
 
     public int getHeartTimer() {
@@ -118,36 +140,59 @@ public class ChestCavityManager implements InventoryChangedListener {
         organScores.put(id,value);
     }
 
+    public void addOrganScore(Identifier id, float value){
+        organScores.put(id,organScores.getOrDefault(id,0f)+value);
+    }
     @Override
     public void onInventoryChanged(Inventory sender) {
-        EvaluateChestCavity();
+        evaluateChestCavity();
     }
-    public boolean EvaluateChestCavity() {
+    public boolean evaluateChestCavity() {
         Map<Identifier,Float> oldScores = new HashMap<>(organScores);
-        organScores.clear();
+        if(!opened){
+            organScores.clear();
+            organScores.putAll(defaultOrganScores);
+        }
+        else {
+            ResetOrganScores();
 
-        for (int i = 0; i < chestCavity.size(); i++)
-        {
-            ItemStack slot = chestCavity.getStack(i);
-            if (slot != null)
-            {
-                Item slotitem = slot.getItem();
-                if(slotitem instanceof ChestCavityOrgan){
-                    ((ChestCavityOrgan) slotitem).getOrganQualityMap(slot).forEach((key,value) ->
-                            organScores.put(key,organScores.getOrDefault(key,0f)+(value*slot.getCount()/slot.getMaxCount())));
-                }
-                else {
-                    //check vanilla organs
-                    if(VanillaOrgans.map.containsKey(slotitem)){
-                        VanillaOrgans.map.get(slotitem).forEach((key,value) ->
-                                organScores.put(key,organScores.getOrDefault(key,0f)+(value*slot.getCount()/slot.getMaxCount())));
+            for (int i = 0; i < chestCavity.size(); i++) {
+                ItemStack itemStack = chestCavity.getStack(i);
+                if (itemStack != null && itemStack != ItemStack.EMPTY) {
+                    Item slotitem = itemStack.getItem();
+                    if (catchExceptionalOrgan(itemStack)) {
+                        //nothing. Just end the else-if chain
+                    } else {
+                        Map<Identifier, Float> organMap = lookupOrganScore(itemStack);
+                        if (lookupOrganScore(itemStack) != null) {
+                            organMap.forEach((key, value) ->
+                                    addOrganScore(key, value * itemStack.getCount() / itemStack.getMaxCount()));
+                        }
+                    }
+
+                    CompoundTag tag = itemStack.getTag();
+                    if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
+                        tag = tag.getCompound(COMPATIBILITY_TAG.toString());
+                        if (tag.getInt("type") == COMPATIBILITY_TYPE_PERSONAL) {
+                            if (!tag.getUuid("owner").equals(owner.getUuid())) {
+                                if (ChestCavity.DEBUG_MODE && owner instanceof PlayerEntity) {
+                                    System.out.println("incompatability found! item bound to UUID " + tag.getUuid("owner").toString() + " but player is UUID " + owner.getUuid());
+                                }
+                                addOrganScore(CCOrganScores.INCOMPATIBILITY, 1);
+                            }
+                        } else if (tag.getInt("type") == COMPATIBILITY_TYPE_SPECIES) {
+                            //TODO: implement species compatibility
+                            //if(tag.getUuid("owner") != owner.getUuid()){
+                            //    addOrganScore(CCOrganScores.INCOMPATIBILITY,.5f);
+                            //}
+                        }
                     }
                 }
             }
         }
         if(!oldScores.equals(organScores))
         {
-            if(ChestCavity.DEBUG_MODE) {
+            if(ChestCavity.DEBUG_MODE && owner instanceof PlayerEntity) {
                 try {
                     Text name = owner.getName();
                     System.out.println("[Chest Cavity] Displaying " + name.getString() +"'s organ scores:");
@@ -166,81 +211,126 @@ public class ChestCavityManager implements InventoryChangedListener {
         return false;
     }
 
+    protected Map<Identifier,Float> lookupOrganScore(ItemStack itemStack){
+        Item item = itemStack.getItem();
+        if(item instanceof ChestCavityOrgan){
+            return ((ChestCavityOrgan) item).getOrganQualityMap(itemStack);
+        }
+        else if(VanillaOrgans.map.containsKey(item)){
+                return VanillaOrgans.map.get(item);
+        }
+        return null;
+    }
+
+    protected void ResetOrganScores(){
+        organScores.clear();
+    }
+
+    protected boolean catchExceptionalOrgan(ItemStack slot){
+        return false;
+    }
+
     public void onTick(){
         OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
     }
 
-    public void fillChestCavityInventory() {
-        chestCavity.setStack(0, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(1, new ItemStack(CCItems.RIB, 4));
-        chestCavity.setStack(2, new ItemStack(CCItems.APPENDIX, 1));
-        chestCavity.setStack(3, new ItemStack(CCItems.LUNG, 1));
-        chestCavity.setStack(4, new ItemStack(CCItems.HEART, 1));
-        chestCavity.setStack(5, new ItemStack(CCItems.LUNG, 1));
-        chestCavity.setStack(6, ItemStack.EMPTY);
-        chestCavity.setStack(7, new ItemStack(CCItems.RIB, 4));
-        chestCavity.setStack(8, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(9, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(10, new ItemStack(CCItems.RIB, 4));
-        chestCavity.setStack(11, new ItemStack(CCItems.SPLEEN, 1));
-        chestCavity.setStack(12, new ItemStack(CCItems.KIDNEY, 1));
-        chestCavity.setStack(13, new ItemStack(CCItems.SPINE, 1));
-        chestCavity.setStack(14, new ItemStack(CCItems.KIDNEY, 1));
-        chestCavity.setStack(15, new ItemStack(CCItems.LIVER, 1));
-        chestCavity.setStack(16, new ItemStack(CCItems.RIB, 4));
-        chestCavity.setStack(17, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(18, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(19, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(20, new ItemStack(CCItems.INTESTINE));
-        chestCavity.setStack(21, new ItemStack(CCItems.INTESTINE));
-        chestCavity.setStack(22, new ItemStack(CCItems.STOMACH));
-        chestCavity.setStack(23, new ItemStack(CCItems.INTESTINE));
-        chestCavity.setStack(24, new ItemStack(CCItems.INTESTINE));
-        chestCavity.setStack(25, new ItemStack(CCItems.MUSCLE, 64));
-        chestCavity.setStack(26, new ItemStack(CCItems.MUSCLE, 64));
+    public ChestCavityInventory openChestCavity(){
+        if(!opened) {
+            getChestCavity().removeListener(this); //just in case really
+            opened = true;
+            generateChestCavity();
+            getChestCavity().addListener(this);
+        }
+        return chestCavity;
+    }
 
+    protected void generateChestCavity(){
+        if(opened) {
+            fillChestCavityInventory();
+            setOrganCompatibility();
+        }
+    }
+
+    protected void fillChestCavityInventory() {
+        chestCavity.clear();
+        for(int i = 0; i < chestCavity.size(); i++){
+            chestCavity.setStack(i,new ItemStack(Items.DIRT,64));
+        }
+    }
+
+    protected void setOrganCompatibility(){
+        //first, make all organs personal
+        for(int i = 0; i < chestCavity.size();i++){
+            ItemStack itemStack = chestCavity.getStack(i);
+            if(itemStack != null && itemStack != itemStack.EMPTY){
+                CompoundTag tag = new CompoundTag();
+                tag.putInt("type", COMPATIBILITY_TYPE_PERSONAL);
+                tag.putUuid("owner",owner.getUuid());
+                itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
+            }
+        }
+        //then check if any may become more compatible, and if so how many attempts will be made
+        int universalOrgans = 0;
+        //int communalOrgans = 0;
+        Random random = owner.getRandom();
+        if(random.nextFloat() < ChestCavity.config.UNIVERSAL_DONOR_RATE){
+            universalOrgans = 1+random.nextInt(3)+random.nextInt(3);
+        }
+        /*communalOrgans = 1+random.nextInt(4)+random.nextInt(4);
+        while(communalOrgans > 0){
+            int i = random.nextInt(chestCavity.size());
+            ItemStack itemStack = chestCavity.getStack(i);
+            if(itemStack != null){
+                CompoundTag tag = new CompoundTag();
+                tag.putInt("compatibility_type", COMPATIBILITY_TYPE_SPECIES);
+                tag.putString("species",owner.getType().tag);
+                itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
+            }
+            communalOrgans--;
+        }*/
+        //each attempt, roll a random slot in the chestcavity and turn that organ, if any, compatible
+        while(universalOrgans > 0){
+            int i = random.nextInt(chestCavity.size());
+            ItemStack itemStack = chestCavity.getStack(i);
+            if(itemStack != null && itemStack != ItemStack.EMPTY){
+                itemStack.removeSubTag(COMPATIBILITY_TAG.toString());
+            }
+            universalOrgans--;
+        }
     }
 
     public void chestCavityPostMortem(){
-        if(!owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
-            rejectForeignObjects();
-        }
-        insertWelfareOrgans();
+        //TODO: check if target is unopened before this step
+        dropUnboundOrgans();
     }
 
-    private void rejectForeignObjects(){
+    public List<ItemStack> generateLootDrops(Random random, int looting){
+        return new ArrayList<>();
+    }
+
+    protected void dropUnboundOrgans(){
+        chestCavity.removeListener(this);
         for(int i = 0; i < chestCavity.size(); i++){
-            if(!chestCavity.getStack(i).getItem().isIn(CCItems.HUMAN_ORGANS)) {
-                owner.dropStack(chestCavity.removeStack(i));
+            ItemStack itemStack = chestCavity.getStack(i);
+            if(itemStack != null && itemStack != itemStack.EMPTY) {
+                CompoundTag tag = itemStack.getTag();
+                if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
+                    tag = tag.getCompound(COMPATIBILITY_TAG.toString());
+                    if (tag.getInt("type") == COMPATIBILITY_TYPE_PERSONAL) {
+                        if (!tag.getUuid("owner").equals(owner.getUuid())) {
+                            //drop item
+                            owner.dropStack(chestCavity.removeStack(i));
+                        }
+                    } else {
+                        owner.dropStack(chestCavity.removeStack(i));
+                    }
+                } else {
+                    owner.dropStack(chestCavity.removeStack(i));
+                }
             }
         }
-    }
-
-    private void insertWelfareOrgans(){
-        //urgently essential organs are: heart, spine, lung
-        if(chestCavity.count(CCItems.HEART) == 0){
-            forcefullyAddStack(new ItemStack(CCItems.ROTTEN_HEART),4);
-        }
-        if(chestCavity.count(CCItems.LUNG) == 0){
-            forcefullyAddStack(new ItemStack(CCItems.ROTTEN_LUNG),3);
-        }
-        if(chestCavity.count(CCItems.SPINE) == 0){
-            forcefullyAddStack(new ItemStack(CCItems.ROTTEN_SPINE),13);
-        }
-    }
-
-    private void forcefullyAddStack(ItemStack stack, int slot){
-        if(chestCavity.canInsert(stack)){
-            chestCavity.addStack(stack);
-        }
-        else if(owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && owner instanceof PlayerEntity) {
-            if(!((PlayerEntity)owner).inventory.insertStack(stack)){
-                owner.dropStack(chestCavity.removeStack(slot));
-            }
-        }
-        else {
-            owner.dropStack(chestCavity.removeStack(slot));
-        }
+        chestCavity.addListener(this);
+        evaluateChestCavity();
     }
 
     public void fromTag(CompoundTag tag, LivingEntity owner) {
@@ -251,6 +341,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                 System.out.println("Found Save Data");
             }
             CompoundTag ccTag = tag.getCompound("ChestCavity");
+            this.opened = ccTag.getBoolean("opened");
             this.heartTimer = ccTag.getInt("HeartTimer");
             this.kidneyTimer = ccTag.getInt("KidneyTimer");
             this.liverTimer = ccTag.getInt("LiverTimer");
@@ -261,9 +352,9 @@ public class ChestCavityManager implements InventoryChangedListener {
                 ListTag listTag = ccTag.getList("Inventory", 10);
                 this.chestCavity.readTags(listTag);
             }
-            else{
+            else if(opened){
                 LOGGER.warn("[Chest Cavity] "+owner.getName().asString()+"'s Chest Cavity is mangled. It will be replaced");
-                fillChestCavityInventory();
+                generateChestCavity();
             }
             chestCavity.addListener(this);
         }
@@ -273,6 +364,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                     temp = tag.getCompound("chestcavity:inventorycomponent");
                     if(temp.contains("chestcavity")){
                         LOGGER.info("[Chest Cavity] Found "+owner.getName().asString()+"'s old Chest Cavity (v1).");
+                        opened = true;
                         ListTag listTag = temp.getList("Inventory", 10);
                         chestCavity.removeListener(this);
                         this.chestCavity.readTags(listTag);
@@ -280,13 +372,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                     }
                 }
         }
-        else{
-            LOGGER.warn("[Chest Cavity] Cannot find "+owner.getName().asString()+"'s Chest Cavity, It will be replaced.");
-            chestCavity.removeListener(this);
-            fillChestCavityInventory();
-            chestCavity.addListener(this);
-        }
-        EvaluateChestCavity();
+        evaluateChestCavity();
     }
 
     public void toTag(CompoundTag tag) {
@@ -294,6 +380,7 @@ public class ChestCavityManager implements InventoryChangedListener {
             System.out.println("Writing ChestCavityManager toTag");
         }
         CompoundTag ccTag = new CompoundTag();
+        ccTag.putBoolean("opened", this.opened);
         ccTag.putInt("HeartTimer", this.heartTimer);
         ccTag.putInt("KidneyTimer", this.kidneyTimer);
         ccTag.putInt("LiverTimer", this.liverTimer);
@@ -304,36 +391,38 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public void clone(ChestCavityManager other) {
+        opened = other.getOpened();
         chestCavity.removeListener(this);
         for(int i = 0; i < this.chestCavity.size(); ++i) {
             this.chestCavity.setStack(i, other.getChestCavity().getStack(i));
         }
         chestCavity.addListener(this);
-        EvaluateChestCavity();
+
         heartTimer = other.getHeartTimer();
         liverTimer = other.getLiverTimer();
         kidneyTimer = other.getKidneyTimer();
         spleenTimer = other.getSpleenTimer();
         lungRemainder = other.getLungRemainder();
+        evaluateChestCavity();
     }
 
     public float applyBoneDefense(float damage){
-        float boneScore = organScores.getOrDefault(CCItems.ORGANS_BONE,0f);
+        float boneScore = organScores.getOrDefault(CCOrganScores.BONE,0f);
         return damage*(5/(.25f+boneScore));
         //normal bone score of 4.75 means no change
     }
 
     public float applyIntestinesSaturation(float sat){
-        return sat*organScores.getOrDefault(CCItems.ORGANS_INTESTINE,0f)/4;
+        return sat*organScores.getOrDefault(CCOrganScores.INTESTINE,0f)/4;
     }
 
     public int applyStomachHunger(int hunger){
         //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatability
-        return Math.max((int)(hunger*organScores.getOrDefault(CCItems.ORGANS_STOMACH,0f)),1);
+        return Math.max((int)(hunger*organScores.getOrDefault(CCOrganScores.STOMACH,0f)),1);
     }
 
     public int applyLungCapacityInWater(){
-        float airloss = 2f/Math.max(organScores.getOrDefault(CCItems.ORGANS_LUNG,0f),.1f) + lungRemainder;
+        float airloss = 2f/Math.max(organScores.getOrDefault(CCOrganScores.LUNG,0f),.1f) + lungRemainder;
         lungRemainder = airloss % 1;
         return (int) airloss;
     }
@@ -341,9 +430,10 @@ public class ChestCavityManager implements InventoryChangedListener {
     public int applySpleenMetabolism(int foodStarvationTimer){
         spleenTimer++;
         if(spleenTimer >=2){
-            foodStarvationTimer += organScores.getOrDefault(CCItems.ORGANS_SPLEEN,0f) - 1;
+            foodStarvationTimer += organScores.getOrDefault(CCOrganScores.SPLEEN,0f) - 1;
         }
         spleenTimer = 0;
         return foodStarvationTimer;
     }
+
 }

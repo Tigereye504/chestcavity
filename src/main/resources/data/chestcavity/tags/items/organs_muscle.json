@@ -5,6 +5,7 @@
       "minecraft:beef",
       "minecraft:porkchop",
       "minecraft:mutton",
+      "chestcavity:animal_muscle",
       "chestcavity:muscle"
     ]
   }

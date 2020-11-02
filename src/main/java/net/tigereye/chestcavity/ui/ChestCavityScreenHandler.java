@@ -10,6 +10,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.managers.ChestCavityInventory;
 
 public class ChestCavityScreenHandler extends ScreenHandler {
 
@@ -17,8 +18,12 @@ public class ChestCavityScreenHandler extends ScreenHandler {
     private final int size;
     private final int rows;
 
-    public ChestCavityScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(type, syncId);
+    public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, new ChestCavityInventory()); //TODO: this smells like trouble
+    }
+
+    public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+        super(ChestCavity.CHEST_CAVITY_SCREEN_HANDLER, syncId);
         this.size = inventory.size();
         this.inventory = inventory;
         this.rows = (size-1)/9 + 1;

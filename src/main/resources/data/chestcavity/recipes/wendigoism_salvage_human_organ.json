@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
       {
-        "tag": "chestcavity:salvageable_human_organs"
+        "tag": "chestcavity:salvageable_human_meat_organs"
       },
       {
         "item": "wendigoism:flesh"
@@ -10,6 +10,6 @@
   ],
   "result": {
     "item": "wendigoism:flesh",
-    "count": 8
+    "count": 2
   }
 }

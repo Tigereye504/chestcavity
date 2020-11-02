@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
       {
-      "tag": "chestcavity:salvageable_meat_organs"
+      "tag": "chestcavity:salvageable_animal_meat_organs"
       }
   ],
   "result": {
     "item": "chestcavity:raw_organ_meat",
-    "count": 4
+    "count": 1
   }
 }
