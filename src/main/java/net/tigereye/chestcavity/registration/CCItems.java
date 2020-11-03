@@ -28,9 +28,9 @@ public class CCItems {
 	public static final Item HUMAN_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,1f);
 	public static final Item HUMAN_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,1f);
 	public static final Item HUMAN_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f);
-	public static final Item HUMAN_MUSCLE = new OrganBase(ORGAN_SETTINGS_16).setOrganQuality(CCOrganScores.MUSCLE,1f);
+	public static final Item HUMAN_MUSCLE = new OrganBase(ORGAN_SETTINGS_16).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
 	public static final Item HUMAN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,1f);
-	public static final Item HUMAN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.SPINE,1f).setOrganQuality(CCOrganScores.BONE,.75f);
+	public static final Item HUMAN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.BONE,.75f);
 	public static final Item HUMAN_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,1f);
 	public static final Item HUMAN_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,1f);
 
@@ -41,7 +41,7 @@ public class CCItems {
 	public static final Item ROTTEN_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.5f);
 	public static final Item ROTTEN_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.5f);
 	public static final Item ROTTEN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.5f);
-	public static final Item ROTTEN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.SPINE,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
+	public static final Item ROTTEN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
 	public static final Item ROTTEN_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.5f);
 	public static final Item ROTTEN_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f);
 
@@ -51,9 +51,9 @@ public class CCItems {
 	public static final Item ANIMAL_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,.75f);
 	public static final Item ANIMAL_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.75f);
 	public static final Item ANIMAL_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.75f);
-	public static final Item ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.MUSCLE,.75f);
+	public static final Item ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.75f);
 	public static final Item ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.75f);
-	public static final Item ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.SPINE,.75f).setOrganQuality(CCOrganScores.BONE,.5625f);
+	public static final Item ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.75f).setOrganQuality(CCOrganScores.BONE,.5625f);
 	public static final Item ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.75f);
 	public static final Item ANIMAL_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.75f);
 

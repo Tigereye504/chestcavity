@@ -8,7 +8,7 @@ import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.items.OrganBase;
-import net.tigereye.chestcavity.items.VanillaOrgans;
+import net.tigereye.chestcavity.registration.CCOtherOrgans;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,7 @@ public class CCWendigoismItems {
     private static final Identifier WENDIGOISM_FLESH = new Identifier("wendigoism", "flesh");
     private static final Identifier WENDIGOISM_CORRUPT_FLESH = new Identifier("wendigoism", "corrupt_flesh");
 
-    public static final Item CANNIBAL_HEART = new OrganBase()
+    public static final Item CANNIBAL_HEART = new CannibalHeart()
             .setOrganQuality(CCOrganScores.HEART,.5f)
             .setOrganQuality(CCWendigoismOrganScores.CANNIBAL_HEART,1);
     public static final Item TETHERED_CANNIBAL_HEART = new TetheredCannibalHeart()
@@ -39,13 +39,15 @@ public class CCWendigoismItems {
     private static void addWindegoismHeartsToExternalOrgans(int i, Identifier identifier, Item item) {
         if(identifier == WENDIGOISM_FLESH){
             Map<Identifier,Float> flesh = new HashMap<>();
-            flesh.put(CCOrganScores.MUSCLE,1f);
-            VanillaOrgans.map.put(WDItems.FLESH,flesh);
+            flesh.put(CCOrganScores.SPEED,1f);
+            flesh.put(CCOrganScores.STRENGTH,1f);
+            CCOtherOrgans.map.put(WDItems.FLESH,flesh);
         }
         if(identifier == WENDIGOISM_CORRUPT_FLESH){
             Map<Identifier,Float> corruptedFlesh = new HashMap<>();
-            corruptedFlesh.put(CCOrganScores.MUSCLE,1f);
-            VanillaOrgans.map.put(WDItems.CORRUPT_FLESH,corruptedFlesh);
+            corruptedFlesh.put(CCOrganScores.SPEED,1f);
+            corruptedFlesh.put(CCOrganScores.STRENGTH,1f);
+            CCOtherOrgans.map.put(WDItems.CORRUPT_FLESH,corruptedFlesh);
         }
     }
 

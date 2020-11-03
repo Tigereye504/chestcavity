@@ -47,7 +47,7 @@ public class PlayerChestCavityManager extends HumanChestCavityManager{
         if(organScores.getOrDefault(CCOrganScores.LUNG,0f) == 0){
             forcefullyAddStack(new ItemStack(CCItems.ROTTEN_LUNG),3);
         }
-        if(organScores.getOrDefault(CCOrganScores.SPINE,0f) == 0){
+        if(organScores.getOrDefault(CCOrganScores.NERVOUS_SYSTEM,0f) == 0){
             forcefullyAddStack(new ItemStack(CCItems.ROTTEN_SPINE),13);
         }
     }

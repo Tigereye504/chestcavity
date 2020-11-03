@@ -1,7 +1,6 @@
 package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.tigereye.chestcavity.ChestCavity;
@@ -9,7 +8,6 @@ import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -68,11 +66,12 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
             addOrganScore(CCOrganScores.LIVER,.2f*slot.getCount());
             addOrganScore(CCOrganScores.LUNG,.4f*slot.getCount());
             addOrganScore(CCOrganScores.SPLEEN,.2f*slot.getCount());
-            addOrganScore(CCOrganScores.STOMACH,.6f*slot.getCount());
+            addOrganScore(CCOrganScores.STOMACH,.2f*slot.getCount());
             return true;
         }
         else if(slot.getItem() == CCItems.ANIMAL_MUSCLE){
-            addOrganScore(CCOrganScores.BONE,4f*slot.getCount()/slot.getMaxCount());
+            addOrganScore(CCOrganScores.STRENGTH,4f*slot.getCount()/slot.getMaxCount());
+            addOrganScore(CCOrganScores.SPEED,4f*slot.getCount()/slot.getMaxCount());
             return true;
         }
         else if(slot.getItem() == Items.BONE_MEAL){
@@ -80,7 +79,7 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
             return true;
         }
         else if(slot.getItem() == Items.BONE){
-            addOrganScore(CCOrganScores.SPINE,slot.getCount());
+            addOrganScore(CCOrganScores.NERVOUS_SYSTEM,slot.getCount());
             addOrganScore(CCOrganScores.BONE,.75f*slot.getCount());
             return true;
         }

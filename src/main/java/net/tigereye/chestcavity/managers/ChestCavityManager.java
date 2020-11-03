@@ -16,6 +16,7 @@ import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.OrganTickCallback;
 import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +30,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
     protected LivingEntity owner;
     protected ChestCavityInventory chestCavity;
+    protected Map<Identifier,Float> oldOrganScores = new HashMap<>();
     protected Map<Identifier,Float> organScores = new HashMap<>();
 
     protected boolean opened = false;
@@ -70,8 +72,9 @@ public class ChestCavityManager implements InventoryChangedListener {
         defaultOrganScores.put(CCOrganScores.KIDNEY,2f);
         defaultOrganScores.put(CCOrganScores.LIVER,1f);
         defaultOrganScores.put(CCOrganScores.LUNG,2f);
-        defaultOrganScores.put(CCOrganScores.MUSCLE,8f);
-        defaultOrganScores.put(CCOrganScores.SPINE,1f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
+        defaultOrganScores.put(CCOrganScores.SPEED,8f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
         defaultOrganScores.put(CCOrganScores.SPLEEN,1f);
         defaultOrganScores.put(CCOrganScores.STOMACH,1f);
     }
@@ -147,8 +150,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     public void onInventoryChanged(Inventory sender) {
         evaluateChestCavity();
     }
-    public boolean evaluateChestCavity() {
-        Map<Identifier,Float> oldScores = new HashMap<>(organScores);
+    public void evaluateChestCavity() {
         if(!opened){
             organScores.clear();
             organScores.putAll(defaultOrganScores);
@@ -160,9 +162,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                 ItemStack itemStack = chestCavity.getStack(i);
                 if (itemStack != null && itemStack != ItemStack.EMPTY) {
                     Item slotitem = itemStack.getItem();
-                    if (catchExceptionalOrgan(itemStack)) {
-                        //nothing. Just end the else-if chain
-                    } else {
+                    if (!catchExceptionalOrgan(itemStack)) {//if a manager chooses to handle some organ in a special way, this lets it skip the normal evaluation.
                         Map<Identifier, Float> organMap = lookupOrganScore(itemStack);
                         if (lookupOrganScore(itemStack) != null) {
                             organMap.forEach((key, value) ->
@@ -190,7 +190,22 @@ public class ChestCavityManager implements InventoryChangedListener {
                 }
             }
         }
-        if(!oldScores.equals(organScores))
+        OrganUpdate();
+    }
+
+    protected Map<Identifier,Float> lookupOrganScore(ItemStack itemStack){
+        Item item = itemStack.getItem();
+        if(item instanceof ChestCavityOrgan){
+            return ((ChestCavityOrgan) item).getOrganQualityMap(itemStack, owner);
+        }
+        else if(CCOtherOrgans.map.containsKey(item)){
+                return CCOtherOrgans.map.get(item);
+        }
+        return null;
+    }
+
+    protected void OrganUpdate(){
+        if(!oldOrganScores.equals(organScores))
         {
             if(ChestCavity.DEBUG_MODE && owner instanceof PlayerEntity) {
                 try {
@@ -198,28 +213,17 @@ public class ChestCavityManager implements InventoryChangedListener {
                     System.out.println("[Chest Cavity] Displaying " + name.getString() +"'s organ scores:");
                 }
                 catch(Exception e){
-                    Text name = owner.getType().getName();
-                    System.out.println("[Chest Cavity] Displaying "+ name.getString() +"'s organ scores:");
+                    System.out.println("[Chest Cavity] Displaying organ scores:");
                 }
                 organScores.forEach((key, value) ->
                         System.out.print(key.toString() + ": " + value + " "));
                 System.out.print("\n");
             }
-            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, oldScores, organScores);
-            return true;
-        }
-        return false;
-    }
 
-    protected Map<Identifier,Float> lookupOrganScore(ItemStack itemStack){
-        Item item = itemStack.getItem();
-        if(item instanceof ChestCavityOrgan){
-            return ((ChestCavityOrgan) item).getOrganQualityMap(itemStack);
+            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, oldOrganScores, organScores);
+            oldOrganScores.clear();
+            oldOrganScores.putAll(organScores);
         }
-        else if(VanillaOrgans.map.containsKey(item)){
-                return VanillaOrgans.map.get(item);
-        }
-        return null;
     }
 
     protected void ResetOrganScores(){
@@ -232,6 +236,7 @@ public class ChestCavityManager implements InventoryChangedListener {
 
     public void onTick(){
         OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
+        OrganUpdate();
     }
 
     public ChestCavityInventory openChestCavity(){
@@ -247,6 +252,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected void generateChestCavity(){
         if(opened) {
             fillChestCavityInventory();
+            //TODO: add event where listeners can overwrite specific organs before compatibility is set
             setOrganCompatibility();
         }
     }

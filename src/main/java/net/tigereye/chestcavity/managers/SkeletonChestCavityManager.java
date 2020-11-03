@@ -65,8 +65,9 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.INTESTINE, 4f);
         organScores.put(CCOrganScores.KIDNEY, 2f);
         organScores.put(CCOrganScores.LIVER, 1f);
-        organScores.put(CCOrganScores.MUSCLE, 8f);
-        organScores.put(CCOrganScores.SPINE, .5f);
+        organScores.put(CCOrganScores.STRENGTH, 8f);
+        organScores.put(CCOrganScores.SPEED, 8f);
+        organScores.put(CCOrganScores.NERVOUS_SYSTEM, .5f);
         organScores.put(CCOrganScores.SPLEEN, 1f);
         organScores.put(CCOrganScores.STOMACH, 1f);
         organScores.put(CCOrganScores.LUNG, 2f);

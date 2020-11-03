@@ -3,6 +3,7 @@ package net.tigereye.chestcavity.crossmod.wendigoism;
 import moriyashiine.wendigoism.api.accessor.WendigoAccessor;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -14,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.items.OrganBase;
 import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
+import net.tigereye.chestcavity.managers.ChestCavityManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.Random;
 public class TetheredCannibalHeart extends OrganBase {
 
     @Override
-    public Map<Identifier, Float> getOrganQualityMap(ItemStack item) {
+    public Map<Identifier, Float> getOrganQualityMap(ItemStack item, LivingEntity entity) {
         if(item.getTag() == null){
             item.setTag(new CompoundTag());
             return getOrganQualityMap();

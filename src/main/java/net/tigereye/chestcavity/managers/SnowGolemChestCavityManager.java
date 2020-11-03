@@ -3,12 +3,7 @@ package net.tigereye.chestcavity.managers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCTags;
-
-import java.util.Map;
 
 public class SnowGolemChestCavityManager extends ChestCavityManager{
 
@@ -57,17 +52,19 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
         //charcoal functions as heart and bone and spine
         //snowballs function as muscle
         if(slot.getItem() == Items.SNOWBALL){
-            addOrganScore(CCOrganScores.MUSCLE, slot.getCount()/(3f*Items.SNOWBALL.getMaxCount()));
+            addOrganScore(CCOrganScores.STRENGTH, slot.getCount()/(3f*slot.getMaxCount()));
+            addOrganScore(CCOrganScores.SPEED, slot.getCount()/(3f*slot.getMaxCount()));
             return true;
         }
         if(slot.getItem() == Items.CHARCOAL){
             addOrganScore(CCOrganScores.HEART, slot.getCount()*(1f/3));
             addOrganScore(CCOrganScores.BONE, slot.getCount()*(4.75f/3));
-            addOrganScore(CCOrganScores.SPINE, slot.getCount()*(1f/3));
+            addOrganScore(CCOrganScores.NERVOUS_SYSTEM, slot.getCount()*(1f/3));
             return true;
         }
         if(slot.getItem() == Items.SNOW_BLOCK){
-            addOrganScore(CCOrganScores.MUSCLE, slot.getCount()/((float)Items.SNOW_BLOCK.getMaxCount()));
+            addOrganScore(CCOrganScores.STRENGTH, slot.getCount()/(1f*slot.getMaxCount()));
+            addOrganScore(CCOrganScores.SPEED, slot.getCount()/(1f*slot.getMaxCount()));
             return true;
         }
         return false;

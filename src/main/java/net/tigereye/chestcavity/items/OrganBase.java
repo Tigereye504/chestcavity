@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.items;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 	public Map<Identifier, Float> getOrganQualityMap() {
 		return organQualityMap;
 	}
-	public Map<Identifier, Float> getOrganQualityMap(ItemStack item) {
+	public Map<Identifier, Float> getOrganQualityMap(ItemStack item, LivingEntity entity) {
 		return getOrganQualityMap();
 	}
 

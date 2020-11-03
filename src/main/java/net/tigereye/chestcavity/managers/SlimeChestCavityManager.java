@@ -38,8 +38,9 @@ public class SlimeChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.INTESTINE, 4f);
         organScores.put(CCOrganScores.KIDNEY, 2f);
         organScores.put(CCOrganScores.LIVER, 1f);
-        organScores.put(CCOrganScores.MUSCLE, 7f);
-        organScores.put(CCOrganScores.SPINE, 1f);
+        organScores.put(CCOrganScores.STRENGTH, 7f);
+        organScores.put(CCOrganScores.SPEED, 7f);
+        organScores.put(CCOrganScores.NERVOUS_SYSTEM, 1f);
         organScores.put(CCOrganScores.SPLEEN, 1f);
         organScores.put(CCOrganScores.STOMACH, 1f);
         organScores.put(CCOrganScores.LUNG, 2f);
@@ -49,7 +50,8 @@ public class SlimeChestCavityManager extends ChestCavityManager{
     protected boolean catchExceptionalOrgan(ItemStack slot){
         if(slot.getItem() == Items.SLIME_BALL){
             organScores.put(CCOrganScores.HEART, organScores.getOrDefault(CCOrganScores.HEART,0f)+(slot.getCount()*.5f));
-            organScores.put(CCOrganScores.MUSCLE, organScores.getOrDefault(CCOrganScores.MUSCLE,0f)+slot.getCount());
+            organScores.put(CCOrganScores.STRENGTH, organScores.getOrDefault(CCOrganScores.STRENGTH,0f)+slot.getCount());
+            organScores.put(CCOrganScores.SPEED, organScores.getOrDefault(CCOrganScores.SPEED,0f)+slot.getCount());
             organScores.put(CCOrganScores.BONE, organScores.getOrDefault(CCOrganScores.BONE,0f)+slot.getCount());
             return true;
         }

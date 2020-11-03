@@ -66,8 +66,9 @@ public class ZombieChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.INTESTINE, 2f);
         organScores.put(CCOrganScores.KIDNEY, 1f);
         organScores.put(CCOrganScores.LIVER, .5f);
-        organScores.put(CCOrganScores.MUSCLE, 4f);
-        organScores.put(CCOrganScores.SPINE, .5f);
+        organScores.put(CCOrganScores.STRENGTH, 4f);
+        organScores.put(CCOrganScores.SPEED, 4f);
+        organScores.put(CCOrganScores.NERVOUS_SYSTEM, .5f);
         organScores.put(CCOrganScores.SPLEEN, .5f);
         organScores.put(CCOrganScores.STOMACH, .5f);
         organScores.put(CCOrganScores.LUNG, 1f);

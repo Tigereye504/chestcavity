@@ -7,18 +7,18 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.crossmod.CrossModContent;
-import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.LootRegister;
 import net.fabricmc.api.ModInitializer;
 import net.tigereye.chestcavity.listeners.OrganTickListeners;
 import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
+import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;
 
 public class ChestCavity implements ModInitializer {
 	public static final String MODID = "chestcavity";
-	public static final boolean DEBUG_MODE = false;
+	public static final boolean DEBUG_MODE = true;
 	public static CCConfig config;
 	public static final ScreenHandlerType<ChestCavityScreenHandler> CHEST_CAVITY_SCREEN_HANDLER;
 	public static final Identifier CHEST_CAVITY_SCREEN_ID = new Identifier(MODID,"chest_cavity_screen");
@@ -38,7 +38,7 @@ public class ChestCavity implements ModInitializer {
 		OrganUpdateListeners.register();
 		OrganTickListeners.register();
 		CCStatusEffects.register();
-		VanillaOrgans.init();
+		CCOtherOrgans.init();
 		CrossModContent.register();
 	}
 }
