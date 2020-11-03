@@ -156,7 +156,7 @@ public class ChestCavityManager implements InventoryChangedListener {
             organScores.putAll(defaultOrganScores);
         }
         else {
-            ResetOrganScores();
+            resetOrganScores();
 
             for (int i = 0; i < chestCavity.size(); i++) {
                 ItemStack itemStack = chestCavity.getStack(i);
@@ -190,7 +190,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                 }
             }
         }
-        OrganUpdate();
+        organUpdate();
     }
 
     protected Map<Identifier,Float> lookupOrganScore(ItemStack itemStack){
@@ -204,7 +204,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         return null;
     }
 
-    protected void OrganUpdate(){
+    protected void organUpdate(){
         if(!oldOrganScores.equals(organScores))
         {
             if(ChestCavity.DEBUG_MODE && owner instanceof PlayerEntity) {
@@ -226,7 +226,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         }
     }
 
-    protected void ResetOrganScores(){
+    protected void resetOrganScores(){
         organScores.clear();
     }
 
@@ -236,7 +236,7 @@ public class ChestCavityManager implements InventoryChangedListener {
 
     public void onTick(){
         OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
-        OrganUpdate();
+        organUpdate();
     }
 
     public ChestCavityInventory openChestCavity(){

@@ -56,7 +56,7 @@ public class ZombieChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void ResetOrganScores(){
+    protected void resetOrganScores(){
         //animated by unholy magic, zombies function at half capacity even when completely organ-less.
         //lucky them, as their default organs are rotted and thus only 50% effective
         organScores.clear();

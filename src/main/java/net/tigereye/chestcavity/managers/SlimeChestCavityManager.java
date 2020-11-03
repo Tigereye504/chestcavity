@@ -29,7 +29,7 @@ public class SlimeChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void ResetOrganScores(){
+    protected void resetOrganScores(){
         //slimes are amorphous goo, they don't really have or need organs
         organScores.clear();
         organScores.put(CCOrganScores.APPENDIX, 1f);

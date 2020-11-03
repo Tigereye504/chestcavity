@@ -71,7 +71,7 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void ResetOrganScores(){
+    protected void resetOrganScores(){
         //snow golems dont breath, don't eat, and dont have blood
         //as such they don't need the organs related to such
         //that is almost all the organs though...
