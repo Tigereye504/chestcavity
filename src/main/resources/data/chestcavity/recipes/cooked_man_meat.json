@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+      "item": "chestcavity:raw_man_meat"
+    },
+    "result": "chestcavity:cooked_man_meat",
+    "experience": 0.35,
+    "cookingtime": 200
+  }

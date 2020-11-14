@@ -8,5 +8,6 @@
   "result": {
     "item": "minecraft:rotten_flesh",
     "count": 4
-  }
+  },
+  "group": "rotten_flesh"
 }

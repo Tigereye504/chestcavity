@@ -30,7 +30,7 @@ public class CCItems {
 	public static final Item HUMAN_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,1f);
 	public static final Item HUMAN_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,1f);
 	public static final Item HUMAN_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f);
-	public static final Item HUMAN_MUSCLE = new OrganBase(ORGAN_SETTINGS_16).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
+	public static final Item HUMAN_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
 	public static final Item HUMAN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,1f);
 	public static final Item HUMAN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.BONE,.75f);
 	public static final Item HUMAN_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,1f);
@@ -65,7 +65,7 @@ public class CCItems {
 	public static final Item SMALL_ANIMAL_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,.5f);
 	public static final Item SMALL_ANIMAL_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.5f);
 	public static final Item SMALL_ANIMAL_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.5f);
-	public static final Item SMALL_ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
+	public static final Item SMALL_ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
 	public static final Item SMALL_ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.5f);
 	public static final Item SMALL_ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
 	public static final Item SMALL_ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.5f);
@@ -86,6 +86,18 @@ public class CCItems {
 	public static final Item COOKED_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_SAUSAGE_FOOD_COMPONENT));
 	public static final Item RAW_RICH_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_MINI_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_MINI_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_RICH_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_MINI_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_RICH_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_MINI_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_HUMAN_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_HUMAN_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_MAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_MAN_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_MAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_MAN_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_HUMAN_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_HUMAN_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_RICH_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_RICH_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT));
 
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
@@ -152,6 +164,18 @@ public class CCItems {
 		registerItem("sausage", COOKED_SAUSAGE);
 		registerItem("raw_rich_sausage", RAW_RICH_SAUSAGE);
 		registerItem("rich_sausage", COOKED_RICH_SAUSAGE);
+		registerItem("raw_mini_sausage", RAW_MINI_SAUSAGE);
+		registerItem("mini_sausage", COOKED_MINI_SAUSAGE);
+		registerItem("raw_rich_mini_sausage", RAW_RICH_MINI_SAUSAGE);
+		registerItem("rich_mini_sausage", COOKED_RICH_MINI_SAUSAGE);
+		registerItem("raw_human_organ_meat", RAW_HUMAN_ORGAN_MEAT);
+		registerItem("cooked_human_organ_meat", COOKED_HUMAN_ORGAN_MEAT);
+		registerItem("raw_man_meat", RAW_MAN_MEAT);
+		registerItem("cooked_man_meat", COOKED_MAN_MEAT);
+		registerItem("raw_human_sausage", RAW_HUMAN_SAUSAGE);
+		registerItem("human_sausage", COOKED_HUMAN_SAUSAGE);
+		registerItem("raw_rich_human_sausage", RAW_RICH_HUMAN_SAUSAGE);
+		registerItem("rich_human_sausage", COOKED_RICH_HUMAN_SAUSAGE);
 	}
 	
 	private static void registerItem(String name, Item item) {

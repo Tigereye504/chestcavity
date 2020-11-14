@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:raw_man_meat"
+    },
+    {
+      "item": "chestcavity:intestine"
+    }
+  ],
+  "result": {
+    "item": "chestcavity:raw_human_sausage",
+    "count": 1
+  }
+}

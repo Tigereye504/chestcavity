@@ -5,11 +5,11 @@
         "tag": "chestcavity:salvageable_human_meat_organs"
       },
       {
-        "item": "wendigoism:flesh"
+        "item": "anthropophagy:flesh"
       }
   ],
   "result": {
-    "item": "wendigoism:flesh",
+    "item": "anthropophagy:flesh",
     "count": 2
   }
 }

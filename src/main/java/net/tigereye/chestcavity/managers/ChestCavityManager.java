@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
@@ -207,6 +208,14 @@ public class ChestCavityManager implements InventoryChangedListener {
         }
         else if(CCOtherOrgans.map.containsKey(item)){
                 return CCOtherOrgans.map.get(item);
+        }
+        else{
+            for (Tag<Item> itemTag:
+            CCOtherOrgans.tagMap.keySet()) {
+                if(item.isIn(itemTag)){
+                    return CCOtherOrgans.tagMap.get(itemTag);
+                }
+            }
         }
         return null;
     }

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    },
+    {
+      "item": "chestcavity:small_animal_muscle"
+    }
+  ],
+  "result": {
+    "item": "chestcavity:raw_butchered_meat",
+    "count": 1
+  }
+}

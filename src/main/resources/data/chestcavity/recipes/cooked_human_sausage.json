@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+      "item": "chestcavity:raw_human_sausage"
+    },
+    "result": "chestcavity:human_sausage",
+    "experience": 0.35,
+    "cookingtime": 200
+  }

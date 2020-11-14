@@ -22,4 +22,5 @@ public class CCOrganScores {
     public static final Identifier CREEPINESS = new Identifier(ChestCavity.MODID, "creepiness");
     public static final Identifier EXPLOSIVE = new Identifier(ChestCavity.MODID, "explosive");
     public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
+    public static final Identifier EASE_OF_ACCESS = new Identifier(ChestCavity.MODID, "ease_of_access");
 }

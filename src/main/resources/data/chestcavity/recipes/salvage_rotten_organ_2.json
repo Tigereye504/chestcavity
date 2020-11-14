@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+    "tag": "chestcavity:salvageable_rotten_organs"
+    },
+    {
+      "tag": "chestcavity:salvageable_rotten_organs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:rotten_flesh",
+    "count": 8
+  },
+  "group": "rotten_flesh"
+}

@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:campfire_cooking",
+    "ingredient": {
+        "item": "chestcavity:raw_human_organ_meat"
+      },
+      "result": "chestcavity:cooked_human_organ_meat",
+    "experience": 0.35,
+    "cookingtime": 600
+  }

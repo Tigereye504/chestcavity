@@ -22,6 +22,7 @@ public class CCConfig implements ConfigData {
     public int EXPLOSION_COOLDOWN = 20; //how often an entity is allowed to try exploding
     public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
     public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection
+    public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
 
     public boolean WENDIGOISM_INTEGRATION = true;
 }

@@ -2,6 +2,7 @@
     "replace": false,
     "values": [
       "minecraft:rotten_flesh",
+      "chestcavity:small_animal_muscle",
       "minecraft:beef",
       "minecraft:porkchop",
       "minecraft:mutton",

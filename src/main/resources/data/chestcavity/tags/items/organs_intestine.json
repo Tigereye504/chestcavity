@@ -2,6 +2,7 @@
     "replace": false,
     "values": [
       "chestcavity:rotten_intestine",
+      "chestcavity:small_animal_intestine",
       "chestcavity:animal_intestine",
       "chestcavity:intestine"
     ]

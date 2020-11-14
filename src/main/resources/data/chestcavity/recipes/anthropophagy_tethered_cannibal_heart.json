@@ -5,11 +5,11 @@
         "item": "chestcavity:raw_organ_meat"
       },
       {
-        "item": "wendigoism:wendigo_heart"
+        "item": "anthropophagy:tethered_heart"
       }
   ],
   "result": {
-    "item": "chestcavity:cannibal_heart",
+    "item": "chestcavity:tethered_cannibal_heart",
     "count": 1
   }
 }

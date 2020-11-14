@@ -13,6 +13,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCItems;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;
 
 import java.util.Optional;
@@ -30,19 +31,30 @@ public class ChestOpener extends Item {
 	}
 
 	public void openChestCavity(PlayerEntity player, LivingEntity target){
-		if(target.getUuid() == player.getUuid()){
-			target.damage(DamageSource.GENERIC,4f); // this is to prevent self-knockback, as that feels weird.
-		}
-		else {
-			target.damage(DamageSource.player(player), 4f);
-		}
 		Optional<ChestCavityEntity> optional = ChestCavityEntity.of(target);
-		if(optional.isPresent() && target.isAlive()) {
+		if(optional.isPresent()){
 			ChestCavityEntity chestCavityEntity = optional.get();
-			Inventory inv = chestCavityEntity.getChestCavityManager().openChestCavity();
-			player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
-				return new ChestCavityScreenHandler(i, playerInventory, inv);
-			}, new TranslatableText("Chest Cavity")));
+			if(chestCavityEntity.getChestCavityManager().getOrganScore(CCOrganScores.EASE_OF_ACCESS) <= 0) {
+				if (target.getUuid() == player.getUuid()) {
+					target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.
+				} else {
+					target.damage(DamageSource.player(player), 4f);
+				}
+			}
+			if(target.isAlive()) {
+				String name;
+				try{
+					name = target.getDisplayName().getString();
+					name = name.concat("'s ");
+				}
+				catch(Exception e){
+					name = "";
+				}
+				Inventory inv = chestCavityEntity.getChestCavityManager().openChestCavity();
+				player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
+					return new ChestCavityScreenHandler(i, playerInventory, inv);
+				}, new TranslatableText(name+"Chest Cavity")));
+			}
 		}
 	}
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+      {
+        "item": "chestcavity:muscle"
+      },
+      {
+        "item": "chestcavity:muscle"
+      },
+      {
+        "item": "chestcavity:muscle"
+      },
+      {
+        "item": "chestcavity:muscle"
+      }
+  ],
+  "result": {
+    "item": "chestcavity:raw_man_meat",
+    "count": 1
+  }
+}

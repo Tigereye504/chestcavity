@@ -2,6 +2,7 @@
     "replace": false,
     "values": [
       "chestcavity:spine",
+      "chestcavity:small_animal_spine",
       "chestcavity:animal_spine",
       "chestcavity:rotten_spine"
     ]

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+      {
+        "item": "chestcavity:raw_butchered_meat"
+      },
+      {
+        "item": "chestcavity:raw_butchered_meat"
+      },
+      {
+        "item": "chestcavity:raw_butchered_meat"
+      },
+      {
+        "item": "chestcavity:raw_butchered_meat"
+      },
+      {
+        "item": "chestcavity:small_animal_intestine"
+      }
+  ],
+  "result": {
+    "item": "chestcavity:raw_mini_sausage",
+    "count": 1
+  }
+}
