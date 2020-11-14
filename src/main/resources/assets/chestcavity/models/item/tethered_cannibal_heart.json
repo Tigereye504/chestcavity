@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wendigoism:item/tethered_heart"
+    "layer0": "anthropophagy:item/tethered_heart"
   }
 }

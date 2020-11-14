@@ -91,5 +91,5 @@
     "text.autoconfig.chestcavity.option.ORGAN_REJECTION_DAMAGE": "Organ Rejection Damage",
     "text.autoconfig.chestcavity.option.ORGAN_REJECTION_RATE": "Organ Rejection Rate",
     "text.autoconfig.chestcavity.option.RISK_OF_PRIONS": "Risk of Prions",
-    "text.autoconfig.chestcavity.option.WENDIGOISM_INTEGRATION": "Wendigoism Integration (Requires Restart)"
+    "text.autoconfig.chestcavity.option.WENDIGOISM_INTEGRATION": "Anthropophagy Integration (Must Restart)"
 }

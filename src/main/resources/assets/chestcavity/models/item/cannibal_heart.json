@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wendigoism:item/wendigo_heart"
+    "layer0": "anthropophagy:item/piglutton_heart"
   }
 }

@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CCAnthropophagyListeners {
-    private static final Identifier CANNIBALISM_TRACKER = new Identifier(ChestCavity.MODID, "Cannibalism_tracker");
-    public static final Identifier CANNIBALISM_TARGET = new Identifier(ChestCavity.MODID, "Cannibalism_target");
+    private static final Identifier CANNIBALISM_TRACKER = new Identifier(ChestCavity.MODID, "cannibalism_tracker");
+    public static final Identifier CANNIBALISM_TARGET = new Identifier(ChestCavity.MODID, "cannibalism_target");
     private static final UUID cannibalHeartID = UUID.fromString("140317b9-74be-40cb-802e-95971fbc6d29");
 
     public static void register(){
@@ -35,7 +35,7 @@ public class CCAnthropophagyListeners {
         if ((!entity.world.isClient()) && chestCavity.getOrganScore(CCAnthropophagyOrganScores.TETHERED_CANNIBAL_HEART) > 0 && entity instanceof CannibalAccessor){
             if(chestCavity.getOrganScore(CANNIBALISM_TARGET) > ((CannibalAccessor)entity).getCannibalLevel()){
                 if(ChestCavity.DEBUG_MODE && ((CannibalAccessor)entity).getCannibalLevel() % 10 == 0){
-                    System.out.println("Tethered Cabbibal Heart Increasing Cannibalism");
+                    System.out.println("Tethered Cannibal Heart Increasing Cannibalism");
                 }
                 int newCannibalismLevel = Math.min(
                         ((CannibalAccessor)entity).getCannibalLevel() + (int)chestCavity.getOrganScore(CCAnthropophagyOrganScores.TETHERED_CANNIBAL_HEART),
@@ -45,7 +45,7 @@ public class CCAnthropophagyListeners {
             }
             else if(chestCavity.getOrganScore(CANNIBALISM_TARGET) < ((CannibalAccessor)entity).getCannibalLevel()){
                 if(ChestCavity.DEBUG_MODE && ((CannibalAccessor)entity).getCannibalLevel() % 10 == 0){
-                    System.out.println("Tethered Cabbibal Heart Decreasing Cannibalism");
+                    System.out.println("Tethered Cannibal Heart Decreasing Cannibalism");
                 }
                 int newCannibalismLevel = Math.max(
                         ((CannibalAccessor)entity).getCannibalLevel() - (int)chestCavity.getOrganScore(CCAnthropophagyOrganScores.TETHERED_CANNIBAL_HEART),
