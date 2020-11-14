@@ -179,7 +179,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                         Map<Identifier, Float> organMap = lookupOrganScore(itemStack);
                         if (lookupOrganScore(itemStack) != null) {
                             organMap.forEach((key, value) ->
-                                    addOrganScore(key, value * itemStack.getCount() / itemStack.getMaxCount()));
+                                    addOrganScore(key, value * Math.min((itemStack.getCount() / itemStack.getMaxCount()),1)));
                         }
                     }
 
