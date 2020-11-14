@@ -17,5 +17,4 @@ public interface ChestCavityEntity {
 
     ChestCavityManager getChestCavityManager();
     void setChestCavityManager(ChestCavityManager chestCavityManager);
-    boolean damage(DamageSource source, float damage);
 }

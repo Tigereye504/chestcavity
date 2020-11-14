@@ -19,6 +19,7 @@ public class CCConfig implements ConfigData {
     public float MUSCLE_STRENGTH = 1f; //how much 8 stacks of muscles contribute to attack damage
     public float MUSCLE_SPEED = .5f; //how much 8 stacks of muscles contribute to movement speed
 
+    public int EXPLOSION_COOLDOWN = 20; //how often an entity is allowed to try exploding
     public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
     public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection
 

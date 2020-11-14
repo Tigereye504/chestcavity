@@ -24,6 +24,7 @@ public class OrganUpdateListeners {
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateAppendix);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateHeart);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateStrength);
+        OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateSpeed);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateSpine);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateIncompatibility);
     }

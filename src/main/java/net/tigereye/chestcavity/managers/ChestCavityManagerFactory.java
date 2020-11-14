@@ -24,7 +24,7 @@ public class ChestCavityManagerFactory {
         register(EntityType.OCELOT,SmallAnimalChestCavityManager::new);
         register(EntityType.PARROT,SmallAnimalChestCavityManager::new);
         register(EntityType.PUFFERFISH,SmallAnimalChestCavityManager::new);
-        register(EntityType.RABBIT,SmallAnimalChestCavityManager::new);
+        register(EntityType.RABBIT,RabbitChestCavityManager::new);
         register(EntityType.SALMON,SmallAnimalChestCavityManager::new);
         register(EntityType.TROPICAL_FISH,SmallAnimalChestCavityManager::new);
 
@@ -83,8 +83,8 @@ public class ChestCavityManagerFactory {
         register(EntityType.WITCH,HumanChestCavityManager::new);
 
         //register(EntityType.BLAZE,BlazeChestCavityManager::new);
-        register(EntityType.CREEPER,AnimalChestCavityManager::new);//CreeperChestCavityManager::new);
-        register(EntityType.ENDERMAN,HumanChestCavityManager::new);//EnderManChestCavityManager::new);
+        register(EntityType.CREEPER,CreeperChestCavityManager::new);
+        register(EntityType.ENDERMAN,EndermanChestCavityManager::new);
         //register(EntityType.IRON_GOLEM,IronGolemChestCavityManager::new);
         register(EntityType.MAGMA_CUBE,SlimeChestCavityManager::new);
         register(EntityType.SLIME,SlimeChestCavityManager::new);
@@ -92,6 +92,7 @@ public class ChestCavityManagerFactory {
 
         register(EntityType.PLAYER,PlayerChestCavityManager::new);
     }
+
     public static ChestCavityManager newChestCavityManager(EntityType<? extends LivingEntity> entityType, LivingEntity owner){
         if(entityTypeMap.containsKey(entityType)){
             return entityTypeMap.get(entityType).apply(owner);

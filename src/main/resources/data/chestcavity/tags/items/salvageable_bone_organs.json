@@ -3,9 +3,11 @@
     "values": [
       "chestcavity:rib",
       "chestcavity:animal_rib",
+      "chestcavity:small_animal_rib",
       "chestcavity:rotten_rib",
       "chestcavity:spine",
       "chestcavity:animal_spine",
+      "chestcavity:small_animal_spine",
       "chestcavity:rotten_spine"
     ]
 }

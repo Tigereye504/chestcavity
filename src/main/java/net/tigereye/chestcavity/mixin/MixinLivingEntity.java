@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +28,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(LivingEntity.class)
 public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     private ChestCavityManager chestCavityManager;
@@ -48,15 +51,14 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("RETURN"), method = "getNextAirUnderwater", cancellable = true)
     protected void chestCavityLivingEntityGetNextAirUnderwaterMixin(int air, CallbackInfoReturnable info) {
-        int airloss = (air - info.getReturnValueI());
-        if(airloss > 0){
-            info.setReturnValue(airloss * chestCavityManager.applyLungCapacityInWater());
-        }
+        info.setReturnValue(chestCavityManager.applyLungCapacityInWater(air,info.getReturnValueI()));
     }
 
-    @ModifyVariable(at = @At("HEAD"), method = "damage")
-    public float chestCavityLivingEntityDamageMixin(float amount){
-        return chestCavityManager.applyBoneDefense(amount);
+    @Inject(at = @At("RETURN"), method = "applyArmorToDamage",cancellable = true)
+    public void chestCavityLivingEntityDamageMixin(DamageSource source, float amount, CallbackInfoReturnable<Float> info){
+        if(!source.bypassesArmor()) {
+            info.setReturnValue(chestCavityManager.applyBoneDefense(info.getReturnValueF()));
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "dropInventory")
@@ -89,7 +91,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         @Inject(at = @At("HEAD"), method = "method_29506", cancellable = true) //if this breaks, its likely because yarn changed the name to interactWithItem
         protected void chestCavityLivingEntityInteractMobMixin(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
             if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER){
-                ((ChestOpener)player.getStackInHand(hand).getItem()).openChestCavity(player,(ChestCavityEntity)(Object)this);
+                ((ChestOpener)player.getStackInHand(hand).getItem()).openChestCavity(player,(LivingEntity)(Object)this);
                 info.setReturnValue(ActionResult.SUCCESS);
             }
         }

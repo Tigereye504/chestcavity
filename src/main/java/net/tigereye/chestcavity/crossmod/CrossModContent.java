@@ -2,8 +2,8 @@ package net.tigereye.chestcavity.crossmod;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.crossmod.wendigoism.CCWendigoismItems;
-import net.tigereye.chestcavity.crossmod.wendigoism.CCWendigoismListeners;
+import net.tigereye.chestcavity.crossmod.anthropophagy.CCAnthropophagyItems;
+import net.tigereye.chestcavity.crossmod.anthropophagy.CCAnthropophagyListeners;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,8 +15,8 @@ public class CrossModContent {
             LOGGER.info("[Chest Cavity] Wendigoism Detected!");
             if(ChestCavity.config.WENDIGOISM_INTEGRATION) {
                 LOGGER.info("[Chest Cavity] Integrating with Wendigoism");
-                CCWendigoismItems.register();
-                CCWendigoismListeners.register();
+                CCAnthropophagyItems.register();
+                CCAnthropophagyListeners.register();
             }
             else{
                 LOGGER.info("[Chest Cavity] Wendigoism integration has been disabled in the config.");

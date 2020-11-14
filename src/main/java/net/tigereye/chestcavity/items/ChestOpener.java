@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.items;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,19 +25,24 @@ public class ChestOpener extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-		Optional<ChestCavityEntity> optional = ChestCavityEntity.of(player);
-		if(optional.isPresent()){
-			openChestCavity(player,optional.get());
-			return TypedActionResult.success(player.getStackInHand(hand),false);
-		}
-		return super.use(world, player, hand);
+		openChestCavity(player,player);
+		return TypedActionResult.success(player.getStackInHand(hand),false);
 	}
 
-	public void openChestCavity(PlayerEntity player, ChestCavityEntity target){
-		target.damage(DamageSource.player(player),4f);
-		Inventory inv = target.getChestCavityManager().openChestCavity();
-		player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
-			return new ChestCavityScreenHandler(i, playerInventory, inv);
-		}, new TranslatableText("Chest Cavity")));
+	public void openChestCavity(PlayerEntity player, LivingEntity target){
+		if(target.getUuid() == player.getUuid()){
+			target.damage(DamageSource.GENERIC,4f); // this is to prevent self-knockback, as that feels weird.
+		}
+		else {
+			target.damage(DamageSource.player(player), 4f);
+		}
+		Optional<ChestCavityEntity> optional = ChestCavityEntity.of(target);
+		if(optional.isPresent() && target.isAlive()) {
+			ChestCavityEntity chestCavityEntity = optional.get();
+			Inventory inv = chestCavityEntity.getChestCavityManager().openChestCavity();
+			player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
+				return new ChestCavityScreenHandler(i, playerInventory, inv);
+			}, new TranslatableText("Chest Cavity")));
+		}
 	}
 }

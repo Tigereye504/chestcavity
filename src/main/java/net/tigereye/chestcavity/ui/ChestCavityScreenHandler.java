@@ -19,7 +19,7 @@ public class ChestCavityScreenHandler extends ScreenHandler {
     private final int rows;
 
     public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new ChestCavityInventory()); //TODO: this smells like trouble
+        this(syncId, playerInventory, new ChestCavityInventory());
     }
 
     public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {

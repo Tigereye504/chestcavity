@@ -34,11 +34,17 @@ public class CCOtherOrgans {
         animalFlesh.put(CCOrganScores.SPEED,.75f);
         Map<Identifier,Float> bone = new HashMap<>();
         rottenFlesh.put(CCOrganScores.BONE,.5f);
+        Map<Identifier,Float> gunpowder = new HashMap<>();
+        gunpowder.put(CCOrganScores.EXPLOSIVE,3f*Items.GUNPOWDER.getMaxCount());
+        Map<Identifier,Float> tnt = new HashMap<>();
+        tnt.put(CCOrganScores.EXPLOSIVE,16f*Items.GUNPOWDER.getMaxCount());
         map.put(Items.DIRT,dirt);
         map.put(Items.ROTTEN_FLESH,rottenFlesh);
         map.put(Items.BEEF,animalFlesh);
         map.put(Items.PORKCHOP,animalFlesh);
         map.put(Items.MUTTON,animalFlesh);
         map.put(Items.BONE,bone);
+        map.put(Items.GUNPOWDER,gunpowder);
+        map.put(Items.TNT,tnt);
     }
 }

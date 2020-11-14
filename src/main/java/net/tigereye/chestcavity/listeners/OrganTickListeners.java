@@ -1,11 +1,15 @@
 package net.tigereye.chestcavity.listeners;
 
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.items.CreeperAppendix;
+import net.tigereye.chestcavity.items.EnderKidney;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
@@ -22,6 +26,9 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickKidney);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickLiver);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickLung);
+
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
     }
 
@@ -81,13 +88,37 @@ public class OrganTickListeners {
         }
     }
 
+    public static void TickCreepiness(LivingEntity entity,ChestCavityManager chestCavity){
+        if(chestCavity.getOrganScore(CCOrganScores.CREEPINESS) < 1){
+            return;
+        }
+        if(chestCavity.getExplosionCooldown() > 0){
+            chestCavity.setExplosionCooldown(chestCavity.getExplosionCooldown()-1);
+        }
+        else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
+            chestCavity.setExplosionCooldown(ChestCavity.config.EXPLOSION_COOLDOWN);
+            float explosion_yield = chestCavity.getOrganScore(CCOrganScores.EXPLOSIVE);
+            chestCavity.destroyOrgansWithKey(CCOrganScores.EXPLOSIVE);
+            CreeperAppendix.explode(entity, explosion_yield);
+        }
+    }
+
+    public static void TickHydrophobia(LivingEntity entity, ChestCavityManager chestCavity){
+        if(chestCavity.getOrganScore(CCOrganScores.HYDROPHOBIA) == 0){
+            return;
+        }
+        if(entity.isTouchingWaterOrRain()){
+            EnderKidney.teleportRandomly(entity);
+        }
+    }
+
     public static void TickIncompatibility(LivingEntity entity,ChestCavityManager chestCavity){
         if(entity.getEntityWorld().isClient()){ //this is a server-side event
             return;
         }
         float incompatibility = chestCavity.getOrganScore(CCOrganScores.INCOMPATIBILITY);
         if(incompatibility > 0)
-        {//TODO: glowing is a placeholder. replace with organ rejection status effect
+        {
             if(!entity.hasStatusEffect(CCStatusEffects.ORGAN_REJECTION)){
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.ORGAN_REJECTION, (int)(ChestCavity.config.ORGAN_REJECTION_RATE /incompatibility),0, false, true, true));
             }

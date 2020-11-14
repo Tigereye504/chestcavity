@@ -1,26 +1,20 @@
-package net.tigereye.chestcavity.crossmod.wendigoism;
+package net.tigereye.chestcavity.crossmod.anthropophagy;
 
-import moriyashiine.wendigoism.api.accessor.WendigoAccessor;
+import moriyashiine.anthropophagy.api.accessor.CannibalAccessor;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.items.OrganBase;
-import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class TetheredCannibalHeart extends OrganBase {
 
@@ -34,7 +28,7 @@ public class TetheredCannibalHeart extends OrganBase {
             return getOrganQualityMap();
         }
         Map<Identifier,Float> retMap = new HashMap<>(organQualityMap);
-        retMap.put(CCWendigoismListeners.WENDIGOISM_TARGET,(float)item.getTag().getInt("wendigoism"));
+        retMap.put(CCAnthropophagyListeners.CANNIBALISM_TARGET,(float)item.getTag().getInt("wendigoism"));
         return retMap;
     }
 
@@ -45,9 +39,9 @@ public class TetheredCannibalHeart extends OrganBase {
             }
             if(!stack.getTag().contains("wendigoism")) {
                 int wendigoism = 0;
-                if (entity instanceof WendigoAccessor) {
-                    WendigoAccessor accessor = (WendigoAccessor) entity;
-                    wendigoism = accessor.getWendigoLevel();
+                if (entity instanceof CannibalAccessor) {
+                    CannibalAccessor accessor = (CannibalAccessor) entity;
+                    wendigoism = accessor.getCannibalLevel();
                 }
                 stack.getTag().putInt("wendigoism", wendigoism);
             }
@@ -63,7 +57,7 @@ public class TetheredCannibalHeart extends OrganBase {
         if(itemStack.getTag().contains("wendigoism")) {
             wendigoism = itemStack.getTag().getInt("wendigoism");
         }
-        LiteralText text = new LiteralText("Wendigoism: "+wendigoism);
+        LiteralText text = new LiteralText("Cannibalism: "+wendigoism);
         tooltip.add(text);
         super.appendTooltip(itemStack,world,tooltip,tooltipContext);
     }

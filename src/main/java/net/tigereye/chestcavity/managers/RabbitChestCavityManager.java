@@ -3,7 +3,6 @@ package net.tigereye.chestcavity.managers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
@@ -12,13 +11,13 @@ import net.tigereye.chestcavity.registration.CCTags;
 
 import java.util.*;
 
-public class SmallAnimalChestCavityManager extends ChestCavityManager{
+public class RabbitChestCavityManager extends SmallAnimalChestCavityManager{
 
 
-    public SmallAnimalChestCavityManager(LivingEntity owner) {
+    public RabbitChestCavityManager(LivingEntity owner) {
         super(owner);
     }
-    public SmallAnimalChestCavityManager(LivingEntity owner, int size) {
+    public RabbitChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
     }
 
@@ -29,7 +28,7 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
         chestCavity.setStack(1, new ItemStack(CCItems.SMALL_ANIMAL_RIB, CCItems.SMALL_ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(2, new ItemStack(CCItems.SMALL_ANIMAL_APPENDIX, CCItems.SMALL_ANIMAL_APPENDIX.getMaxCount()));
         chestCavity.setStack(3, new ItemStack(CCItems.SMALL_ANIMAL_LUNG, CCItems.SMALL_ANIMAL_LUNG.getMaxCount()));
-        chestCavity.setStack(4, new ItemStack(CCItems.SMALL_ANIMAL_HEART, CCItems.SMALL_ANIMAL_HEART.getMaxCount()));
+        chestCavity.setStack(4, new ItemStack(CCItems.RABBIT_HEART, CCItems.RABBIT_HEART.getMaxCount()));
         chestCavity.setStack(5, new ItemStack(CCItems.SMALL_ANIMAL_LUNG, CCItems.SMALL_ANIMAL_LUNG.getMaxCount()));
         chestCavity.setStack(6, ItemStack.EMPTY);
         chestCavity.setStack(7, new ItemStack(CCItems.SMALL_ANIMAL_RIB, CCItems.SMALL_ANIMAL_RIB.getMaxCount()));
@@ -56,16 +55,12 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
 
     @Override
     protected boolean catchExceptionalOrgan(ItemStack slot){
-        //to small animals, small animal organs are twice as effective so that the usual .5 quality instead counts as 1 quality
-        if(slot.getItem().isIn(CCTags.SMALL_ANIMAL_ORGANS)){
-            Map<Identifier,Float> organMap = lookupOrganScore(slot);
-            if (lookupOrganScore(slot) != null) {
-                organMap.forEach((key,value) ->
-                        addOrganScore(key,(value*(2f)*slot.getCount()/slot.getMaxCount())));
-            }
+        //rabbits don't get the special speed boost from rabbit hearts
+        if(slot.getItem() == CCItems.RABBIT_HEART){
+            addOrganScore(CCOrganScores.HEART,1f*slot.getCount()/slot.getMaxCount());
             return true;
         }
-        return false;
+        return super.catchExceptionalOrgan(slot); //still, they are small animals
     }
 
     @Override
@@ -83,7 +78,7 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
                 organPile.add(CCItems.SMALL_ANIMAL_INTESTINE);
             }
             organPile.add(CCItems.SMALL_ANIMAL_APPENDIX);
-            organPile.add(CCItems.SMALL_ANIMAL_HEART);
+            organPile.add(CCItems.RABBIT_HEART);
             organPile.add(CCItems.SMALL_ANIMAL_KIDNEY);
             organPile.add(CCItems.SMALL_ANIMAL_KIDNEY);
             organPile.add(CCItems.SMALL_ANIMAL_LIVER);

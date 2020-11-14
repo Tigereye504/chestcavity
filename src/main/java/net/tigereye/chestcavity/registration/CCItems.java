@@ -6,6 +6,8 @@ import net.minecraft.util.registry.Registry;
 
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.ChestOpener;
+import net.tigereye.chestcavity.items.CreeperAppendix;
+import net.tigereye.chestcavity.items.EnderKidney;
 import net.tigereye.chestcavity.items.OrganBase;
 
 public class CCItems {
@@ -57,8 +59,23 @@ public class CCItems {
 	public static final Item ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.75f);
 	public static final Item ANIMAL_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.75f);
 
+	public static final Item SMALL_ANIMAL_APPENDIX = new OrganBase().setOrganQuality(CCOrganScores.APPENDIX,.5f);
+	public static final Item SMALL_ANIMAL_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f);
+	public static final Item SMALL_ANIMAL_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,.5f);
+	public static final Item SMALL_ANIMAL_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,.5f);
+	public static final Item SMALL_ANIMAL_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.5f);
+	public static final Item SMALL_ANIMAL_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.5f);
+	public static final Item SMALL_ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
+	public static final Item SMALL_ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.5f);
+	public static final Item SMALL_ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
+	public static final Item SMALL_ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.5f);
+	public static final Item SMALL_ANIMAL_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f);
+
 	public static final Item SALTWATER_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,1f).setOrganQuality(CCOrganScores.LUNG,.25f);
 	public static final Item SALTWATER_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f).setOrganQuality(CCOrganScores.HEART,.25f);
+	public static final Item RABBIT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
+	public static final Item CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPINESS,1);//TODO: make creepers depend on creepiness to explode
+	public static final Item ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.KIDNEY, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
 	public static final Item RAW_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -108,8 +125,23 @@ public class CCItems {
 		registerItem("animal_spleen", ANIMAL_SPLEEN);
 		registerItem("animal_stomach", ANIMAL_STOMACH);
 
+		registerItem("small_animal_appendix", SMALL_ANIMAL_APPENDIX);
+		registerItem("small_animal_heart", SMALL_ANIMAL_HEART);
+		registerItem("small_animal_intestine", SMALL_ANIMAL_INTESTINE);
+		registerItem("small_animal_kidney", SMALL_ANIMAL_KIDNEY);
+		registerItem("small_animal_liver", SMALL_ANIMAL_LIVER);
+		registerItem("small_animal_lung", SMALL_ANIMAL_LUNG);
+		registerItem("small_animal_muscle", SMALL_ANIMAL_MUSCLE);
+		registerItem("small_animal_rib", SMALL_ANIMAL_RIB);
+		registerItem("small_animal_spine", SMALL_ANIMAL_SPINE);
+		registerItem("small_animal_spleen", SMALL_ANIMAL_SPLEEN);
+		registerItem("small_animal_stomach", SMALL_ANIMAL_STOMACH);
+
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
+		registerItem("rabbit_heart", RABBIT_HEART);
+		registerItem("creeper_appendix", CREEPER_APPENDIX);
+		registerItem("ender_kidney", ENDER_KIDNEY);
 
 		registerItem("burnt_meat_chunk", BURNT_MEAT_CHUNK);
 		registerItem("raw_organ_meat", RAW_ORGAN_MEAT);

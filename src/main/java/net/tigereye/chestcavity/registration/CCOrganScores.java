@@ -17,5 +17,9 @@ public class CCOrganScores {
     public static final Identifier NERVOUS_SYSTEM = new Identifier(ChestCavity.MODID, "nervous_system");
     public static final Identifier SPLEEN = new Identifier(ChestCavity.MODID, "spleen");
     public static final Identifier STOMACH = new Identifier(ChestCavity.MODID, "stomach");
+
     public static final Identifier INCOMPATIBILITY = new Identifier(ChestCavity.MODID, "incompatibility");
+    public static final Identifier CREEPINESS = new Identifier(ChestCavity.MODID, "creepiness");
+    public static final Identifier EXPLOSIVE = new Identifier(ChestCavity.MODID, "explosive");
+    public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
 }

@@ -13,8 +13,10 @@ public class CCTags {
     public static final Tag<Item> UNDEAD_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"undead_organs"));
     //used to know which organs are more effective when used by animals
     public static final Tag<Item> ANIMAL_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"animal_organs"));
+    public static final Tag<Item> SMALL_ANIMAL_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"small_animal_organs"));
     //used in crafting recipes, though currently unused outside of JSONs
     public static final Tag<Item> SALVAGEABLE_ROTTEN_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_rotten_organs"));
-    public static final Tag<Item> SALVAGEABLE_MEAT_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_meat_organs"));
+    public static final Tag<Item> SALVAGEABLE_ANIMAL_MEAT_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_animal_meat_organs"));
+    public static final Tag<Item> SALVAGEABLE_SMALL_ANIMAL_MEAT_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_small_animal_meat_organs"));
     public static final Tag<Item> SALVAGEABLE_BONE_ORGANS = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable_bone_organs"));
 }

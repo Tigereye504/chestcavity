@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
@@ -39,6 +40,8 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected int liverTimer = 0;
     protected int spleenTimer = 0;
     protected float lungRemainder = 0;
+
+    protected int explosionCooldown = 0;
 
     static{
         initializeDefaultOrgans();
@@ -135,6 +138,15 @@ public class ChestCavityManager implements InventoryChangedListener {
         this.lungRemainder = lungRemainder;
     }
 
+
+    public int getExplosionCooldown() {
+        return explosionCooldown;
+    }
+
+    public void setExplosionCooldown(int explosionCooldown) {
+        this.explosionCooldown = explosionCooldown;
+    }
+
     public float getOrganScore(Identifier id) {
         return organScores.getOrDefault(id, 0f);
     }
@@ -180,11 +192,6 @@ public class ChestCavityManager implements InventoryChangedListener {
                                 }
                                 addOrganScore(CCOrganScores.INCOMPATIBILITY, 1);
                             }
-                        } else if (tag.getInt("type") == COMPATIBILITY_TYPE_SPECIES) {
-                            //TODO: implement species compatibility
-                            //if(tag.getUuid("owner") != owner.getUuid()){
-                            //    addOrganScore(CCOrganScores.INCOMPATIBILITY,.5f);
-                            //}
                         }
                     }
                 }
@@ -306,8 +313,9 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public void chestCavityPostMortem(){
-        //TODO: check if target is unopened before this step
-        dropUnboundOrgans();
+        if(opened) {
+            dropUnboundOrgans();
+        }
     }
 
     public List<ItemStack> generateLootDrops(Random random, int looting){
@@ -353,6 +361,7 @@ public class ChestCavityManager implements InventoryChangedListener {
             this.liverTimer = ccTag.getInt("LiverTimer");
             this.spleenTimer = ccTag.getInt("SpleenTimer");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
+            this.explosionCooldown = ccTag.getInt("ExplosionCooldown");
             chestCavity.removeListener(this);
             if (ccTag.contains("Inventory")) {
                 ListTag listTag = ccTag.getList("Inventory", 10);
@@ -369,7 +378,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                 if(temp.contains("chestcavity:inventorycomponent")){
                     temp = tag.getCompound("chestcavity:inventorycomponent");
                     if(temp.contains("chestcavity")){
-                        LOGGER.info("[Chest Cavity] Found "+owner.getName().asString()+"'s old Chest Cavity (v1).");
+                        LOGGER.info("[Chest Cavity] Found "+owner.getName().asString()+"'s old [Cardinal Components] Chest Cavity.");
                         opened = true;
                         ListTag listTag = temp.getList("Inventory", 10);
                         chestCavity.removeListener(this);
@@ -392,6 +401,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         ccTag.putInt("LiverTimer", this.liverTimer);
         ccTag.putInt("SpleenTimer", this.spleenTimer);
         ccTag.putFloat("LungRemainder", this.lungRemainder);
+        ccTag.putInt("ExplosionCooldown", this.explosionCooldown);
         ccTag.put("Inventory", this.chestCavity.getTags());
         tag.put("ChestCavity",ccTag);
     }
@@ -423,14 +433,18 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public int applyStomachHunger(int hunger){
-        //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatability
+        //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
         return Math.max((int)(hunger*organScores.getOrDefault(CCOrganScores.STOMACH,0f)),1);
     }
 
-    public int applyLungCapacityInWater(){
-        float airloss = 2f/Math.max(organScores.getOrDefault(CCOrganScores.LUNG,0f),.1f) + lungRemainder;
-        lungRemainder = airloss % 1;
-        return (int) airloss;
+    public int applyLungCapacityInWater(int oldAir, int newAir){
+        float airLoss = (oldAir - newAir);
+        if(airLoss > 0) {
+            airLoss = airLoss * 2f / Math.max(organScores.getOrDefault(CCOrganScores.LUNG, .1f), .1f) + lungRemainder;
+            lungRemainder = airLoss % 1;
+            return oldAir - ((int) airLoss);
+        }
+        return newAir;
     }
 
     public int applySpleenMetabolism(int foodStarvationTimer){
@@ -442,4 +456,17 @@ public class ChestCavityManager implements InventoryChangedListener {
         return foodStarvationTimer;
     }
 
+    public void destroyOrgansWithKey(Identifier organ){
+        for (int i = 0; i < chestCavity.size(); i++)
+        {
+            ItemStack slot = chestCavity.getStack(i);
+            if (slot != null && slot != ItemStack.EMPTY)
+            {
+                if(lookupOrganScore(slot).containsKey(organ)){
+                    chestCavity.removeStack(i);
+                }
+            }
+        }
+        chestCavity.markDirty();
+    }
 }
