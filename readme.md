@@ -16,7 +16,7 @@ Also uses Onyx Studio's Cardinal Components.
 
 ![Organs](https://user-images.githubusercontent.com/12503726/99141695-bdbcf700-2602-11eb-8110-3f8b302572ec.png)
 
-![Crafting Recipes](https://user-images.githubusercontent.com/12503726/99141692-b990d980-2602-11eb-8b11-ff51789d1c8e.png)
+![Crafting Recipes](https://user-images.githubusercontent.com/12503726/99141845-f4474180-2603-11eb-93d7-41dcaec9c826.png)
 
 ![Food Recipes](https://user-images.githubusercontent.com/12503726/99141699-c3b2d800-2602-11eb-862d-32a690966325.png)
 
