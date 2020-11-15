@@ -25,4 +25,5 @@ public class CCConfig implements ConfigData {
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
 
     public boolean WENDIGOISM_INTEGRATION = true;
+    public boolean BACKROOMS_INTEGRATION = true;
 }
