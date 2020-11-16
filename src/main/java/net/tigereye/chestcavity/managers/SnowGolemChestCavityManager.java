@@ -3,7 +3,11 @@ package net.tigereye.chestcavity.managers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SnowGolemChestCavityManager extends ChestCavityManager{
 
@@ -13,6 +17,25 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
     }
     public SnowGolemChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
+    }
+
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        defaultOrganScores.put(CCOrganScores.BONE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
+        defaultOrganScores.put(CCOrganScores.SPEED,8f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
+    }
+
+    @Override
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
     }
 
     @Override

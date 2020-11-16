@@ -3,7 +3,11 @@ package net.tigereye.chestcavity.managers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SlimeChestCavityManager extends ChestCavityManager{
 
@@ -13,6 +17,24 @@ public class SlimeChestCavityManager extends ChestCavityManager{
     }
     public SlimeChestCavityManager(LivingEntity owner,int size) {
         super(owner,size);
+    }
+
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        defaultOrganScores.put(CCOrganScores.BONE,1f);
+        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,1f);
+        defaultOrganScores.put(CCOrganScores.SPEED,1f);
+    }
+
+    @Override
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
     }
 
     @Override
@@ -32,27 +54,16 @@ public class SlimeChestCavityManager extends ChestCavityManager{
     protected void resetOrganScores(){
         //slimes are amorphous goo, they don't really have or need organs
         organScores.clear();
-        organScores.put(CCOrganScores.APPENDIX, 1f);
-        organScores.put(CCOrganScores.BONE, 3.75f);
         organScores.put(CCOrganScores.HEART, 0.5f);
-        organScores.put(CCOrganScores.INTESTINE, 4f);
-        organScores.put(CCOrganScores.KIDNEY, 2f);
-        organScores.put(CCOrganScores.LIVER, 1f);
-        organScores.put(CCOrganScores.STRENGTH, 7f);
-        organScores.put(CCOrganScores.SPEED, 7f);
-        organScores.put(CCOrganScores.NERVOUS_SYSTEM, 1f);
-        organScores.put(CCOrganScores.SPLEEN, 1f);
-        organScores.put(CCOrganScores.STOMACH, 1f);
-        organScores.put(CCOrganScores.LUNG, 2f);
     }
 
     @Override
     protected boolean catchExceptionalOrgan(ItemStack slot){
         if(slot.getItem() == Items.SLIME_BALL){
-            organScores.put(CCOrganScores.HEART, organScores.getOrDefault(CCOrganScores.HEART,0f)+(slot.getCount()*.5f));
-            organScores.put(CCOrganScores.STRENGTH, organScores.getOrDefault(CCOrganScores.STRENGTH,0f)+slot.getCount());
-            organScores.put(CCOrganScores.SPEED, organScores.getOrDefault(CCOrganScores.SPEED,0f)+slot.getCount());
-            organScores.put(CCOrganScores.BONE, organScores.getOrDefault(CCOrganScores.BONE,0f)+slot.getCount());
+            addOrganScore(CCOrganScores.HEART, slot.getCount()*.5f);
+            addOrganScore(CCOrganScores.STRENGTH, slot.getCount());
+            addOrganScore(CCOrganScores.SPEED, slot.getCount());
+            addOrganScore(CCOrganScores.BONE, slot.getCount());
             return true;
         }
         return false;

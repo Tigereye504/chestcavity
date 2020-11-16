@@ -1,7 +1,6 @@
 package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.ItemTags;
@@ -9,7 +8,6 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCTags;
 
 import java.util.*;
 
@@ -21,6 +19,31 @@ public class CreeperChestCavityManager extends ChestCavityManager{
     }
     public CreeperChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
+    }
+
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        //creepers are plant creatures, they have no blood
+        //they don't need kidneys, livers, intestines, or stomachs
+        //they are, however, rather explosive buggers
+        defaultOrganScores.put(CCOrganScores.CREEPINESS,1f);
+        defaultOrganScores.put(CCOrganScores.EXPLOSIVE,15f);
+        defaultOrganScores.put(CCOrganScores.APPENDIX,.75f);
+        defaultOrganScores.put(CCOrganScores.BONE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
+        defaultOrganScores.put(CCOrganScores.SPEED,8f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
+    }
+
+    @Override
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
     }
 
     @Override
@@ -58,7 +81,6 @@ public class CreeperChestCavityManager extends ChestCavityManager{
     @Override
     protected boolean catchExceptionalOrgan(ItemStack slot){
         //creepers are plant monsters, using leaves for flesh and wood for bone
-        //gunpowder is somehow used for the rest of its functions
         if(slot.getItem().isIn(ItemTags.LEAVES)){
             addOrganScore(CCOrganScores.STRENGTH, 4f*slot.getCount()/slot.getMaxCount());
             addOrganScore(CCOrganScores.SPEED, 4f*slot.getCount()/slot.getMaxCount());
@@ -71,27 +93,10 @@ public class CreeperChestCavityManager extends ChestCavityManager{
         if(slot.getItem().isIn(ItemTags.LOGS)){
             addOrganScore(CCOrganScores.BONE, .75f*slot.getCount());
             addOrganScore(CCOrganScores.NERVOUS_SYSTEM, 1f*slot.getCount());
-            return true;
-        }
-        if(slot.getItem() == Items.GUNPOWDER){
-            addOrganScore(CCOrganScores.EXPLOSIVE, 5f*slot.getCount());
-            addOrganScore(CCOrganScores.HEART, (1f/5)*slot.getCount());
-            addOrganScore(CCOrganScores.INTESTINE, (4f/5)*slot.getCount());
-            addOrganScore(CCOrganScores.LIVER, (1f/5)*slot.getCount());
-            addOrganScore(CCOrganScores.SPLEEN, (1f/5)*slot.getCount());
-            addOrganScore(CCOrganScores.STOMACH, (1f/5)*slot.getCount());
-            addOrganScore(CCOrganScores.LUNG, (2f/5)*slot.getCount());
+            addOrganScore(CCOrganScores.HEART, 1f*slot.getCount());
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void resetOrganScores(){
-        //creepers are plant creatures, they have no blood
-        //they don't need kidneys
-        organScores.clear();
-        organScores.put(CCOrganScores.KIDNEY, 2f);
     }
     
     @Override

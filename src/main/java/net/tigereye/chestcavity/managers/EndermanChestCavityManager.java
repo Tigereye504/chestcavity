@@ -21,6 +21,33 @@ public class EndermanChestCavityManager extends ChestCavityManager{
         super(owner,size);
     }
 
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        defaultOrganScores.put(CCOrganScores.APPENDIX,.75f);
+        defaultOrganScores.put(CCOrganScores.BONE,3.5625f);
+        defaultOrganScores.put(CCOrganScores.HEART,.75f);
+        defaultOrganScores.put(CCOrganScores.HYDROPHOBIA,1f);
+        defaultOrganScores.put(CCOrganScores.INTESTINE,3f);
+        defaultOrganScores.put(CCOrganScores.KIDNEY,1.5f);
+        defaultOrganScores.put(CCOrganScores.LIVER,.75f);
+        defaultOrganScores.put(CCOrganScores.LUNG,1.5f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,6f);
+        defaultOrganScores.put(CCOrganScores.SPEED,6f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.75f);
+        defaultOrganScores.put(CCOrganScores.SPLEEN,.75f);
+        defaultOrganScores.put(CCOrganScores.STOMACH,.75f);
+    }
+
+    @Override
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
+    }
+
     @Override
     public void fillChestCavityInventory() {
         chestCavity.clear();
@@ -54,25 +81,6 @@ public class EndermanChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected boolean catchExceptionalOrgan(ItemStack slot){
-        //to animals, animal organs are 33.3% more effective so that the usual .75 quality instead counts as 1 quality
-        if(slot.getItem().isIn(CCTags.ANIMAL_ORGANS)){
-            Map<Identifier,Float> organMap = lookupOrganScore(slot);
-            if (lookupOrganScore(slot) != null) {
-                organMap.forEach((key,value) ->
-                        addOrganScore(key,(value*(4f/3)*slot.getCount()/slot.getMaxCount())));
-            }
-            return true;
-        }
-        //Enderman Kidneys are wholly effective for endermen, despite being only animal-tier
-        if(slot.getItem() == CCItems.ENDER_KIDNEY){
-            addOrganScore(CCOrganScores.KIDNEY,(1f*slot.getCount()/slot.getMaxCount()));
-            addOrganScore(CCOrganScores.HYDROPHOBIA,(1f*slot.getCount()/slot.getMaxCount()));
-        }
-        return false;
-    }
-
-    @Override
     public List<ItemStack> generateLootDrops(Random random, int looting){
         List<ItemStack> loot = new ArrayList<>();
         if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
@@ -88,8 +96,8 @@ public class EndermanChestCavityManager extends ChestCavityManager{
             }
             organPile.add(CCItems.ANIMAL_APPENDIX);
             organPile.add(CCItems.ANIMAL_HEART);
-            organPile.add(CCItems.ANIMAL_KIDNEY);
-            organPile.add(CCItems.ANIMAL_KIDNEY);
+            organPile.add(CCItems.ENDER_KIDNEY);
+            organPile.add(CCItems.ENDER_KIDNEY);
             organPile.add(CCItems.ANIMAL_LIVER);
             organPile.add(CCItems.ANIMAL_LUNG);
             organPile.add(CCItems.ANIMAL_LUNG);

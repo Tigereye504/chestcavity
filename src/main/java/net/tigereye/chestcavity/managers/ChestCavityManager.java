@@ -2,7 +2,6 @@ package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
@@ -23,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class ChestCavityManager implements InventoryChangedListener {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -45,7 +45,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected int explosionCooldown = 0;
 
     static{
-        initializeDefaultOrgans();
+        initializeDefaultOrganScores();
     }
 
     public ChestCavityManager(LivingEntity owner){
@@ -68,7 +68,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         getChestCavity().addListener(this);
     }
 
-    protected static void initializeDefaultOrgans(){
+    private static void initializeDefaultOrganScores(){
         defaultOrganScores.put(CCOrganScores.APPENDIX,1f);
         defaultOrganScores.put(CCOrganScores.BONE,4.75f);
         defaultOrganScores.put(CCOrganScores.HEART,1f);
@@ -81,6 +81,10 @@ public class ChestCavityManager implements InventoryChangedListener {
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
         defaultOrganScores.put(CCOrganScores.SPLEEN,1f);
         defaultOrganScores.put(CCOrganScores.STOMACH,1f);
+    }
+
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
     }
 
     public ChestCavityInventory getChestCavity() {
@@ -139,7 +143,6 @@ public class ChestCavityManager implements InventoryChangedListener {
         this.lungRemainder = lungRemainder;
     }
 
-
     public int getExplosionCooldown() {
         return explosionCooldown;
     }
@@ -156,6 +159,14 @@ public class ChestCavityManager implements InventoryChangedListener {
         organScores.put(id,value);
     }
 
+    public float getOldOrganScore(Identifier id) {
+        return oldOrganScores.getOrDefault(id, 0f);
+    }
+
+    public float getDefaultOrganScore(Identifier id) {
+        return getDefaultOrganScores().getOrDefault(id, 0f);
+    }
+
     public void addOrganScore(Identifier id, float value){
         organScores.put(id,organScores.getOrDefault(id,0f)+value);
     }
@@ -166,7 +177,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     public void evaluateChestCavity() {
         if(!opened){
             organScores.clear();
-            organScores.putAll(defaultOrganScores);
+            organScores.putAll(getDefaultOrganScores());
         }
         else {
             resetOrganScores();
@@ -179,7 +190,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                         Map<Identifier, Float> organMap = lookupOrganScore(itemStack);
                         if (lookupOrganScore(itemStack) != null) {
                             organMap.forEach((key, value) ->
-                                    addOrganScore(key, value * Math.min((itemStack.getCount() / itemStack.getMaxCount()),1)));
+                                    addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1)));
                         }
                     }
 
@@ -224,19 +235,10 @@ public class ChestCavityManager implements InventoryChangedListener {
         if(!oldOrganScores.equals(organScores))
         {
             if(ChestCavity.DEBUG_MODE && owner instanceof PlayerEntity) {
-                try {
-                    Text name = owner.getName();
-                    System.out.println("[Chest Cavity] Displaying " + name.getString() +"'s organ scores:");
-                }
-                catch(Exception e){
-                    System.out.println("[Chest Cavity] Displaying organ scores:");
-                }
-                organScores.forEach((key, value) ->
-                        System.out.print(key.toString() + ": " + value + " "));
-                System.out.print("\n");
+                outputOrganScoresString(System.out::println);
             }
 
-            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, oldOrganScores, organScores);
+            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, this);
             oldOrganScores.clear();
             oldOrganScores.putAll(organScores);
         }
@@ -250,9 +252,23 @@ public class ChestCavityManager implements InventoryChangedListener {
         return false;
     }
 
+    public void outputOrganScoresString(Consumer<String> output){
+        try {
+            Text name = owner.getDisplayName();
+            output.accept("[Chest Cavity] Displaying " + name.getString() +"'s organ scores:");
+        }
+        catch(Exception e){
+            output.accept("[Chest Cavity] Displaying organ scores:");
+        }
+        organScores.forEach((key, value) ->
+                output.accept(key.getPath() + ": " + value + " "));
+    }
+
     public void onTick(){
-        OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
-        organUpdate();
+        if(opened) {
+            OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
+            organUpdate();
+        }
     }
 
     public ChestCavityInventory openChestCavity(){
@@ -273,7 +289,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         }
     }
 
-    protected void fillChestCavityInventory() {
+    public void fillChestCavityInventory() {
         chestCavity.clear();
         for(int i = 0; i < chestCavity.size(); i++){
             chestCavity.setStack(i,new ItemStack(Items.DIRT,64));
@@ -432,24 +448,41 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public float applyBoneDefense(float damage){
-        float boneScore = organScores.getOrDefault(CCOrganScores.BONE,0f);
-        return damage*(5/(.25f+boneScore));
-        //normal bone score of 4.75 means no change
+        if(!opened){
+            return damage;
+        }
+        float boneDiff = getOrganScore(CCOrganScores.BONE) - getDefaultOrganScore(CCOrganScores.BONE);
+        return damage*(5/(Math.max(.25f,5+boneDiff)));
     }
 
     public float applyIntestinesSaturation(float sat){
+        if(!opened){
+            return sat;
+        }
         return sat*organScores.getOrDefault(CCOrganScores.INTESTINE,0f)/4;
+        //TODO: find a use for intestines for non-players
     }
 
     public int applyStomachHunger(int hunger){
+        if(!opened){
+            return hunger;
+        }
         //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
         return Math.max((int)(hunger*organScores.getOrDefault(CCOrganScores.STOMACH,0f)),1);
+        //TODO: find a use for stomachs for non-players
     }
 
     public int applyLungCapacityInWater(int oldAir, int newAir){
+        if(!opened || getDefaultOrganScore(CCOrganScores.LUNG) == 0){
+            return newAir;
+        }
         float airLoss = (oldAir - newAir);
         if(airLoss > 0) {
-            airLoss = airLoss * 2f / Math.max(organScores.getOrDefault(CCOrganScores.LUNG, .1f), .1f) + lungRemainder;
+            float lungRatio = 20f;
+            if(getOrganScore(CCOrganScores.LUNG) != 0){
+                lungRatio = Math.min(getDefaultOrganScore(CCOrganScores.LUNG)/getOrganScore(CCOrganScores.LUNG),20f);
+            }
+            airLoss = airLoss * lungRatio + lungRemainder;
             lungRemainder = airLoss % 1;
             return oldAir - ((int) airLoss);
         }
@@ -457,12 +490,16 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public int applySpleenMetabolism(int foodStarvationTimer){
+        if(!opened){
+            return foodStarvationTimer;
+        }
         spleenTimer++;
         if(spleenTimer >=2){
             foodStarvationTimer += organScores.getOrDefault(CCOrganScores.SPLEEN,0f) - 1;
         }
         spleenTimer = 0;
         return foodStarvationTimer;
+        //TODO: find a use for spleens for non-players
     }
 
     public void destroyOrgansWithKey(Identifier organ){

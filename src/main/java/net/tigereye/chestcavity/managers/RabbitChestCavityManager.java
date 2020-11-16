@@ -7,7 +7,6 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCTags;
 
 import java.util.*;
 
@@ -19,6 +18,32 @@ public class RabbitChestCavityManager extends SmallAnimalChestCavityManager{
     }
     public RabbitChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
+    }
+
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        defaultOrganScores.put(CCOrganScores.APPENDIX,.5f);
+        defaultOrganScores.put(CCOrganScores.BONE,2.375f);
+        defaultOrganScores.put(CCOrganScores.HEART,.5f);
+        defaultOrganScores.put(CCOrganScores.INTESTINE,2f);
+        defaultOrganScores.put(CCOrganScores.KIDNEY,1f);
+        defaultOrganScores.put(CCOrganScores.LIVER,.5f);
+        defaultOrganScores.put(CCOrganScores.LUNG,1f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,4f);
+        defaultOrganScores.put(CCOrganScores.SPEED,5f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.5f);
+        defaultOrganScores.put(CCOrganScores.SPLEEN,.5f);
+        defaultOrganScores.put(CCOrganScores.STOMACH,.5f);
+    }
+
+    @Override
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
     }
 
     @Override
@@ -51,16 +76,6 @@ public class RabbitChestCavityManager extends SmallAnimalChestCavityManager{
         chestCavity.setStack(24, new ItemStack(CCItems.SMALL_ANIMAL_INTESTINE, CCItems.SMALL_ANIMAL_INTESTINE.getMaxCount()));
         chestCavity.setStack(25, new ItemStack(CCItems.SMALL_ANIMAL_MUSCLE, CCItems.SMALL_ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(26, new ItemStack(CCItems.SMALL_ANIMAL_MUSCLE, CCItems.SMALL_ANIMAL_MUSCLE.getMaxCount()));
-    }
-
-    @Override
-    protected boolean catchExceptionalOrgan(ItemStack slot){
-        //rabbits don't get the special speed boost from rabbit hearts
-        if(slot.getItem() == CCItems.RABBIT_HEART){
-            addOrganScore(CCOrganScores.HEART,1f*slot.getCount()/slot.getMaxCount());
-            return true;
-        }
-        return super.catchExceptionalOrgan(slot); //still, they are small animals
     }
 
     @Override

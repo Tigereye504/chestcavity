@@ -56,7 +56,7 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
 
     @Override
     protected void resetOrganScores(){
-        //animated by unholy magic, skeletons hardly need organs at all!
+        //animated by unholy magic, skeletons get to pretend they have organs they actually don't!
         //they also don't have any organs, but imagine if they did...
         organScores.clear();
         organScores.put(CCOrganScores.APPENDIX, 1f);

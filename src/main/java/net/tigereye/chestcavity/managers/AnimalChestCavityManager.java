@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCTags;
 
 import java.util.*;
@@ -18,6 +19,32 @@ public class AnimalChestCavityManager extends ChestCavityManager{
     }
     public AnimalChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
+    }
+
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        defaultOrganScores.put(CCOrganScores.APPENDIX,.75f);
+        defaultOrganScores.put(CCOrganScores.BONE,3.5625f);
+        defaultOrganScores.put(CCOrganScores.HEART,.75f);
+        defaultOrganScores.put(CCOrganScores.INTESTINE,3f);
+        defaultOrganScores.put(CCOrganScores.KIDNEY,1.5f);
+        defaultOrganScores.put(CCOrganScores.LIVER,.75f);
+        defaultOrganScores.put(CCOrganScores.LUNG,1.5f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,6f);
+        defaultOrganScores.put(CCOrganScores.SPEED,6f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.75f);
+        defaultOrganScores.put(CCOrganScores.SPLEEN,.75f);
+        defaultOrganScores.put(CCOrganScores.STOMACH,.75f);
+    }
+
+    @Override
+    public Map<Identifier,Float> getDefaultOrganScores(){
+        return defaultOrganScores;
     }
 
     @Override
@@ -50,20 +77,6 @@ public class AnimalChestCavityManager extends ChestCavityManager{
         chestCavity.setStack(24, new ItemStack(CCItems.ANIMAL_INTESTINE, CCItems.ANIMAL_INTESTINE.getMaxCount()));
         chestCavity.setStack(25, new ItemStack(CCItems.ANIMAL_MUSCLE, CCItems.ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(26, new ItemStack(CCItems.ANIMAL_MUSCLE, CCItems.ANIMAL_MUSCLE.getMaxCount()));
-    }
-
-    @Override
-    protected boolean catchExceptionalOrgan(ItemStack slot){
-        //to animals, animal organs are 33.3% more effective so that the usual .75 quality instead counts as 1 quality
-        if(slot.getItem().isIn(CCTags.ANIMAL_ORGANS)){
-            Map<Identifier,Float> organMap = lookupOrganScore(slot);
-            if (lookupOrganScore(slot) != null) {
-                organMap.forEach((key,value) ->
-                        addOrganScore(key,(value*(4f/3)*slot.getCount()/slot.getMaxCount())));
-            }
-            return true;
-        }
-        return false;
     }
 
     @Override

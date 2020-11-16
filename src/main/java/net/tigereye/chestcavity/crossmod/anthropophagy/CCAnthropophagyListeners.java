@@ -23,11 +23,11 @@ public class CCAnthropophagyListeners {
         OrganTickCallback.EVENT.register(CCAnthropophagyListeners::TickCannibalHeart);
     }
 
-    private static void UpdateCannibalHeart(LivingEntity entity, Map<Identifier, Float> oldScores, Map<Identifier, Float> newScores) {
+    private static void UpdateCannibalHeart(LivingEntity entity, ChestCavityManager chestCavity) {
         //this lets us detect when the user's Cannibalism changes
-        if((!entity.world.isClient()) && entity instanceof CannibalAccessor && newScores.getOrDefault(CCAnthropophagyOrganScores.CANNIBAL_HEART,0f) > 0) {
+        if((!entity.world.isClient()) && entity instanceof CannibalAccessor && chestCavity.getOrganScore(CCAnthropophagyOrganScores.CANNIBAL_HEART) > 0) {
             CannibalAccessor accessor = (CannibalAccessor)entity;
-            newScores.put(CANNIBALISM_TRACKER,(float)accessor.getCannibalLevel());
+            chestCavity.setOrganScore(CANNIBALISM_TRACKER,(float)accessor.getCannibalLevel());
         }
     }
 

@@ -11,6 +11,7 @@ import net.tigereye.chestcavity.listeners.LootRegister;
 import net.fabricmc.api.ModInitializer;
 import net.tigereye.chestcavity.listeners.OrganTickListeners;
 import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
+import net.tigereye.chestcavity.registration.CCCommands;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
@@ -39,6 +40,7 @@ public class ChestCavity implements ModInitializer {
 		OrganTickListeners.register();
 		CCStatusEffects.register();
 		CCOtherOrgans.init();
+		CCCommands.register();
 		CrossModContent.register();
 	}
 }

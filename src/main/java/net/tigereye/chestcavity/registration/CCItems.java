@@ -74,7 +74,7 @@ public class CCItems {
 	public static final Item SALTWATER_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,1f).setOrganQuality(CCOrganScores.LUNG,.25f);
 	public static final Item SALTWATER_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f).setOrganQuality(CCOrganScores.HEART,.25f);
 	public static final Item RABBIT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
-	public static final Item CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPINESS,1);//TODO: make creepers depend on creepiness to explode
+	public static final Item CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPINESS,1);
 	public static final Item ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.KIDNEY, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
