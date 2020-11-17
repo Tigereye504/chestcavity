@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "chestcavity:salvageable_insect_meat_organs"
+    },
+    {
+      "tag": "chestcavity:salvageable_insect_meat_organs"
+    },
+    {
+      "tag": "chestcavity:salvageable_insect_meat_organs"
+    },
+    {
+      "tag": "chestcavity:salvageable_insect_meat_organs"
+    },
+    {
+      "tag": "chestcavity:salvageable_insect_meat_organs"
+    }
+  ],
+  "result": {
+    "item": "chestcavity:raw_toxic_organ_meat",
+    "count": 5
+  },
+  "group": "toxic_organ_meat"
+}

@@ -70,10 +70,18 @@ public class CCItems {
 	public static final Item SMALL_ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
 	public static final Item SMALL_ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.5f);
 	public static final Item SMALL_ANIMAL_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f);
+	public static final Item RABBIT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
+
+	public static final Item INSECT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f);
+	public static final Item INSECT_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,.5f);
+	public static final Item INSECT_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.75f);
+	public static final Item INSECT_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
+	public static final Item INSECT_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f).setOrganQuality(CCOrganScores.INTESTINE,.25f);
+	public static final Item INSECT_CAECA = new OrganBase().setOrganQuality(CCOrganScores.STOMACH, .25f).setOrganQuality(CCOrganScores.INTESTINE, .5f).setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.25f);
+	public static final Item SILK_GLAND = new OrganBase().setOrganQuality(CCOrganScores.SILK,1f);
 
 	public static final Item SALTWATER_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,1f).setOrganQuality(CCOrganScores.LUNG,.25f);
 	public static final Item SALTWATER_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f).setOrganQuality(CCOrganScores.HEART,.25f);
-	public static final Item RABBIT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
 	public static final Item CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPINESS,1);
 	public static final Item ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.KIDNEY, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
 
@@ -90,6 +98,16 @@ public class CCItems {
 	public static final Item COOKED_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_MINI_SAUSAGE_FOOD_COMPONENT));
 	public static final Item RAW_RICH_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_MINI_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_MINI_SAUSAGE_FOOD_COMPONENT));
+	
+	public static final Item RAW_TOXIC_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_TOXIC_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_TOXIC_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_TOXIC_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_TOXIC_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_TOXIC_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_TOXIC_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_TOXIC_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_TOXIC_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_TOXIC_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_RICH_TOXIC_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_TOXIC_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_RICH_TOXIC_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_TOXIC_SAUSAGE_FOOD_COMPONENT));
+	
 	public static final Item RAW_HUMAN_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item COOKED_HUMAN_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item RAW_MAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_MAN_MEAT_FOOD_COMPONENT));
@@ -99,6 +117,7 @@ public class CCItems {
 	public static final Item RAW_RICH_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT));
 
+	
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
 
@@ -148,10 +167,18 @@ public class CCItems {
 		registerItem("small_animal_spine", SMALL_ANIMAL_SPINE);
 		registerItem("small_animal_spleen", SMALL_ANIMAL_SPLEEN);
 		registerItem("small_animal_stomach", SMALL_ANIMAL_STOMACH);
+		registerItem("rabbit_heart", RABBIT_HEART);
 
+		registerItem("insect_heart", INSECT_HEART);
+		registerItem("insect_intestine", INSECT_INTESTINE);
+		registerItem("insect_lung", INSECT_LUNG);
+		registerItem("insect_muscle", INSECT_MUSCLE);
+		registerItem("insect_stomach", INSECT_STOMACH);
+		registerItem("insect_caeca", INSECT_CAECA);
+		registerItem("silk_gland", SILK_GLAND);
+		
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
-		registerItem("rabbit_heart", RABBIT_HEART);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
 		registerItem("ender_kidney", ENDER_KIDNEY);
 
@@ -168,6 +195,16 @@ public class CCItems {
 		registerItem("mini_sausage", COOKED_MINI_SAUSAGE);
 		registerItem("raw_rich_mini_sausage", RAW_RICH_MINI_SAUSAGE);
 		registerItem("rich_mini_sausage", COOKED_RICH_MINI_SAUSAGE);
+
+		registerItem("raw_toxic_organ_meat", RAW_TOXIC_ORGAN_MEAT);
+		registerItem("cooked_toxic_organ_meat", COOKED_TOXIC_ORGAN_MEAT);
+		registerItem("raw_toxic_meat", RAW_TOXIC_MEAT);
+		registerItem("cooked_toxic_meat", COOKED_TOXIC_MEAT);
+		registerItem("raw_toxic_sausage", RAW_TOXIC_SAUSAGE);
+		registerItem("toxic_sausage", COOKED_TOXIC_SAUSAGE);
+		registerItem("raw_rich_toxic_sausage", RAW_RICH_TOXIC_SAUSAGE);
+		registerItem("rich_toxic_sausage", COOKED_RICH_TOXIC_SAUSAGE);
+		
 		registerItem("raw_human_organ_meat", RAW_HUMAN_ORGAN_MEAT);
 		registerItem("cooked_human_organ_meat", COOKED_HUMAN_ORGAN_MEAT);
 		registerItem("raw_man_meat", RAW_MAN_MEAT);

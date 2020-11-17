@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_toxic_organ_meat"
+      },
+      {
+        "item": "chestcavity:insect_intestine"
+      }
+  ],
+  "result": {
+    "item": "chestcavity:raw_rich_toxic_sausage",
+    "count": 1
+  }
+}

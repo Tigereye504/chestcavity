@@ -24,6 +24,25 @@ public class CCFoodComponents {
     public static final FoodComponent RAW_RIB_STEAK_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.4f).meat().build();
     public static final FoodComponent COOKED_RIB_STEAK_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(.8f).meat().build();
 
+    public static final FoodComponent INSECT_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
+    public static final FoodComponent RAW_TOXIC_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
+    public static final FoodComponent COOKED_TOXIC_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.8f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160, 1), 1f).build();
+    public static final FoodComponent RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.6f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
+    public static final FoodComponent COOKED_TOXIC_ORGAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(1.2f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160, 1), 1f).build();
+    public static final FoodComponent RAW_TOXIC_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.4f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
+    public static final FoodComponent COOKED_TOXIC_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(.8f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160, 1), 1f).build();
+    public static final FoodComponent RAW_RICH_TOXIC_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.6f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
+    public static final FoodComponent COOKED_RICH_TOXIC_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(1.2f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160, 1), 1f).build();
+
     public static final FoodComponent HUMAN_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat().snack()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
     public static final FoodComponent RAW_MAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.4f).meat()

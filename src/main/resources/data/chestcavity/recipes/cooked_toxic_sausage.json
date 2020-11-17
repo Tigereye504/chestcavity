@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+      "item": "chestcavity:raw_toxic_sausage"
+    },
+    "result": "chestcavity:toxic_sausage",
+    "experience": 0.35,
+    "cookingtime": 200
+  }

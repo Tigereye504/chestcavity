@@ -14,7 +14,7 @@ public class CCOrganScores {
     public static final Identifier STRENGTH = new Identifier(ChestCavity.MODID, "strength");
     public static final Identifier SPEED = new Identifier(ChestCavity.MODID, "speed");
     public static final Identifier BONE = new Identifier(ChestCavity.MODID, "bone");
-    public static final Identifier NERVOUS_SYSTEM = new Identifier(ChestCavity.MODID, "nervous_system");
+    public static final Identifier NERVOUS_SYSTEM = new Identifier(ChestCavity.MODID, "nerves");
     public static final Identifier SPLEEN = new Identifier(ChestCavity.MODID, "spleen");
     public static final Identifier STOMACH = new Identifier(ChestCavity.MODID, "stomach");
 
@@ -23,4 +23,5 @@ public class CCOrganScores {
     public static final Identifier EXPLOSIVE = new Identifier(ChestCavity.MODID, "explosive");
     public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
     public static final Identifier EASE_OF_ACCESS = new Identifier(ChestCavity.MODID, "ease_of_access");
+    public static final Identifier SILK = new Identifier(ChestCavity.MODID, "silk");
 }

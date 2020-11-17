@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.CreeperAppendix;
 import net.tigereye.chestcavity.items.EnderKidney;
+import net.tigereye.chestcavity.items.SilkGland;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
@@ -29,6 +30,7 @@ public class OrganTickListeners {
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
     }
 
@@ -98,14 +100,30 @@ public class OrganTickListeners {
         if(chestCavity.getOrganScore(CCOrganScores.CREEPINESS) < 1){ //TODO: make creepers dependent on creepiness
             return;
         }
-        if(chestCavity.getExplosionCooldown() > 0){
-            chestCavity.setExplosionCooldown(chestCavity.getExplosionCooldown()-1);
+        if(entity.hasStatusEffect(CCStatusEffects.EXPLOSION_COOLDOWN)){
+            return;
         }
         else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
-            chestCavity.setExplosionCooldown(ChestCavity.config.EXPLOSION_COOLDOWN);
             float explosion_yield = chestCavity.getOrganScore(CCOrganScores.EXPLOSIVE);
             chestCavity.destroyOrgansWithKey(CCOrganScores.EXPLOSIVE);
             CreeperAppendix.explode(entity, explosion_yield);
+            if(entity.isAlive()) {
+                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.EXPLOSION_COOLDOWN, ChestCavity.config.EXPLOSION_COOLDOWN, 0, false, false, true));
+            }
+        }
+    }
+
+    public static void TickSilk(LivingEntity entity,ChestCavityManager chestCavity){
+        if(chestCavity.getOrganScore(CCOrganScores.SILK) == 0){
+            return;
+        }
+        if(entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
+            return;
+        }
+        else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
+            if(SilkGland.spinWeb(entity,chestCavity.getOrganScore(CCOrganScores.SILK))) {
+                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN,ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
+            }
         }
     }
 

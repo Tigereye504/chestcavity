@@ -55,6 +55,7 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+		displayOrganQuality(itemStack,world,tooltip,tooltipContext);
 		CompoundTag tag = itemStack.getTag();
 		if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
 			tag = tag.getCompound(COMPATIBILITY_TAG.toString());
@@ -65,5 +66,28 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 			}
 		}
 		super.appendTooltip(itemStack,world,tooltip,tooltipContext);
+	}
+
+	protected void displayOrganQuality(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext){
+		organQualityMap.forEach((organ,score) -> {
+			String tier;
+			if(score > 1){
+				tier = "Exceptional ";
+			}
+			else if(score > .75f){
+				tier = "Quality ";
+			}
+			else if(score > .5f){
+				tier = "Average ";
+			}
+			else if(score > .25f){
+				tier = "Poor ";
+			}
+			else{
+				tier = "Pathetic ";
+			}
+			LiteralText text = new LiteralText(tier+organ.getPath());
+			tooltip.add(text);
+		});
 	}
 }

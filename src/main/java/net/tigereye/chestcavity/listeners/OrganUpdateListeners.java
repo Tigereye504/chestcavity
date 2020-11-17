@@ -75,7 +75,7 @@ public class OrganUpdateListeners {
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(MUSCLE_SPEED_ID, "ChestCavityMovementSpeed",
-                        (cc.getOrganScore(CCOrganScores.STRENGTH) - cc.getDefaultOrganScore(CCOrganScores.STRENGTH))
+                        (cc.getOrganScore(CCOrganScores.SPEED) - cc.getDefaultOrganScore(CCOrganScores.SPEED))
                                 * ChestCavity.config.MUSCLE_SPEED / 8, EntityAttributeModifier.Operation.MULTIPLY_BASE);
                 ReplaceAttributeModifier(att, mod);
             }

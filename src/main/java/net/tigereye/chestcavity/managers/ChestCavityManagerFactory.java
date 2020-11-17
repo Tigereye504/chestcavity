@@ -49,16 +49,19 @@ public class ChestCavityManagerFactory {
         register(EntityType.TURTLE,AnimalChestCavityManager::new);
         register(EntityType.WOLF,AnimalChestCavityManager::new);
 
-        register(EntityType.CAVE_SPIDER,AnimalChestCavityManager::new);
+
         register(EntityType.ELDER_GUARDIAN,AnimalChestCavityManager::new);
         register(EntityType.GUARDIAN,AnimalChestCavityManager::new);
         register(EntityType.GHAST,AnimalChestCavityManager::new);
         register(EntityType.HOGLIN,AnimalChestCavityManager::new);
         register(EntityType.RAVAGER,AnimalChestCavityManager::new);
         register(EntityType.SHULKER, AnimalChestCavityManager::new);
-        register(EntityType.SPIDER,AnimalChestCavityManager::new);
         register(EntityType.PIGLIN,AnimalChestCavityManager::new);
         register(EntityType.PIGLIN_BRUTE,AnimalChestCavityManager::new);
+
+        register(EntityType.SPIDER,SpiderChestCavityManager::new);
+        register(EntityType.CAVE_SPIDER,SpiderChestCavityManager::new);
+        register(EntityType.BLAZE,SpiderChestCavityManager::new);
 
         register(EntityType.DROWNED,ZombieChestCavityManager::new);
         register(EntityType.HUSK,ZombieChestCavityManager::new);
@@ -82,7 +85,6 @@ public class ChestCavityManagerFactory {
         register(EntityType.WANDERING_TRADER,HumanChestCavityManager::new);
         register(EntityType.WITCH,HumanChestCavityManager::new);
 
-        //register(EntityType.BLAZE,BlazeChestCavityManager::new);
         register(EntityType.CREEPER,CreeperChestCavityManager::new);
         register(EntityType.ENDERMAN,EndermanChestCavityManager::new);
         //register(EntityType.IRON_GOLEM,IronGolemChestCavityManager::new);

@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+      "item": "chestcavity:raw_toxic_meat"
+    },
+    "result": "chestcavity:cooked_toxic_meat",
+    "experience": 0.35,
+    "cookingtime": 200
+  }
