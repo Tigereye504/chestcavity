@@ -34,7 +34,7 @@ public class SilkGland extends OrganBase{
         }
         else if(silkScore > 0) {
             player.getHungerManager().addExhaustion(8.0f);
-            player.dropItem(Items.STRING);
+            player.dropItem(Items.STRING); //TODO: place a tripwire string instead
             return true;
         }
         return false;
