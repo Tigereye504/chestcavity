@@ -42,8 +42,6 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected int spleenTimer = 0;
     protected float lungRemainder = 0;
 
-    protected int explosionCooldown = 0;
-
     static{
         initializeDefaultOrganScores();
     }
@@ -141,14 +139,6 @@ public class ChestCavityManager implements InventoryChangedListener {
 
     public void setLungRemainder(int lungRemainder) {
         this.lungRemainder = lungRemainder;
-    }
-
-    public int getExplosionCooldown() {
-        return explosionCooldown;
-    }
-
-    public void setExplosionCooldown(int explosionCooldown) {
-        this.explosionCooldown = explosionCooldown;
     }
 
     public float getOrganScore(Identifier id) {
@@ -386,7 +376,6 @@ public class ChestCavityManager implements InventoryChangedListener {
             this.liverTimer = ccTag.getInt("LiverTimer");
             this.spleenTimer = ccTag.getInt("SpleenTimer");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
-            this.explosionCooldown = ccTag.getInt("ExplosionCooldown");
             chestCavity.removeListener(this);
             if (ccTag.contains("Inventory")) {
                 ListTag listTag = ccTag.getList("Inventory", 10);
@@ -426,7 +415,6 @@ public class ChestCavityManager implements InventoryChangedListener {
         ccTag.putInt("LiverTimer", this.liverTimer);
         ccTag.putInt("SpleenTimer", this.spleenTimer);
         ccTag.putFloat("LungRemainder", this.lungRemainder);
-        ccTag.putInt("ExplosionCooldown", this.explosionCooldown);
         ccTag.put("Inventory", this.chestCavity.getTags());
         tag.put("ChestCavity",ccTag);
     }
