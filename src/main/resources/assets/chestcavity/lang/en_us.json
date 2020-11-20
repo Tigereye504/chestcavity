@@ -103,9 +103,12 @@
     "text.autoconfig.chestcavity.option.MUSCLE_STRENGTH": "Muscle Strength",
     "text.autoconfig.chestcavity.option.MUSCLE_SPEED": "Muscle Speed",
     "text.autoconfig.chestcavity.option.EXPLOSION_COOLDOWN": "Appendix Explosion Cooldown",
+    "text.autoconfig.chestcavity.option.SILK_COOLDOWN": "Silk Gland Cooldown",
     "text.autoconfig.chestcavity.option.ORGAN_REJECTION_DAMAGE": "Organ Rejection Damage",
     "text.autoconfig.chestcavity.option.ORGAN_REJECTION_RATE": "Organ Rejection Rate",
     "text.autoconfig.chestcavity.option.RISK_OF_PRIONS": "Risk of Prions",
-    "text.autoconfig.chestcavity.option.WENDIGOISM_INTEGRATION": "Anthropophagy Integration (Must Restart)",
-    "text.autoconfig.chestcavity.option.BACKROOMS_INTEGRATION": "Backrooms Integration (Must Restart)"
+    "text.autoconfig.chestcavity.option.AGE_OF_EXILE_INTEGRATION": "Age Of Exile Integration (Restart)",
+    "text.autoconfig.chestcavity.option.ANTHROPOPHAGY_INTEGRATION": "Anthropophagy Integration (Restart)",
+    "text.autoconfig.chestcavity.option.BACKROOMS_INTEGRATION": "Backrooms Integration (Restart)",
+    "text.autoconfig.chestcavity.option.DIREBATS_INTEGRATION": "Direbats Integration (Restart)"
 }

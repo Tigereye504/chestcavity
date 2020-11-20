@@ -2,6 +2,8 @@ package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -11,7 +13,9 @@ import java.util.function.Supplier;
 
 public class ChestCavityManagerFactory {
 
-    private static Map<EntityType<? extends LivingEntity>, Function<LivingEntity,ChestCavityManager>> entityTypeMap = new HashMap<>();
+    //private static Map<EntityType<? extends LivingEntity>, Function<LivingEntity,ChestCavityManager>> entityTypeMap = new HashMap<>();
+    private static Map<Identifier, Function<LivingEntity,ChestCavityManager>> entityIdentifierMap = new HashMap<>();
+    private static Map<Class<? extends LivingEntity>, Function<LivingEntity,ChestCavityManager>> entityClassMap = new HashMap<>();
     //public Map<LivingEntity>
 
     static{ //note that these can be overwritten
@@ -96,13 +100,19 @@ public class ChestCavityManagerFactory {
     }
 
     public static ChestCavityManager newChestCavityManager(EntityType<? extends LivingEntity> entityType, LivingEntity owner){
-        if(entityTypeMap.containsKey(entityType)){
-            return entityTypeMap.get(entityType).apply(owner);
+        //if(entityTypeMap.containsKey(entityType)){
+        //    return entityTypeMap.get(entityType).apply(owner);
+        //}
+        if(entityIdentifierMap.containsKey(Registry.ENTITY_TYPE.getId(entityType))){
+            return entityIdentifierMap.get(Registry.ENTITY_TYPE.getId(entityType)).apply(owner);
         }
         return new ChestCavityManager(owner);
     }
 
     public static void register(EntityType<? extends LivingEntity> entityType,Function<LivingEntity,ChestCavityManager> constructor){
-        entityTypeMap.put(entityType,constructor);
+        entityIdentifierMap.put(Registry.ENTITY_TYPE.getId(entityType),constructor);
+    }
+    public static void register(Identifier entityIdentifier, Function<LivingEntity,ChestCavityManager> constructor){
+        entityIdentifierMap.put(entityIdentifier,constructor);
     }
 }

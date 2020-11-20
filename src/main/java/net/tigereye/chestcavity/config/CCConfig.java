@@ -2,10 +2,12 @@ package net.tigereye.chestcavity.config;
 
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
+import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 import net.tigereye.chestcavity.ChestCavity;
 
 @Config(name = ChestCavity.MODID)
 public class CCConfig implements ConfigData {
+
     public float ORGAN_BUNDLE_DROP_RATE = .025f;
     public float ORGAN_BUNDLE_LOOTING_BOOST = .01f;
     public float UNIVERSAL_DONOR_RATE = .06f;
@@ -25,6 +27,8 @@ public class CCConfig implements ConfigData {
     public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
 
-    public boolean WENDIGOISM_INTEGRATION = true;
+    public boolean AGE_OF_EXILE_INTEGRATION = true;
+    public boolean ANTHROPOPHAGY_INTEGRATION = true;
     public boolean BACKROOMS_INTEGRATION = true;
+    public boolean DIREBATS_INTEGRATION = true;
 }
