@@ -13,14 +13,13 @@ Also uses Onyx Studio's Cardinal Components.
 
 ## Images
 
+![2_2_1 Organs](https://user-images.githubusercontent.com/12503726/99457027-2cd66c00-28df-11eb-9036-44a90c9e2b4c.png)
 
-![Organs](https://user-images.githubusercontent.com/12503726/99141695-bdbcf700-2602-11eb-8110-3f8b302572ec.png)
+![2_2_1 Basic Crafting](https://user-images.githubusercontent.com/12503726/99456311-0d8b0f00-28de-11eb-83d2-923cfb350691.png)
 
-![Crafting Recipes](https://user-images.githubusercontent.com/12503726/99141845-f4474180-2603-11eb-93d7-41dcaec9c826.png)
+![2_2_1 Cooking](https://user-images.githubusercontent.com/12503726/99456319-111e9600-28de-11eb-95e3-5be74ab77381.png)
 
-![Food Recipes](https://user-images.githubusercontent.com/12503726/99141699-c3b2d800-2602-11eb-862d-32a690966325.png)
-
-![Food Recipes Cont](https://user-images.githubusercontent.com/12503726/99141703-c9a8b900-2602-11eb-9711-c351a38f724e.png)
+![2_2_1 Sausage](https://user-images.githubusercontent.com/12503726/99456341-167be080-28de-11eb-9f44-04e412aa41dd.png)
 
 ![Example Chest Cavities](https://user-images.githubusercontent.com/12503726/99141626-fc05e680-2601-11eb-8437-a07a02188096.png)
 
