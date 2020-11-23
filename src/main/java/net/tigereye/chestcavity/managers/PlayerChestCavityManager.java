@@ -2,12 +2,19 @@ package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.GameRules;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.OrganBase;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class PlayerChestCavityManager extends HumanChestCavityManager{
 
@@ -66,4 +73,8 @@ public class PlayerChestCavityManager extends HumanChestCavityManager{
         chestCavity.addStack(stack);
     }
 
+    @Override
+    public List<ItemStack> generateLootDrops(Random random, int looting){
+        return new ArrayList<>();
+    }
 }
