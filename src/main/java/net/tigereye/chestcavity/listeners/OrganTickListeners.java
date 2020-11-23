@@ -27,11 +27,12 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickKidney);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickLiver);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickLung);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
     }
 
     public static void TickHeart(LivingEntity entity, ChestCavityManager chestCavity){
@@ -59,7 +60,7 @@ public class OrganTickListeners {
         {
             int kidneyTimer =chestCavity.getKidneyTimer()+1;
             if(kidneyTimer >= ChestCavity.config.KIDNEY_RATE){
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)(48*KidneyRatio)));
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)(48*(1-KidneyRatio))));
                 kidneyTimer = 0;
             }
             chestCavity.setKidneyTimer(kidneyTimer);
@@ -146,6 +147,19 @@ public class OrganTickListeners {
         {
             if(!entity.hasStatusEffect(CCStatusEffects.ORGAN_REJECTION)){
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.ORGAN_REJECTION, (int)(ChestCavity.config.ORGAN_REJECTION_RATE /incompatibility),0, false, true, true));
+            }
+        }
+    }
+
+    public static void TickGlowing(LivingEntity entity,ChestCavityManager chestCavity){
+        if(entity.getEntityWorld().isClient()){ //this is a server-side event
+            return;
+        }
+        float glowing = chestCavity.getOrganScore(CCOrganScores.GLOWING);
+        if(glowing > 0)
+        {
+            if(!entity.hasStatusEffect(StatusEffects.GLOWING)){
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200,0, false, true, true));
             }
         }
     }

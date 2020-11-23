@@ -56,8 +56,16 @@ public class CCOtherOrgans {
         map.put(Items.TNT,tnt);
 
         Map<Identifier,Float> ease_of_access = new HashMap<>();
-        ease_of_access.put(CCOrganScores.EASE_OF_ACCESS,1f);
+        ease_of_access.put(CCOrganScores.EASE_OF_ACCESS,1f*Items.OAK_DOOR.getMaxCount());
         tagMap.put(ItemTags.DOORS,ease_of_access);
         tagMap.put(ItemTags.TRAPDOORS,ease_of_access);
+
+        Map<Identifier,Float> glowstoneDust = new HashMap<>();
+        tnt.put(CCOrganScores.GLOWING,1f*Items.GLOWSTONE_DUST.getMaxCount());
+        map.put(Items.GLOWSTONE_DUST,glowstoneDust);
+
+        Map<Identifier,Float> glowstone = new HashMap<>();
+        tnt.put(CCOrganScores.GLOWING,2f*Items.GLOWSTONE.getMaxCount());
+        map.put(Items.GLOWSTONE,glowstone);
     }
 }

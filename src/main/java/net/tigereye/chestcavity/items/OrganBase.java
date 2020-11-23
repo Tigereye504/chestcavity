@@ -56,15 +56,7 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 		displayOrganQuality(itemStack,world,tooltip,tooltipContext);
-		CompoundTag tag = itemStack.getTag();
-		if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
-			tag = tag.getCompound(COMPATIBILITY_TAG.toString());
-			if (tag.getInt("type") == ChestCavityManager.COMPATIBILITY_TYPE_PERSONAL) {
-				UUID uuid = tag.getUuid("owner");
-				LiteralText text = new LiteralText("Soulbound");
-				tooltip.add(text);
-			}
-		}
+		displaySoulBinding(itemStack,world,tooltip,tooltipContext);
 		super.appendTooltip(itemStack,world,tooltip,tooltipContext);
 	}
 
@@ -89,5 +81,17 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 			LiteralText text = new LiteralText(tier+organ.getPath());
 			tooltip.add(text);
 		});
+	}
+
+	protected void displaySoulBinding(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+		CompoundTag tag = itemStack.getTag();
+		if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
+			tag = tag.getCompound(COMPATIBILITY_TAG.toString());
+			if (tag.getInt("type") == ChestCavityManager.COMPATIBILITY_TYPE_PERSONAL) {
+				String name = tag.getString("name");
+				Text text = new LiteralText("Owner: "+name);
+				tooltip.add(text);
+			}
+		}
 	}
 }

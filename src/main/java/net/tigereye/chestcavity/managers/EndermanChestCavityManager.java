@@ -112,7 +112,7 @@ public class EndermanChestCavityManager extends ChestCavityManager{
                 if(rolledItem.getMaxCount() > 1){
                     count += random.nextInt(rolledItem.getMaxCount());
                 }
-                loot.add(new ItemStack(organPile.remove(roll)));
+                loot.add(new ItemStack(organPile.remove(roll),count));
             }
         }
         return loot;

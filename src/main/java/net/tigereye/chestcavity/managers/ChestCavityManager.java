@@ -271,7 +271,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         return chestCavity;
     }
 
-    protected void generateChestCavity(){
+    public void generateChestCavity(){
         if(opened) {
             fillChestCavityInventory();
             //TODO: add event where listeners can overwrite specific organs before compatibility is set
@@ -294,6 +294,7 @@ public class ChestCavityManager implements InventoryChangedListener {
                 CompoundTag tag = new CompoundTag();
                 tag.putInt("type", COMPATIBILITY_TYPE_PERSONAL);
                 tag.putUuid("owner",owner.getUuid());
+                tag.putString("name",owner.getDisplayName().getString());
                 itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
             }
         }
@@ -461,7 +462,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public int applyLungCapacityInWater(int oldAir, int newAir){
-        if(!opened || getDefaultOrganScore(CCOrganScores.LUNG) == 0){
+        if(!opened || getDefaultOrganScore(CCOrganScores.LUNG) == 0 || owner.world.isClient()){
             return newAir;
         }
         float airLoss = (oldAir - newAir);
@@ -482,10 +483,10 @@ public class ChestCavityManager implements InventoryChangedListener {
             return foodStarvationTimer;
         }
         spleenTimer++;
-        if(spleenTimer >=2){
-            foodStarvationTimer += organScores.getOrDefault(CCOrganScores.SPLEEN,0f) - 1;
+        if(spleenTimer >= 2){
+            foodStarvationTimer += getOrganScore(CCOrganScores.SPLEEN) - 1;
+            spleenTimer = 0;
         }
-        spleenTimer = 0;
         return foodStarvationTimer;
         //TODO: find a use for spleens for non-players
     }

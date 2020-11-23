@@ -26,6 +26,7 @@ public class PlayerChestCavityManager extends HumanChestCavityManager{
                 CompoundTag tag = new CompoundTag();
                 tag.putInt("type", COMPATIBILITY_TYPE_PERSONAL);
                 tag.putUuid("owner",owner.getUuid());
+                tag.putString("name",owner.getDisplayName().getString());
                 itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
             }
         }

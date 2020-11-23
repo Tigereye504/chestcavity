@@ -19,10 +19,10 @@ public class CCCommands {
                 .then(CommandManager.literal("getscores")
                     .executes(CCCommands::getScoresNoArgs)
                     .then(CommandManager.argument("entity", EntityArgumentType.entity())
-                        .executes(CCCommands::resetChestCavity)))
+                        .executes(CCCommands::getScores)))
             );
             dispatcher.register(CommandManager.literal("chestcavity")
-                .then(CommandManager.literal("resetChestCavity")
+                .then(CommandManager.literal("resetChestCavity").requires(source -> source.hasPermissionLevel(2))
                     .executes(CCCommands::resetChestCavityNoArgs)
                     .then(CommandManager.argument("entity", EntityArgumentType.entity())
                         .executes(CCCommands::resetChestCavity)))
@@ -80,7 +80,7 @@ public class CCCommands {
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
-            optional.get().getChestCavityManager().fillChestCavityInventory();
+            optional.get().getChestCavityManager().generateChestCavity();
             return 1;
         }
         return 0;
@@ -97,7 +97,7 @@ public class CCCommands {
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
-            optional.get().getChestCavityManager().fillChestCavityInventory();
+            optional.get().getChestCavityManager().generateChestCavity();
             return 1;
         }
         return 0;

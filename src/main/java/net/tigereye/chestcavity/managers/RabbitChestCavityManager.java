@@ -110,7 +110,7 @@ public class RabbitChestCavityManager extends SmallAnimalChestCavityManager{
                 if(rolledItem.getMaxCount() > 1){
                     count += random.nextInt(rolledItem.getMaxCount());
                 }
-                loot.add(new ItemStack(organPile.remove(roll)));
+                loot.add(new ItemStack(organPile.remove(roll),count));
             }
         }
         return loot;
