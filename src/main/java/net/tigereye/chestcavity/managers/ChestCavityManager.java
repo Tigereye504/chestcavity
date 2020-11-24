@@ -440,8 +440,8 @@ public class ChestCavityManager implements InventoryChangedListener {
         if(!opened){
             return damage;
         }
-        float boneDiff = getOrganScore(CCOrganScores.BONE) - getDefaultOrganScore(CCOrganScores.BONE);
-        return damage*(5/(Math.max(.25f,5+boneDiff)));
+        float boneDiff = (getOrganScore(CCOrganScores.BONE) - getDefaultOrganScore(CCOrganScores.BONE))/4;
+        return (float)(damage*Math.pow(ChestCavity.config.BONE_DEFENSE,boneDiff));
     }
 
     public float applyIntestinesSaturation(float sat){

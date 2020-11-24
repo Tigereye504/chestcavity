@@ -20,6 +20,7 @@ public class CCConfig implements ConfigData {
     public float HEART_HP = 4; //how much health each heart is worth
     public float MUSCLE_STRENGTH = 1f; //how much 8 stacks of muscles contribute to attack damage
     public float MUSCLE_SPEED = .5f; //how much 8 stacks of muscles contribute to movement speed
+    public float BONE_DEFENSE = .5f; //damage reduction from 4 stacks of ribs
 
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding
     public int SILK_COOLDOWN = 20; //how often an entity is allowed to lay silk
