@@ -19,11 +19,8 @@ public class OrganRejection extends CCStatusEffect{
     }
 
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        if(!(entity.world.isClient)){
-            Optional<ChestCavityEntity> ccEntity = ChestCavityEntity.of(entity);
-            if(ccEntity.isPresent()){
-                entity.damage(CCDamageSource.ORGAN_REJECTION, ChestCavity.config.ORGAN_REJECTION_DAMAGE);
-            }
+        if(!(entity.world.isClient)){ //TODO: I don't think IDing them as a ChestCavityEntity is needed
+            entity.damage(CCDamageSource.ORGAN_REJECTION, ChestCavity.config.ORGAN_REJECTION_DAMAGE);
         }
     }
 }

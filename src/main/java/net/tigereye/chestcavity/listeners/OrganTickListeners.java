@@ -98,7 +98,7 @@ public class OrganTickListeners {
     }
 
     public static void TickCreepiness(LivingEntity entity,ChestCavityManager chestCavity){
-        if(chestCavity.getOrganScore(CCOrganScores.CREEPINESS) < 1){ //TODO: make creepers dependent on creepiness
+        if(chestCavity.getOrganScore(CCOrganScores.CREEPINESS) < 1){
             return;
         }
         if(entity.hasStatusEffect(CCStatusEffects.EXPLOSION_COOLDOWN)){
@@ -121,7 +121,7 @@ public class OrganTickListeners {
         if(entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
             return;
         }
-        else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
+        else if(entity.getPose() == EntityPose.CROUCHING){
             if(SilkGland.spinWeb(entity,chestCavity.getOrganScore(CCOrganScores.SILK))) {
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN,ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
             }

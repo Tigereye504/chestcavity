@@ -20,7 +20,7 @@ public class ChestCavityManagerFactory {
 
     static{ //note that these can be overwritten
         register(EntityType.BAT,SmallAnimalChestCavityManager::new);
-        register(EntityType.BEE,SmallAnimalChestCavityManager::new);
+        register(EntityType.BEE,BeeChestCavityManager::new);
         register(EntityType.CAT,SmallAnimalChestCavityManager::new);
         register(EntityType.CHICKEN,SmallAnimalChestCavityManager::new);
         register(EntityType.COD,SmallAnimalChestCavityManager::new);
@@ -64,7 +64,7 @@ public class ChestCavityManagerFactory {
         register(EntityType.PIGLIN_BRUTE,AnimalChestCavityManager::new);
 
         register(EntityType.SPIDER,SpiderChestCavityManager::new);
-        register(EntityType.CAVE_SPIDER,SpiderChestCavityManager::new);
+        register(EntityType.CAVE_SPIDER,CaveSpiderChestCavityManager::new);
         register(EntityType.BLAZE,SpiderChestCavityManager::new);
 
         register(EntityType.DROWNED,ZombieChestCavityManager::new);

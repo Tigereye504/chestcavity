@@ -3,23 +3,36 @@ package net.tigereye.chestcavity.mixin;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.items.SilkGland;
 import net.tigereye.chestcavity.managers.ChestCavityManagerFactory;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.registration.CCStatusEffects;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,6 +60,17 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     @Inject(at = @At("HEAD"), method = "baseTick")
     public void chestCavityLivingEntityBaseTickMixin(CallbackInfo info){
         chestCavityManager.onTick();
+    }
+
+    @ModifyVariable(at = @At(value = "CONSTANT", args = "floatValue=0.0F", ordinal = 0), ordinal = 0, method = "applyDamage")
+    public float chestCavityLivingEntityOnHitMixin(float amount, DamageSource source){
+        if(source.getAttacker() instanceof LivingEntity){
+            Optional<ChestCavityEntity> cce = ChestCavityEntity.of(source.getAttacker());
+            if(cce.isPresent()){
+                    amount = cce.get().getChestCavityManager().onHit(source, (LivingEntity)(Object)this,amount);
+            }
+        }
+        return amount;
     }
 
     @Inject(at = @At("RETURN"), method = "getNextAirUnderwater", cancellable = true)
@@ -97,6 +121,46 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         }
     }
 
+    @Mixin(CowEntity.class)
+    private static abstract class Cow extends AnimalEntity {
+
+        protected Cow(EntityType<? extends AnimalEntity> entityType, World world) {super(entityType, world);}
+
+        @Inject(method = "interactMob",
+                /*at = @At(value = "INVOKE",
+                        target = "Lnet/minecraft/entity/LivingEntity;setStackInHand(" +
+                                    "Lnet/minecraft/util/Hand;" +
+                                    "Lnet/minecraft/item/ItemStack;" +
+                                    ")V",
+                        shift = At.Shift.AFTER)*/
+                at = @At(value = "RETURN", ordinal = 0)
+                )
+        protected void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
+            SilkGland.milkSilk(this);
+        }
+    }
+
+    @Mixin(CreeperEntity.class)
+    private static abstract class Creeper extends HostileEntity {
+        @Shadow
+        private int currentFuseTime;
+
+        protected Creeper(EntityType<? extends HostileEntity> entityType, World world) {super(entityType, world);}
+
+        @Inject(at = @At("HEAD"), method = "tick")
+        protected void chestCavityCreeperTickMixin(CallbackInfo info) {
+            if(this.isAlive()
+                    && currentFuseTime > 1){
+                ChestCavityEntity.of(this).ifPresent(cce -> {
+                    if(cce.getChestCavityManager().getOpened()
+                            && cce.getChestCavityManager().getOrganScore(CCOrganScores.CREEPINESS) <= 0){
+                        currentFuseTime = 1;
+                    }
+                });
+            }
+        }
+    }
+
     @Mixin(ServerPlayerEntity.class)
     private static abstract class Server extends PlayerEntity {
         public Server(World world, BlockPos pos, float yaw, GameProfile profile) {
@@ -114,6 +178,19 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                 }
                 chestCavityEntity.getChestCavityManager().clone(oldCCPlayerEntityInterface.getChestCavityManager());
             }));
+        }
+    }
+
+    @Mixin(SheepEntity.class)
+    private static abstract class Sheep extends AnimalEntity {
+
+        protected Sheep(EntityType<? extends AnimalEntity> entityType, World world) {super(entityType, world);}
+
+        @Inject(method = "sheared",
+                at = @At(value = "HEAD")
+        )
+        protected void chestCavitySheared(SoundCategory shearedSoundCategory, CallbackInfo info) {
+            SilkGland.shearSilk(this);
         }
     }
 

@@ -6,8 +6,11 @@
   "mixins": [
     "MixinHungerManager",
     "MixinLivingEntity",
-    "MixinLivingEntity$Server",
+    "MixinLivingEntity$Cow",
+    "MixinLivingEntity$Creeper",
     "MixinLivingEntity$Mob",
+    "MixinLivingEntity$Server",
+    "MixinLivingEntity$Sheep",
     "MixinStatusEffect",
     "MixinStatusEffectInstance"
   ],

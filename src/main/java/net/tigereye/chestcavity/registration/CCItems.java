@@ -5,10 +5,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.ChestOpener;
-import net.tigereye.chestcavity.items.CreeperAppendix;
-import net.tigereye.chestcavity.items.EnderKidney;
-import net.tigereye.chestcavity.items.OrganBase;
+import net.tigereye.chestcavity.items.*;
 
 public class CCItems {
 
@@ -78,7 +75,8 @@ public class CCItems {
 	public static final Item INSECT_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
 	public static final Item INSECT_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f).setOrganQuality(CCOrganScores.INTESTINE,.25f);
 	public static final Item INSECT_CAECA = new OrganBase().setOrganQuality(CCOrganScores.STOMACH, .25f).setOrganQuality(CCOrganScores.INTESTINE, .5f).setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.25f);
-	public static final Item SILK_GLAND = new OrganBase().setOrganQuality(CCOrganScores.SILK,1f);
+	public static final Item SILK_GLAND = new SilkGland().setOrganQuality(CCOrganScores.SILK,1f);
+	public static final Item VENOM_GLAND = new VenomGland().setOrganQuality(CCOrganScores.VENOMOUS,1f);
 
 	public static final Item SALTWATER_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,1f).setOrganQuality(CCOrganScores.LUNG,.25f);
 	public static final Item SALTWATER_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f).setOrganQuality(CCOrganScores.HEART,.25f);
@@ -176,6 +174,7 @@ public class CCItems {
 		registerItem("insect_stomach", INSECT_STOMACH);
 		registerItem("insect_caeca", INSECT_CAECA);
 		registerItem("silk_gland", SILK_GLAND);
+		registerItem("venom_gland", VENOM_GLAND);
 		
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);

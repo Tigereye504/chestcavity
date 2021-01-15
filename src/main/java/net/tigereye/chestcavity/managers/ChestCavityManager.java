@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
@@ -14,6 +15,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.*;
+import net.tigereye.chestcavity.listeners.OrganOnHitListener;
+import net.tigereye.chestcavity.listeners.OrganOnHitContext;
 import net.tigereye.chestcavity.listeners.OrganTickCallback;
 import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
 import net.tigereye.chestcavity.registration.CCOrganScores;
@@ -34,6 +37,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected ChestCavityInventory chestCavity;
     protected Map<Identifier,Float> oldOrganScores = new HashMap<>();
     protected Map<Identifier,Float> organScores = new HashMap<>();
+    protected static List<OrganOnHitContext> onHitListeners = new ArrayList<>();
 
     protected boolean opened = false;
     protected int heartTimer = 0;
@@ -170,6 +174,7 @@ public class ChestCavityManager implements InventoryChangedListener {
             organScores.putAll(getDefaultOrganScores());
         }
         else {
+            onHitListeners.clear();
             resetOrganScores();
 
             for (int i = 0; i < chestCavity.size(); i++) {
@@ -182,8 +187,10 @@ public class ChestCavityManager implements InventoryChangedListener {
                             organMap.forEach((key, value) ->
                                     addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1)));
                         }
+                        if(slotitem instanceof OrganOnHitListener){
+                            onHitListeners.add(new OrganOnHitContext(itemStack,(OrganOnHitListener)slotitem));
+                        }
                     }
-
                     CompoundTag tag = itemStack.getTag();
                     if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
                         tag = tag.getCompound(COMPATIBILITY_TAG.toString());
@@ -259,6 +266,17 @@ public class ChestCavityManager implements InventoryChangedListener {
             OrganTickCallback.EVENT.invoker().onOrganTick(owner, this);
             organUpdate();
         }
+    }
+
+    public float onHit(DamageSource source, LivingEntity target, float damage){
+        if(opened) {
+            for (OrganOnHitContext e:
+                 onHitListeners) {
+                damage = e.listener.onHit(source,owner,target,this,e.organ,damage);
+            }
+            organUpdate();
+        }
+        return damage;
     }
 
     public ChestCavityInventory openChestCavity(){

@@ -6,6 +6,7 @@
       "chestcavity:insect_lung",
       "chestcavity:insect_stomach",
       "chestcavity:insect_caeca",
-      "chestcavity:silk_gland"
+      "chestcavity:silk_gland",
+      "chestcavity:venom_gland"
     ]
 }
