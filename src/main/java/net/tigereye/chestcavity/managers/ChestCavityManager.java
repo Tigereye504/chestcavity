@@ -318,25 +318,11 @@ public class ChestCavityManager implements InventoryChangedListener {
                 itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
             }
         }
-        //then check if any may become more compatible, and if so how many attempts will be made
         int universalOrgans = 0;
-        //int communalOrgans = 0;
         Random random = owner.getRandom();
         if(random.nextFloat() < ChestCavity.config.UNIVERSAL_DONOR_RATE){
             universalOrgans = 1+random.nextInt(3)+random.nextInt(3);
         }
-        /*communalOrgans = 1+random.nextInt(4)+random.nextInt(4);
-        while(communalOrgans > 0){
-            int i = random.nextInt(chestCavity.size());
-            ItemStack itemStack = chestCavity.getStack(i);
-            if(itemStack != null){
-                CompoundTag tag = new CompoundTag();
-                tag.putInt("compatibility_type", COMPATIBILITY_TYPE_SPECIES);
-                tag.putString("species",owner.getType().tag);
-                itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
-            }
-            communalOrgans--;
-        }*/
         //each attempt, roll a random slot in the chestcavity and turn that organ, if any, compatible
         while(universalOrgans > 0){
             int i = random.nextInt(chestCavity.size());

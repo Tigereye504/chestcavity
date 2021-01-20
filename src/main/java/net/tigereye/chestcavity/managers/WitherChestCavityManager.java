@@ -5,6 +5,7 @@ import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
@@ -102,6 +103,33 @@ public class WitherChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.METABOLISM, 1f);
         organScores.put(CCOrganScores.DIGESTION, 1f);
         organScores.put(CCOrganScores.BREATH, 2f);
+    }
+
+    @Override
+    protected void setOrganCompatibility(){
+        //the wither is guaranteed to have 1-3 compatible organs
+        for(int i = 0; i < chestCavity.size();i++){
+            ItemStack itemStack = chestCavity.getStack(i);
+            if(itemStack != null && itemStack != itemStack.EMPTY){
+                CompoundTag tag = new CompoundTag();
+                tag.putInt("type", COMPATIBILITY_TYPE_PERSONAL);
+                tag.putUuid("owner",owner.getUuid());
+                tag.putString("name",owner.getDisplayName().getString());
+                itemStack.putSubTag(COMPATIBILITY_TAG.toString(),tag);
+            }
+        }
+        int universalOrgans = 0;
+        Random random = owner.getRandom();
+        universalOrgans = 1+random.nextInt(2)+random.nextInt(2);
+
+        while(universalOrgans > 0){
+            int i = random.nextInt(chestCavity.size());
+            ItemStack itemStack = chestCavity.getStack(i);
+            if(itemStack != null && itemStack != ItemStack.EMPTY){
+                itemStack.removeSubTag(COMPATIBILITY_TAG.toString());
+            }
+            universalOrgans--;
+        }
     }
 
     @Override
