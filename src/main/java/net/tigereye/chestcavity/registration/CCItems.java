@@ -21,67 +21,73 @@ public class CCItems {
 
 	public static final Item CHEST_OPENER = new ChestOpener();
 
-	public static final Item HUMAN_APPENDIX = new OrganBase().setOrganQuality(CCOrganScores.APPENDIX,1f);
-	public static final Item HUMAN_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,1f);
-	public static final Item HUMAN_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,1f);
-	public static final Item HUMAN_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,1f);
-	public static final Item HUMAN_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,1f);
-	public static final Item HUMAN_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f);
-	public static final Item HUMAN_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
-	public static final Item HUMAN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,1f);
-	public static final Item HUMAN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.BONE,.75f);
-	public static final Item HUMAN_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,1f);
-	public static final Item HUMAN_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,1f);
+	public static final Organ HUMAN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,1f);
+	public static final Organ HUMAN_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f);
+	public static final Organ HUMAN_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,1f);
+	public static final Organ HUMAN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1f);
+	public static final Organ HUMAN_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,1f);
+	public static final Organ HUMAN_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1f).setOrganQuality(CCOrganScores.ENDURANCE,1f);
+	public static final Organ HUMAN_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
+	public static final Organ HUMAN_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,1f);
+	public static final Organ HUMAN_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.DEFENSE,.75f);
+	public static final Organ HUMAN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1f);
+	public static final Organ HUMAN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1f);
 
-	public static final Item ROTTEN_APPENDIX = new OrganBase().setOrganQuality(CCOrganScores.APPENDIX,.5f);
-	public static final Item ROTTEN_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f);
-	public static final Item ROTTEN_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,.5f);
-	public static final Item ROTTEN_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,.5f);
-	public static final Item ROTTEN_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.5f);
-	public static final Item ROTTEN_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.5f);
-	public static final Item ROTTEN_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.5f);
-	public static final Item ROTTEN_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
-	public static final Item ROTTEN_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.5f);
-	public static final Item ROTTEN_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f);
+	public static final Organ ROTTEN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,.5f);
+	public static final Organ ROTTEN_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
+	public static final Organ ROTTEN_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
+	public static final Organ ROTTEN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
+	public static final Organ ROTTEN_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.5f);
+	public static final Organ ROTTEN_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,.5f);
+	public static final Organ ROTTEN_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
+	public static final Organ ROTTEN_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f);
+	public static final Organ ROTTEN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.5f);
+	public static final Organ ROTTEN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
+	public static final Organ WITHERED_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.5f).setOrganQuality(CCOrganScores.WITHERED,1);
+	public static final Organ WITHERED_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f).setOrganQuality(CCOrganScores.WITHERED,1);
+	public static final Organ WRITHING_SOULSAND = new Organ(ORGAN_SETTINGS_16).setOrganQuality(CCOrganScores.STRENGTH,1.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
 
-	public static final Item ANIMAL_APPENDIX = new OrganBase().setOrganQuality(CCOrganScores.APPENDIX,.75f);
-	public static final Item ANIMAL_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.75f);
-	public static final Item ANIMAL_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,.75f);
-	public static final Item ANIMAL_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,.75f);
-	public static final Item ANIMAL_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.75f);
-	public static final Item ANIMAL_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.75f);
-	public static final Item ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.75f);
-	public static final Item ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.75f);
-	public static final Item ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.75f).setOrganQuality(CCOrganScores.BONE,.5625f);
-	public static final Item ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.75f);
-	public static final Item ANIMAL_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.75f);
+	public static final Organ ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,.75f);
+	public static final Organ ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.75f);
+	public static final Organ ANIMAL_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.75f);
+	public static final Organ ANIMAL_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.75f);
+	public static final Organ ANIMAL_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.75f);
+	public static final Organ ANIMAL_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f);
+	public static final Organ ANIMAL_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.75f);
+	public static final Organ ANIMAL_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.75f);
+	public static final Organ ANIMAL_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.75f).setOrganQuality(CCOrganScores.DEFENSE,.5625f);
+	public static final Organ ANIMAL_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.75f);
+	public static final Organ ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.75f);
+	public static final Organ GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,1);
 
-	public static final Item SMALL_ANIMAL_APPENDIX = new OrganBase().setOrganQuality(CCOrganScores.APPENDIX,.5f);
-	public static final Item SMALL_ANIMAL_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f);
-	public static final Item SMALL_ANIMAL_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,.5f);
-	public static final Item SMALL_ANIMAL_KIDNEY = new OrganBase().setOrganQuality(CCOrganScores.KIDNEY,.5f);
-	public static final Item SMALL_ANIMAL_LIVER = new OrganBase().setOrganQuality(CCOrganScores.LIVER,.5f);
-	public static final Item SMALL_ANIMAL_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.5f);
-	public static final Item SMALL_ANIMAL_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
-	public static final Item SMALL_ANIMAL_RIB = new OrganBase(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.BONE,.5f);
-	public static final Item SMALL_ANIMAL_SPINE = new OrganBase().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.BONE,.375f);
-	public static final Item SMALL_ANIMAL_SPLEEN = new OrganBase().setOrganQuality(CCOrganScores.SPLEEN,.5f);
-	public static final Item SMALL_ANIMAL_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f);
-	public static final Item RABBIT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
+	public static final Organ SMALL_ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,.5f);
+	public static final Organ SMALL_ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
+	public static final Organ SMALL_ANIMAL_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
+	public static final Organ SMALL_ANIMAL_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
+	public static final Organ SMALL_ANIMAL_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.5f);
+	public static final Organ SMALL_ANIMAL_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,.5f);
+	public static final Organ SMALL_ANIMAL_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
+	public static final Organ SMALL_ANIMAL_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
+	public static final Organ SMALL_ANIMAL_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f);
+	public static final Organ SMALL_ANIMAL_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.5f);
+	public static final Organ SMALL_ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
+	public static final Organ RABBIT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
+	public static final Organ SMALL_GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,.5f);
 
-	public static final Item INSECT_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,.5f);
-	public static final Item INSECT_INTESTINE = new OrganBase().setOrganQuality(CCOrganScores.INTESTINE,.5f);
-	public static final Item INSECT_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,.75f);
-	public static final Item INSECT_MUSCLE = new OrganBase(ORGAN_SETTINGS_16.food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
-	public static final Item INSECT_STOMACH = new OrganBase().setOrganQuality(CCOrganScores.STOMACH,.5f).setOrganQuality(CCOrganScores.INTESTINE,.25f);
-	public static final Item INSECT_CAECA = new OrganBase().setOrganQuality(CCOrganScores.STOMACH, .25f).setOrganQuality(CCOrganScores.INTESTINE, .5f).setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.25f);
-	public static final Item SILK_GLAND = new SilkGland().setOrganQuality(CCOrganScores.SILK,1f);
-	public static final Item VENOM_GLAND = new VenomGland().setOrganQuality(CCOrganScores.VENOMOUS,1f);
+	public static final Organ INSECT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
+	public static final Organ INSECT_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
+	public static final Organ INSECT_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f);
+	public static final Organ INSECT_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
+	public static final Organ INSECT_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f).setOrganQuality(CCOrganScores.NUTRITION,.25f);
+	public static final Organ INSECT_CAECA = new Organ().setOrganQuality(CCOrganScores.DIGESTION, .25f).setOrganQuality(CCOrganScores.NUTRITION, .5f).setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.25f);
+	public static final Organ SILK_GLAND = new SilkGland().setOrganQuality(CCOrganScores.SILK,1f);
+	public static final Organ VENOM_GLAND = new VenomGland().setOrganQuality(CCOrganScores.VENOMOUS,1f);
 
-	public static final Item SALTWATER_HEART = new OrganBase().setOrganQuality(CCOrganScores.HEART,1f).setOrganQuality(CCOrganScores.LUNG,.25f);
-	public static final Item SALTWATER_LUNG = new OrganBase().setOrganQuality(CCOrganScores.LUNG,1f).setOrganQuality(CCOrganScores.HEART,.25f);
-	public static final Item CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPINESS,1);
-	public static final Item ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.KIDNEY, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
+	public static final Organ SALTWATER_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f).setOrganQuality(CCOrganScores.BREATH,.25f);
+	public static final Organ SALTWATER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1.25f).setOrganQuality(CCOrganScores.ENDURANCE,1f);
+	public static final Organ CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPY,1);
+	public static final Organ ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.FILTRATION, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
+
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
 	public static final Item RAW_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -141,6 +147,9 @@ public class CCItems {
 		registerItem("rotten_spine", ROTTEN_SPINE);
 		registerItem("rotten_spleen", ROTTEN_SPLEEN);
 		registerItem("rotten_stomach", ROTTEN_STOMACH);
+		registerItem("withered_rib", WITHERED_RIB);
+		registerItem("withered_spine", WITHERED_SPINE);
+		registerItem("writhing_soulsand", WRITHING_SOULSAND);
 
 		registerItem("animal_appendix", ANIMAL_APPENDIX);
 		registerItem("animal_heart", ANIMAL_HEART);
@@ -153,6 +162,7 @@ public class CCItems {
 		registerItem("animal_spine", ANIMAL_SPINE);
 		registerItem("animal_spleen", ANIMAL_SPLEEN);
 		registerItem("animal_stomach", ANIMAL_STOMACH);
+		registerItem("gills", GILLS);
 
 		registerItem("small_animal_appendix", SMALL_ANIMAL_APPENDIX);
 		registerItem("small_animal_heart", SMALL_ANIMAL_HEART);
@@ -166,6 +176,7 @@ public class CCItems {
 		registerItem("small_animal_spleen", SMALL_ANIMAL_SPLEEN);
 		registerItem("small_animal_stomach", SMALL_ANIMAL_STOMACH);
 		registerItem("rabbit_heart", RABBIT_HEART);
+		registerItem("small_gills", SMALL_GILLS);
 
 		registerItem("insect_heart", INSECT_HEART);
 		registerItem("insect_intestine", INSECT_INTESTINE);

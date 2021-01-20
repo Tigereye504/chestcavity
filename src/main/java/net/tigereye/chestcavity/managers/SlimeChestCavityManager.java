@@ -26,8 +26,8 @@ public class SlimeChestCavityManager extends ChestCavityManager{
     }
 
     private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.BONE,1f);
-        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.DEFENSE,1f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,1f);
         defaultOrganScores.put(CCOrganScores.SPEED,1f);
     }
@@ -54,16 +54,16 @@ public class SlimeChestCavityManager extends ChestCavityManager{
     protected void resetOrganScores(){
         //slimes are amorphous goo, they don't really have or need organs
         organScores.clear();
-        organScores.put(CCOrganScores.HEART, 0.5f);
+        organScores.put(CCOrganScores.HEALTH, 0.5f);
     }
 
     @Override
     protected boolean catchExceptionalOrgan(ItemStack slot){
         if(slot.getItem() == Items.SLIME_BALL){
-            addOrganScore(CCOrganScores.HEART, slot.getCount()*.5f);
+            addOrganScore(CCOrganScores.HEALTH, slot.getCount()*.5f);
             addOrganScore(CCOrganScores.STRENGTH, slot.getCount());
             addOrganScore(CCOrganScores.SPEED, slot.getCount());
-            addOrganScore(CCOrganScores.BONE, slot.getCount());
+            addOrganScore(CCOrganScores.DEFENSE, slot.getCount());
             return true;
         }
         return false;

@@ -3,14 +3,13 @@ package net.tigereye.chestcavity.items;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.explosion.Explosion;
 
 import java.util.Collection;
 import java.util.Iterator;
 
-public class CreeperAppendix extends OrganBase {
+public class CreeperAppendix extends Organ {
     public static void explode(LivingEntity entity, float explosionYield) {
         if (!entity.world.isClient) {
             Explosion.DestructionType destructionType = entity.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING) ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE;

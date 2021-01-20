@@ -3,42 +3,40 @@ package net.tigereye.chestcavity.items;
 import com.google.common.collect.Maps;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static net.tigereye.chestcavity.managers.ChestCavityManager.COMPATIBILITY_TAG;
 
-public class OrganBase extends Item implements ChestCavityOrgan {
-
+public class Organ extends Item implements ChestCavityOrgan {
 
 	protected Map<Identifier, Float> organQualityMap = Maps.newHashMap();
 
 
-	public OrganBase() {
+
+	public Organ() {
 		super(CCItems.ORGAN_SETTINGS_1);
 	}
 
-	public OrganBase(Item.Settings settings) {
+	public Organ(Item.Settings settings) {
 		super(settings);
 	}
 
 	public Map<Identifier, Float> getOrganQualityMap() {
 		return organQualityMap;
+	}
+	public Map<Identifier, Float> getOrganQualityMap(ItemStack item) {
+		return getOrganQualityMap();
 	}
 	public Map<Identifier, Float> getOrganQualityMap(ItemStack item, LivingEntity entity) {
 		return getOrganQualityMap();
@@ -48,7 +46,7 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 		return organQualityMap.getOrDefault(id, 0f);
 	}
 
-	public OrganBase setOrganQuality(Identifier id, float value) {
+	public Organ setOrganQuality(Identifier id, float value) {
 		organQualityMap.put(id, value);
 		return this;
 	}
@@ -63,22 +61,25 @@ public class OrganBase extends Item implements ChestCavityOrgan {
 	protected void displayOrganQuality(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext){
 		organQualityMap.forEach((organ,score) -> {
 			String tier;
-			if(score > 1){
-				tier = "Exceptional ";
+			if(score > 1.25f){
+				tier = "Supernatural";
+			}
+			else if(score > 1){
+				tier = "Exceptional";
 			}
 			else if(score > .75f){
-				tier = "Quality ";
+				tier = "Good";
 			}
 			else if(score > .5f){
-				tier = "Average ";
+				tier = "Average";
 			}
 			else if(score > .25f){
-				tier = "Poor ";
+				tier = "Poor";
 			}
 			else{
-				tier = "Pathetic ";
+				tier = "Pathetic";
 			}
-			LiteralText text = new LiteralText(tier+organ.getPath());
+			TranslatableText text = new TranslatableText("organscore."+organ.getNamespace()+"."+organ.getPath(), tier);
 			tooltip.add(text);
 		});
 	}

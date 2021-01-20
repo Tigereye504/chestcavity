@@ -13,9 +13,7 @@ public class CCConfig implements ConfigData {
     public float UNIVERSAL_DONOR_RATE = .06f;
 
     public int HEARTBLEED_RATE = 20; //how fast you die from lacking a heart in ticks
-    public int LIVER_RATE = 40; //how often the liver purifies status effects in ticks
-    public int KIDNEY_RATE = 59; //how often the kidneys prevent blood poisoning in ticks
-        //avoid clean multiples or factors of LIVER_SPEED to avoid strange sweet or sour spots in kidney/liver scores.
+    public int KIDNEY_RATE = 60; //how often the kidneys prevent blood poisoning in ticks
     public float APPENDIX_LUCK = .1f; //how lucky your appendix is
     public float HEART_HP = 4; //how much health each heart is worth
     public float MUSCLE_STRENGTH = 1f; //how much 8 stacks of muscles contribute to attack damage
@@ -24,6 +22,8 @@ public class CCConfig implements ConfigData {
 
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding
     public int SILK_COOLDOWN = 20; //how often an entity is allowed to lay silk
+    public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
+
     public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
     public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods

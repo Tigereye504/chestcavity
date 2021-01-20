@@ -1,6 +1,5 @@
 package net.tigereye.chestcavity.items;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -9,13 +8,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 
-public class SilkGland extends OrganBase{
+public class SilkGland extends Organ {
 
     public static boolean spinWeb(LivingEntity entity, float silkScore){
         int hungerCost = 0;

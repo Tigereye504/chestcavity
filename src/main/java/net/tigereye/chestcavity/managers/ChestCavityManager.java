@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
@@ -15,10 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.*;
-import net.tigereye.chestcavity.listeners.OrganOnHitListener;
-import net.tigereye.chestcavity.listeners.OrganOnHitContext;
-import net.tigereye.chestcavity.listeners.OrganTickCallback;
-import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
+import net.tigereye.chestcavity.listeners.*;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import org.apache.logging.log4j.LogManager;
@@ -40,8 +38,8 @@ public class ChestCavityManager implements InventoryChangedListener {
     protected static List<OrganOnHitContext> onHitListeners = new ArrayList<>();
 
     protected boolean opened = false;
-    protected int heartTimer = 0;
-    protected int kidneyTimer = 0;
+    protected int heartBleedTimer = 0;
+    protected int bloodPoisonTimer = 0;
     protected int liverTimer = 0;
     protected int spleenTimer = 0;
     protected float lungRemainder = 0;
@@ -72,17 +70,17 @@ public class ChestCavityManager implements InventoryChangedListener {
 
     private static void initializeDefaultOrganScores(){
         defaultOrganScores.put(CCOrganScores.APPENDIX,1f);
-        defaultOrganScores.put(CCOrganScores.BONE,4.75f);
-        defaultOrganScores.put(CCOrganScores.HEART,1f);
-        defaultOrganScores.put(CCOrganScores.INTESTINE,4f);
-        defaultOrganScores.put(CCOrganScores.KIDNEY,2f);
-        defaultOrganScores.put(CCOrganScores.LIVER,1f);
-        defaultOrganScores.put(CCOrganScores.LUNG,2f);
+        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
+        defaultOrganScores.put(CCOrganScores.NUTRITION,4f);
+        defaultOrganScores.put(CCOrganScores.FILTRATION,2f);
+        defaultOrganScores.put(CCOrganScores.DETOXIFICATION,1f);
+        defaultOrganScores.put(CCOrganScores.BREATH,2f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
         defaultOrganScores.put(CCOrganScores.SPEED,8f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
-        defaultOrganScores.put(CCOrganScores.SPLEEN,1f);
-        defaultOrganScores.put(CCOrganScores.STOMACH,1f);
+        defaultOrganScores.put(CCOrganScores.METABOLISM,1f);
+        defaultOrganScores.put(CCOrganScores.DIGESTION,1f);
     }
 
     public Map<Identifier,Float> getDefaultOrganScores(){
@@ -105,20 +103,24 @@ public class ChestCavityManager implements InventoryChangedListener {
         this.opened = b;
     }
 
-    public int getHeartTimer() {
-        return heartTimer;
+    public int getHeartBleedTimer() {
+        return heartBleedTimer;
     }
 
-    public void setHeartTimer(int heartTimer) {
-        this.heartTimer = heartTimer;
+    public void setHeartBleedTimer(int heartBleedTimer) {
+        this.heartBleedTimer = heartBleedTimer;
     }
 
-    public int getKidneyTimer() {
-        return kidneyTimer;
+    public float getHeartbleedFactor(){
+        return 1f;
     }
 
-    public void setKidneyTimer(int kidneyTimer) {
-        this.kidneyTimer = kidneyTimer;
+    public int getBloodPoisonTimer() {
+        return bloodPoisonTimer;
+    }
+
+    public void setBloodPoisonTimer(int bloodPoisonTimer) {
+        this.bloodPoisonTimer = bloodPoisonTimer;
     }
 
     public int getLiverTimer() {
@@ -234,7 +236,6 @@ public class ChestCavityManager implements InventoryChangedListener {
             if(ChestCavity.DEBUG_MODE && owner instanceof PlayerEntity) {
                 outputOrganScoresString(System.out::println);
             }
-
             OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, this);
             oldOrganScores.clear();
             oldOrganScores.putAll(organScores);
@@ -390,8 +391,8 @@ public class ChestCavityManager implements InventoryChangedListener {
             }
             CompoundTag ccTag = tag.getCompound("ChestCavity");
             this.opened = ccTag.getBoolean("opened");
-            this.heartTimer = ccTag.getInt("HeartTimer");
-            this.kidneyTimer = ccTag.getInt("KidneyTimer");
+            this.heartBleedTimer = ccTag.getInt("HeartTimer");
+            this.bloodPoisonTimer = ccTag.getInt("KidneyTimer");
             this.liverTimer = ccTag.getInt("LiverTimer");
             this.spleenTimer = ccTag.getInt("SpleenTimer");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
@@ -429,8 +430,8 @@ public class ChestCavityManager implements InventoryChangedListener {
         }
         CompoundTag ccTag = new CompoundTag();
         ccTag.putBoolean("opened", this.opened);
-        ccTag.putInt("HeartTimer", this.heartTimer);
-        ccTag.putInt("KidneyTimer", this.kidneyTimer);
+        ccTag.putInt("HeartTimer", this.heartBleedTimer);
+        ccTag.putInt("KidneyTimer", this.bloodPoisonTimer);
         ccTag.putInt("LiverTimer", this.liverTimer);
         ccTag.putInt("SpleenTimer", this.spleenTimer);
         ccTag.putFloat("LungRemainder", this.lungRemainder);
@@ -446,9 +447,9 @@ public class ChestCavityManager implements InventoryChangedListener {
         }
         chestCavity.addListener(this);
 
-        heartTimer = other.getHeartTimer();
+        heartBleedTimer = other.getHeartBleedTimer();
         liverTimer = other.getLiverTimer();
-        kidneyTimer = other.getKidneyTimer();
+        bloodPoisonTimer = other.getBloodPoisonTimer();
         spleenTimer = other.getSpleenTimer();
         lungRemainder = other.getLungRemainder();
         evaluateChestCavity();
@@ -458,7 +459,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         if(!opened){
             return damage;
         }
-        float boneDiff = (getOrganScore(CCOrganScores.BONE) - getDefaultOrganScore(CCOrganScores.BONE))/4;
+        float boneDiff = (getOrganScore(CCOrganScores.DEFENSE) - getDefaultOrganScore(CCOrganScores.DEFENSE))/4;
         return (float)(damage*Math.pow(ChestCavity.config.BONE_DEFENSE,boneDiff));
     }
 
@@ -466,7 +467,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         if(!opened){
             return sat;
         }
-        return sat*organScores.getOrDefault(CCOrganScores.INTESTINE,0f)/4;
+        return sat*organScores.getOrDefault(CCOrganScores.NUTRITION,0f)/4;
         //TODO: find a use for intestines for non-players
     }
 
@@ -475,25 +476,27 @@ public class ChestCavityManager implements InventoryChangedListener {
             return hunger;
         }
         //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
-        return Math.max((int)(hunger*organScores.getOrDefault(CCOrganScores.STOMACH,0f)),1);
+        return Math.max((int)(hunger*organScores.getOrDefault(CCOrganScores.DIGESTION,0f)),1);
         //TODO: find a use for stomachs for non-players
     }
 
     public int applyLungCapacityInWater(int oldAir, int newAir){
-        if(!opened || getDefaultOrganScore(CCOrganScores.LUNG) == 0 || owner.world.isClient()){
+        if(!opened || getDefaultOrganScore(CCOrganScores.BREATH) == 0 || owner.world.isClient()
+            || ( getDefaultOrganScore(CCOrganScores.BREATH) == getOrganScore(CCOrganScores.BREATH) &&
+                getDefaultOrganScore(CCOrganScores.WATERBREATH) == getOrganScore(CCOrganScores.WATERBREATH))){
             return newAir;
         }
         float airLoss = (oldAir - newAir);
+        airLoss = airLoss*(1-getOrganScore(CCOrganScores.WATERBREATH));
         if(airLoss > 0) {
             float lungRatio = 20f;
-            if(getOrganScore(CCOrganScores.LUNG) != 0){
-                lungRatio = Math.min(getDefaultOrganScore(CCOrganScores.LUNG)/getOrganScore(CCOrganScores.LUNG),20f);
+            if (getOrganScore(CCOrganScores.BREATH) != 0) {
+                lungRatio = Math.min(getDefaultOrganScore(CCOrganScores.BREATH) / getOrganScore(CCOrganScores.BREATH), 20f);
             }
             airLoss = airLoss * lungRatio + lungRemainder;
-            lungRemainder = airLoss % 1;
-            return oldAir - ((int) airLoss);
         }
-        return newAir;
+        lungRemainder = airLoss % 1;
+        return Math.min(oldAir - ((int) airLoss),owner.getMaxAir());
     }
 
     public int applySpleenMetabolism(int foodStarvationTimer){
@@ -502,7 +505,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         }
         spleenTimer++;
         if(spleenTimer >= 2){
-            foodStarvationTimer += getOrganScore(CCOrganScores.SPLEEN) - 1;
+            foodStarvationTimer += getOrganScore(CCOrganScores.METABOLISM) - 1;
             spleenTimer = 0;
         }
         return foodStarvationTimer;
@@ -521,5 +524,9 @@ public class ChestCavityManager implements InventoryChangedListener {
             }
         }
         chestCavity.markDirty();
+    }
+
+    public StatusEffectInstance onAddStatusEffect(StatusEffectInstance effect) {
+        return OrganAddStatusEffectCallback.EVENT.invoker().onAddStatusEffect(owner, this,effect);
     }
 }

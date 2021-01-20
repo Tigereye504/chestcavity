@@ -7,17 +7,16 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCTags;
 
 import java.util.*;
 
-public class EndermanChestCavityManager extends ChestCavityManager{
+public class LargeFishChestCavityManager extends ChestCavityManager{
 
 
-    public EndermanChestCavityManager(LivingEntity owner) {
+    public LargeFishChestCavityManager(LivingEntity owner) {
         super(owner);
     }
-    public EndermanChestCavityManager(LivingEntity owner, int size) {
+    public LargeFishChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
     }
 
@@ -31,12 +30,10 @@ public class EndermanChestCavityManager extends ChestCavityManager{
         defaultOrganScores.put(CCOrganScores.APPENDIX,.75f);
         defaultOrganScores.put(CCOrganScores.DEFENSE,3.5625f);
         defaultOrganScores.put(CCOrganScores.HEALTH,.75f);
-        defaultOrganScores.put(CCOrganScores.HYDROPHOBIA,1f);
         defaultOrganScores.put(CCOrganScores.NUTRITION,3f);
         defaultOrganScores.put(CCOrganScores.FILTRATION,1.5f);
         defaultOrganScores.put(CCOrganScores.DETOXIFICATION,.75f);
-        defaultOrganScores.put(CCOrganScores.BREATH,1.5f);
-        defaultOrganScores.put(CCOrganScores.ENDURANCE,1.5f);
+        defaultOrganScores.put(CCOrganScores.WATERBREATH,2f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,6f);
         defaultOrganScores.put(CCOrganScores.SPEED,6f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.75f);
@@ -55,18 +52,18 @@ public class EndermanChestCavityManager extends ChestCavityManager{
         chestCavity.setStack(0, new ItemStack(CCItems.ANIMAL_MUSCLE, CCItems.ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.ANIMAL_RIB, CCItems.ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(2, new ItemStack(CCItems.ANIMAL_APPENDIX, CCItems.ANIMAL_APPENDIX.getMaxCount()));
-        chestCavity.setStack(3, new ItemStack(CCItems.ANIMAL_LUNG, CCItems.ANIMAL_LUNG.getMaxCount()));
+        chestCavity.setStack(3, new ItemStack(CCItems.GILLS, CCItems.GILLS.getMaxCount()));
         chestCavity.setStack(4, new ItemStack(CCItems.ANIMAL_HEART, CCItems.ANIMAL_HEART.getMaxCount()));
-        chestCavity.setStack(5, new ItemStack(CCItems.ANIMAL_LUNG, CCItems.ANIMAL_LUNG.getMaxCount()));
+        chestCavity.setStack(5, new ItemStack(CCItems.GILLS, CCItems.GILLS.getMaxCount()));
         chestCavity.setStack(6, ItemStack.EMPTY);
         chestCavity.setStack(7, new ItemStack(CCItems.ANIMAL_RIB, CCItems.ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(8, new ItemStack(CCItems.ANIMAL_MUSCLE, CCItems.ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(9, new ItemStack(CCItems.ANIMAL_MUSCLE, CCItems.ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(10, new ItemStack(CCItems.ANIMAL_RIB, CCItems.ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(11, new ItemStack(CCItems.ANIMAL_SPLEEN, CCItems.ANIMAL_SPLEEN.getMaxCount()));
-        chestCavity.setStack(12, new ItemStack(CCItems.ENDER_KIDNEY, CCItems.ENDER_KIDNEY.getMaxCount()));
+        chestCavity.setStack(12, new ItemStack(CCItems.ANIMAL_KIDNEY, CCItems.ANIMAL_KIDNEY.getMaxCount()));
         chestCavity.setStack(13, new ItemStack(CCItems.ANIMAL_SPINE, CCItems.ANIMAL_SPINE.getMaxCount()));
-        chestCavity.setStack(14, new ItemStack(CCItems.ENDER_KIDNEY, CCItems.ENDER_KIDNEY.getMaxCount()));
+        chestCavity.setStack(14, new ItemStack(CCItems.ANIMAL_KIDNEY, CCItems.ANIMAL_KIDNEY.getMaxCount()));
         chestCavity.setStack(15, new ItemStack(CCItems.ANIMAL_LIVER, CCItems.ANIMAL_LIVER.getMaxCount()));
         chestCavity.setStack(16, new ItemStack(CCItems.ANIMAL_RIB, CCItems.ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(17, new ItemStack(CCItems.ANIMAL_MUSCLE, CCItems.ANIMAL_MUSCLE.getMaxCount()));
@@ -97,11 +94,11 @@ public class EndermanChestCavityManager extends ChestCavityManager{
             }
             organPile.add(CCItems.ANIMAL_APPENDIX);
             organPile.add(CCItems.ANIMAL_HEART);
-            organPile.add(CCItems.ENDER_KIDNEY);
-            organPile.add(CCItems.ENDER_KIDNEY);
+            organPile.add(CCItems.ANIMAL_KIDNEY);
+            organPile.add(CCItems.ANIMAL_KIDNEY);
             organPile.add(CCItems.ANIMAL_LIVER);
-            organPile.add(CCItems.ANIMAL_LUNG);
-            organPile.add(CCItems.ANIMAL_LUNG);
+            organPile.add(CCItems.GILLS);
+            organPile.add(CCItems.GILLS);
             organPile.add(CCItems.ANIMAL_SPINE);
             organPile.add(CCItems.ANIMAL_SPLEEN);
             organPile.add(CCItems.ANIMAL_STOMACH);

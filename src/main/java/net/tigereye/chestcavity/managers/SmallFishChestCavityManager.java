@@ -7,17 +7,16 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCTags;
 
 import java.util.*;
 
-public class SmallAnimalChestCavityManager extends ChestCavityManager{
+public class SmallFishChestCavityManager extends ChestCavityManager{
 
 
-    public SmallAnimalChestCavityManager(LivingEntity owner) {
+    public SmallFishChestCavityManager(LivingEntity owner) {
         super(owner);
     }
-    public SmallAnimalChestCavityManager(LivingEntity owner, int size) {
+    public SmallFishChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
     }
 
@@ -34,8 +33,7 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
         defaultOrganScores.put(CCOrganScores.NUTRITION,2f);
         defaultOrganScores.put(CCOrganScores.FILTRATION,1f);
         defaultOrganScores.put(CCOrganScores.DETOXIFICATION,.5f);
-        defaultOrganScores.put(CCOrganScores.BREATH,1f);
-        defaultOrganScores.put(CCOrganScores.ENDURANCE,1f);
+        defaultOrganScores.put(CCOrganScores.WATERBREATH,1f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,4f);
         defaultOrganScores.put(CCOrganScores.SPEED,4f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.5f);
@@ -54,9 +52,9 @@ public class SmallAnimalChestCavityManager extends ChestCavityManager{
         chestCavity.setStack(0, new ItemStack(CCItems.SMALL_ANIMAL_MUSCLE, CCItems.SMALL_ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.SMALL_ANIMAL_RIB, CCItems.SMALL_ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(2, new ItemStack(CCItems.SMALL_ANIMAL_APPENDIX, CCItems.SMALL_ANIMAL_APPENDIX.getMaxCount()));
-        chestCavity.setStack(3, new ItemStack(CCItems.SMALL_ANIMAL_LUNG, CCItems.SMALL_ANIMAL_LUNG.getMaxCount()));
+        chestCavity.setStack(3, new ItemStack(CCItems.SMALL_GILLS, CCItems.SMALL_GILLS.getMaxCount()));
         chestCavity.setStack(4, new ItemStack(CCItems.SMALL_ANIMAL_HEART, CCItems.SMALL_ANIMAL_HEART.getMaxCount()));
-        chestCavity.setStack(5, new ItemStack(CCItems.SMALL_ANIMAL_LUNG, CCItems.SMALL_ANIMAL_LUNG.getMaxCount()));
+        chestCavity.setStack(5, new ItemStack(CCItems.SMALL_GILLS, CCItems.SMALL_GILLS.getMaxCount()));
         chestCavity.setStack(6, ItemStack.EMPTY);
         chestCavity.setStack(7, new ItemStack(CCItems.SMALL_ANIMAL_RIB, CCItems.SMALL_ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(8, new ItemStack(CCItems.SMALL_ANIMAL_MUSCLE, CCItems.SMALL_ANIMAL_MUSCLE.getMaxCount()));

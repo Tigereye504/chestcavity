@@ -10,13 +10,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.chestcavity.items.OrganBase;
+import net.tigereye.chestcavity.items.Organ;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TetheredCannibalHeart extends OrganBase {
+public class TetheredCannibalHeart extends Organ {
 
     @Override
     public Map<Identifier, Float> getOrganQualityMap(ItemStack item, LivingEntity entity) {

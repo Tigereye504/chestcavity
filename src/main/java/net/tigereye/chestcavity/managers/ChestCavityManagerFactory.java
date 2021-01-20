@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.tigereye.chestcavity.ChestCavity;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -23,14 +24,14 @@ public class ChestCavityManagerFactory {
         register(EntityType.BEE,BeeChestCavityManager::new);
         register(EntityType.CAT,SmallAnimalChestCavityManager::new);
         register(EntityType.CHICKEN,SmallAnimalChestCavityManager::new);
-        register(EntityType.COD,SmallAnimalChestCavityManager::new);
+        register(EntityType.COD,SmallFishChestCavityManager::new);
         register(EntityType.FOX,SmallAnimalChestCavityManager::new);
         register(EntityType.OCELOT,SmallAnimalChestCavityManager::new);
         register(EntityType.PARROT,SmallAnimalChestCavityManager::new);
-        register(EntityType.PUFFERFISH,SmallAnimalChestCavityManager::new);
+        register(EntityType.PUFFERFISH,SmallFishChestCavityManager::new);
         register(EntityType.RABBIT,RabbitChestCavityManager::new);
-        register(EntityType.SALMON,SmallAnimalChestCavityManager::new);
-        register(EntityType.TROPICAL_FISH,SmallAnimalChestCavityManager::new);
+        register(EntityType.SALMON,SmallFishChestCavityManager::new);
+        register(EntityType.TROPICAL_FISH,SmallFishChestCavityManager::new);
 
         register(EntityType.ENDERMITE,SmallAnimalChestCavityManager::new);
         register(EntityType.SILVERFISH,SmallAnimalChestCavityManager::new);
@@ -48,21 +49,21 @@ public class ChestCavityManagerFactory {
         register(EntityType.PIG,AnimalChestCavityManager::new);
         register(EntityType.POLAR_BEAR,AnimalChestCavityManager::new);
         register(EntityType.SHEEP,AnimalChestCavityManager::new);
-        register(EntityType.SQUID,AnimalChestCavityManager::new);
+        register(EntityType.SQUID,LargeFishChestCavityManager::new);
         register(EntityType.STRIDER,AnimalChestCavityManager::new);
         register(EntityType.TURTLE,AnimalChestCavityManager::new);
         register(EntityType.WOLF,AnimalChestCavityManager::new);
 
 
-        register(EntityType.ELDER_GUARDIAN,AnimalChestCavityManager::new);
-        register(EntityType.GUARDIAN,AnimalChestCavityManager::new);
+        register(EntityType.ELDER_GUARDIAN,LargeFishChestCavityManager::new);
+        register(EntityType.GUARDIAN,LargeFishChestCavityManager::new);
         register(EntityType.GHAST,AnimalChestCavityManager::new);
         register(EntityType.HOGLIN,AnimalChestCavityManager::new);
         register(EntityType.RAVAGER,AnimalChestCavityManager::new);
         register(EntityType.SHULKER, AnimalChestCavityManager::new);
         register(EntityType.PIGLIN,AnimalChestCavityManager::new);
-        register(EntityType.PIGLIN_BRUTE,AnimalChestCavityManager::new);
-
+        try {register(EntityType.PIGLIN_BRUTE, AnimalChestCavityManager::new);}
+        catch(NoSuchFieldError e){ChestCavity.LOGGER.error("Piglin Brute does not exist, hopefully minecraft is pre 1.16.2");}
         register(EntityType.SPIDER,SpiderChestCavityManager::new);
         register(EntityType.CAVE_SPIDER,CaveSpiderChestCavityManager::new);
         register(EntityType.BLAZE,SpiderChestCavityManager::new);
@@ -79,8 +80,8 @@ public class ChestCavityManagerFactory {
         register(EntityType.SKELETON,SkeletonChestCavityManager::new);
         register(EntityType.SKELETON_HORSE,SkeletonChestCavityManager::new);
         register(EntityType.STRAY,SkeletonChestCavityManager::new);
-        register(EntityType.WITHER_SKELETON,SkeletonChestCavityManager::new);
-        register(EntityType.WITHER,SkeletonChestCavityManager::new);
+        register(EntityType.WITHER_SKELETON,WitherSkeletonChestCavityManager::new);
+        register(EntityType.WITHER,WitherChestCavityManager::new);
 
         register(EntityType.EVOKER,HumanChestCavityManager::new);
         register(EntityType.PILLAGER,HumanChestCavityManager::new);

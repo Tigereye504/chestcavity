@@ -2,17 +2,14 @@ package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.GameRules;
-import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.OrganBase;
+import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -29,7 +26,7 @@ public class PlayerChestCavityManager extends HumanChestCavityManager{
     public void setOrganCompatibility(){
         for(int i = 0; i < chestCavity.size();i++){
             ItemStack itemStack = chestCavity.getStack(i);
-            if(itemStack != null && itemStack.getItem() instanceof OrganBase){
+            if(itemStack != null && itemStack.getItem() instanceof Organ){
                 CompoundTag tag = new CompoundTag();
                 tag.putInt("type", COMPATIBILITY_TYPE_PERSONAL);
                 tag.putUuid("owner",owner.getUuid());
@@ -49,10 +46,10 @@ public class PlayerChestCavityManager extends HumanChestCavityManager{
 
     protected void insertWelfareOrgans(){
         //urgently essential organs are: heart, spine, lung
-        if(organScores.getOrDefault(CCOrganScores.HEART,0f) == 0){
+        if(organScores.getOrDefault(CCOrganScores.HEALTH,0f) == 0){
             forcefullyAddStack(new ItemStack(CCItems.ROTTEN_HEART),4);
         }
-        if(organScores.getOrDefault(CCOrganScores.LUNG,0f) == 0){
+        if(organScores.getOrDefault(CCOrganScores.BREATH,0f) == 0){
             forcefullyAddStack(new ItemStack(CCItems.ROTTEN_LUNG),3);
         }
         if(organScores.getOrDefault(CCOrganScores.NERVOUS_SYSTEM,0f) == 0){

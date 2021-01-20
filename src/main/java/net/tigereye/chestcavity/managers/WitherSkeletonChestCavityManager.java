@@ -3,45 +3,66 @@ package net.tigereye.chestcavity.managers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class SkeletonChestCavityManager extends ChestCavityManager{
+public class WitherSkeletonChestCavityManager extends ChestCavityManager{
 
 
-    public SkeletonChestCavityManager(LivingEntity owner) {
+    public WitherSkeletonChestCavityManager(LivingEntity owner) {
         super(owner);
     }
-    public SkeletonChestCavityManager(LivingEntity owner, int size) {
+    public WitherSkeletonChestCavityManager(LivingEntity owner, int size) {
         super(owner,size);
+    }
+
+    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
+
+    static{
+        initializeDefaultOrganScores();
+    }
+
+    private static void initializeDefaultOrganScores(){
+        defaultOrganScores.put(CCOrganScores.APPENDIX,1f);
+        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
+        defaultOrganScores.put(CCOrganScores.NUTRITION,4f);
+        defaultOrganScores.put(CCOrganScores.FILTRATION,2f);
+        defaultOrganScores.put(CCOrganScores.DETOXIFICATION,1f);
+        defaultOrganScores.put(CCOrganScores.BREATH,2f);
+        defaultOrganScores.put(CCOrganScores.ENDURANCE,2f);
+        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
+        defaultOrganScores.put(CCOrganScores.SPEED,8f);
+        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
+        defaultOrganScores.put(CCOrganScores.METABOLISM,1f);
+        defaultOrganScores.put(CCOrganScores.DIGESTION,1f);
+        defaultOrganScores.put(CCOrganScores.WITHERED,5f);
     }
 
     @Override
     public void fillChestCavityInventory() {
         chestCavity.clear();
         chestCavity.setStack(0, ItemStack.EMPTY);
-        chestCavity.setStack(1, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
+        chestCavity.setStack(1, new ItemStack(CCItems.WITHERED_RIB, CCItems.WITHERED_RIB.getMaxCount()));
         chestCavity.setStack(2, ItemStack.EMPTY);
         chestCavity.setStack(3, ItemStack.EMPTY);
         chestCavity.setStack(4, ItemStack.EMPTY);
         chestCavity.setStack(5, ItemStack.EMPTY);
         chestCavity.setStack(6, ItemStack.EMPTY);
-        chestCavity.setStack(7, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
+        chestCavity.setStack(7, new ItemStack(CCItems.WITHERED_RIB, CCItems.WITHERED_RIB.getMaxCount()));
         chestCavity.setStack(8, ItemStack.EMPTY);
         chestCavity.setStack(9, ItemStack.EMPTY);
-        chestCavity.setStack(10, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
+        chestCavity.setStack(10, new ItemStack(CCItems.WITHERED_RIB, CCItems.WITHERED_RIB.getMaxCount()));
         chestCavity.setStack(11, ItemStack.EMPTY);
         chestCavity.setStack(12, ItemStack.EMPTY);
-        chestCavity.setStack(13, new ItemStack(CCItems.ROTTEN_SPINE, CCItems.ROTTEN_SPINE.getMaxCount()));
+        chestCavity.setStack(13, new ItemStack(CCItems.WITHERED_SPINE, CCItems.WITHERED_SPINE.getMaxCount()));
         chestCavity.setStack(14, ItemStack.EMPTY);
         chestCavity.setStack(15, ItemStack.EMPTY);
-        chestCavity.setStack(16, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
+        chestCavity.setStack(16, new ItemStack(CCItems.WITHERED_RIB, CCItems.WITHERED_RIB.getMaxCount()));
         chestCavity.setStack(17, ItemStack.EMPTY);
         chestCavity.setStack(18, ItemStack.EMPTY);
         chestCavity.setStack(19, ItemStack.EMPTY);
@@ -71,7 +92,6 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.METABOLISM, 1f);
         organScores.put(CCOrganScores.DIGESTION, 1f);
         organScores.put(CCOrganScores.BREATH, 2f);
-        organScores.put(CCOrganScores.ENDURANCE, 2f);
     }
 
     @Override
@@ -80,9 +100,9 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
         if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
             LinkedList<Item> organPile = new LinkedList<>();
             for(int i = 0; i < 4; i++){
-                organPile.add(CCItems.ROTTEN_RIB);
+                organPile.add(CCItems.WITHERED_RIB);
             }
-            organPile.add(CCItems.ROTTEN_SPINE);
+            organPile.add(CCItems.WITHERED_SPINE);
             int rolls = 1 + random.nextInt(1) + random.nextInt(1);
             for (int i = 0; i < rolls; i++){
                 int roll = random.nextInt(organPile.size());

@@ -31,12 +31,13 @@ public class ChestCavityInventory extends SimpleInventory {
     }
 
     public void readTags(ListTag tags) {
-        int j;
-        for(j = 0; j < this.size(); ++j) {
-            this.setStack(j, ItemStack.EMPTY);
-        }
+        //int j;
+        //for(j = 0; j < this.size(); ++j) {
+        //    this.setStack(j, ItemStack.EMPTY);
+        //}
+        clear();
 
-        for(j = 0; j < tags.size(); ++j) {
+        for(int j = 0; j < tags.size(); ++j) {
             CompoundTag compoundTag = tags.getCompound(j);
             int k = compoundTag.getByte("Slot") & 255;
             if (k >= 0 && k < this.size()) {

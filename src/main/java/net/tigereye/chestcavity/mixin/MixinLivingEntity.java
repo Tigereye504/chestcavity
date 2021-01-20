@@ -3,8 +3,8 @@ package net.tigereye.chestcavity.mixin;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.CreeperEntity;
@@ -14,7 +14,6 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
@@ -32,7 +31,6 @@ import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCStatusEffects;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -88,6 +86,11 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     @Inject(at = @At("HEAD"), method = "dropInventory")
     public void chestCavityLivingEntityDropInventoryMixin(CallbackInfo info){
         chestCavityManager.chestCavityPostMortem();
+    }
+
+    @ModifyVariable(at = @At("HEAD"), method = "addStatusEffect", ordinal = 0)
+    public StatusEffectInstance chestCavityLivingEntityAddStatusEffectMixin(StatusEffectInstance effect){
+        return chestCavityManager.onAddStatusEffect(effect);
     }
 
     public ChestCavityManager getChestCavityManager() {
@@ -153,7 +156,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                     && currentFuseTime > 1){
                 ChestCavityEntity.of(this).ifPresent(cce -> {
                     if(cce.getChestCavityManager().getOpened()
-                            && cce.getChestCavityManager().getOrganScore(CCOrganScores.CREEPINESS) <= 0){
+                            && cce.getChestCavityManager().getOrganScore(CCOrganScores.CREEPY) <= 0){
                         currentFuseTime = 1;
                     }
                 });
@@ -191,6 +194,34 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         )
         protected void chestCavitySheared(SoundCategory shearedSoundCategory, CallbackInfo info) {
             SilkGland.shearSilk(this);
+        }
+    }
+
+    @Mixin(WitherEntity.class)
+    private static abstract class Wither extends HostileEntity {
+
+
+        protected Wither(EntityType<? extends HostileEntity> entityType, World world) {
+            super(entityType, world);
+        }
+
+        //Lnet/minecraft/entity/boss/WitherEntity;dropItem(      //note that this might just be Entity instead.
+        //  Lnet/minecraft/item/ItemConvertible;
+        //)Lnet/minecraft/entity/ItemEntity;
+        @Inject(method = "dropEquipment",
+                at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/WitherEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;"),
+                cancellable = true
+        )
+        protected void chestCavityPreventNetherStarDrop(DamageSource source, int lootingMultiplier, boolean allowDrops, CallbackInfo info) {
+            Optional<ChestCavityEntity> chestCavityEntity = ChestCavityEntity.of(this);
+            if(chestCavityEntity.isPresent()){
+                ChestCavityManager ccm = chestCavityEntity.get().getChestCavityManager();
+
+                //if the nether star was taken from the wither's chest, remove one from the loot pile.
+                if(ccm.getOpened() && chestCavityEntity.get().getChestCavityManager().getChestCavity().count(Items.NETHER_STAR) == 0){
+                    info.cancel();
+                }
+            }
         }
     }
 

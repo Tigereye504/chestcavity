@@ -26,8 +26,8 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
     }
 
     private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.BONE,4.75f);
-        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
         defaultOrganScores.put(CCOrganScores.SPEED,8f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
@@ -80,8 +80,8 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
             return true;
         }
         if(slot.getItem() == Items.CHARCOAL){
-            addOrganScore(CCOrganScores.HEART, slot.getCount()*(1f/3));
-            addOrganScore(CCOrganScores.BONE, slot.getCount()*(4.75f/3));
+            addOrganScore(CCOrganScores.HEALTH, slot.getCount()*(1f/3));
+            addOrganScore(CCOrganScores.DEFENSE, slot.getCount()*(4.75f/3));
             addOrganScore(CCOrganScores.NERVOUS_SYSTEM, slot.getCount()*(1f/3));
             return true;
         }
@@ -100,11 +100,11 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
         //that is almost all the organs though...
         organScores.clear();
         organScores.put(CCOrganScores.APPENDIX, 1f);
-        organScores.put(CCOrganScores.INTESTINE, 4f);
-        organScores.put(CCOrganScores.KIDNEY, 2f);
-        organScores.put(CCOrganScores.LIVER, 1f);
-        organScores.put(CCOrganScores.SPLEEN, 1f);
-        organScores.put(CCOrganScores.STOMACH, 1f);
-        organScores.put(CCOrganScores.LUNG, 2f);
+        organScores.put(CCOrganScores.NUTRITION, 4f);
+        organScores.put(CCOrganScores.FILTRATION, 2f);
+        organScores.put(CCOrganScores.DETOXIFICATION, 1f);
+        organScores.put(CCOrganScores.METABOLISM, 1f);
+        organScores.put(CCOrganScores.DIGESTION, 1f);
+        organScores.put(CCOrganScores.BREATH, 2f);
     }
 }

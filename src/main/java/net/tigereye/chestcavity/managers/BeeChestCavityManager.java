@@ -27,13 +27,14 @@ public class BeeChestCavityManager extends ChestCavityManager{
     }
 
     private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.HEART,1.5f);
-        defaultOrganScores.put(CCOrganScores.INTESTINE,5.25f);
-        defaultOrganScores.put(CCOrganScores.LUNG,2.25f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,1.5f);
+        defaultOrganScores.put(CCOrganScores.NUTRITION,5.25f);
+        defaultOrganScores.put(CCOrganScores.BREATH,2.25f);
+        defaultOrganScores.put(CCOrganScores.WATERBREATH,2.25f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1.25f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,4f);
         defaultOrganScores.put(CCOrganScores.SPEED,8f);
-        defaultOrganScores.put(CCOrganScores.STOMACH,1.75f);
+        defaultOrganScores.put(CCOrganScores.DIGESTION,1.75f);
         defaultOrganScores.put(CCOrganScores.VENOMOUS,2f);
     }
 

@@ -12,5 +12,6 @@ import java.util.Map;
 
 public interface ChestCavityOrgan {
     Map<Identifier,Float> getOrganQualityMap();
+    Map<Identifier,Float> getOrganQualityMap(ItemStack item);
     Map<Identifier,Float> getOrganQualityMap(ItemStack item, LivingEntity entity);
 }

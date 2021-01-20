@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.mixin;
 
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -55,4 +56,12 @@ public class MixinHungerManager {
                 return item;
         }
 
+        @ModifyVariable(at = @At("HEAD"), method = "addExhaustion")
+        public float chestCavityEatMixin(float exhaustion) {
+                if(CC_player != null){
+                        float enduranceRatio = CC_player.getChestCavityManager().getOrganScore(CCOrganScores.ENDURANCE)/CC_player.getChestCavityManager().getDefaultOrganScore(CCOrganScores.ENDURANCE);
+                        return (exhaustion * 2 / (1 + enduranceRatio));
+                }
+                return exhaustion;
+        }
 }

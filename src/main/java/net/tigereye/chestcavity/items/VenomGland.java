@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.tigereye.chestcavity.listeners.OrganOnHitListener;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 
-public class VenomGland extends OrganBase implements OrganOnHitListener {
+public class VenomGland extends Organ implements OrganOnHitListener {
 
     @Override
     public float onHit(DamageSource source, LivingEntity attacker, LivingEntity target, ChestCavityManager chestCavity, ItemStack organ, float damage) {

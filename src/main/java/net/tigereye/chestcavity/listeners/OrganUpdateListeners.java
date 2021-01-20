@@ -4,13 +4,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class OrganUpdateListeners {
@@ -45,11 +43,11 @@ public class OrganUpdateListeners {
 
     public static void UpdateHeart(LivingEntity entity, ChestCavityManager cc) {
         //Update Max Health Modifier
-        if(cc.getOldOrganScore(CCOrganScores.HEART) != cc.getOrganScore(CCOrganScores.HEART)){
+        if(cc.getOldOrganScore(CCOrganScores.HEALTH) != cc.getOrganScore(CCOrganScores.HEALTH)){
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(HEART_ID, "ChestCavityHeartMaxHP",
-                        (cc.getOrganScore(CCOrganScores.HEART) - cc.getDefaultOrganScore(CCOrganScores.HEART))
+                        (cc.getOrganScore(CCOrganScores.HEALTH) - cc.getDefaultOrganScore(CCOrganScores.HEALTH))
                                 * ChestCavity.config.HEART_HP, EntityAttributeModifier.Operation.ADDITION);
                 ReplaceAttributeModifier(att, mod);
             }

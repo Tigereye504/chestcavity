@@ -5,7 +5,6 @@ import net.minecraft.item.Items;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,17 +17,17 @@ public class CCOtherOrgans {
     public static void init(){
         Map<Identifier,Float> dirt = new HashMap<>();
         dirt.put(CCOrganScores.APPENDIX,1f/27);
-        dirt.put(CCOrganScores.HEART,1f/27);
+        dirt.put(CCOrganScores.HEALTH,1f/27);
         dirt.put(CCOrganScores.STRENGTH,8f/27);
         dirt.put(CCOrganScores.SPEED,8f/27);
         dirt.put(CCOrganScores.NERVOUS_SYSTEM,1f/27);
-        dirt.put(CCOrganScores.LIVER,1f/27);
-        dirt.put(CCOrganScores.KIDNEY,2f/27);
-        dirt.put(CCOrganScores.SPLEEN,1f/27);
-        dirt.put(CCOrganScores.LUNG,2f/27);
-        dirt.put(CCOrganScores.INTESTINE,4f/27);
-        dirt.put(CCOrganScores.BONE,4f/27);
-        dirt.put(CCOrganScores.STOMACH,1f/27);
+        dirt.put(CCOrganScores.DETOXIFICATION,1f/27);
+        dirt.put(CCOrganScores.FILTRATION,2f/27);
+        dirt.put(CCOrganScores.METABOLISM,1f/27);
+        dirt.put(CCOrganScores.BREATH,2f/27);
+        dirt.put(CCOrganScores.NUTRITION,4f/27);
+        dirt.put(CCOrganScores.DEFENSE,4f/27);
+        dirt.put(CCOrganScores.DIGESTION,1f/27);
         map.put(Items.DIRT,dirt);
 
         Map<Identifier,Float> rottenFlesh = new HashMap<>();
@@ -44,7 +43,7 @@ public class CCOtherOrgans {
         map.put(Items.MUTTON,animalFlesh);
 
         Map<Identifier,Float> bone = new HashMap<>();
-        bone.put(CCOrganScores.BONE,.5f);
+        bone.put(CCOrganScores.DEFENSE,.5f);
         map.put(Items.BONE,bone);
 
         Map<Identifier,Float> gunpowder = new HashMap<>();

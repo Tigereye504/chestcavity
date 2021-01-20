@@ -7,7 +7,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class EnderKidney extends OrganBase {
+public class EnderKidney extends Organ {
     public static boolean teleportRandomly(LivingEntity entity) {
         if (!entity.world.isClient() && entity.isAlive()) {
             double d = entity.getX() + (entity.getRandom().nextDouble() - 0.5D) * 64.0D;

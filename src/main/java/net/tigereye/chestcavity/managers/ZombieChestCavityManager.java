@@ -61,17 +61,17 @@ public class ZombieChestCavityManager extends ChestCavityManager{
         //lucky them, as their default organs are rotted and thus only 50% effective
         organScores.clear();
         organScores.put(CCOrganScores.APPENDIX, .5f);
-        organScores.put(CCOrganScores.BONE, 2.375f);
-        organScores.put(CCOrganScores.HEART, 0.5f);
-        organScores.put(CCOrganScores.INTESTINE, 2f);
-        organScores.put(CCOrganScores.KIDNEY, 1f);
-        organScores.put(CCOrganScores.LIVER, .5f);
+        organScores.put(CCOrganScores.DEFENSE, 2.375f);
+        organScores.put(CCOrganScores.HEALTH, 0.5f);
+        organScores.put(CCOrganScores.NUTRITION, 2f);
+        organScores.put(CCOrganScores.FILTRATION, 1f);
+        organScores.put(CCOrganScores.DETOXIFICATION, .5f);
         organScores.put(CCOrganScores.STRENGTH, 4f);
         organScores.put(CCOrganScores.SPEED, 4f);
         organScores.put(CCOrganScores.NERVOUS_SYSTEM, .5f);
-        organScores.put(CCOrganScores.SPLEEN, .5f);
-        organScores.put(CCOrganScores.STOMACH, .5f);
-        organScores.put(CCOrganScores.LUNG, 1f);
+        organScores.put(CCOrganScores.METABOLISM, .5f);
+        organScores.put(CCOrganScores.DIGESTION, .5f);
+        organScores.put(CCOrganScores.BREATH, 1f);
     }
 
     @Override

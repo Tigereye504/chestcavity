@@ -9,7 +9,6 @@ import net.tigereye.chestcavity.listeners.OrganTickCallback;
 import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class CCAnthropophagyListeners {
@@ -63,7 +62,7 @@ public class CCAnthropophagyListeners {
                 int newCannibalism = ((CannibalAccessor)entity).getCannibalLevel();
                 float HeartScoreModifier = (CannibalHeart.getBonusHeart(newCannibalism) - (CannibalHeart.getBonusHeart(oldCannibalism))
                         * chestCavity.getOrganScore(CCAnthropophagyOrganScores.CANNIBAL_HEART));
-                chestCavity.addOrganScore(CCOrganScores.HEART,HeartScoreModifier);
+                chestCavity.addOrganScore(CCOrganScores.HEALTH,HeartScoreModifier);
             }
         }
     }

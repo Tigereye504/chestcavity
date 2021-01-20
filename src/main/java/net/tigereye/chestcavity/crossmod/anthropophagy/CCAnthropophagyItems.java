@@ -18,10 +18,10 @@ public class CCAnthropophagyItems {
     private static final Identifier WENDIGOISM_CORRUPT_FLESH = new Identifier("wendigoism", "corrupt_flesh");
 
     public static final Item CANNIBAL_HEART = new CannibalHeart()
-            .setOrganQuality(CCOrganScores.HEART,.5f)
+            .setOrganQuality(CCOrganScores.HEALTH,.5f)
             .setOrganQuality(CCAnthropophagyOrganScores.CANNIBAL_HEART,1);
     public static final Item TETHERED_CANNIBAL_HEART = new TetheredCannibalHeart()
-            .setOrganQuality(CCOrganScores.HEART,.75f)
+            .setOrganQuality(CCOrganScores.HEALTH,.75f)
             .setOrganQuality(CCAnthropophagyOrganScores.TETHERED_CANNIBAL_HEART,1);
 
     public static void register() {

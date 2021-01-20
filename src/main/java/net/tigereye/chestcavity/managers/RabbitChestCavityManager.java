@@ -28,17 +28,18 @@ public class RabbitChestCavityManager extends SmallAnimalChestCavityManager{
 
     private static void initializeDefaultOrganScores(){
         defaultOrganScores.put(CCOrganScores.APPENDIX,.5f);
-        defaultOrganScores.put(CCOrganScores.BONE,2.375f);
-        defaultOrganScores.put(CCOrganScores.HEART,.5f);
-        defaultOrganScores.put(CCOrganScores.INTESTINE,2f);
-        defaultOrganScores.put(CCOrganScores.KIDNEY,1f);
-        defaultOrganScores.put(CCOrganScores.LIVER,.5f);
-        defaultOrganScores.put(CCOrganScores.LUNG,1f);
+        defaultOrganScores.put(CCOrganScores.DEFENSE,2.375f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,.5f);
+        defaultOrganScores.put(CCOrganScores.NUTRITION,2f);
+        defaultOrganScores.put(CCOrganScores.FILTRATION,1f);
+        defaultOrganScores.put(CCOrganScores.DETOXIFICATION,.5f);
+        defaultOrganScores.put(CCOrganScores.BREATH,1f);
+        defaultOrganScores.put(CCOrganScores.ENDURANCE,1f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,4f);
         defaultOrganScores.put(CCOrganScores.SPEED,5f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.5f);
-        defaultOrganScores.put(CCOrganScores.SPLEEN,.5f);
-        defaultOrganScores.put(CCOrganScores.STOMACH,.5f);
+        defaultOrganScores.put(CCOrganScores.METABOLISM,.5f);
+        defaultOrganScores.put(CCOrganScores.DIGESTION,.5f);
     }
 
     @Override

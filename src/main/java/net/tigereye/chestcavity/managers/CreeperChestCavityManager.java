@@ -31,11 +31,11 @@ public class CreeperChestCavityManager extends ChestCavityManager{
         //creepers are plant creatures, they have no blood
         //they don't need kidneys, livers, intestines, or stomachs
         //they are, however, rather explosive buggers
-        defaultOrganScores.put(CCOrganScores.CREEPINESS,1f);
+        defaultOrganScores.put(CCOrganScores.CREEPY,1f);
         defaultOrganScores.put(CCOrganScores.EXPLOSIVE,15f);
         defaultOrganScores.put(CCOrganScores.APPENDIX,.75f);
-        defaultOrganScores.put(CCOrganScores.BONE,4.75f);
-        defaultOrganScores.put(CCOrganScores.HEART,1f);
+        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
+        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
         defaultOrganScores.put(CCOrganScores.SPEED,8f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
@@ -87,13 +87,13 @@ public class CreeperChestCavityManager extends ChestCavityManager{
             return true;
         }
         if(slot.getItem() == Items.STICK){
-            addOrganScore(CCOrganScores.BONE, .25f*slot.getCount());
+            addOrganScore(CCOrganScores.DEFENSE, .25f*slot.getCount());
             return true;
         }
         if(slot.getItem().isIn(ItemTags.LOGS)){
-            addOrganScore(CCOrganScores.BONE, .75f*slot.getCount());
+            addOrganScore(CCOrganScores.DEFENSE, .75f*slot.getCount());
             addOrganScore(CCOrganScores.NERVOUS_SYSTEM, 1f*slot.getCount());
-            addOrganScore(CCOrganScores.HEART, 1f*slot.getCount());
+            addOrganScore(CCOrganScores.HEALTH, 1f*slot.getCount());
             return true;
         }
         return false;
