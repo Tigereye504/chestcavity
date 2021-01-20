@@ -26,35 +26,45 @@ public class ChestOpener extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-		openChestCavity(player,player);
-		return TypedActionResult.success(player.getStackInHand(hand),false);
+		if(openChestCavity(player,player)) {
+			return TypedActionResult.success(player.getStackInHand(hand), false);
+		}
+		else{
+			return TypedActionResult.pass(player.getStackInHand(hand));
+		}
 	}
 
-	public void openChestCavity(PlayerEntity player, LivingEntity target){
+	public boolean openChestCavity(PlayerEntity player, LivingEntity target){
 		Optional<ChestCavityEntity> optional = ChestCavityEntity.of(target);
 		if(optional.isPresent()){
 			ChestCavityEntity chestCavityEntity = optional.get();
-			if(chestCavityEntity.getChestCavityManager().getOrganScore(CCOrganScores.EASE_OF_ACCESS) <= 0) {
-				if (target.getUuid() == player.getUuid()) {
-					target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.
-				} else {
-					target.damage(DamageSource.player(player), 4f);
+			if(chestCavityEntity.getChestCavityManager().isOpenable()) {
+				if (chestCavityEntity.getChestCavityManager().getOrganScore(CCOrganScores.EASE_OF_ACCESS) <= 0) {
+					if (target.getUuid() == player.getUuid()) {
+						target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.
+					} else {
+						target.damage(DamageSource.player(player), 4f);
+					}
 				}
+				if (target.isAlive()) {
+					String name;
+					try {
+						name = target.getDisplayName().getString();
+						name = name.concat("'s ");
+					} catch (Exception e) {
+						name = "";
+					}
+					Inventory inv = chestCavityEntity.getChestCavityManager().openChestCavity();
+					player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
+						return new ChestCavityScreenHandler(i, playerInventory, inv);
+					}, new TranslatableText(name + "Chest Cavity")));
+				}
+				return true;
 			}
-			if(target.isAlive()) {
-				String name;
-				try{
-					name = target.getDisplayName().getString();
-					name = name.concat("'s ");
-				}
-				catch(Exception e){
-					name = "";
-				}
-				Inventory inv = chestCavityEntity.getChestCavityManager().openChestCavity();
-				player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
-					return new ChestCavityScreenHandler(i, playerInventory, inv);
-				}, new TranslatableText(name+"Chest Cavity")));
-			}
+			return false;
+		}
+		else{
+			return false;
 		}
 	}
 }

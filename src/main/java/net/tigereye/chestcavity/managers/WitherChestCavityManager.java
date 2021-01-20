@@ -1,10 +1,10 @@
 package net.tigereye.chestcavity.managers;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
@@ -23,7 +23,7 @@ public class WitherChestCavityManager extends ChestCavityManager{
     }
 
     protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-    protected static final float heartbleedFactor = .2f;
+    protected static final float heartbleedCap = 5f;
 
     static{
         initializeDefaultOrganScores();
@@ -134,7 +134,15 @@ public class WitherChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    public float getHeartbleedFactor(){
-        return heartbleedFactor;
+    public float getHeartBleedCap(){
+        return heartbleedCap;
+    }
+
+    @Override
+    public boolean isOpenable(){
+        if(owner instanceof WitherEntity){
+            return ((WitherEntity)owner).getInvulnerableTimer() <= 0;
+        }
+        return true;
     }
 }

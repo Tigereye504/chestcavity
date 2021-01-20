@@ -83,8 +83,8 @@ public class CCItems {
 	public static final Organ SILK_GLAND = new SilkGland().setOrganQuality(CCOrganScores.SILK,1f);
 	public static final Organ VENOM_GLAND = new VenomGland().setOrganQuality(CCOrganScores.VENOMOUS,1f);
 
-	public static final Organ SALTWATER_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f).setOrganQuality(CCOrganScores.BREATH,.25f);
-	public static final Organ SALTWATER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1.25f).setOrganQuality(CCOrganScores.ENDURANCE,1f);
+	public static final Organ SALTWATER_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f).setOrganQuality(CCOrganScores.WATERBREATH,.25f);
+	public static final Organ SALTWATER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1f).setOrganQuality(CCOrganScores.ENDURANCE,1f).setOrganQuality(CCOrganScores.WATERBREATH,.25f);
 	public static final Organ CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPY,1);
 	public static final Organ ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.FILTRATION, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
 

@@ -76,6 +76,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         defaultOrganScores.put(CCOrganScores.FILTRATION,2f);
         defaultOrganScores.put(CCOrganScores.DETOXIFICATION,1f);
         defaultOrganScores.put(CCOrganScores.BREATH,2f);
+        defaultOrganScores.put(CCOrganScores.ENDURANCE,2f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
         defaultOrganScores.put(CCOrganScores.SPEED,8f);
         defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
@@ -111,8 +112,8 @@ public class ChestCavityManager implements InventoryChangedListener {
         this.heartBleedTimer = heartBleedTimer;
     }
 
-    public float getHeartbleedFactor(){
-        return 1f;
+    public float getHeartBleedCap(){
+        return Float.MAX_VALUE;
     }
 
     public int getBloodPoisonTimer() {
@@ -528,5 +529,9 @@ public class ChestCavityManager implements InventoryChangedListener {
 
     public StatusEffectInstance onAddStatusEffect(StatusEffectInstance effect) {
         return OrganAddStatusEffectCallback.EVENT.invoker().onAddStatusEffect(owner, this,effect);
+    }
+
+    public boolean isOpenable(){
+        return true;
     }
 }

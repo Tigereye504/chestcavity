@@ -3,7 +3,6 @@ package net.tigereye.chestcavity.listeners;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.tigereye.chestcavity.ChestCavity;
@@ -13,11 +12,7 @@ import net.tigereye.chestcavity.items.SilkGland;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
-import net.tigereye.chestcavity.interfaces.CCStatusEffect;
-import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
-
-import java.util.Map;
 
 public class OrganTickListeners {
 
@@ -40,7 +35,7 @@ public class OrganTickListeners {
         {
             if(entity.world.getTime() % ChestCavity.config.HEARTBLEED_RATE == 0) {
                 chestCavity.setHeartBleedTimer(chestCavity.getHeartBleedTimer() + 1);
-                entity.damage(CCDamageSource.HEARTBLEED, (chestCavity.getHeartBleedTimer() * chestCavity.getHeartbleedFactor()));
+                entity.damage(CCDamageSource.HEARTBLEED, Math.min(chestCavity.getHeartBleedTimer(),chestCavity.getHeartBleedCap()));
             }
         }
         else{
