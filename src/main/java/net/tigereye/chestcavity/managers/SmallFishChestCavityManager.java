@@ -97,8 +97,8 @@ public class SmallFishChestCavityManager extends ChestCavityManager{
             organPile.add(CCItems.SMALL_ANIMAL_KIDNEY);
             organPile.add(CCItems.SMALL_ANIMAL_KIDNEY);
             organPile.add(CCItems.SMALL_ANIMAL_LIVER);
-            organPile.add(CCItems.SMALL_ANIMAL_LUNG);
-            organPile.add(CCItems.SMALL_ANIMAL_LUNG);
+            organPile.add(CCItems.SMALL_GILLS);
+            organPile.add(CCItems.SMALL_GILLS);
             organPile.add(CCItems.SMALL_ANIMAL_SPINE);
             organPile.add(CCItems.SMALL_ANIMAL_SPLEEN);
             organPile.add(CCItems.SMALL_ANIMAL_STOMACH);
