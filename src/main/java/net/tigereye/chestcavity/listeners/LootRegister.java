@@ -68,34 +68,6 @@ public class LootRegister {
             return loot;
         });
 
-        GenerateBlockLootCallbackModifyLoot.EVENT.register((type,lootContext,loot) -> {
-            //this event only applies to withers
-            Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
-            if(lootContext.get(LootContextParameters.THIS_ENTITY) instanceof WitherEntity){
-                //first, find the nether star it dropped. If none is found, there is no reason to continue
-                ItemStack netherStarStack = ItemStack.EMPTY;
-                Iterator<ItemStack> i = loot.iterator();
-                ChestCavity.LOGGER.info("wither's loot has " + loot.size() + "items.");
-                while(netherStarStack.getItem() != Items.NETHER_STAR && i.hasNext()){
-                    netherStarStack = i.next();
-                }
-                if(netherStarStack.getItem() == Items.NETHER_STAR){
-                    ChestCavity.LOGGER.info("Found a nether star!");
-                    //next, get the wither's chest cavity. If it can't be found, there is no reason to continue
-                    Optional<ChestCavityEntity> chestCavityEntity = ChestCavityEntity.of(entity);
-                    if(chestCavityEntity.isPresent()){
-                        ChestCavityManager ccm = chestCavityEntity.get().getChestCavityManager();
-
-                        //if the nether star was taken from the wither's chest, remove one from the loot pile.
-                        if(ccm.getOpened() && chestCavityEntity.get().getChestCavityManager().getChestCavity().count(Items.NETHER_STAR) == 0){
-                            netherStarStack.decrement(1);
-                        }
-                    }
-                }
-            }
-            return loot;
-        });
-
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
             if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()

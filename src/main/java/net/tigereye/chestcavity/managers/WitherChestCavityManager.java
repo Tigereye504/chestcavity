@@ -133,32 +133,32 @@ public class WitherChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    public List<ItemStack> generateLootDrops(Random random, int looting){
-        List<ItemStack> loot = new ArrayList<>();
-        if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
-            LinkedList<Item> organPile = new LinkedList<>();
-            for(int i = 0; i < 4; i++){
-                organPile.add(CCItems.WITHERED_RIB);
-            }
-            organPile.add(CCItems.WITHERED_SPINE);
-            int rolls = random.nextInt(1) + random.nextInt(1+ 8*looting);
-            for (int i = 0; i < rolls; i++){
-                int roll = random.nextInt(organPile.size());
-                int count = 1;
-                Item rolledItem = organPile.get(roll);
-                if(rolledItem.getMaxCount() > 1){
-                    count += random.nextInt(rolledItem.getMaxCount());
-                }
-                loot.add(new ItemStack(organPile.remove(roll),count));
-            }
+    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+        LinkedList<Item> organPile = new LinkedList<>();
+        for(int i = 0; i < 4; i++){
+            organPile.add(CCItems.WITHERED_RIB);
         }
+        organPile.add(CCItems.WITHERED_SPINE);
+        int rolls = 1 + random.nextInt(1) + random.nextInt(1);
+        for (int i = 0; i < rolls; i++){
+            int roll = random.nextInt(organPile.size());
+            int count = 1;
+            Item rolledItem = organPile.get(roll);
+            if(rolledItem.getMaxCount() > 1){
+                count += random.nextInt(rolledItem.getMaxCount());
+            }
+            loot.add(new ItemStack(organPile.remove(roll),count));
+        }
+    }
+
+    @Override
+    protected void generateGuaranteedOrganDrops(Random random, int looting, List<ItemStack> loot) {
         int soulsandCount = 16 + random.nextInt(4 + 4*looting) + random.nextInt(4 + 4*looting) + random.nextInt(4 + 4*looting) + random.nextInt(4 + 4*looting);
         while(soulsandCount > CCItems.WRITHING_SOULSAND.getMaxCount()){
             loot.add(new ItemStack(CCItems.WRITHING_SOULSAND, CCItems.WRITHING_SOULSAND.getMaxCount()));
             soulsandCount -= CCItems.WRITHING_SOULSAND.getMaxCount();
         }
         loot.add(new ItemStack(CCItems.WRITHING_SOULSAND, soulsandCount));
-        return loot;
     }
 
     @Override

@@ -79,40 +79,36 @@ public class LargeFishChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    public List<ItemStack> generateLootDrops(Random random, int looting){
-        List<ItemStack> loot = new ArrayList<>();
-        if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
-            LinkedList<Item> organPile = new LinkedList<>();
-            for(int i = 0; i < 4; i++){
-                organPile.add(CCItems.ANIMAL_RIB);
-            }
-            for(int i = 0; i < 8; i++){
-                organPile.add(CCItems.ANIMAL_MUSCLE);
-            }
-            for(int i = 0; i < 4; i++){
-                organPile.add(CCItems.ANIMAL_INTESTINE);
-            }
-            organPile.add(CCItems.ANIMAL_APPENDIX);
-            organPile.add(CCItems.ANIMAL_HEART);
-            organPile.add(CCItems.ANIMAL_KIDNEY);
-            organPile.add(CCItems.ANIMAL_KIDNEY);
-            organPile.add(CCItems.ANIMAL_LIVER);
-            organPile.add(CCItems.GILLS);
-            organPile.add(CCItems.GILLS);
-            organPile.add(CCItems.ANIMAL_SPINE);
-            organPile.add(CCItems.ANIMAL_SPLEEN);
-            organPile.add(CCItems.ANIMAL_STOMACH);
-            int rolls = 1 + random.nextInt(3) + random.nextInt(3);
-            for (int i = 0; i < rolls; i++){
-                int roll = random.nextInt(organPile.size());
-                int count = 1;
-                Item rolledItem = organPile.get(roll);
-                if(rolledItem.getMaxCount() > 1){
-                    count += random.nextInt(rolledItem.getMaxCount());
-                }
-                loot.add(new ItemStack(organPile.remove(roll),count));
-            }
+    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+        LinkedList<Item> organPile = new LinkedList<>();
+        for(int i = 0; i < 4; i++){
+            organPile.add(CCItems.ANIMAL_RIB);
         }
-        return loot;
+        for(int i = 0; i < 8; i++){
+            organPile.add(CCItems.ANIMAL_MUSCLE);
+        }
+        for(int i = 0; i < 4; i++){
+            organPile.add(CCItems.ANIMAL_INTESTINE);
+        }
+        organPile.add(CCItems.ANIMAL_APPENDIX);
+        organPile.add(CCItems.ANIMAL_HEART);
+        organPile.add(CCItems.ANIMAL_KIDNEY);
+        organPile.add(CCItems.ANIMAL_KIDNEY);
+        organPile.add(CCItems.ANIMAL_LIVER);
+        organPile.add(CCItems.GILLS);
+        organPile.add(CCItems.GILLS);
+        organPile.add(CCItems.ANIMAL_SPINE);
+        organPile.add(CCItems.ANIMAL_SPLEEN);
+        organPile.add(CCItems.ANIMAL_STOMACH);
+        int rolls = 1 + random.nextInt(3) + random.nextInt(3);
+        for (int i = 0; i < rolls; i++){
+            int roll = random.nextInt(organPile.size());
+            int count = 1;
+            Item rolledItem = organPile.get(roll);
+            if(rolledItem.getMaxCount() > 1){
+                count += random.nextInt(rolledItem.getMaxCount());
+            }
+            loot.add(new ItemStack(organPile.remove(roll),count));
+        }
     }
 }

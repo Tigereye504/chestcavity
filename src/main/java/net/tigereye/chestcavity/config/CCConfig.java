@@ -8,9 +8,8 @@ import net.tigereye.chestcavity.ChestCavity;
 @Config(name = ChestCavity.MODID)
 public class CCConfig implements ConfigData {
 
-    public float ORGAN_BUNDLE_DROP_RATE = .025f;
     public float ORGAN_BUNDLE_LOOTING_BOOST = .01f;
-    public float UNIVERSAL_DONOR_RATE = .06f;
+    public float UNIVERSAL_DONOR_RATE = .25f;
 
     public int HEARTBLEED_RATE = 20; //how fast you die from lacking a heart in ticks
     public int KIDNEY_RATE = 60; //how often the kidneys prevent blood poisoning in ticks

@@ -75,26 +75,22 @@ public class ZombieChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    public List<ItemStack> generateLootDrops(Random random, int looting){
-        List<ItemStack> loot = new ArrayList<>();
-        if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
-            LinkedList<Item> organPile = new LinkedList<>();
-            organPile.add(CCItems.ROTTEN_APPENDIX);
-            organPile.add(CCItems.ROTTEN_HEART);
-            organPile.add(CCItems.ROTTEN_INTESTINE);
-            organPile.add(CCItems.ROTTEN_KIDNEY);
-            organPile.add(CCItems.ROTTEN_LIVER);
-            organPile.add(CCItems.ROTTEN_LUNG);
-            organPile.add(CCItems.ROTTEN_SPLEEN);
-            organPile.add(CCItems.ROTTEN_STOMACH);
-            int rolls = 1 + random.nextInt(3) + random.nextInt(3);
-            for (int i = 0; i < rolls; i++){
-                int roll = random.nextInt(organPile.size());
-                loot.add(new ItemStack(organPile.remove(roll)));
+    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+        LinkedList<Item> organPile = new LinkedList<>();
+        organPile.add(CCItems.ROTTEN_APPENDIX);
+        organPile.add(CCItems.ROTTEN_HEART);
+        organPile.add(CCItems.ROTTEN_INTESTINE);
+        organPile.add(CCItems.ROTTEN_KIDNEY);
+        organPile.add(CCItems.ROTTEN_LIVER);
+        organPile.add(CCItems.ROTTEN_LUNG);
+        organPile.add(CCItems.ROTTEN_SPLEEN);
+        organPile.add(CCItems.ROTTEN_STOMACH);
+        int rolls = 1 + random.nextInt(3) + random.nextInt(3);
+        for (int i = 0; i < rolls; i++){
+            int roll = random.nextInt(organPile.size());
+            loot.add(new ItemStack(organPile.remove(roll)));
 
-            }
         }
-        return loot;
     }
 
 }

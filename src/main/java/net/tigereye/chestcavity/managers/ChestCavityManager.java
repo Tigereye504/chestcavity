@@ -341,7 +341,18 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public List<ItemStack> generateLootDrops(Random random, int looting){
-        return new ArrayList<>();
+        List<ItemStack> loot = new ArrayList<>();
+        if(random.nextFloat() < ChestCavity.config.UNIVERSAL_DONOR_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
+            generateRareOrganDrops(random,looting,loot);
+        }
+        generateGuaranteedOrganDrops(random,looting,loot);
+        return loot;
+    }
+
+    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    }
+
+    protected void generateGuaranteedOrganDrops(Random random, int looting, List<ItemStack> loot) {
     }
 
     protected void dropUnboundOrgans(){

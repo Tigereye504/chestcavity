@@ -100,11 +100,7 @@ public class CreeperChestCavityManager extends ChestCavityManager{
     }
     
     @Override
-    public List<ItemStack> generateLootDrops(Random random, int looting){
-        List<ItemStack> loot = new ArrayList<>();
-        if(random.nextFloat() < ChestCavity.config.ORGAN_BUNDLE_DROP_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
-            loot.add(new ItemStack(CCItems.CREEPER_APPENDIX));
-        }
-        return loot;
+    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+        loot.add(new ItemStack(CCItems.CREEPER_APPENDIX));
     }
 }
