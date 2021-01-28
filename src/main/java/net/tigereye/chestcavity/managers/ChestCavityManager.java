@@ -1,8 +1,10 @@
 package net.tigereye.chestcavity.managers;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
@@ -11,11 +13,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.*;
@@ -495,23 +499,102 @@ public class ChestCavityManager implements InventoryChangedListener {
         //TODO: find a use for stomachs for non-players
     }
 
-    public int applyLungCapacityInWater(int oldAir, int newAir){
-        if(!opened || getDefaultOrganScore(CCOrganScores.BREATH) == 0
-            || ( getDefaultOrganScore(CCOrganScores.BREATH) == getOrganScore(CCOrganScores.BREATH) &&
+    public int applyBreathInWater(int oldAir, int newAir){
+        //if your chest cavity is untouched or normal, we do nothing
+        if(!opened || ( getDefaultOrganScore(CCOrganScores.BREATH) == getOrganScore(CCOrganScores.BREATH) &&
                 getDefaultOrganScore(CCOrganScores.WATERBREATH) == getOrganScore(CCOrganScores.WATERBREATH))){
             return newAir;
         }
-        float airLoss = (oldAir - newAir);
-        airLoss = airLoss*(1-getOrganScore(CCOrganScores.WATERBREATH));
-        if(airLoss > 0) {
-            float lungRatio = 20f;
-            if (getOrganScore(CCOrganScores.BREATH) != 0) {
-                lungRatio = Math.min(getDefaultOrganScore(CCOrganScores.BREATH) / getOrganScore(CCOrganScores.BREATH), 20f);
-            }
-            airLoss = airLoss * lungRatio + lungRemainder;
+
+        float airLoss = 1;
+        //if you have waterbreath, you can breath underwater. Yay! This will overwrite any incoming air loss.
+        float waterBreath = getOrganScore(CCOrganScores.WATERBREATH);
+        if(waterBreath > 0){
+            airLoss += (-2*waterBreath)+lungRemainder;
         }
+
+        //if you don't (or you are still breath negative),
+        //we check how well your lungs can hold oxygen
+        if (airLoss > 0){
+            if(oldAir == newAir){
+                //this would indicate that resperation was a success
+                airLoss = 0;
+            }
+            else {
+                float breath = getOrganScore(CCOrganScores.BREATH);
+                airLoss *= (oldAir - newAir); //if you are downing at bonus speed, ok
+                if (airLoss > 0) {
+                    float lungRatio = 20f;
+                    if (breath != 0) {
+                        lungRatio = Math.min(2 / breath, 20f);
+                    }
+                    airLoss = (airLoss * lungRatio) + lungRemainder;
+                }
+            }
+        }
+
         lungRemainder = airLoss % 1;
-        return Math.min(oldAir - ((int) airLoss),owner.getMaxAir());
+        int airResult = Math.min(oldAir - ((int) airLoss),owner.getMaxAir());
+        //I don't trust vanilla to do this job right, so I will choke you myself
+        if (airResult <= -20) {
+            airResult = 0;
+            lungRemainder = 0;
+            owner.damage(DamageSource.DROWN, 2.0F);
+        }
+        return airResult;
+    }
+
+    public int applyBreathOnLand(int oldAir, int airGain){
+        //we have to recreate breath mechanics here I'm afraid
+        //if your chest cavity is untouched or normal, we do nothing
+
+        if(!opened|| ( getDefaultOrganScore(CCOrganScores.BREATH) == getOrganScore(CCOrganScores.BREATH) &&
+                getDefaultOrganScore(CCOrganScores.WATERBREATH) == getOrganScore(CCOrganScores.WATERBREATH))){
+            return oldAir;
+        }
+
+        float airLoss = 1;
+
+        //if you have breath, you can breath on land. Yay!
+        //if in contact with water or rain apply on quarter your water breath as well
+        //(so 2 gills can survive in humid conditions)
+        float breath = getOrganScore(CCOrganScores.BREATH);
+        if(owner.isTouchingWaterOrRain()){
+            breath += getOrganScore(CCOrganScores.WATERBREATH)/4;
+        }
+        if(breath > 0){
+            airLoss += (-airGain * (breath) / 2) + lungRemainder;
+        }
+
+        //if you don't (or you are still breath negative),
+        //then unless you have the water breathing status effect you must hold your watery breath.
+        if (airLoss > 0 && !owner.hasStatusEffect(StatusEffects.WATER_BREATHING)) {
+            //first, check if resperation cancels the sequence.
+            int resperation = EnchantmentHelper.getRespiration(owner);
+            if (owner.getRandom().nextInt(resperation + 1) != 0) {
+                airLoss = 0;
+            }
+            else{
+                //then, we apply our beath capacity
+                float waterbreath = getOrganScore(CCOrganScores.WATERBREATH);
+                float gillRatio = 20f;
+                if (waterbreath != 0) {
+                    gillRatio = Math.min(2 / waterbreath, 20f);
+                }
+                airLoss = airLoss * gillRatio + lungRemainder;
+            }
+        }
+
+        lungRemainder = airLoss % 1;
+        //we finally undo the air gained in vanilla while calculating final results
+        int airResult = Math.min(oldAir - ((int) airLoss) - airGain,owner.getMaxAir());
+        //I don't trust vanilla to do this job right, so I will choke you myself
+        if (airResult <= -20) {
+            airResult = 0;
+            lungRemainder = 0;
+            owner.damage(DamageSource.DROWN, 2.0F);
+        }
+        return airResult;
     }
 
     public int applySpleenMetabolism(int foodStarvationTimer){

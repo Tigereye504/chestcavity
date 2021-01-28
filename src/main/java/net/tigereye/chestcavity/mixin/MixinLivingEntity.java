@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.mixin;
 
 import com.mojang.authlib.GameProfile;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -19,6 +20,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -60,6 +62,13 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         chestCavityManager.onTick();
     }
 
+    @Inject(at = @At("TAIL"), method = "baseTick")
+    protected void chestCavityLivingEntityBaseTickBreathAirMixin(CallbackInfo info) {
+        if(!this.isSubmergedIn(FluidTags.WATER) || this.world.getBlockState(new BlockPos(this.getX(), this.getEyeY(), this.getZ())).isOf(Blocks.BUBBLE_COLUMN)) {
+            this.setAir(chestCavityManager.applyBreathOnLand(this.getAir(), this.getNextAirOnLand(0)));
+        }
+    }
+
     @ModifyVariable(at = @At(value = "CONSTANT", args = "floatValue=0.0F", ordinal = 0), ordinal = 0, method = "applyDamage")
     public float chestCavityLivingEntityOnHitMixin(float amount, DamageSource source){
         if(source.getAttacker() instanceof LivingEntity){
@@ -73,7 +82,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("RETURN"), method = "getNextAirUnderwater", cancellable = true)
     protected void chestCavityLivingEntityGetNextAirUnderwaterMixin(int air, CallbackInfoReturnable info) {
-        info.setReturnValue(chestCavityManager.applyLungCapacityInWater(air,info.getReturnValueI()));
+        info.setReturnValue(chestCavityManager.applyBreathInWater(air,info.getReturnValueI()));
     }
 
     @Inject(at = @At("RETURN"), method = "applyArmorToDamage",cancellable = true)
@@ -236,4 +245,9 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Shadow
     public Packet<?> createSpawnPacket() {return null;}
+
+    @Shadow
+    protected int getNextAirOnLand(int air) {
+        return 0;
+    }
 }

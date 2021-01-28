@@ -20,7 +20,7 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHealth);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickFiltration);
         //OrganTickCallback.EVENT.register(OrganTickListeners::TickLiver);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickBreath);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickBreath);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
