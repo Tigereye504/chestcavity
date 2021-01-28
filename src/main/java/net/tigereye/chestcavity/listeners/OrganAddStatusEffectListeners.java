@@ -17,8 +17,8 @@ public class OrganAddStatusEffectListeners {
     }
 
     private static StatusEffectInstance ApplyDetoxification(LivingEntity entity, ChestCavityManager chestCavity, StatusEffectInstance instance) {
-        if(entity.getEntityWorld().isClient()
-            || chestCavity.getDefaultOrganScore(CCOrganScores.DETOXIFICATION) <= 0)
+        if(chestCavity.getDefaultOrganScore(CCOrganScores.DETOXIFICATION) <= 0)
+                //|| entity.getEntityWorld().isClient())
         { //this is a server-side event only for things that use detox
             return instance;
         }
@@ -32,8 +32,8 @@ public class OrganAddStatusEffectListeners {
     }
 
     private static StatusEffectInstance ApplyWithered(LivingEntity entity, ChestCavityManager chestCavity, StatusEffectInstance instance) {
-        if(entity.getEntityWorld().isClient()
-                || chestCavity.getOrganScore(CCOrganScores.WITHERED) <= 0
+        if(/*entity.getEntityWorld().isClient()
+                || */chestCavity.getOrganScore(CCOrganScores.WITHERED) <= 0
                 || instance.getEffectType() != StatusEffects.WITHER)
         { //this is a server-side event
             return instance;

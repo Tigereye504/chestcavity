@@ -11,12 +11,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.*;
+import net.tigereye.chestcavity.network.ChestCavityUpdateS2CPacket;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import org.apache.logging.log4j.LogManager;
@@ -156,6 +159,10 @@ public class ChestCavityManager implements InventoryChangedListener {
         organScores.put(id,value);
     }
 
+    public void setOrganScores(Map<Identifier,Float> organScores) {
+        this.organScores = organScores;
+    }
+
     public float getOldOrganScore(Identifier id) {
         return oldOrganScores.getOrDefault(id, 0f);
     }
@@ -240,6 +247,16 @@ public class ChestCavityManager implements InventoryChangedListener {
             OrganUpdateCallback.EVENT.invoker().onOrganUpdate(owner, this);
             oldOrganScores.clear();
             oldOrganScores.putAll(organScores);
+            if((!owner.world.isClient()) && owner instanceof ServerPlayerEntity) {
+                ServerPlayNetworkHandler network = ((ServerPlayerEntity)owner).networkHandler;
+                if(network != null) {
+                    ChestCavityUpdateS2CPacket packet = new ChestCavityUpdateS2CPacket(opened, organScores);
+                    network.sendPacket(packet);
+                }
+                else{
+                    ChestCavity.LOGGER.warn("Client has no networkHandler! If you are loading the game this is normal.");
+                }
+            }
         }
     }
 
@@ -479,7 +496,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     public int applyLungCapacityInWater(int oldAir, int newAir){
-        if(!opened || getDefaultOrganScore(CCOrganScores.BREATH) == 0 || owner.world.isClient()
+        if(!opened || getDefaultOrganScore(CCOrganScores.BREATH) == 0
             || ( getDefaultOrganScore(CCOrganScores.BREATH) == getOrganScore(CCOrganScores.BREATH) &&
                 getDefaultOrganScore(CCOrganScores.WATERBREATH) == getOrganScore(CCOrganScores.WATERBREATH))){
             return newAir;
@@ -531,4 +548,6 @@ public class ChestCavityManager implements InventoryChangedListener {
     public boolean isOpenable(){
         return true;
     }
+
+
 }

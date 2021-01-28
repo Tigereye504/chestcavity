@@ -21,6 +21,7 @@ public class CCConfig implements ConfigData {
 
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding
     public int SILK_COOLDOWN = 20; //how often an entity is allowed to lay silk
+    public int VENOM_COOLDOWN = 40; //how often an entity is allowed to poison targets
     public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
 
     public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
