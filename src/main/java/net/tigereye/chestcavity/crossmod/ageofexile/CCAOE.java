@@ -3,8 +3,6 @@ package net.tigereye.chestcavity.crossmod.ageofexile;
 import net.fabricmc.loader.api.FabricLoader;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.crossmod.CrossModContent;
-import net.tigereye.chestcavity.crossmod.anthropophagy.CCAnthropophagyItems;
-import net.tigereye.chestcavity.crossmod.anthropophagy.CCAnthropophagyListeners;
 
 public class CCAOE {
     public static final String MODID = "mmorpg";

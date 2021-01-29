@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.managers;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,17 +14,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.*;
-import net.tigereye.chestcavity.network.ChestCavityUpdateS2CPacket;
+import net.tigereye.chestcavity.network.NetworkUtils;
+import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import org.apache.logging.log4j.LogManager;
@@ -159,6 +158,10 @@ public class ChestCavityManager implements InventoryChangedListener {
         return organScores.getOrDefault(id, 0f);
     }
 
+    public Map<Identifier, Float> getOrganScores() {
+        return organScores;
+    }
+
     public void setOrganScore(Identifier id, float value){
         organScores.put(id,value);
     }
@@ -252,13 +255,12 @@ public class ChestCavityManager implements InventoryChangedListener {
             oldOrganScores.clear();
             oldOrganScores.putAll(organScores);
             if((!owner.world.isClient()) && owner instanceof ServerPlayerEntity) {
-                ServerPlayNetworkHandler network = ((ServerPlayerEntity)owner).networkHandler;
-                if(network != null) {
-                    ChestCavityUpdateS2CPacket packet = new ChestCavityUpdateS2CPacket(opened, organScores);
-                    network.sendPacket(packet);
+                try {
+                    ServerPlayNetworking.send((ServerPlayerEntity) owner, CCNetworkingPackets.UPDATE_PACKET_ID, NetworkUtils.WriteChestCavityUpdatePacket(this));
                 }
-                else{
-                    ChestCavity.LOGGER.warn("Client has no networkHandler! If you are loading the game this is normal.");
+                catch(Exception e){
+                    ChestCavity.LOGGER.warn("Could not send chest cavity update to client! If you are currently loading in this is normal.");
+
                 }
             }
         }
@@ -631,6 +633,5 @@ public class ChestCavityManager implements InventoryChangedListener {
     public boolean isOpenable(){
         return true;
     }
-
 
 }

@@ -70,6 +70,7 @@ public class CCBackroomsLootRegister {
                         .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_KIDNEY))
                         .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_LIVER))
                         .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_LUNG))
+                        .with(ItemEntry.builder(CCItems.SMALL_GILLS))
                         .withEntry(ItemEntry.builder(CCItems.SMALL_ANIMAL_RIB)
                                 .apply(SetCountLootFunction.builder(BinomialLootTableRange.create(4,.6f))).build())
                         .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_SPINE))
