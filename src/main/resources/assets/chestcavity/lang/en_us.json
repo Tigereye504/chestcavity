@@ -156,6 +156,8 @@
     "text.autoconfig.chestcavity.option.HEART_HP": "HP Per Heart",
     "text.autoconfig.chestcavity.option.MUSCLE_STRENGTH": "Muscle Strength",
     "text.autoconfig.chestcavity.option.MUSCLE_SPEED": "Muscle Speed",
+    "text.autoconfig.chestcavity.option.ARROW_DODGE_COOLDOWN": "Arrow Dodging Cooldown",
+    "text.autoconfig.chestcavity.option.ARROW_DODGE_DISTANCE": "Arrow Dodging Teleport Distance",
     "text.autoconfig.chestcavity.option.EXPLOSION_COOLDOWN": "Appendix Explosion Cooldown",
     "text.autoconfig.chestcavity.option.SILK_COOLDOWN": "Silk Gland Cooldown",
     "text.autoconfig.chestcavity.option.VENOM_COOLDOWN": "Venom Gland Cooldown",

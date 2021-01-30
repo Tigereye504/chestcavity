@@ -508,7 +508,7 @@ public class ChestCavityManager implements InventoryChangedListener {
         if (!(source instanceof ProjectileDamageSource)) {
             return false;
         }
-        if(!OrganUtil.teleportRandomly(owner,32/dodge)){
+        if(!OrganUtil.teleportRandomly(owner,ChestCavity.config.ARROW_DODGE_DISTANCE/dodge)){
             return false;
         }
         owner.addStatusEffect(new StatusEffectInstance(CCStatusEffects.ARROW_DODGE_COOLDOWN, (int) (ChestCavity.config.ARROW_DODGE_COOLDOWN/dodge), 0, false, false, true));
