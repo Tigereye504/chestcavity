@@ -21,7 +21,7 @@ public class CCItems {
 
 	public static final Item CHEST_OPENER = new ChestOpener();
 
-	public static final Organ HUMAN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,1f);
+	public static final Organ HUMAN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,1f);
 	public static final Organ HUMAN_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f);
 	public static final Organ HUMAN_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,1f);
 	public static final Organ HUMAN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1f);
@@ -33,7 +33,7 @@ public class CCItems {
 	public static final Organ HUMAN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1f);
 	public static final Organ HUMAN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1f);
 
-	public static final Organ ROTTEN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,.5f);
+	public static final Organ ROTTEN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.5f);
 	public static final Organ ROTTEN_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
 	public static final Organ ROTTEN_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
 	public static final Organ ROTTEN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
@@ -47,7 +47,7 @@ public class CCItems {
 	public static final Organ WITHERED_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f).setOrganQuality(CCOrganScores.WITHERED,1);
 	public static final Organ WRITHING_SOULSAND = new Organ(ORGAN_SETTINGS_16).setOrganQuality(CCOrganScores.STRENGTH,1.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
 
-	public static final Organ ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,.75f);
+	public static final Organ ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.75f);
 	public static final Organ ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.75f);
 	public static final Organ ANIMAL_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.75f);
 	public static final Organ ANIMAL_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.75f);
@@ -60,7 +60,7 @@ public class CCItems {
 	public static final Organ ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.75f);
 	public static final Organ GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,1);
 
-	public static final Organ SMALL_ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.APPENDIX,.5f);
+	public static final Organ SMALL_ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.5f);
 	public static final Organ SMALL_ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
 	public static final Organ SMALL_ANIMAL_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
 	public static final Organ SMALL_ANIMAL_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
@@ -80,13 +80,24 @@ public class CCItems {
 	public static final Organ INSECT_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
 	public static final Organ INSECT_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f).setOrganQuality(CCOrganScores.NUTRITION,.25f);
 	public static final Organ INSECT_CAECA = new Organ().setOrganQuality(CCOrganScores.DIGESTION, .25f).setOrganQuality(CCOrganScores.NUTRITION, .5f).setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.25f);
-	public static final SilkGland SILK_GLAND = (SilkGland) (new SilkGland().setOrganQuality(CCOrganScores.SILK,1f));
-	public static final VenomGland VENOM_GLAND = (VenomGland) (new VenomGland().setOrganQuality(CCOrganScores.VENOMOUS,1f));
+	public static final Organ SILK_GLAND = new Organ().setOrganQuality(CCOrganScores.SILK,1f);
+	public static final Organ VENOM_GLAND = new VenomGland().setOrganQuality(CCOrganScores.VENOMOUS,1f);
+
+	public static final Organ ENDER_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,1.25f).setOrganQuality(CCOrganScores.ARROW_DODGING,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1f);
+	public static final Organ ENDER_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1.25f).setOrganQuality(CCOrganScores.ENDURANCE,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.ALIEN_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,1.25f).setOrganQuality(CCOrganScores.SPEED,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);;
+	public static final Organ ENDER_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1.25f).setOrganQuality(CCOrganScores.DEFENSE,.9375f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 
 	public static final Organ SALTWATER_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f).setOrganQuality(CCOrganScores.WATERBREATH,.25f);
 	public static final Organ SALTWATER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1f).setOrganQuality(CCOrganScores.ENDURANCE,1f).setOrganQuality(CCOrganScores.WATERBREATH,.25f);
-	public static final Organ CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.APPENDIX,.75f).setOrganQuality(CCOrganScores.CREEPY,1);
-	public static final Organ ENDER_KIDNEY = new EnderKidney().setOrganQuality(CCOrganScores.FILTRATION, .75f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1);
+	public static final Organ CREEPER_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.75f).setOrganQuality(CCOrganScores.CREEPY,1);
 
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
@@ -121,6 +132,14 @@ public class CCItems {
 	public static final Item RAW_RICH_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_HUMAN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT));
 
+	public static final Item RAW_ALIEN_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_ALIEN_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_ALIEN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_ALIEN_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_ALIEN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_ALIEN_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_ALIEN_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_ALIEN_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
 	
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
@@ -186,11 +205,22 @@ public class CCItems {
 		registerItem("insect_caeca", INSECT_CAECA);
 		registerItem("silk_gland", SILK_GLAND);
 		registerItem("venom_gland", VENOM_GLAND);
+
+		registerItem("ender_appendix", ENDER_APPENDIX);
+		registerItem("ender_heart", ENDER_HEART);
+		registerItem("ender_intestine", ENDER_INTESTINE);
+		registerItem("ender_kidney", ENDER_KIDNEY);
+		registerItem("ender_liver", ENDER_LIVER);
+		registerItem("ender_lung", ENDER_LUNG);
+		registerItem("ender_muscle", ENDER_MUSCLE);
+		registerItem("ender_rib", ENDER_RIB);
+		registerItem("ender_spine", ENDER_SPINE);
+		registerItem("ender_spleen", ENDER_SPLEEN);
+		registerItem("ender_stomach", ENDER_STOMACH);
 		
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
-		registerItem("ender_kidney", ENDER_KIDNEY);
 
 		registerItem("burnt_meat_chunk", BURNT_MEAT_CHUNK);
 		registerItem("raw_organ_meat", RAW_ORGAN_MEAT);
@@ -223,6 +253,15 @@ public class CCItems {
 		registerItem("human_sausage", COOKED_HUMAN_SAUSAGE);
 		registerItem("raw_rich_human_sausage", RAW_RICH_HUMAN_SAUSAGE);
 		registerItem("rich_human_sausage", COOKED_RICH_HUMAN_SAUSAGE);
+
+		registerItem("raw_alien_organ_meat", RAW_ALIEN_ORGAN_MEAT);
+		registerItem("cooked_alien_organ_meat", COOKED_ALIEN_ORGAN_MEAT);
+		registerItem("raw_alien_meat", RAW_ALIEN_MEAT);
+		registerItem("cooked_alien_meat", COOKED_ALIEN_MEAT);
+		registerItem("raw_alien_sausage", RAW_ALIEN_SAUSAGE);
+		registerItem("alien_sausage", COOKED_ALIEN_SAUSAGE);
+		registerItem("raw_rich_alien_sausage", RAW_RICH_ALIEN_SAUSAGE);
+		registerItem("rich_alien_sausage", COOKED_RICH_ALIEN_SAUSAGE);
 	}
 	
 	private static void registerItem(String name, Item item) {

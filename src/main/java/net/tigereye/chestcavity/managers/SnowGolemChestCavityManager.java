@@ -99,7 +99,7 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
         //as such they don't need the organs related to such
         //that is almost all the organs though...
         organScores.clear();
-        organScores.put(CCOrganScores.APPENDIX, 1f);
+        organScores.put(CCOrganScores.LUCK, 1f);
         organScores.put(CCOrganScores.NUTRITION, 4f);
         organScores.put(CCOrganScores.FILTRATION, 2f);
         organScores.put(CCOrganScores.DETOXIFICATION, 1f);

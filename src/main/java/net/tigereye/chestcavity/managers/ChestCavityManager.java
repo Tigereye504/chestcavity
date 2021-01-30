@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,10 +22,12 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.*;
 import net.tigereye.chestcavity.listeners.*;
-import net.tigereye.chestcavity.network.NetworkUtils;
+import net.tigereye.chestcavity.registration.CCStatusEffects;
+import net.tigereye.chestcavity.util.NetworkUtil;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
+import net.tigereye.chestcavity.util.OrganUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,7 +78,7 @@ public class ChestCavityManager implements InventoryChangedListener {
     }
 
     private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.APPENDIX,1f);
+        defaultOrganScores.put(CCOrganScores.LUCK,1f);
         defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
         defaultOrganScores.put(CCOrganScores.HEALTH,1f);
         defaultOrganScores.put(CCOrganScores.NUTRITION,4f);
@@ -256,7 +259,7 @@ public class ChestCavityManager implements InventoryChangedListener {
             oldOrganScores.putAll(organScores);
             if((!owner.world.isClient()) && owner instanceof ServerPlayerEntity) {
                 try {
-                    ServerPlayNetworking.send((ServerPlayerEntity) owner, CCNetworkingPackets.UPDATE_PACKET_ID, NetworkUtils.WriteChestCavityUpdatePacket(this));
+                    ServerPlayNetworking.send((ServerPlayerEntity) owner, CCNetworkingPackets.UPDATE_PACKET_ID, NetworkUtil.WriteChestCavityUpdatePacket(this));
                 }
                 catch(Exception e){
                     ChestCavity.LOGGER.warn("Could not send chest cavity update to client! If you are currently loading in this is normal.");
@@ -476,12 +479,40 @@ public class ChestCavityManager implements InventoryChangedListener {
         evaluateChestCavity();
     }
 
-    public float applyBoneDefense(float damage){
+    public float applyDefenses(DamageSource source, float damage){
         if(!opened){
             return damage;
         }
+        if(attemptArrowDodging(source)){
+            return 0;
+        }
+        if(!source.bypassesArmor()) {
+            damage = applyBoneDefense(damage);
+        }
+        return damage;
+    }
+
+    public float applyBoneDefense(float damage){
         float boneDiff = (getOrganScore(CCOrganScores.DEFENSE) - getDefaultOrganScore(CCOrganScores.DEFENSE))/4;
         return (float)(damage*Math.pow(ChestCavity.config.BONE_DEFENSE,boneDiff));
+    }
+
+    public boolean attemptArrowDodging(DamageSource source){
+        float dodge = getOrganScore(CCOrganScores.ARROW_DODGING);
+        if(dodge == 0){
+            return false;
+        }
+        if(owner.hasStatusEffect(CCStatusEffects.ARROW_DODGE_COOLDOWN)){
+            return false;
+        }
+        if (!(source instanceof ProjectileDamageSource)) {
+            return false;
+        }
+        if(!OrganUtil.teleportRandomly(owner,32/dodge)){
+            return false;
+        }
+        owner.addStatusEffect(new StatusEffectInstance(CCStatusEffects.ARROW_DODGE_COOLDOWN, (int) (ChestCavity.config.ARROW_DODGE_COOLDOWN/dodge), 0, false, false, true));
+        return true;
     }
 
     public float applyIntestinesSaturation(float sat){

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_alien_organ_meat"
+      },
+      {
+        "item": "chestcavity:ender_intestine"
+      }
+  ],
+  "result": {
+    "item": "chestcavity:raw_rich_alien_sausage",
+    "count": 1
+  }
+}

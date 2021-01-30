@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+      {
+        "item": "chestcavity:ender_muscle"
+      },
+      {
+        "item": "chestcavity:ender_muscle"
+      },
+      {
+        "item": "chestcavity:ender_muscle"
+      },
+      {
+        "item": "chestcavity:ender_muscle"
+      }
+  ],
+  "result": {
+    "item": "chestcavity:raw_alien_meat",
+    "count": 1
+  }
+}

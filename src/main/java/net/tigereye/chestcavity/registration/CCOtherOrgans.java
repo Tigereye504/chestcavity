@@ -16,7 +16,7 @@ public class CCOtherOrgans {
 
     public static void init(){
         Map<Identifier,Float> dirt = new HashMap<>();
-        dirt.put(CCOrganScores.APPENDIX,1f/27);
+        dirt.put(CCOrganScores.LUCK,1f/27);
         dirt.put(CCOrganScores.HEALTH,1f/27);
         dirt.put(CCOrganScores.STRENGTH,8f/27);
         dirt.put(CCOrganScores.SPEED,8f/27);

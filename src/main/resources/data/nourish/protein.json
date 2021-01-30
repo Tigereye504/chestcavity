@@ -26,6 +26,14 @@
 		"chestcavity:raw_human_sausage",
 		"chestcavity:human_sausage",
 		"chestcavity:raw_rich_human_sausage",
-		"chestcavity:rich_human_sausage"
+		"chestcavity:rich_human_sausage",
+		"chestcavity:raw_alien_organ_meat",
+		"chestcavity:cooked_alien_organ_meat",
+		"chestcavity:raw_alien_meat",
+		"chestcavity:cooked_man_meat",
+		"chestcavity:raw_alien_sausage",
+		"chestcavity:alien_sausage",
+		"chestcavity:raw_rich_alien_sausage",
+		"chestcavity:rich_alien_sausage"
 	]
 }

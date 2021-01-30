@@ -3,11 +3,9 @@ package net.tigereye.chestcavity.managers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -59,7 +57,7 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
         //animated by unholy magic, skeletons get to pretend they have organs they actually don't!
         //they also don't have any organs, but imagine if they did...
         organScores.clear();
-        organScores.put(CCOrganScores.APPENDIX, 1f);
+        organScores.put(CCOrganScores.LUCK, 1f);
         organScores.put(CCOrganScores.DEFENSE, 2.375f);
         organScores.put(CCOrganScores.HEALTH, 1f);
         organScores.put(CCOrganScores.NUTRITION, 4f);

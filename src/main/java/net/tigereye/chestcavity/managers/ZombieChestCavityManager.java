@@ -4,11 +4,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -60,7 +58,7 @@ public class ZombieChestCavityManager extends ChestCavityManager{
         //animated by unholy magic, zombies function at half capacity even when completely organ-less.
         //lucky them, as their default organs are rotted and thus only 50% effective
         organScores.clear();
-        organScores.put(CCOrganScores.APPENDIX, .5f);
+        organScores.put(CCOrganScores.LUCK, .5f);
         organScores.put(CCOrganScores.DEFENSE, 2.375f);
         organScores.put(CCOrganScores.HEALTH, 0.5f);
         organScores.put(CCOrganScores.NUTRITION, 2f);

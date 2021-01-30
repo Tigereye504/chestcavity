@@ -6,13 +6,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.CreeperAppendix;
-import net.tigereye.chestcavity.items.EnderKidney;
-import net.tigereye.chestcavity.items.SilkGland;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
+import net.tigereye.chestcavity.util.OrganUtil;
 
 public class OrganTickListeners {
 
@@ -24,6 +22,7 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickHydroallergenic);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
@@ -82,7 +81,7 @@ public class OrganTickListeners {
         else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
             float explosion_yield = chestCavity.getOrganScore(CCOrganScores.EXPLOSIVE);
             chestCavity.destroyOrgansWithKey(CCOrganScores.EXPLOSIVE);
-            CreeperAppendix.explode(entity, explosion_yield);
+            OrganUtil.explode(entity, explosion_yield);
             if(entity.isAlive()) {
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.EXPLOSION_COOLDOWN, ChestCavity.config.EXPLOSION_COOLDOWN, 0, false, false, true));
             }
@@ -97,19 +96,42 @@ public class OrganTickListeners {
             return;
         }
         else if(entity.getPose() == EntityPose.CROUCHING){
-            if(SilkGland.spinWeb(entity,chestCavity.getOrganScore(CCOrganScores.SILK))) {
+            if(OrganUtil.spinWeb(entity,chestCavity.getOrganScore(CCOrganScores.SILK))) {
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN,ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
             }
         }
     }
 
+    private static void TickHydroallergenic(LivingEntity entity, ChestCavityManager chestCavity) {
+        if(entity.getEntityWorld().isClient()){ //this is a server-side event
+            return;
+        }
+        float Hydroallergy = chestCavity.getOrganScore(CCOrganScores.HYDROALLERGENIC);
+        if(Hydroallergy == 0){   //do nothing if the target isn't hydrophobic
+            return;                                                                 //TODO: make enderman water-damage dependent on hydroallergenic
+        }
+        if (entity.isSubmergedInWater()) {
+            if(!entity.hasStatusEffect(CCStatusEffects.WATER_VULNERABILITY)) {
+                entity.damage(DamageSource.MAGIC, 10);
+                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.WATER_VULNERABILITY, (int) (260 / Hydroallergy), 0, false, false, true));
+            }
+        }
+        else if (entity.isTouchingWaterOrRain()) {
+            if(!entity.hasStatusEffect(CCStatusEffects.WATER_VULNERABILITY)) {
+                entity.damage(DamageSource.MAGIC, 1);
+                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.WATER_VULNERABILITY, (int) (260 / Hydroallergy), 0, false, false, true));
+            }
+        }
+    }
+
     public static void TickHydrophobia(LivingEntity entity, ChestCavityManager chestCavity){
-        if(chestCavity.getOrganScore(CCOrganScores.HYDROPHOBIA) == 0                //do nothing if the target isn't hydrophobic
+        float hydrophobia = chestCavity.getOrganScore(CCOrganScores.HYDROPHOBIA);
+        if(hydrophobia == 0                                                         //do nothing if the target isn't hydrophobic
             || chestCavity.getDefaultOrganScore(CCOrganScores.HYDROPHOBIA) != 0){   //do nothing if they are by default, otherwise endermen will spaz even harder
             return;                                                                 //TODO: make enderman water-teleporting dependent on hydrophobia
         }
         if(entity.isTouchingWaterOrRain()){
-            EnderKidney.teleportRandomly(entity);
+            OrganUtil.teleportRandomly(entity,hydrophobia*32);
         }
     }
 

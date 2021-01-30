@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
@@ -31,7 +30,7 @@ public class WitherChestCavityManager extends ChestCavityManager{
     }
 
     private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.APPENDIX,1f);
+        defaultOrganScores.put(CCOrganScores.LUCK,1f);
         defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
         defaultOrganScores.put(CCOrganScores.HEALTH,1f);
         defaultOrganScores.put(CCOrganScores.NUTRITION,4f);
@@ -94,7 +93,7 @@ public class WitherChestCavityManager extends ChestCavityManager{
         //animated by unholy magic, withers get to pretend they have organs they actually don't!
         //they also don't have any organs, but imagine if they did...
         organScores.clear();
-        organScores.put(CCOrganScores.APPENDIX, 1f);
+        organScores.put(CCOrganScores.LUCK, 1f);
         organScores.put(CCOrganScores.DEFENSE, 2.375f);
         organScores.put(CCOrganScores.NUTRITION, 4f);
         organScores.put(CCOrganScores.FILTRATION, 2f);

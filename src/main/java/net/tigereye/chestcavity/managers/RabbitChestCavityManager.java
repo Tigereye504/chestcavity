@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
@@ -27,7 +26,7 @@ public class RabbitChestCavityManager extends SmallAnimalChestCavityManager{
     }
 
     private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.APPENDIX,.5f);
+        defaultOrganScores.put(CCOrganScores.LUCK,.5f);
         defaultOrganScores.put(CCOrganScores.DEFENSE,2.375f);
         defaultOrganScores.put(CCOrganScores.HEALTH,.5f);
         defaultOrganScores.put(CCOrganScores.NUTRITION,2f);

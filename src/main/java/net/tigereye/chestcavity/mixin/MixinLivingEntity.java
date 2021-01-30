@@ -26,13 +26,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.SilkGland;
 import net.tigereye.chestcavity.managers.ChestCavityManagerFactory;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.util.OrganUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -87,9 +87,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("RETURN"), method = "applyArmorToDamage",cancellable = true)
     public void chestCavityLivingEntityDamageMixin(DamageSource source, float amount, CallbackInfoReturnable<Float> info){
-        if(!source.bypassesArmor()) {
-            info.setReturnValue(chestCavityManager.applyBoneDefense(info.getReturnValueF()));
-        }
+        info.setReturnValue(chestCavityManager.applyDefenses(source, info.getReturnValueF()));
     }
 
     @Inject(at = @At("HEAD"), method = "dropInventory")
@@ -148,7 +146,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                 at = @At(value = "RETURN", ordinal = 0)
                 )
         protected void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
-            SilkGland.milkSilk(this);
+            OrganUtil.milkSilk(this);
         }
     }
 
@@ -202,7 +200,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                 at = @At(value = "HEAD")
         )
         protected void chestCavitySheared(SoundCategory shearedSoundCategory, CallbackInfo info) {
-            SilkGland.shearSilk(this);
+            OrganUtil.shearSilk(this);
         }
     }
 

@@ -1,4 +1,4 @@
-package net.tigereye.chestcavity.network;
+package net.tigereye.chestcavity.util;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.network.PacketByteBuf;
@@ -8,7 +8,7 @@ import net.tigereye.chestcavity.managers.ChestCavityManager;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NetworkUtils {
+public class NetworkUtil {
     public static PacketByteBuf WriteChestCavityUpdatePacket(ChestCavityManager ccm){
         Map<Identifier,Float> organScores = ccm.getOrganScores();
         PacketByteBuf buf = PacketByteBufs.create();

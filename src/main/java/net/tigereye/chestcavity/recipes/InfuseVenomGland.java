@@ -1,18 +1,15 @@
 package net.tigereye.chestcavity.recipes;
 
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.chestcavity.items.VenomGland;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCRecipes;
+import net.tigereye.chestcavity.util.OrganUtil;
 
 public class InfuseVenomGland extends SpecialCraftingRecipe {
     public InfuseVenomGland(Identifier id) {
@@ -71,7 +68,7 @@ public class InfuseVenomGland extends SpecialCraftingRecipe {
         }
         if(venomGland != null && potion != null){
             output = venomGland.copy();
-            VenomGland.setStatusEffects(output, potion);
+            OrganUtil.setStatusEffects(output, potion);
             return output;
         }
         return ItemStack.EMPTY;

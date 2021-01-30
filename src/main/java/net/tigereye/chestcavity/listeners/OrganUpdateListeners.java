@@ -30,11 +30,11 @@ public class OrganUpdateListeners {
 
     public static void UpdateAppendix(LivingEntity entity, ChestCavityManager cc) {
         //Update Max Health Modifier
-        if(cc.getOldOrganScore(CCOrganScores.APPENDIX) != cc.getOrganScore(CCOrganScores.APPENDIX)){
+        if(cc.getOldOrganScore(CCOrganScores.LUCK) != cc.getOrganScore(CCOrganScores.LUCK)){
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_LUCK);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(APPENDIX_ID, "ChestCavityAppendixLuck",
-                        (cc.getOrganScore(CCOrganScores.APPENDIX) - cc.getDefaultOrganScore(CCOrganScores.APPENDIX))
+                        (cc.getOrganScore(CCOrganScores.LUCK) - cc.getDefaultOrganScore(CCOrganScores.LUCK))
                                 * ChestCavity.config.APPENDIX_LUCK, EntityAttributeModifier.Operation.ADDITION);
                 ReplaceAttributeModifier(att, mod);
             }

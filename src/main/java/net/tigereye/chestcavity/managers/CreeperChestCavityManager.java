@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
@@ -33,7 +32,7 @@ public class CreeperChestCavityManager extends ChestCavityManager{
         //they are, however, rather explosive buggers
         defaultOrganScores.put(CCOrganScores.CREEPY,1f);
         defaultOrganScores.put(CCOrganScores.EXPLOSIVE,15f);
-        defaultOrganScores.put(CCOrganScores.APPENDIX,.75f);
+        defaultOrganScores.put(CCOrganScores.LUCK,.75f);
         defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
         defaultOrganScores.put(CCOrganScores.HEALTH,1f);
         defaultOrganScores.put(CCOrganScores.STRENGTH,8f);

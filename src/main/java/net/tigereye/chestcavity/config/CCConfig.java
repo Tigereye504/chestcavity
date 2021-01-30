@@ -19,10 +19,13 @@ public class CCConfig implements ConfigData {
     public float MUSCLE_SPEED = .5f; //how much 8 stacks of muscles contribute to movement speed
     public float BONE_DEFENSE = .5f; //damage reduction from 4 stacks of ribs
 
+    public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
+
+    public int ARROW_DODGE_COOLDOWN = 200; //how often an entity is allowed to dodge projectiles
+    public int ARROW_DODGE_DISTANCE = 32; //how far you can teleport when dodging projectiles
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding
     public int SILK_COOLDOWN = 20; //how often an entity is allowed to lay silk
     public int VENOM_COOLDOWN = 40; //how often an entity is allowed to poison targets
-    public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
 
     public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
     public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection

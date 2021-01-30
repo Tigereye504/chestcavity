@@ -21,8 +21,6 @@ public class CCFoodComponents {
     public static final FoodComponent COOKED_MINI_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(6).saturationModifier(.8f).meat().build();
     public static final FoodComponent RAW_RICH_MINI_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.6f).meat().build();
     public static final FoodComponent COOKED_RICH_MINI_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(6).saturationModifier(1.2f).meat().build();
-    public static final FoodComponent RAW_RIB_STEAK_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.4f).meat().build();
-    public static final FoodComponent COOKED_RIB_STEAK_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(.8f).meat().build();
 
     public static final FoodComponent INSECT_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
             .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
@@ -43,6 +41,25 @@ public class CCFoodComponents {
     public static final FoodComponent COOKED_RICH_TOXIC_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(1.2f).meat()
             .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160, 1), 1f).build();
 
+    public static final FoodComponent ALIEN_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 20), 1f).build();
+    public static final FoodComponent RAW_ALIEN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 80), 1f).build();
+    public static final FoodComponent COOKED_ALIEN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.8f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 10, 1), 1f).build();
+    public static final FoodComponent RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.6f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 40), 1f).build();
+    public static final FoodComponent COOKED_ALIEN_ORGAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(1.2f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 15, 1), 1f).build();
+    public static final FoodComponent RAW_ALIEN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.4f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 80), 1f).build();
+    public static final FoodComponent COOKED_ALIEN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(.8f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 20, 1), 1f).build();
+    public static final FoodComponent RAW_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.6f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 320), 1f).build();
+    public static final FoodComponent COOKED_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(1.2f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 40, 1), 1f).build();
+
     public static final FoodComponent HUMAN_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat().snack()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
     public static final FoodComponent RAW_MAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.4f).meat()
@@ -60,9 +77,5 @@ public class CCFoodComponents {
     public static final FoodComponent RAW_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(5).saturationModifier(.6f).meat()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
     public static final FoodComponent COOKED_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(9).saturationModifier(1.2f).meat()
-            .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
-    public static final FoodComponent RAW_HUMAN_RIB_STEAK_FOOD_COMPONENT = new FoodComponent.Builder().hunger(5).saturationModifier(.4f).meat()
-            .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
-    public static final FoodComponent COOKED_HUMAN_RIB_STEAK_FOOD_COMPONENT = new FoodComponent.Builder().hunger(9).saturationModifier(.8f).meat()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
 }

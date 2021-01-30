@@ -4,7 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.network.NetworkUtils;
+import net.tigereye.chestcavity.util.NetworkUtil;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 import net.tigereye.chestcavity.ui.ChestCavityScreen;
 
@@ -17,7 +17,7 @@ public class ChestCavityClient implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.UPDATE_PACKET_ID, (client, handler, buf, responseSender) -> {
             Optional<ChestCavityEntity> optional = ChestCavityEntity.of(client.cameraEntity);
-            optional.ifPresent(chestCavityEntity -> NetworkUtils.ReadChestCavityUpdatePacket(chestCavityEntity.getChestCavityManager(), buf));
+            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityUpdatePacket(chestCavityEntity.getChestCavityManager(), buf));
         });
     }
 }
