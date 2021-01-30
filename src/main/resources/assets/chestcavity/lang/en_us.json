@@ -120,7 +120,7 @@
     "item.chestcavity.rich_human_sausage": "Cooked Rich Human Sausage",
     "item.chestcavity.cannibal_heart": "Cannibal Heart",
     "item.chestcavity.tethered_cannibal_heart": "Tethered Cannibal Heart",
-    "organscore.chestcavity.appendix": "%s Luck",
+    "organscore.chestcavity.luck": "%s Luck",
     "organscore.chestcavity.health": "%s Health",
     "organscore.chestcavity.nutrition": "%s Nutrition",
     "organscore.chestcavity.filtration": "%s Filtration",
