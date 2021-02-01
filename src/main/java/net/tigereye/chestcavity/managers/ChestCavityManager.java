@@ -586,7 +586,12 @@ public class ChestCavityManager implements InventoryChangedListener {
             return oldAir;
         }
 
-        float airLoss = 1;
+        float airLoss;
+        if(owner.hasStatusEffect(StatusEffects.WATER_BREATHING) || owner.hasStatusEffect(StatusEffects.CONDUIT_POWER)){
+            airLoss = 0;
+        }
+        else{airLoss = 1;}
+
 
         //if you have breath, you can breath on land. Yay!
         //if in contact with water or rain apply on quarter your water breath as well
@@ -599,9 +604,8 @@ public class ChestCavityManager implements InventoryChangedListener {
             airLoss += (-airGain * (breath) / 2) + lungRemainder;
         }
 
-        //if you don't (or you are still breath negative),
-        //then unless you have the water breathing status effect you must hold your watery breath.
-        if (airLoss > 0 && !owner.hasStatusEffect(StatusEffects.WATER_BREATHING)) {
+        //if you don't then unless you have the water breathing status effect you must hold your watery breath.
+        if (airLoss > 0) {
             //first, check if resperation cancels the sequence.
             int resperation = EnchantmentHelper.getRespiration(owner);
             if (owner.getRandom().nextInt(resperation + 1) != 0) {
