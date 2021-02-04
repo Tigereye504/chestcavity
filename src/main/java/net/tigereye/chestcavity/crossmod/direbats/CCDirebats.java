@@ -3,12 +3,12 @@ package net.tigereye.chestcavity.crossmod.direbats;
 import net.fabricmc.loader.api.FabricLoader;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.crossmod.CrossModContent;
-import net.tigereye.chestcavity.crossmod.ageofexile.CCAOEManagers;
+import net.tigereye.chestcavity.crossmod.ageofexile.CCAOEChestCavities;
 
 public class CCDirebats {
     public static final String MODID = "direbats";
     public static void register(){
-        CCAOEManagers.register();
+        CCAOEChestCavities.register();
         if (FabricLoader.getInstance().isModLoaded(MODID)){
             CrossModContent.LOGGER.info("[Chest Cavity] Direbats Detected!");
             if(ChestCavity.config.DIREBATS_INTEGRATION) {
