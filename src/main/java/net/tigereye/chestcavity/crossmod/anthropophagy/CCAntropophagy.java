@@ -13,7 +13,7 @@ public class CCAntropophagy {
                 CrossModContent.LOGGER.info("[Chest Cavity] Integrating with Anthropophagy");
                 //CCAnthropophagyItems.register();
                 //CCAnthropophagyListeners.register();
-                CCAnthropophagyManagers.register();
+                CCAnthropophagyChestCavities.register();
             }
             else{
                 CrossModContent.LOGGER.info("[Chest Cavity] Anthropophagy integration has been disabled in the config.");

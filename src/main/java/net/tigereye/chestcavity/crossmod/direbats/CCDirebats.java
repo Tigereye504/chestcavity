@@ -13,7 +13,7 @@ public class CCDirebats {
             CrossModContent.LOGGER.info("[Chest Cavity] Direbats Detected!");
             if(ChestCavity.config.DIREBATS_INTEGRATION) {
                 CrossModContent.LOGGER.info("[Chest Cavity] Integrating with Direbats");
-                CCDirebatsManagers.register();
+                CCDirebatsChestCavities.register();
             }
             else{
                 CrossModContent.LOGGER.info("[Chest Cavity] Direbats integration has been disabled in the config.");
