@@ -108,17 +108,14 @@ public class OrganUtil {
         if(player != null){
             player.getHungerManager().addExhaustion(hungerCost);
         }
-        if(hungerCost > 0){
-            return true;
-        }
-        return false;
+        return hungerCost > 0;
     }
 
     public static void milkSilk(LivingEntity entity){
         if(!entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
             ChestCavityEntity.of(entity).ifPresent(cce -> {
-                if(cce.getChestCavityManager().getOpened()){
-                    float silk = cce.getChestCavityManager().getOrganScore(CCOrganScores.SILK);
+                if(cce.getChestCavityInstance().opened){
+                    float silk = cce.getChestCavityInstance().getOrganScore(CCOrganScores.SILK);
                     if(silk > 0){
                         if(spinWeb(entity,silk)) {
                             entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN, ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
@@ -131,8 +128,8 @@ public class OrganUtil {
 
     public static void shearSilk(LivingEntity entity){
         ChestCavityEntity.of(entity).ifPresent(cce -> {
-            if(cce.getChestCavityManager().getOpened()){
-                float silk = cce.getChestCavityManager().getOrganScore(CCOrganScores.SILK);
+            if(cce.getChestCavityInstance().opened){
+                float silk = cce.getChestCavityInstance().getOrganScore(CCOrganScores.SILK);
 
                 if(silk > 0){
                     if(silk >= 2){
@@ -213,10 +210,10 @@ public class OrganUtil {
             areaEffectCloudEntity.setWaitTime(10);
             areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration() / 2);
             areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
-            Iterator var3 = collection.iterator();
+            Iterator<StatusEffectInstance> var3 = collection.iterator();
 
             while(var3.hasNext()) {
-                StatusEffectInstance statusEffectInstance = (StatusEffectInstance)var3.next();
+                StatusEffectInstance statusEffectInstance = var3.next();
                 areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffectInstance));
             }
 

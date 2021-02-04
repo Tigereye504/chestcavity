@@ -8,6 +8,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 
 import java.util.Optional;
 
@@ -42,9 +43,9 @@ public class CCCommands {
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
-            optional.get().getChestCavityManager().outputOrganScoresString((string) -> {
+            ChestCavityUtil.outputOrganScoresString((string) -> {
                 context.getSource().sendFeedback(new LiteralText(string),false);
-            });
+            },optional.get().getChestCavityInstance());
             return 1;
         }
         return 0;
@@ -61,9 +62,9 @@ public class CCCommands {
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
-            optional.get().getChestCavityManager().outputOrganScoresString((string) -> {
+            ChestCavityUtil.outputOrganScoresString((string) -> {
                 context.getSource().sendFeedback(new LiteralText(string),false);
-            });
+            },optional.get().getChestCavityInstance());
             return 1;
         }
         return 0;
@@ -80,7 +81,7 @@ public class CCCommands {
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
-            optional.get().getChestCavityManager().generateChestCavity();
+            ChestCavityUtil.generateChestCavityIfOpened(optional.get().getChestCavityInstance());
             return 1;
         }
         return 0;
@@ -97,7 +98,7 @@ public class CCCommands {
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
-            optional.get().getChestCavityManager().generateChestCavity();
+            ChestCavityUtil.generateChestCavityIfOpened(optional.get().getChestCavityInstance());
             return 1;
         }
         return 0;

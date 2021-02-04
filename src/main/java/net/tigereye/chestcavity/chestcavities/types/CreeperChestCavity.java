@@ -1,52 +1,22 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-public class CreeperChestCavityManager extends ChestCavityManager{
-
-
-    public CreeperChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public CreeperChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
-    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-
-    static{
-        initializeDefaultOrganScores();
-    }
-
-    private static void initializeDefaultOrganScores(){
-        //creepers are plant creatures, they have no blood
-        //they don't need kidneys, livers, intestines, or stomachs
-        //they are, however, rather explosive buggers
-        defaultOrganScores.put(CCOrganScores.CREEPY,1f);
-        defaultOrganScores.put(CCOrganScores.EXPLOSIVE,15f);
-        defaultOrganScores.put(CCOrganScores.LUCK,.75f);
-        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
-        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
-        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
-        defaultOrganScores.put(CCOrganScores.SPEED,8f);
-        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
-    }
-
+public class CreeperChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public Map<Identifier,Float> getDefaultOrganScores(){
-        return defaultOrganScores;
-    }
-
-    @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(Items.OAK_LEAVES, 16));
         chestCavity.setStack(1, new ItemStack(Items.STICK, 4));
@@ -78,28 +48,29 @@ public class CreeperChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected boolean catchExceptionalOrgan(ItemStack slot){
+    public boolean catchExceptionalOrgan(ItemStack slot, Map<Identifier, Float> organScores){
         //creepers are plant monsters, using leaves for flesh and wood for bone
         if(slot.getItem().isIn(ItemTags.LEAVES)){
-            addOrganScore(CCOrganScores.STRENGTH, 4f*slot.getCount()/slot.getMaxCount());
-            addOrganScore(CCOrganScores.SPEED, 4f*slot.getCount()/slot.getMaxCount());
+            ChestCavityUtil.addOrganScore(CCOrganScores.STRENGTH, 4f*slot.getCount()/slot.getMaxCount(),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.SPEED, 4f*slot.getCount()/slot.getMaxCount(),organScores);
             return true;
         }
         if(slot.getItem() == Items.STICK){
-            addOrganScore(CCOrganScores.DEFENSE, .25f*slot.getCount());
+            ChestCavityUtil.addOrganScore(CCOrganScores.DEFENSE, .25f*slot.getCount(),organScores);
             return true;
         }
         if(slot.getItem().isIn(ItemTags.LOGS)){
-            addOrganScore(CCOrganScores.DEFENSE, .75f*slot.getCount());
-            addOrganScore(CCOrganScores.NERVOUS_SYSTEM, 1f*slot.getCount());
-            addOrganScore(CCOrganScores.HEALTH, 1f*slot.getCount());
+            ChestCavityUtil.addOrganScore(CCOrganScores.DEFENSE, .75f*slot.getCount(),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.NERVOUS_SYSTEM, 1f*slot.getCount(),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.HEALTH, 1f*slot.getCount(),organScores);
             return true;
         }
         return false;
     }
-    
+
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         loot.add(new ItemStack(CCItems.CREEPER_APPENDIX));
     }
+
 }

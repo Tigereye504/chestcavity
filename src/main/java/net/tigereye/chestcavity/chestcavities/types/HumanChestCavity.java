@@ -1,27 +1,22 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class HumanChestCavityManager extends ChestCavityManager{
-
-    public HumanChestCavityManager(LivingEntity owner) {
-        super(owner);
+public class HumanChestCavity extends BaseChestCavity implements ChestCavityType {
+    /*
+    public HumanChestCavity(){
+        fillChestCavityInventory(defaultChestCavity);
+        ChestCavityUtil.determineDefaultOrganScores(this);
     }
-    public HumanChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
+    */
     @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(CCItems.HUMAN_MUSCLE, CCItems.HUMAN_MUSCLE.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.HUMAN_RIB, CCItems.HUMAN_RIB.getMaxCount()));
@@ -50,10 +45,11 @@ public class HumanChestCavityManager extends ChestCavityManager{
         chestCavity.setStack(24, new ItemStack(CCItems.HUMAN_INTESTINE, CCItems.HUMAN_INTESTINE.getMaxCount()));
         chestCavity.setStack(25, new ItemStack(CCItems.HUMAN_MUSCLE, CCItems.HUMAN_MUSCLE.getMaxCount()));
         chestCavity.setStack(26, new ItemStack(CCItems.HUMAN_MUSCLE, CCItems.HUMAN_MUSCLE.getMaxCount()));
+
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         for(int i = 0; i < 4; i++){
             organPile.add(CCItems.HUMAN_RIB);
@@ -85,4 +81,5 @@ public class HumanChestCavityManager extends ChestCavityManager{
             loot.add(new ItemStack(organPile.remove(roll),count));
         }
     }
+
 }

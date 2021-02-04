@@ -18,10 +18,8 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
-import net.tigereye.chestcavity.managers.SkeletonChestCavityManager;
-import net.tigereye.chestcavity.managers.ZombieChestCavityManager;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.modifydropsapi.api.GenerateBlockLootCallbackModifyLoot;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
@@ -47,9 +45,9 @@ public class LootRegister {
                 if(!chestCavityEntity.isPresent()){
                     return loot;
                 }
-                ChestCavityManager ccManager = chestCavityEntity.get().getChestCavityManager();
+                ChestCavityInstance cc = chestCavityEntity.get().getChestCavityInstance();
                 //check if loot is already generated due to having opened the target's chest cavity
-                if(ccManager.getOpened()){
+                if(cc.opened){
                     return loot;
                 }
                 //get looting level and random
@@ -62,7 +60,7 @@ public class LootRegister {
                     random = new Random();
                 }
                 //with all this passed, finally we ask the chest cavity manager what the loot will actually be.
-                loot.addAll(ccManager.generateLootDrops(random,lootingLevel));
+                loot.addAll(cc.type.generateLootDrops(random,lootingLevel));
             }
 
             return loot;

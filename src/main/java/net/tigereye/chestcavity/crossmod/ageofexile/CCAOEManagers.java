@@ -1,11 +1,10 @@
 package net.tigereye.chestcavity.crossmod.ageofexile;
 
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.managers.*;
 
 public class CCAOEManagers {
 
-    public static void register(){
+    public static void register(){/*
         ChestCavityManagerFactory.register(new Identifier(CCAOE.MODID,"arcane_slime"), SlimeChestCavityManager::new);
         ChestCavityManagerFactory.register(new Identifier(CCAOE.MODID,"fire_slime"), SlimeChestCavityManager::new);
         ChestCavityManagerFactory.register(new Identifier(CCAOE.MODID,"water_slime"), SlimeChestCavityManager::new);
@@ -41,5 +40,6 @@ public class CCAOEManagers {
         ChestCavityManagerFactory.register(new Identifier(CCAOE.MODID,"nature_skeleton"), SkeletonChestCavityManager::new);
 
         //ChestCavityManagerFactory.register(new Identifier(CCAOE.MODID,"boss_golem"), IronGolemChestCavityManager::new);
+        */
     }
 }

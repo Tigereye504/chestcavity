@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 public interface OrganAddStatusEffectCallback {
     Event<OrganAddStatusEffectCallback> EVENT = EventFactory.createArrayBacked(OrganAddStatusEffectCallback.class,
@@ -15,5 +15,5 @@ public interface OrganAddStatusEffectCallback {
                 return statusEffectInstance;
             });
 
-    StatusEffectInstance onAddStatusEffect(LivingEntity player, ChestCavityManager chestCavity, StatusEffectInstance statusEffectInstance);
+    StatusEffectInstance onAddStatusEffect(LivingEntity player, ChestCavityInstance chestCavity, StatusEffectInstance statusEffectInstance);
 }

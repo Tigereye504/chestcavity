@@ -1,49 +1,21 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-public class WitherSkeletonChestCavityManager extends ChestCavityManager{
-
-
-    public WitherSkeletonChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public WitherSkeletonChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
-    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-
-    static{
-        initializeDefaultOrganScores();
-    }
-
-    private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.LUCK,1f);
-        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
-        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
-        defaultOrganScores.put(CCOrganScores.NUTRITION,4f);
-        defaultOrganScores.put(CCOrganScores.FILTRATION,2f);
-        defaultOrganScores.put(CCOrganScores.DETOXIFICATION,1f);
-        defaultOrganScores.put(CCOrganScores.BREATH,2f);
-        defaultOrganScores.put(CCOrganScores.ENDURANCE,2f);
-        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
-        defaultOrganScores.put(CCOrganScores.SPEED,8f);
-        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
-        defaultOrganScores.put(CCOrganScores.METABOLISM,1f);
-        defaultOrganScores.put(CCOrganScores.DIGESTION,1f);
-        defaultOrganScores.put(CCOrganScores.WITHERED,5f);
-    }
-
+public class WitherSkeletonChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, ItemStack.EMPTY);
         chestCavity.setStack(1, new ItemStack(CCItems.WITHERED_RIB, CCItems.WITHERED_RIB.getMaxCount()));
@@ -75,9 +47,7 @@ public class WitherSkeletonChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void resetOrganScores(){
-        //animated by unholy magic, skeletons get to pretend they have organs they actually don't!
-        //they also don't have any organs, but imagine if they did...
+    public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
         organScores.put(CCOrganScores.LUCK, 1f);
         organScores.put(CCOrganScores.DEFENSE, 2.375f);
@@ -91,10 +61,11 @@ public class WitherSkeletonChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.METABOLISM, 1f);
         organScores.put(CCOrganScores.DIGESTION, 1f);
         organScores.put(CCOrganScores.BREATH, 2f);
+        organScores.put(CCOrganScores.ENDURANCE, 2f);
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         for(int i = 0; i < 4; i++){
             organPile.add(CCItems.WITHERED_RIB);
@@ -111,4 +82,5 @@ public class WitherSkeletonChestCavityManager extends ChestCavityManager{
             loot.add(new ItemStack(organPile.remove(roll),count));
         }
     }
+
 }

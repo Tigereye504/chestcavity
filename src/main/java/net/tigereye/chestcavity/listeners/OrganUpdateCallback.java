@@ -3,10 +3,7 @@ package net.tigereye.chestcavity.listeners;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
-
-import java.util.Map;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 public interface OrganUpdateCallback {
     Event<OrganUpdateCallback> EVENT = EventFactory.createArrayBacked(OrganUpdateCallback.class,
@@ -16,5 +13,5 @@ public interface OrganUpdateCallback {
                 }
             });
 
-    void onOrganUpdate(LivingEntity player, ChestCavityManager chestCavity);
+    void onOrganUpdate(LivingEntity player, ChestCavityInstance chestCavity);
 }

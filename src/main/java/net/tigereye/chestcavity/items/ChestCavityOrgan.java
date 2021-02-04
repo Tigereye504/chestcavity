@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
 
 import java.util.Map;
 

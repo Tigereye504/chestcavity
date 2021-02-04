@@ -14,7 +14,6 @@ import net.minecraft.loot.function.LootFunctionTypes;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
 

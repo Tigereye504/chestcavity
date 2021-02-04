@@ -11,12 +11,10 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 
 import java.util.*;
-
-import static net.tigereye.chestcavity.managers.ChestCavityManager.COMPATIBILITY_TAG;
 
 public class Organ extends Item implements ChestCavityOrgan {
 
@@ -86,13 +84,11 @@ public class Organ extends Item implements ChestCavityOrgan {
 
 	protected void displaySoulBinding(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 		CompoundTag tag = itemStack.getTag();
-		if (tag != null && tag.contains(COMPATIBILITY_TAG.toString())) {
-			tag = tag.getCompound(COMPATIBILITY_TAG.toString());
-			if (tag.getInt("type") == ChestCavityManager.COMPATIBILITY_TYPE_PERSONAL) {
-				String name = tag.getString("name");
-				Text text = new LiteralText("Owner: "+name);
-				tooltip.add(text);
-			}
+		if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
+			tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
+			String name = tag.getString("name");
+			Text text = new LiteralText("Owner: "+name);
+			tooltip.add(text);
 		}
 	}
 }

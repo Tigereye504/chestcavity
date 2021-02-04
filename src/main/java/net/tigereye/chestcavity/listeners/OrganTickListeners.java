@@ -6,10 +6,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 
 public class OrganTickListeners {
@@ -17,8 +18,6 @@ public class OrganTickListeners {
     public static void register(){
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHealth);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickFiltration);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickLiver);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickBreath);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
@@ -28,59 +27,48 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
     }
 
-    public static void TickHealth(LivingEntity entity, ChestCavityManager chestCavity){
-        if (chestCavity.getOrganScore(CCOrganScores.HEALTH) <= 0
-                && chestCavity.getDefaultOrganScore(CCOrganScores.HEALTH) != 0)
+    public static void TickHealth(LivingEntity entity, ChestCavityInstance cc){
+        if (cc.getOrganScore(CCOrganScores.HEALTH) <= 0
+                && cc.type.getDefaultOrganScore(CCOrganScores.HEALTH) != 0)
         {
             if(entity.world.getTime() % ChestCavity.config.HEARTBLEED_RATE == 0) {
-                chestCavity.setHeartBleedTimer(chestCavity.getHeartBleedTimer() + 1);
-                entity.damage(CCDamageSource.HEARTBLEED, Math.min(chestCavity.getHeartBleedTimer(),chestCavity.getHeartBleedCap()));
+                cc.heartBleedTimer = cc.heartBleedTimer + 1;
+                entity.damage(CCDamageSource.HEARTBLEED, Math.min(cc.heartBleedTimer,cc.type.getHeartBleedCap()));
             }
         }
         else{
-            chestCavity.setHeartBleedTimer(0);
+            cc.heartBleedTimer = 0;
         }
     }
 
-    public static void TickFiltration(LivingEntity entity, ChestCavityManager chestCavity){
+    public static void TickFiltration(LivingEntity entity, ChestCavityInstance cc){
         if(entity.getEntityWorld().isClient()){ //this is a server-side event
             return;
         }
-        if(chestCavity.getDefaultOrganScore(CCOrganScores.FILTRATION) <= 0){ //don't bother if the target doesn't need kidneys
+        if(cc.type.getDefaultOrganScore(CCOrganScores.FILTRATION) <= 0){ //don't bother if the target doesn't need kidneys
             return;
         }
-        float KidneyRatio = chestCavity.getOrganScore(CCOrganScores.FILTRATION)/chestCavity.getDefaultOrganScore(CCOrganScores.FILTRATION);
+        float KidneyRatio = cc.getOrganScore(CCOrganScores.FILTRATION)/cc.type.getDefaultOrganScore(CCOrganScores.FILTRATION);
         if(KidneyRatio < 1)
         {
-            int kidneyTimer =chestCavity.getBloodPoisonTimer()+1;
-            if(kidneyTimer >= ChestCavity.config.KIDNEY_RATE){
+            cc.bloodPoisonTimer = cc.bloodPoisonTimer+1;
+            if(cc.bloodPoisonTimer >= ChestCavity.config.KIDNEY_RATE){
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)(48*(1-KidneyRatio))));
-                kidneyTimer = 0;
+                cc.bloodPoisonTimer = 0;
             }
-            chestCavity.setBloodPoisonTimer(kidneyTimer);
         }
     }
 
-    public static void TickBreath(LivingEntity entity, ChestCavityManager chestCavity){
-        if (!entity.isSubmergedInWater()
-                && chestCavity.getOrganScore(CCOrganScores.BREATH) <= 0
-                && chestCavity.getDefaultOrganScore(CCOrganScores.BREATH) != 0
-                && entity.world.getTime() % 20 == 0)
-        {
-            entity.damage(DamageSource.DROWN, 1);
-        }
-    }
-
-    public static void TickCreepiness(LivingEntity entity,ChestCavityManager chestCavity){
-        if(chestCavity.getOrganScore(CCOrganScores.CREEPY) < 1){
+    public static void TickCreepiness(LivingEntity entity,ChestCavityInstance cc){
+        if(cc.getOrganScore(CCOrganScores.CREEPY) < 1){
             return;
         }
         if(entity.hasStatusEffect(CCStatusEffects.EXPLOSION_COOLDOWN)){
             return;
         }
         else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
-            float explosion_yield = chestCavity.getOrganScore(CCOrganScores.EXPLOSIVE);
-            chestCavity.destroyOrgansWithKey(CCOrganScores.EXPLOSIVE);
+            float explosion_yield = cc.getOrganScore(CCOrganScores.EXPLOSIVE);
+            ChestCavityUtil.destroyOrgansWithKey(cc,CCOrganScores.EXPLOSIVE);
             OrganUtil.explode(entity, explosion_yield);
             if(entity.isAlive()) {
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.EXPLOSION_COOLDOWN, ChestCavity.config.EXPLOSION_COOLDOWN, 0, false, false, true));
@@ -88,25 +76,25 @@ public class OrganTickListeners {
         }
     }
 
-    public static void TickSilk(LivingEntity entity,ChestCavityManager chestCavity){
-        if(chestCavity.getOrganScore(CCOrganScores.SILK) == 0){
+    public static void TickSilk(LivingEntity entity,ChestCavityInstance cc){
+        if(cc.getOrganScore(CCOrganScores.SILK) == 0){
             return;
         }
         if(entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
             return;
         }
         else if(entity.getPose() == EntityPose.CROUCHING){
-            if(OrganUtil.spinWeb(entity,chestCavity.getOrganScore(CCOrganScores.SILK))) {
+            if(OrganUtil.spinWeb(entity,cc.getOrganScore(CCOrganScores.SILK))) {
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN,ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
             }
         }
     }
 
-    private static void TickHydroallergenic(LivingEntity entity, ChestCavityManager chestCavity) {
+    private static void TickHydroallergenic(LivingEntity entity, ChestCavityInstance cc) {
         if(entity.getEntityWorld().isClient()){ //this is a server-side event
             return;
         }
-        float Hydroallergy = chestCavity.getOrganScore(CCOrganScores.HYDROALLERGENIC);
+        float Hydroallergy = cc.getOrganScore(CCOrganScores.HYDROALLERGENIC);
         if(Hydroallergy == 0){   //do nothing if the target isn't hydrophobic
             return;                                                                 //TODO: make enderman water-damage dependent on hydroallergenic
         }
@@ -124,10 +112,10 @@ public class OrganTickListeners {
         }
     }
 
-    public static void TickHydrophobia(LivingEntity entity, ChestCavityManager chestCavity){
-        float hydrophobia = chestCavity.getOrganScore(CCOrganScores.HYDROPHOBIA);
+    public static void TickHydrophobia(LivingEntity entity, ChestCavityInstance cc){
+        float hydrophobia = cc.getOrganScore(CCOrganScores.HYDROPHOBIA);
         if(hydrophobia == 0                                                         //do nothing if the target isn't hydrophobic
-            || chestCavity.getDefaultOrganScore(CCOrganScores.HYDROPHOBIA) != 0){   //do nothing if they are by default, otherwise endermen will spaz even harder
+            || cc.type.getDefaultOrganScore(CCOrganScores.HYDROPHOBIA) != 0){   //do nothing if they are by default, otherwise endermen will spaz even harder
             return;                                                                 //TODO: make enderman water-teleporting dependent on hydrophobia
         }
         if(entity.isTouchingWaterOrRain()){
@@ -135,7 +123,7 @@ public class OrganTickListeners {
         }
     }
 
-    public static void TickIncompatibility(LivingEntity entity,ChestCavityManager chestCavity){
+    public static void TickIncompatibility(LivingEntity entity,ChestCavityInstance chestCavity){
         if(entity.getEntityWorld().isClient()){ //this is a server-side event
             return;
         }
@@ -148,7 +136,7 @@ public class OrganTickListeners {
         }
     }
 
-    public static void TickGlowing(LivingEntity entity,ChestCavityManager chestCavity){
+    public static void TickGlowing(LivingEntity entity,ChestCavityInstance chestCavity){
         if(entity.getEntityWorld().isClient()){ //this is a server-side event
             return;
         }

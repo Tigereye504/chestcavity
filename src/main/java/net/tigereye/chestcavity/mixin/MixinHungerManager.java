@@ -3,6 +3,7 @@ package net.tigereye.chestcavity.mixin;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,7 +37,7 @@ public class MixinHungerManager {
                                 CC_player = ccPlayerEntityInterface;
                         });
                 }
-                foodStarvationTimer = CC_player.getChestCavityManager().applySpleenMetabolism(this.foodStarvationTimer);
+                foodStarvationTimer = ChestCavityUtil.applySpleenMetabolism(CC_player.getChestCavityInstance(),this.foodStarvationTimer);
         }
 
 
@@ -46,15 +47,19 @@ public class MixinHungerManager {
                         //saturation gains are equal to hungerValue*saturationModifier*2
                         //this is kinda stupid, if I half the hunger gains from food I don't want to also half saturation gains
                         //so before hunger changes, calculate the saturation gain I intend
-                        float saturationGain = CC_player.getChestCavityManager().applyIntestinesSaturation(item.getFoodComponent().getSaturationModifier())*item.getFoodComponent().getHunger()*2.0F;
-                        //now find the modified hunger gains
-                        int hungerGain = CC_player.getChestCavityManager().applyStomachHunger(item.getFoodComponent().getHunger());
-                        //now calculate the saturation modifier that gives me what I want
-                        float newSaturation = saturationGain / (hungerGain*2);
-                        //now make a dummy food item with the modified stats and feed it to HungerManager.eat();
-                        FoodComponent dummyFood = new FoodComponent.Builder().hunger(hungerGain).saturationModifier(newSaturation).build();
-                        Item.Settings dummySettings = new Item.Settings().food(dummyFood);
-                        return new Item(dummySettings);
+                        FoodComponent itemFoodComponent = item.getFoodComponent();
+                        if(itemFoodComponent != null) {
+                                float saturationGain = ChestCavityUtil.applyIntestinesSaturation(CC_player.getChestCavityInstance(),
+                                        item.getFoodComponent().getSaturationModifier()) * item.getFoodComponent().getHunger() * 2.0F;
+                                //now find the modified hunger gains
+                                int hungerGain = ChestCavityUtil.applyStomachHunger(CC_player.getChestCavityInstance(),item.getFoodComponent().getHunger());
+                                //now calculate the saturation modifier that gives me what I want
+                                float newSaturation = saturationGain / (hungerGain * 2);
+                                //now make a dummy food item with the modified stats and feed it to HungerManager.eat();
+                                FoodComponent dummyFood = new FoodComponent.Builder().hunger(hungerGain).saturationModifier(newSaturation).build();
+                                Item.Settings dummySettings = new Item.Settings().food(dummyFood);
+                                return new Item(dummySettings);
+                        }
                 }
                 return item;
         }
@@ -62,14 +67,14 @@ public class MixinHungerManager {
         @ModifyVariable(at = @At("HEAD"), ordinal = 0, method = "addExhaustion")
         public float chestCavityAddExhaustionMixin(float exhaustion) {
                 if(CC_player != null){
-                        if(CC_player.getChestCavityManager().getDefaultOrganScore(CCOrganScores.ENDURANCE) == 0){
+                        if(CC_player.getChestCavityInstance().type.getDefaultOrganScore(CCOrganScores.ENDURANCE) == 0){
                                 return exhaustion;
                         }
                         if(this.exhaustion != this.exhaustion){
                                 //NaN check. Not sure what keep causing it...
                                 this.exhaustion = 0;
                         }
-                        float enduranceRatio = CC_player.getChestCavityManager().getOrganScore(CCOrganScores.ENDURANCE)/CC_player.getChestCavityManager().getDefaultOrganScore(CCOrganScores.ENDURANCE);
+                        float enduranceRatio = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)/CC_player.getChestCavityInstance().type.getDefaultOrganScore(CCOrganScores.ENDURANCE);
                         return (exhaustion * 2f / (1 + enduranceRatio));
                 }
                 return exhaustion;

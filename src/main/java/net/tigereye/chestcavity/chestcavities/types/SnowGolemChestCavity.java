@@ -1,45 +1,23 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
-public class SnowGolemChestCavityManager extends ChestCavityManager{
-
-
-    public SnowGolemChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public SnowGolemChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
-    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-
-    static{
-        initializeDefaultOrganScores();
-    }
-
-    private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.DEFENSE,4.75f);
-        defaultOrganScores.put(CCOrganScores.HEALTH,1f);
-        defaultOrganScores.put(CCOrganScores.STRENGTH,8f);
-        defaultOrganScores.put(CCOrganScores.SPEED,8f);
-        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1f);
-    }
-
+public class SnowGolemChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public Map<Identifier,Float> getDefaultOrganScores(){
-        return defaultOrganScores;
-    }
-
-    @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(Items.SNOWBALL, Items.SNOWBALL.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(Items.SNOWBALL, Items.SNOWBALL.getMaxCount()));
@@ -71,33 +49,32 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected boolean catchExceptionalOrgan(ItemStack slot){
+    public boolean catchExceptionalOrgan(ItemStack slot, Map<Identifier, Float> organScores){
         //charcoal functions as heart and bone and spine
         //snowballs function as muscle
         if(slot.getItem() == Items.SNOWBALL){
-            addOrganScore(CCOrganScores.STRENGTH, slot.getCount()/(3f*slot.getMaxCount()));
-            addOrganScore(CCOrganScores.SPEED, slot.getCount()/(3f*slot.getMaxCount()));
+            ChestCavityUtil.addOrganScore(CCOrganScores.STRENGTH, slot.getCount()/(3f*slot.getMaxCount()),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.SPEED, slot.getCount()/(3f*slot.getMaxCount()),organScores);
             return true;
         }
         if(slot.getItem() == Items.CHARCOAL){
-            addOrganScore(CCOrganScores.HEALTH, slot.getCount()*(1f/3));
-            addOrganScore(CCOrganScores.DEFENSE, slot.getCount()*(4.75f/3));
-            addOrganScore(CCOrganScores.NERVOUS_SYSTEM, slot.getCount()*(1f/3));
+            ChestCavityUtil.addOrganScore(CCOrganScores.HEALTH, slot.getCount()*(1f/3),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.DEFENSE, slot.getCount()*(4.75f/3),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.NERVOUS_SYSTEM, slot.getCount()*(1f/3),organScores);
             return true;
         }
         if(slot.getItem() == Items.SNOW_BLOCK){
-            addOrganScore(CCOrganScores.STRENGTH, slot.getCount()/(1f*slot.getMaxCount()));
-            addOrganScore(CCOrganScores.SPEED, slot.getCount()/(1f*slot.getMaxCount()));
+            ChestCavityUtil.addOrganScore(CCOrganScores.STRENGTH, slot.getCount()/(1f*slot.getMaxCount()),organScores);
+            ChestCavityUtil.addOrganScore(CCOrganScores.SPEED, slot.getCount()/(1f*slot.getMaxCount()),organScores);
             return true;
         }
         return false;
     }
 
     @Override
-    protected void resetOrganScores(){
+    public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         //snow golems dont breath, don't eat, and dont have blood
         //as such they don't need the organs related to such
-        //that is almost all the organs though...
         organScores.clear();
         organScores.put(CCOrganScores.LUCK, 1f);
         organScores.put(CCOrganScores.NUTRITION, 4f);
@@ -107,4 +84,5 @@ public class SnowGolemChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.DIGESTION, 1f);
         organScores.put(CCOrganScores.BREATH, 2f);
     }
+
 }

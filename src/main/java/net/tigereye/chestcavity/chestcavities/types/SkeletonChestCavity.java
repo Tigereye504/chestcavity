@@ -1,27 +1,21 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-public class SkeletonChestCavityManager extends ChestCavityManager{
-
-
-    public SkeletonChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public SkeletonChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
+public class SkeletonChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, ItemStack.EMPTY);
         chestCavity.setStack(1, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
@@ -53,9 +47,7 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void resetOrganScores(){
-        //animated by unholy magic, skeletons get to pretend they have organs they actually don't!
-        //they also don't have any organs, but imagine if they did...
+    public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
         organScores.put(CCOrganScores.LUCK, 1f);
         organScores.put(CCOrganScores.DEFENSE, 2.375f);
@@ -73,7 +65,7 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         for(int i = 0; i < 4; i++){
             organPile.add(CCItems.ROTTEN_RIB);
@@ -90,4 +82,5 @@ public class SkeletonChestCavityManager extends ChestCavityManager{
             loot.add(new ItemStack(organPile.remove(roll),count));
         }
     }
+
 }

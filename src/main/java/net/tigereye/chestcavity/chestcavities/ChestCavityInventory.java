@@ -1,33 +1,31 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities;
 
-import net.minecraft.block.entity.EnderChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 public class ChestCavityInventory extends SimpleInventory {
 
-    ChestCavityManager manager;
+    ChestCavityInstance instance;
 
-    public ChestCavityManager getManager() {
-        return manager;
+    public ChestCavityInstance getInstance() {
+        return instance;
     }
 
-    public void setManager(ChestCavityManager manager) {
-        this.manager = manager;
+    public void setInstance(ChestCavityInstance instance) {
+        this.instance = instance;
     }
 
     public ChestCavityInventory() {
         super(27);
     }
 
-    public ChestCavityInventory(int size,ChestCavityManager manager) {
+    public ChestCavityInventory(int size,ChestCavityInstance instance) {
         super(size);
-        this.manager = manager;
+        this.instance = instance;
     }
 
     public void readTags(ListTag tags) {
@@ -65,8 +63,8 @@ public class ChestCavityInventory extends SimpleInventory {
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        if(manager == null) {return true;} //this is for if something goes wrong with that first moment before things sync
-        if(manager.owner.isDead()){return false;}
-        return !(player.distanceTo(manager.owner) >= 8);
+        if(instance == null) {return true;} //this is for if something goes wrong with that first moment before things sync
+        if(instance.owner.isDead()){return false;}
+        return !(player.distanceTo(instance.owner) >= 8);
     }
 }

@@ -5,12 +5,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.managers.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 
 public class ChestCavityScreenHandler extends ScreenHandler {
 

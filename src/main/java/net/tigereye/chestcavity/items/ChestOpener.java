@@ -11,10 +11,12 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 
 import java.util.Optional;
 
@@ -38,8 +40,9 @@ public class ChestOpener extends Item {
 		Optional<ChestCavityEntity> optional = ChestCavityEntity.of(target);
 		if(optional.isPresent()){
 			ChestCavityEntity chestCavityEntity = optional.get();
-			if(chestCavityEntity.getChestCavityManager().isOpenable()) {
-				if (chestCavityEntity.getChestCavityManager().getOrganScore(CCOrganScores.EASE_OF_ACCESS) <= 0) {
+			ChestCavityInstance cc = chestCavityEntity.getChestCavityInstance();
+			if(cc.type.isOpenable(cc)) {
+				if (cc.getOrganScore(CCOrganScores.EASE_OF_ACCESS) <= 0) {
 					if (target.getUuid() == player.getUuid()) {
 						target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.
 					} else {
@@ -54,7 +57,7 @@ public class ChestOpener extends Item {
 					} catch (Exception e) {
 						name = "";
 					}
-					Inventory inv = chestCavityEntity.getChestCavityManager().openChestCavity();
+					Inventory inv = ChestCavityUtil.openChestCavity(cc);
 					player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
 						return new ChestCavityScreenHandler(i, playerInventory, inv);
 					}, new TranslatableText(name + "Chest Cavity")));

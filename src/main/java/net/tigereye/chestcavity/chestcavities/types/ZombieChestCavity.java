@@ -1,28 +1,22 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-public class ZombieChestCavityManager extends ChestCavityManager{
-
-
-    public ZombieChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public ZombieChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
+public class ZombieChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(Items.ROTTEN_FLESH, Items.ROTTEN_FLESH.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
@@ -54,9 +48,7 @@ public class ZombieChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void resetOrganScores(){
-        //animated by unholy magic, zombies function at half capacity even when completely organ-less.
-        //lucky them, as their default organs are rotted and thus only 50% effective
+    public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
         organScores.put(CCOrganScores.LUCK, .5f);
         organScores.put(CCOrganScores.DEFENSE, 2.375f);
@@ -70,10 +62,11 @@ public class ZombieChestCavityManager extends ChestCavityManager{
         organScores.put(CCOrganScores.METABOLISM, .5f);
         organScores.put(CCOrganScores.DIGESTION, .5f);
         organScores.put(CCOrganScores.BREATH, 1f);
+        organScores.put(CCOrganScores.ENDURANCE, 1f);
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         organPile.add(CCItems.ROTTEN_APPENDIX);
         organPile.add(CCItems.ROTTEN_HEART);

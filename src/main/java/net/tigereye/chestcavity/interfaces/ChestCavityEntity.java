@@ -1,9 +1,7 @@
 package net.tigereye.chestcavity.interfaces;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 import java.util.Optional;
 
@@ -15,6 +13,6 @@ public interface ChestCavityEntity {
         return Optional.empty();
     }
 
-    ChestCavityManager getChestCavityManager();
-    void setChestCavityManager(ChestCavityManager chestCavityManager);
+    ChestCavityInstance getChestCavityInstance();
+    void setChestCavityInstance(ChestCavityInstance cc);
 }

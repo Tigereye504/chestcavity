@@ -1,56 +1,18 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-public class EndermanChestCavityManager extends ChestCavityManager{
-
-
-    public EndermanChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public EndermanChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
-    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-
-    static{
-        initializeDefaultOrganScores();
-    }
-
-    private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.LUCK,1.25f);
-        defaultOrganScores.put(CCOrganScores.ARROW_DODGING,1f);
-        defaultOrganScores.put(CCOrganScores.DEFENSE,5.9375f);
-        defaultOrganScores.put(CCOrganScores.HEALTH,1.25f);
-        defaultOrganScores.put(CCOrganScores.HYDROALLERGENIC,26f);
-        defaultOrganScores.put(CCOrganScores.HYDROPHOBIA,2f);
-        defaultOrganScores.put(CCOrganScores.NUTRITION,5f);
-        defaultOrganScores.put(CCOrganScores.FILTRATION,2.5f);
-        defaultOrganScores.put(CCOrganScores.DETOXIFICATION,1.25f);
-        defaultOrganScores.put(CCOrganScores.BREATH,2.5f);
-        defaultOrganScores.put(CCOrganScores.ENDURANCE,2.5f);
-        defaultOrganScores.put(CCOrganScores.STRENGTH,7.5f);
-        defaultOrganScores.put(CCOrganScores.SPEED,7.5f);
-        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1.25f);
-        defaultOrganScores.put(CCOrganScores.METABOLISM,1.25f);
-        defaultOrganScores.put(CCOrganScores.DIGESTION,1.25f);
-    }
-
+public class EndermanChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public Map<Identifier,Float> getDefaultOrganScores(){
-        return defaultOrganScores;
-    }
-
-    @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(CCItems.ENDER_MUSCLE, CCItems.ENDER_MUSCLE.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.ENDER_RIB, CCItems.ENDER_RIB.getMaxCount()));
@@ -82,14 +44,15 @@ public class EndermanChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {LinkedList<Item> organPile = new LinkedList<>();
-        for(int i = 0; i < 4; i++){
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+        LinkedList<Item> organPile = new LinkedList<>();
+        for (int i = 0; i < 4; i++) {
             organPile.add(CCItems.ENDER_RIB);
         }
-        for(int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
             organPile.add(CCItems.ENDER_MUSCLE);
         }
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             organPile.add(CCItems.ENDER_INTESTINE);
         }
         organPile.add(CCItems.ENDER_APPENDIX);
@@ -103,14 +66,14 @@ public class EndermanChestCavityManager extends ChestCavityManager{
         organPile.add(CCItems.ENDER_SPLEEN);
         organPile.add(CCItems.ENDER_STOMACH);
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
-        for (int i = 0; i < rolls; i++){
+        for (int i = 0; i < rolls; i++) {
             int roll = random.nextInt(organPile.size());
             int count = 1;
             Item rolledItem = organPile.get(roll);
-            if(rolledItem.getMaxCount() > 1){
+            if (rolledItem.getMaxCount() > 1) {
                 count += random.nextInt(rolledItem.getMaxCount());
             }
-            loot.add(new ItemStack(organPile.remove(roll),count));
+            loot.add(new ItemStack(organPile.remove(roll), count));
         }
     }
 }

@@ -1,52 +1,18 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-public class SmallFishChestCavityManager extends ChestCavityManager{
-
-
-    public SmallFishChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public SmallFishChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
-    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-
-    static{
-        initializeDefaultOrganScores();
-    }
-
-    private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.LUCK,.5f);
-        defaultOrganScores.put(CCOrganScores.DEFENSE,2.375f);
-        defaultOrganScores.put(CCOrganScores.HEALTH,.5f);
-        defaultOrganScores.put(CCOrganScores.NUTRITION,2f);
-        defaultOrganScores.put(CCOrganScores.FILTRATION,1f);
-        defaultOrganScores.put(CCOrganScores.DETOXIFICATION,.5f);
-        defaultOrganScores.put(CCOrganScores.WATERBREATH,1f);
-        defaultOrganScores.put(CCOrganScores.STRENGTH,4f);
-        defaultOrganScores.put(CCOrganScores.SPEED,4f);
-        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,.5f);
-        defaultOrganScores.put(CCOrganScores.METABOLISM,.5f);
-        defaultOrganScores.put(CCOrganScores.DIGESTION,.5f);
-    }
-
+public class SmallFishChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public Map<Identifier,Float> getDefaultOrganScores(){
-        return defaultOrganScores;
-    }
-
-    @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(CCItems.SMALL_ANIMAL_MUSCLE, CCItems.SMALL_ANIMAL_MUSCLE.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.SMALL_ANIMAL_RIB, CCItems.SMALL_ANIMAL_RIB.getMaxCount()));
@@ -78,7 +44,7 @@ public class SmallFishChestCavityManager extends ChestCavityManager{
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         for(int i = 0; i < 4; i++){
             organPile.add(CCItems.SMALL_ANIMAL_RIB);
@@ -110,4 +76,5 @@ public class SmallFishChestCavityManager extends ChestCavityManager{
             loot.add(new ItemStack(organPile.remove(roll),count));
         }
     }
+
 }

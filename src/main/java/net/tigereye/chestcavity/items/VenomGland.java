@@ -11,8 +11,8 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.listeners.OrganOnHitListener;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.util.OrganUtil;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class VenomGland extends Organ implements OrganOnHitListener {
 
     @Override
-    public float onHit(DamageSource source, LivingEntity attacker, LivingEntity target, ChestCavityManager chestCavity, ItemStack organ, float damage) {
+    public float onHit(DamageSource source, LivingEntity attacker, LivingEntity target, ChestCavityInstance cc, ItemStack organ, float damage) {
         if(attacker.getStackInHand(attacker.getActiveHand()).isEmpty()){
             if(attacker.hasStatusEffect(CCStatusEffects.VENOM_COOLDOWN)){
                 StatusEffectInstance cooldown = attacker.getStatusEffect(CCStatusEffects.VENOM_COOLDOWN);

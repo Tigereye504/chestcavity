@@ -17,7 +17,7 @@ public class ChestCavityClient implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.UPDATE_PACKET_ID, (client, handler, buf, responseSender) -> {
             Optional<ChestCavityEntity> optional = ChestCavityEntity.of(client.cameraEntity);
-            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityUpdatePacket(chestCavityEntity.getChestCavityManager(), buf));
+            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityUpdatePacket(chestCavityEntity.getChestCavityInstance(), buf));
         });
     }
 }

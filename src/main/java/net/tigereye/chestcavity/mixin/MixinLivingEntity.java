@@ -26,12 +26,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.managers.ChestCavityManagerFactory;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactory;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.items.ChestOpener;
-import net.tigereye.chestcavity.managers.ChestCavityManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,7 +46,7 @@ import java.util.Optional;
 
 @Mixin(LivingEntity.class)
 public class MixinLivingEntity extends Entity implements ChestCavityEntity{
-    private ChestCavityManager chestCavityManager;
+    private ChestCavityInstance chestCavityInstance;
 
     protected MixinLivingEntity(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -53,19 +54,19 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("TAIL"), method = "<init>")
     public void chestCavityLivingEntityConstructorMixin(EntityType<? extends LivingEntity> entityType, World world,CallbackInfo info){
-        chestCavityManager = ChestCavityManagerFactory.newChestCavityManager(entityType,(LivingEntity)(Object)this);
-        chestCavityManager.init();
+        chestCavityInstance = ChestCavityInstanceFactory.newChestCavityInstance(entityType,(LivingEntity)(Object)this);
+        //chestCavityInstance.init();
     }
 
     @Inject(at = @At("HEAD"), method = "baseTick")
     public void chestCavityLivingEntityBaseTickMixin(CallbackInfo info){
-        chestCavityManager.onTick();
+        ChestCavityUtil.onTick(chestCavityInstance);
     }
 
     @Inject(at = @At("TAIL"), method = "baseTick")
     protected void chestCavityLivingEntityBaseTickBreathAirMixin(CallbackInfo info) {
         if(!this.isSubmergedIn(FluidTags.WATER) || this.world.getBlockState(new BlockPos(this.getX(), this.getEyeY(), this.getZ())).isOf(Blocks.BUBBLE_COLUMN)) {
-            this.setAir(chestCavityManager.applyBreathOnLand(this.getAir(), this.getNextAirOnLand(0)));
+            this.setAir(ChestCavityUtil.applyBreathOnLand(chestCavityInstance,this.getAir(), this.getNextAirOnLand(0)));
         }
     }
 
@@ -74,7 +75,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         if(source.getAttacker() instanceof LivingEntity){
             Optional<ChestCavityEntity> cce = ChestCavityEntity.of(source.getAttacker());
             if(cce.isPresent()){
-                    amount = cce.get().getChestCavityManager().onHit(source, (LivingEntity)(Object)this,amount);
+                    amount = ChestCavityUtil.onHit(cce.get().getChestCavityInstance(), source, (LivingEntity)(Object)this,amount);
             }
         }
         return amount;
@@ -82,40 +83,40 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("RETURN"), method = "getNextAirUnderwater", cancellable = true)
     protected void chestCavityLivingEntityGetNextAirUnderwaterMixin(int air, CallbackInfoReturnable info) {
-        info.setReturnValue(chestCavityManager.applyBreathInWater(air,info.getReturnValueI()));
+        info.setReturnValue(ChestCavityUtil.applyBreathInWater(chestCavityInstance,air,info.getReturnValueI()));
     }
 
     @Inject(at = @At("RETURN"), method = "applyArmorToDamage",cancellable = true)
     public void chestCavityLivingEntityDamageMixin(DamageSource source, float amount, CallbackInfoReturnable<Float> info){
-        info.setReturnValue(chestCavityManager.applyDefenses(source, info.getReturnValueF()));
+        info.setReturnValue(ChestCavityUtil.applyDefenses(chestCavityInstance, source, info.getReturnValueF()));
     }
 
     @Inject(at = @At("HEAD"), method = "dropInventory")
     public void chestCavityLivingEntityDropInventoryMixin(CallbackInfo info){
-        chestCavityManager.chestCavityPostMortem();
+        chestCavityInstance.type.onDeath(chestCavityInstance);
     }
 
     @ModifyVariable(at = @At("HEAD"), method = "addStatusEffect", ordinal = 0)
     public StatusEffectInstance chestCavityLivingEntityAddStatusEffectMixin(StatusEffectInstance effect){
-        return chestCavityManager.onAddStatusEffect(effect);
+        return ChestCavityUtil.onAddStatusEffect(chestCavityInstance,effect);
     }
 
-    public ChestCavityManager getChestCavityManager() {
-        return chestCavityManager;
+    public ChestCavityInstance getChestCavityInstance() {
+        return chestCavityInstance;
     }
 
-    public void setChestCavityManager(ChestCavityManager chestCavityManager) {
-        this.chestCavityManager = chestCavityManager;
+    public void setChestCavityInstance(ChestCavityInstance chestCavityInstance) {
+        this.chestCavityInstance = chestCavityInstance;
     }
 
     @Inject(method = "readCustomDataFromTag", at = @At("TAIL"))
     private void readCustomDataFromTag(CompoundTag tag, CallbackInfo callbackInfo) {
-        chestCavityManager.fromTag(tag,(LivingEntity)(Object)this);
+        chestCavityInstance.fromTag(tag,(LivingEntity)(Object)this);
     }
 
     @Inject(method = "writeCustomDataToTag", at = @At("TAIL"))
     private void writeCustomDataToTag(CompoundTag tag, CallbackInfo callbackInfo) {
-        chestCavityManager.toTag(tag);
+        chestCavityInstance.toTag(tag);
     }
 
     @Mixin(MobEntity.class)
@@ -162,8 +163,8 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
             if(this.isAlive()
                     && currentFuseTime > 1){
                 ChestCavityEntity.of(this).ifPresent(cce -> {
-                    if(cce.getChestCavityManager().getOpened()
-                            && cce.getChestCavityManager().getOrganScore(CCOrganScores.CREEPY) <= 0){
+                    if(cce.getChestCavityInstance().opened
+                            && cce.getChestCavityInstance().getOrganScore(CCOrganScores.CREEPY) <= 0){
                         currentFuseTime = 1;
                     }
                 });
@@ -180,13 +181,13 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         @Inject(method = "copyFrom", at = @At("TAIL"))
         public void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo callbackInfo) {
             if(ChestCavity.DEBUG_MODE){
-                System.out.println("Attempting to load ChestCavityManager");
+                System.out.println("Attempting to load ChestCavityInstance");
             }
             ChestCavityEntity.of(this).ifPresent(chestCavityEntity -> ChestCavityEntity.of(oldPlayer).ifPresent(oldCCPlayerEntityInterface -> {
                 if(ChestCavity.DEBUG_MODE){
-                    System.out.println("Copying ChestCavityManager");
+                    System.out.println("Copying ChestCavityInstance");
                 }
-                chestCavityEntity.getChestCavityManager().clone(oldCCPlayerEntityInterface.getChestCavityManager());
+                chestCavityEntity.getChestCavityInstance().clone(oldCCPlayerEntityInterface.getChestCavityInstance());
             }));
         }
     }
@@ -222,10 +223,10 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         protected void chestCavityPreventNetherStarDrop(DamageSource source, int lootingMultiplier, boolean allowDrops, CallbackInfo info) {
             Optional<ChestCavityEntity> chestCavityEntity = ChestCavityEntity.of(this);
             if(chestCavityEntity.isPresent()){
-                ChestCavityManager ccm = chestCavityEntity.get().getChestCavityManager();
+                ChestCavityInstance cc = chestCavityEntity.get().getChestCavityInstance();
 
-                //if the nether star was taken from the wither's chest, remove one from the loot pile.
-                if(ccm.getOpened() && chestCavityEntity.get().getChestCavityManager().getChestCavity().count(Items.NETHER_STAR) == 0){
+                //if the nether star was taken from the wither's chest, refuse to drop
+                if(cc.opened && cc.inventory.count(Items.NETHER_STAR) == 0){
                     info.cancel();
                 }
             }

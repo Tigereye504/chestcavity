@@ -1,51 +1,18 @@
-package net.tigereye.chestcavity.managers;
+package net.tigereye.chestcavity.chestcavities.types;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCOrganScores;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-public class CaveSpiderChestCavityManager extends ChestCavityManager{
-
-
-    public CaveSpiderChestCavityManager(LivingEntity owner) {
-        super(owner);
-    }
-    public CaveSpiderChestCavityManager(LivingEntity owner, int size) {
-        super(owner,size);
-    }
-
-    protected static final Map<Identifier,Float> defaultOrganScores = new HashMap<>();
-
-    static{
-        initializeDefaultOrganScores();
-    }
-
-    private static void initializeDefaultOrganScores(){
-        defaultOrganScores.put(CCOrganScores.HEALTH,1.5f);
-        defaultOrganScores.put(CCOrganScores.NUTRITION,5.25f);
-        defaultOrganScores.put(CCOrganScores.BREATH,2.25f);
-        defaultOrganScores.put(CCOrganScores.ENDURANCE,2.25f);
-        defaultOrganScores.put(CCOrganScores.NERVOUS_SYSTEM,1.25f);
-        defaultOrganScores.put(CCOrganScores.STRENGTH,4f);
-        defaultOrganScores.put(CCOrganScores.SPEED,8f);
-        defaultOrganScores.put(CCOrganScores.DIGESTION,1.75f);
-        defaultOrganScores.put(CCOrganScores.VENOMOUS,1f);
-        defaultOrganScores.put(CCOrganScores.SILK,1f);
-    }
-
+public class BeeChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
-    public Map<Identifier,Float> getDefaultOrganScores(){
-        return defaultOrganScores;
-    }
-
-    @Override
-    public void fillChestCavityInventory() {
+    public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
         chestCavity.setStack(0, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
         chestCavity.setStack(1, new ItemStack(CCItems.INSECT_HEART, CCItems.INSECT_HEART.getMaxCount()));
@@ -67,19 +34,19 @@ public class CaveSpiderChestCavityManager extends ChestCavityManager{
         chestCavity.setStack(16, new ItemStack(CCItems.INSECT_INTESTINE, CCItems.INSECT_INTESTINE.getMaxCount()));
         chestCavity.setStack(17, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
 
-        chestCavity.setStack(18, new ItemStack(CCItems.VENOM_GLAND, CCItems.VENOM_GLAND.getMaxCount()));
+        chestCavity.setStack(18, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
         chestCavity.setStack(19, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
         chestCavity.setStack(20, new ItemStack(CCItems.INSECT_LUNG, CCItems.INSECT_LUNG.getMaxCount()));
         chestCavity.setStack(21, new ItemStack(CCItems.INSECT_LUNG, CCItems.INSECT_LUNG.getMaxCount()));
         chestCavity.setStack(22, new ItemStack(CCItems.INSECT_LUNG, CCItems.INSECT_LUNG.getMaxCount()));
         chestCavity.setStack(23, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
         chestCavity.setStack(24, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
-        chestCavity.setStack(25, new ItemStack(CCItems.INSECT_MUSCLE, CCItems.INSECT_MUSCLE.getMaxCount()));
-        chestCavity.setStack(26, new ItemStack(CCItems.SILK_GLAND, CCItems.SILK_GLAND.getMaxCount()));
+        chestCavity.setStack(25, new ItemStack(CCItems.VENOM_GLAND, CCItems.VENOM_GLAND.getMaxCount()));
+        chestCavity.setStack(26, new ItemStack(CCItems.VENOM_GLAND, CCItems.VENOM_GLAND.getMaxCount()));
     }
 
     @Override
-    protected void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
+    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         for(int i = 0; i < 3; i++){
             organPile.add(CCItems.INSECT_HEART);
@@ -107,4 +74,5 @@ public class CaveSpiderChestCavityManager extends ChestCavityManager{
             loot.add(new ItemStack(organPile.remove(roll),count));
         }
     }
+
 }
