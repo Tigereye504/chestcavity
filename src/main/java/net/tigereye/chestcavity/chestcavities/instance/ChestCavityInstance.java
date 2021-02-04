@@ -119,6 +119,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
 
     public void clone(ChestCavityInstance other) {
         opened = other.opened;
+        type = other.type;
         inventory.removeListener(this);
         for(int i = 0; i < inventory.size(); ++i) {
             inventory.setStack(i, other.inventory.getStack(i));
