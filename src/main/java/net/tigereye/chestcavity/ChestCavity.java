@@ -48,8 +48,5 @@ public class ChestCavity implements ModInitializer {
 		CCCommands.register();
 		CCChestCavityTypes.register();
 		CrossModContent.register();
-		RenderSystem.recordRenderCall(() -> {
-
-		});
 	}
 }
