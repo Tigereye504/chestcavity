@@ -37,9 +37,9 @@ public class VenomGland extends Organ implements OrganOnHitListener {
                 }
             }
             else {
-                target.applyStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 200, 0));
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 200, 0));
             }
-            attacker.applyStatusEffect(new StatusEffectInstance(CCStatusEffects.VENOM_COOLDOWN, ChestCavity.config.VENOM_COOLDOWN, 0));
+            attacker.addStatusEffect(new StatusEffectInstance(CCStatusEffects.VENOM_COOLDOWN, ChestCavity.config.VENOM_COOLDOWN, 0));
             if(attacker instanceof PlayerEntity){
                 ((PlayerEntity)attacker).addExhaustion(.1f);
             }

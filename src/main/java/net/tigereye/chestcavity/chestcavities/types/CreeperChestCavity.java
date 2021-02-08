@@ -39,9 +39,9 @@ public class CreeperChestCavity extends BaseChestCavity implements ChestCavityTy
         chestCavity.setStack(18, new ItemStack(Items.OAK_LEAVES, 16));
         chestCavity.setStack(19, new ItemStack(Items.OAK_LEAVES, 16));
         chestCavity.setStack(20, ItemStack.EMPTY);
-        chestCavity.setStack(21, new ItemStack(Items.GUNPOWDER, 1));
+        chestCavity.setStack(21, ItemStack.EMPTY);
         chestCavity.setStack(22, new ItemStack(Items.GUNPOWDER, 1));
-        chestCavity.setStack(23, new ItemStack(Items.GUNPOWDER, 1));
+        chestCavity.setStack(23, ItemStack.EMPTY);
         chestCavity.setStack(24, ItemStack.EMPTY);
         chestCavity.setStack(25, new ItemStack(Items.OAK_LEAVES, 16));
         chestCavity.setStack(26, new ItemStack(Items.OAK_LEAVES, 16));

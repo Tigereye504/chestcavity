@@ -12,6 +12,7 @@
     "MixinLivingEntity$Server",
     "MixinLivingEntity$Sheep",
     "MixinLivingEntity$Wither",
+    "MixinPotionEntity",
     "MixinStatusEffect",
     "MixinStatusEffectInstance"
   ],

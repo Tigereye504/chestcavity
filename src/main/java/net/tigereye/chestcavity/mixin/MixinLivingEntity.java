@@ -34,6 +34,7 @@ import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
+import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -125,7 +126,8 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
         @Inject(at = @At("HEAD"), method = "method_29506", cancellable = true) //if this breaks, its likely because yarn changed the name to interactWithItem
         protected void chestCavityLivingEntityInteractMobMixin(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
-            if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER){
+            if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER
+                    && !(((LivingEntity)(Object)this) instanceof PlayerEntity)){
                 ((ChestOpener)player.getStackInHand(hand).getItem()).openChestCavity(player,(LivingEntity)(Object)this);
                 info.setReturnValue(ActionResult.SUCCESS);
             }
@@ -170,6 +172,31 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                 });
             }
         }
+        /*value = "FIELD",
+                                target = "Lnet/minecraft/entity/CreeperEntity;dead:Z"*/
+        //"Lnet/minecraft/world/explosion/Explosion;createExplosion("+
+        //  "Lnet/minecraft/entity/Entity;"+
+        //  "DDDF"+
+        //  "Lnet/minecraft/world/explosion/Explosion/DestructionType;"+
+        //  ")V"
+        /*
+        @ModifyVariable(at = @At(value = "INVOKE",
+                target = "Lnet/minecraft/world/explosion/Explosion;createExplosion("+
+                "Lnet/minecraft/entity/Entity;"+
+                "DDDF"+
+                "Lnet/minecraft/world/explosion/Explosion/DestructionType;"+
+                ")V"), ordinal = 0, method = "explode")
+        public float chestCavityCreeperExplodeMixin(float f){
+            MutableFloat boom = new MutableFloat(f);
+            ChestCavityEntity.of(this).ifPresent(cce -> {
+                ChestCavityInstance cc = cce.getChestCavityInstance();
+                if(cc.opened){
+                    boom.setValue(f*Math.sqrt(cc.getOrganScore(CCOrganScores.EXPLOSIVE))
+                            /Math.min(1,Math.sqrt(cc.type.getDefaultOrganScore(CCOrganScores.EXPLOSIVE))));
+                }
+            });
+            return f;
+        }*/
     }
 
     @Mixin(ServerPlayerEntity.class)

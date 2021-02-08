@@ -19,6 +19,7 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.listeners.*;
@@ -30,6 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class ChestCavityUtil {
@@ -318,6 +320,15 @@ public class ChestCavityUtil {
             cc.inventory.readTags(cc.type.getDefaultChestCavity().getTags());
             cc.type.setOrganCompatibility(cc);
         }
+    }
+
+    public static boolean isHydroPhobicOrAllergic(LivingEntity entity){
+        Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
+        if(optional.isPresent()){
+            ChestCavityInstance cc = optional.get().getChestCavityInstance();
+            return (cc.getOrganScore(CCOrganScores.HYDROALLERGENIC) > 0) || (cc.getOrganScore(CCOrganScores.HYDROPHOBIA) > 0);
+        }
+        return false;
     }
 
     protected static Map<Identifier,Float> lookupOrganScore(ItemStack itemStack, LivingEntity owner){
