@@ -11,11 +11,6 @@ public class CCItems {
 
 
 	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ItemGroup.TOOLS);
-	public static final Item.Settings ORGAN_SETTINGS_1 = new Item.Settings().maxCount(1).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_2 = new Item.Settings().maxCount(2).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_4 = new Item.Settings().maxCount(4).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_16 = new Item.Settings().maxCount(16).group(ItemGroup.MISC);
-	public static final Item.Settings ORGAN_SETTINGS_64 = new Item.Settings().maxCount(64).group(ItemGroup.MISC);
 	public static final Item.Settings FOOD_ITEM_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD);
 
 
@@ -27,8 +22,8 @@ public class CCItems {
 	public static final Organ HUMAN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1f);
 	public static final Organ HUMAN_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,1f);
 	public static final Organ HUMAN_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1f).setOrganQuality(CCOrganScores.ENDURANCE,1f);
-	public static final Organ HUMAN_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
-	public static final Organ HUMAN_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,1f);
+	public static final Organ HUMAN_MUSCLE = new Organ(16,CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,1f);
+	public static final Organ HUMAN_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1f);
 	public static final Organ HUMAN_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.DEFENSE,.75f);
 	public static final Organ HUMAN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1f);
 	public static final Organ HUMAN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1f);
@@ -39,13 +34,13 @@ public class CCItems {
 	public static final Organ ROTTEN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
 	public static final Organ ROTTEN_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.5f);
 	public static final Organ ROTTEN_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,.5f);
-	public static final Organ ROTTEN_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
+	public static final Organ ROTTEN_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
 	public static final Organ ROTTEN_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f);
 	public static final Organ ROTTEN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.5f);
 	public static final Organ ROTTEN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
-	public static final Organ WITHERED_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.5f).setOrganQuality(CCOrganScores.WITHERED,1);
+	public static final Organ WITHERED_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,.5f).setOrganQuality(CCOrganScores.WITHERED,1);
 	public static final Organ WITHERED_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f).setOrganQuality(CCOrganScores.WITHERED,1);
-	public static final Organ WRITHING_SOULSAND = new Organ(ORGAN_SETTINGS_16).setOrganQuality(CCOrganScores.STRENGTH,1.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
+	public static final Organ WRITHING_SOULSAND = new Organ(16).setOrganQuality(CCOrganScores.STRENGTH,1.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
 
 	public static final Organ ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.75f);
 	public static final Organ ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.75f);
@@ -53,12 +48,13 @@ public class CCItems {
 	public static final Organ ANIMAL_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.75f);
 	public static final Organ ANIMAL_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.75f);
 	public static final Organ ANIMAL_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f);
-	public static final Organ ANIMAL_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.75f);
-	public static final Organ ANIMAL_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.75f);
+	public static final Organ ANIMAL_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.75f);
+	public static final Organ ANIMAL_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,.75f);
 	public static final Organ ANIMAL_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.75f).setOrganQuality(CCOrganScores.DEFENSE,.5625f);
 	public static final Organ ANIMAL_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.75f);
 	public static final Organ ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.75f);
 	public static final Organ GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,1);
+	public static final Organ LLAMA_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f).setOrganQuality(CCOrganScores.FORCEFUL_SPIT,1);
 
 	public static final Organ SMALL_ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.5f);
 	public static final Organ SMALL_ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
@@ -66,8 +62,8 @@ public class CCItems {
 	public static final Organ SMALL_ANIMAL_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
 	public static final Organ SMALL_ANIMAL_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.5f);
 	public static final Organ SMALL_ANIMAL_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,.5f);
-	public static final Organ SMALL_ANIMAL_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
-	public static final Organ SMALL_ANIMAL_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
+	public static final Organ SMALL_ANIMAL_MUSCLE = new Organ(16,CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
+	public static final Organ SMALL_ANIMAL_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
 	public static final Organ SMALL_ANIMAL_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f);
 	public static final Organ SMALL_ANIMAL_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.5f);
 	public static final Organ SMALL_ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
@@ -77,7 +73,7 @@ public class CCItems {
 	public static final Organ INSECT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
 	public static final Organ INSECT_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
 	public static final Organ INSECT_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f);
-	public static final Organ INSECT_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
+	public static final Organ INSECT_MUSCLE = new Organ(16,CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1f);
 	public static final Organ INSECT_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f).setOrganQuality(CCOrganScores.NUTRITION,.25f);
 	public static final Organ INSECT_CAECA = new Organ().setOrganQuality(CCOrganScores.DIGESTION, .25f).setOrganQuality(CCOrganScores.NUTRITION, .5f).setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.25f);
 	public static final Organ SILK_GLAND = new Organ().setOrganQuality(CCOrganScores.SILK,1f);
@@ -89,15 +85,23 @@ public class CCItems {
 	public static final Organ ENDER_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f).setOrganQuality(CCOrganScores.HYDROPHOBIA, 1f);
 	public static final Organ ENDER_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 	public static final Organ ENDER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1.25f).setOrganQuality(CCOrganScores.ENDURANCE,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
-	public static final Organ ENDER_MUSCLE = new Organ(ORGAN_SETTINGS_16.food(CCFoodComponents.ALIEN_MUSCLE_FOOD_COMPONENT)).setOrganQuality(CCOrganScores.STRENGTH,1.25f).setOrganQuality(CCOrganScores.SPEED,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);;
-	public static final Organ ENDER_RIB = new Organ(ORGAN_SETTINGS_4).setOrganQuality(CCOrganScores.DEFENSE,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+	public static final Organ ENDER_MUSCLE = new Organ(16,CCFoodComponents.ALIEN_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,1.25f).setOrganQuality(CCOrganScores.SPEED,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);;
+	public static final Organ ENDER_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 	public static final Organ ENDER_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1.25f).setOrganQuality(CCOrganScores.DEFENSE,.9375f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 	public static final Organ ENDER_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 	public static final Organ ENDER_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 
+	public static final Organ ACTIVE_BLAZE_ROD = new Organ(3).setOrganQuality(CCOrganScores.PYROMANCY,3f).setOrganQuality(CCOrganScores.FIREPROOF,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,3f);
+	public static final Organ BLAZE_SHELL = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1f).setOrganQuality(CCOrganScores.FIREPROOF,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,3f);
+	public static final Organ BLAZE_CORE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.HEALTH,1f).setOrganQuality(CCOrganScores.FIREPROOF,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,3f);
+
+	public static final Organ GAS_BLADDER = new Organ().setOrganQuality(CCOrganScores.BREATH,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,.25f).setOrganQuality(CCOrganScores.BUOYANT,1f).setOrganQuality(CCOrganScores.FIREPROOF,1f);
+	public static final Organ VOLATILE_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f).setOrganQuality(CCOrganScores.GHASTLY,1f).setOrganQuality(CCOrganScores.FIREPROOF,1f);
+
 	public static final Organ SALTWATER_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f).setOrganQuality(CCOrganScores.WATERBREATH,.25f);
 	public static final Organ SALTWATER_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,1f).setOrganQuality(CCOrganScores.ENDURANCE,1f).setOrganQuality(CCOrganScores.WATERBREATH,.25f);
 	public static final Organ CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.LUCK,.75f).setOrganQuality(CCOrganScores.CREEPY,1);
+	public static final Organ SHULKER_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.75f).setOrganQuality(CCOrganScores.SHULKER_BULLETS,1f);
 
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
@@ -182,6 +186,7 @@ public class CCItems {
 		registerItem("animal_spleen", ANIMAL_SPLEEN);
 		registerItem("animal_stomach", ANIMAL_STOMACH);
 		registerItem("gills", GILLS);
+		registerItem("llama_lung", LLAMA_LUNG);
 
 		registerItem("small_animal_appendix", SMALL_ANIMAL_APPENDIX);
 		registerItem("small_animal_heart", SMALL_ANIMAL_HEART);
@@ -217,10 +222,18 @@ public class CCItems {
 		registerItem("ender_spine", ENDER_SPINE);
 		registerItem("ender_spleen", ENDER_SPLEEN);
 		registerItem("ender_stomach", ENDER_STOMACH);
+
+		registerItem("active_blaze_rod", ACTIVE_BLAZE_ROD);
+		registerItem("blaze_shell", BLAZE_SHELL);
+		registerItem("blaze_core", BLAZE_CORE);
+
+		registerItem("gas_bladder", GAS_BLADDER);
+		registerItem("volatile_stomach", VOLATILE_STOMACH);
 		
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
+		registerItem("shulker_spleen", SHULKER_SPLEEN);
 
 		registerItem("burnt_meat_chunk", BURNT_MEAT_CHUNK);
 		registerItem("raw_organ_meat", RAW_ORGAN_MEAT);

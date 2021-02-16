@@ -8,6 +8,7 @@ import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +16,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
@@ -163,6 +165,17 @@ public class ChestCavityUtil {
         if(!source.bypassesArmor()) {
             damage = applyBoneDefense(cc,damage);
         }
+        if(source.isFire()){
+            damage = applyFireproof(cc,damage);
+        }
+        return damage;
+    }
+
+    public static float applyFireproof(ChestCavityInstance cc, float damage){
+        float fireproof = cc.getOrganScore(CCOrganScores.FIREPROOF);
+        if(fireproof > 0){
+            return (float)(damage*Math.pow(ChestCavity.config.FIREPROOF_DEFENSE,fireproof/4));
+        }
         return damage;
     }
 
@@ -256,10 +269,12 @@ public class ChestCavityUtil {
     }
 
     public static void dropUnboundOrgans(ChestCavityInstance cc) {
-        cc.inventory.removeListener(cc);
+        try {
+            cc.inventory.removeListener(cc);
+        } catch(NullPointerException ignored){}
         for(int i = 0; i < cc.inventory.size(); i++){
             ItemStack itemStack = cc.inventory.getStack(i);
-            if(itemStack != null && itemStack != itemStack.EMPTY) {
+            if(itemStack != null && itemStack != ItemStack.EMPTY) {
                 CompoundTag tag = itemStack.getTag();
                 if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
                     tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
@@ -380,7 +395,7 @@ public class ChestCavityUtil {
     public static ChestCavityInventory openChestCavity(ChestCavityInstance cc){
         if(!cc.opened) {
             try {
-                cc.inventory.removeListener(cc); //just in case really
+                cc.inventory.removeListener(cc);
             }
             catch(NullPointerException ignored){}
             cc.opened = true;

@@ -19,11 +19,18 @@ public class CCConfig implements ConfigData {
     public float MUSCLE_SPEED = .5f; //how much 8 stacks of muscles contribute to movement speed
     public float BONE_DEFENSE = .5f; //damage reduction from 4 stacks of ribs
 
+    public int ARROW_DODGE_DISTANCE = 32; //how far you can teleport when dodging projectiles
+    public float FIREPROOF_DEFENSE = .75f; //damage reduction from 4 stacks of fireproof organs
     public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
+    public int MAX_TELEPORT_ATTEMPTS = 5;
+    public int SHULKER_BULLET_TARGETING_RANGE = 20;
 
     public int ARROW_DODGE_COOLDOWN = 200; //how often an entity is allowed to dodge projectiles
-    public int ARROW_DODGE_DISTANCE = 32; //how far you can teleport when dodging projectiles
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding
+    public int FORCEFUL_SPIT_COOLDOWN = 20; //how often an entity is allowed to try exploding
+    public int GHASTLY_COOLDOWN = 60; //how often an entity is allowed to fire ghast bombs
+    public int PYROMANCY_COOLDOWN = 78; //how often an entity is allowed to spew fireballs
+    public int SHULKER_BULLET_COOLDOWN = 100; //how often an entity is allowed to shoot bullets
     public int SILK_COOLDOWN = 20; //how often an entity is allowed to lay silk
     public int VENOM_COOLDOWN = 40; //how often an entity is allowed to poison targets
 
@@ -31,6 +38,7 @@ public class CCConfig implements ConfigData {
     public int ORGAN_REJECTION_RATE = 600; //base speed of organ rejection
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
 
+    public boolean CAN_OPEN_OTHER_PLAYERS = false;
     public boolean AGE_OF_EXILE_INTEGRATION = true;
     public boolean ANTHROPOPHAGY_INTEGRATION = true;
     public boolean BACKROOMS_INTEGRATION = true;

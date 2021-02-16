@@ -22,11 +22,17 @@ public class CCOrganScores {
 
     public static final Identifier INCOMPATIBILITY = new Identifier(ChestCavity.MODID, "incompatibility");
 
+    public static final Identifier ARROW_DODGING = new Identifier(ChestCavity.MODID, "arrow_dodging");
+    public static final Identifier BUOYANT = new Identifier(ChestCavity.MODID, "buoyant");
     public static final Identifier CREEPY = new Identifier(ChestCavity.MODID, "creepy");
     public static final Identifier EXPLOSIVE = new Identifier(ChestCavity.MODID, "explosive");
+    public static final Identifier FIREPROOF = new Identifier(ChestCavity.MODID, "fireproof");
+    public static final Identifier FORCEFUL_SPIT = new Identifier(ChestCavity.MODID, "forceful_spit");
     public static final Identifier HYDROALLERGENIC = new Identifier(ChestCavity.MODID, "hydroallergenic");
     public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
-    public static final Identifier ARROW_DODGING = new Identifier(ChestCavity.MODID, "arrow_dodging");
+    public static final Identifier GHASTLY = new Identifier(ChestCavity.MODID, "ghastly");
+    public static final Identifier PYROMANCY = new Identifier(ChestCavity.MODID, "pyromancy");
+    public static final Identifier SHULKER_BULLETS = new Identifier(ChestCavity.MODID, "shulker_bullets");
     public static final Identifier SILK = new Identifier(ChestCavity.MODID, "silk");
     public static final Identifier VENOMOUS = new Identifier(ChestCavity.MODID, "venomous");
     public static final Identifier WATERBREATH = new Identifier(ChestCavity.MODID, "water_breath");

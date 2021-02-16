@@ -127,7 +127,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         @Inject(at = @At("HEAD"), method = "method_29506", cancellable = true) //if this breaks, its likely because yarn changed the name to interactWithItem
         protected void chestCavityLivingEntityInteractMobMixin(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
             if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER
-                    && !(((LivingEntity)(Object)this) instanceof PlayerEntity)){
+                    && (ChestCavity.config.CAN_OPEN_OTHER_PLAYERS || !(((LivingEntity)(Object)this) instanceof PlayerEntity))){
                 ((ChestOpener)player.getStackInHand(hand).getItem()).openChestCavity(player,(LivingEntity)(Object)this);
                 info.setReturnValue(ActionResult.SUCCESS);
             }

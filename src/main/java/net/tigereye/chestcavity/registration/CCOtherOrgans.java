@@ -42,9 +42,10 @@ public class CCOtherOrgans {
         map.put(Items.PORKCHOP,animalFlesh);
         map.put(Items.MUTTON,animalFlesh);
 
-        Map<Identifier,Float> bone = new HashMap<>();
-        bone.put(CCOrganScores.DEFENSE,.5f);
-        map.put(Items.BONE,bone);
+        Map<Identifier,Float> defense = new HashMap<>();
+        defense.put(CCOrganScores.DEFENSE,.5f);
+        map.put(Items.BONE,defense);
+        map.put(Items.IRON_BARS,defense);
 
         Map<Identifier,Float> gunpowder = new HashMap<>();
         gunpowder.put(CCOrganScores.EXPLOSIVE,3f*Items.GUNPOWDER.getMaxCount());
@@ -66,5 +67,15 @@ public class CCOtherOrgans {
         Map<Identifier,Float> glowstone = new HashMap<>();
         glowstone.put(CCOrganScores.GLOWING,2f*Items.GLOWSTONE.getMaxCount());
         map.put(Items.GLOWSTONE,glowstone);
+
+        Map<Identifier,Float> blazerod = new HashMap<>();
+        blazerod.put(CCOrganScores.PYROMANCY,1f);
+        blazerod.put(CCOrganScores.HYDROALLERGENIC,1f);
+        map.put(Items.BLAZE_ROD,blazerod);
+
+        Map<Identifier,Float> obsidian = new HashMap<>();
+        obsidian.put(CCOrganScores.FIREPROOF,1f);
+        map.put(Items.OBSIDIAN,obsidian);
+        map.put(Items.CRYING_OBSIDIAN,obsidian);
     }
 }

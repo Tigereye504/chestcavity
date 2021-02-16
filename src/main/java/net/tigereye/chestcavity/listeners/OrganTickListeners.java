@@ -16,15 +16,33 @@ import net.tigereye.chestcavity.util.OrganUtil;
 public class OrganTickListeners {
 
     public static void register(){
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickProjectileQueue);
+
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHealth);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickFiltration);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
 
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickBuoyant);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickForcefulSpit);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydroallergenic);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickPyromancy);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickGhastly);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickShulkerBullets);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
+    }
+
+    public static void TickBuoyant(LivingEntity entity, ChestCavityInstance chestCavity){
+        if(entity.isOnGround() || entity.hasNoGravity()){
+            return;
+        }
+        float buoyancy = chestCavity.getOrganScore(CCOrganScores.BUOYANT);
+        if(buoyancy > 0)
+        {
+            entity.addVelocity(0.0D, buoyancy*0.02D, 0.0D);
+        }
     }
 
     public static void TickHealth(LivingEntity entity, ChestCavityInstance cc){
@@ -73,6 +91,73 @@ public class OrganTickListeners {
             if(entity.isAlive()) {
                 entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.EXPLOSION_COOLDOWN, ChestCavity.config.EXPLOSION_COOLDOWN, 0, false, false, true));
             }
+        }
+    }
+
+    public static void TickForcefulSpit(LivingEntity entity,ChestCavityInstance cc){
+        //if(entity.world.isClient){
+        //    return; //we are spawning entities, this is no place for a client
+        //}
+        float projectiles = cc.getOrganScore(CCOrganScores.FORCEFUL_SPIT);
+        if(cc.getOrganScore(CCOrganScores.FORCEFUL_SPIT) < 1){
+            return;
+        }
+        if(!entity.hasStatusEffect(CCStatusEffects.FORCEFUL_SPIT_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
+            OrganUtil.queueForcefulSpit(entity,cc,(int)projectiles);
+        }
+    }
+
+    public static void TickGhastly(LivingEntity entity,ChestCavityInstance cc){
+        //if(entity.world.isClient){
+        //    return; //this is spawning entities, this is no place for a client
+        //}
+        float ghastly = cc.getOrganScore(CCOrganScores.GHASTLY);
+        if(cc.getOrganScore(CCOrganScores.GHASTLY) < 1){
+            return;
+        }
+        if(!entity.hasStatusEffect(CCStatusEffects.GHASTLY_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
+            OrganUtil.queueGhastlyFireballs(entity,cc,(int)ghastly);
+        }
+    }
+
+    private static void TickProjectileQueue(LivingEntity entity, ChestCavityInstance cc) {
+        //if(entity.world.isClient){
+            //this is spawning entities, this is no place for a client
+            //return;
+        //}
+        if(cc.projectileCooldown > 0){
+            cc.projectileCooldown -= 1;
+            return;
+        }
+        if(!cc.projectileQueue.isEmpty()) {
+            cc.projectileCooldown = 5;
+            cc.projectileQueue.pop().accept(entity);
+        }
+    }
+
+    public static void TickPyromancy(LivingEntity entity,ChestCavityInstance cc){
+        //if(entity.world.isClient){
+        //    return; //we are spawning entities, this is no place for a client
+        //}
+        float pyromancy = cc.getOrganScore(CCOrganScores.PYROMANCY);
+        if(cc.getOrganScore(CCOrganScores.PYROMANCY) < 1){
+            return;
+        }
+        if(!entity.hasStatusEffect(CCStatusEffects.PYROMANCY_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
+            OrganUtil.queuePyromancyFireballs(entity,cc,(int)pyromancy);
+        }
+    }
+
+    public static void TickShulkerBullets(LivingEntity entity,ChestCavityInstance cc){
+        //if(entity.world.isClient){
+        //    return; //we are spawning entities, this is no place for a client
+        //}
+        float projectiles = cc.getOrganScore(CCOrganScores.SHULKER_BULLETS);
+        if(cc.getOrganScore(CCOrganScores.SHULKER_BULLETS) < 1){
+            return;
+        }
+        if(!entity.hasStatusEffect(CCStatusEffects.SHULKER_BULLET_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
+            OrganUtil.queueShulkerBullets(entity,cc,(int)projectiles);
         }
     }
 

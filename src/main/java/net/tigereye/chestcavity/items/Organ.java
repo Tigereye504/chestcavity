@@ -3,6 +3,7 @@ package net.tigereye.chestcavity.items;
 import com.google.common.collect.Maps;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.*;
 
@@ -23,7 +25,13 @@ public class Organ extends Item implements ChestCavityOrgan {
 
 
 	public Organ() {
-		super(CCItems.ORGAN_SETTINGS_1);
+		super(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	}
+	public Organ(int stackSize) {
+		super(new Item.Settings().maxCount(stackSize).group(ChestCavity.ORGAN_ITEM_GROUP));
+	}
+	public Organ(int stackSize, FoodComponent foodComponent) {
+		super(new Item.Settings().maxCount(stackSize).group(ChestCavity.ORGAN_ITEM_GROUP).food(foodComponent));
 	}
 
 	public Organ(Item.Settings settings) {
@@ -59,25 +67,34 @@ public class Organ extends Item implements ChestCavityOrgan {
 	protected void displayOrganQuality(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext){
 		organQualityMap.forEach((organ,score) -> {
 			String tier;
-			if(score > 1.25f){
-				tier = "Supernatural";
+			if(organ == CCOrganScores.HYDROALLERGENIC){
+				if(score >= 2){
+					tier = "Severely ";
+				}
+				else{
+					tier = "";
+				}
 			}
-			else if(score > 1){
-				tier = "Exceptional";
+			else {
+				if (score >= 1.5f) {
+					tier = "Supernatural ";
+				} else if (score >= 1.25) {
+					tier = "Exceptional ";
+				} else if (score >= 1) {
+					tier = "Good ";
+				} else if (score >= .75f) {
+					tier = "Average ";
+				} else if (score >= .5f) {
+					tier = "Poor ";
+				} else if (score >= 0) {
+					tier = "Pathetic ";
+				} else if (score >= -.5f) {
+					tier = "Reduces ";
+				} else {
+					tier = "Cripples ";
+				}
 			}
-			else if(score > .75f){
-				tier = "Good";
-			}
-			else if(score > .5f){
-				tier = "Average";
-			}
-			else if(score > .25f){
-				tier = "Poor";
-			}
-			else{
-				tier = "Pathetic";
-			}
-			TranslatableText text = new TranslatableText("organscore."+organ.getNamespace()+"."+organ.getPath(), tier);
+			TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier);
 			tooltip.add(text);
 		});
 	}
@@ -91,4 +108,6 @@ public class Organ extends Item implements ChestCavityOrgan {
 			tooltip.add(text);
 		}
 	}
+
+
 }

@@ -14,10 +14,8 @@ import net.tigereye.chestcavity.util.ChestCavityUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class ChestCavityInstance implements InventoryChangedListener {
 
@@ -31,12 +29,14 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public Map<Identifier,Float> oldOrganScores = new HashMap<>();
     public Map<Identifier,Float> organScores = new HashMap<>();
     public List<OrganOnHitContext> onHitListeners = new ArrayList<>();
+    public LinkedList<Consumer<LivingEntity>> projectileQueue = new LinkedList<>();
 
     public int heartBleedTimer = 0;
     public int bloodPoisonTimer = 0;
     public int liverTimer = 0;
     public int spleenTimer = 0;
     public float lungRemainder = 0;
+    public int projectileCooldown = 0;
 
     public ChestCavityInstance(ChestCavityType type, LivingEntity owner){
         this.type = type;
@@ -93,7 +93,10 @@ public class ChestCavityInstance implements InventoryChangedListener {
                     LOGGER.info("[Chest Cavity] Found "+owner.getName().asString()+"'s old [Cardinal Components] Chest Cavity.");
                     opened = true;
                     ListTag listTag = temp.getList("Inventory", 10);
-                    inventory.removeListener(this);
+                    try {
+                        inventory.removeListener(this);
+                    }
+                    catch(NullPointerException ignored){}
                     inventory.readTags(listTag);
                     inventory.addListener(this);
                 }

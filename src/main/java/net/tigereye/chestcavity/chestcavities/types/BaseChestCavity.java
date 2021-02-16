@@ -104,9 +104,10 @@ public class BaseChestCavity implements ChestCavityType {
     public boolean isOpenable(ChestCavityInstance instance){return true;}
 
     @Override
-    public void onDeath(ChestCavityInstance instance) {
-        if(instance.opened) {
-            ChestCavityUtil.dropUnboundOrgans(instance);
+    public void onDeath(ChestCavityInstance cc) {
+        cc.projectileQueue.clear();
+        if(cc.opened) {
+            ChestCavityUtil.dropUnboundOrgans(cc);
         }
     }
 
