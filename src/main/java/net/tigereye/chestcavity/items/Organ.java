@@ -88,8 +88,12 @@ public class Organ extends Item implements ChestCavityOrgan {
 					tier = "Poor ";
 				} else if (score >= 0) {
 					tier = "Pathetic ";
+				} else if (score >= -.25f) {
+					tier = "Slightly Reduces ";
 				} else if (score >= -.5f) {
 					tier = "Reduces ";
+				} else if (score >= -.75f) {
+					tier = "Greatly Reduces ";
 				} else {
 					tier = "Cripples ";
 				}

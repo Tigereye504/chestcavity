@@ -78,4 +78,7 @@ public class CCFoodComponents {
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
     public static final FoodComponent COOKED_RICH_HUMAN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(9).saturationModifier(1.2f).meat()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
+
+    public static final FoodComponent CUD_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.1f).build();
+    public static final FoodComponent DUMMY_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.1f).build();
 }

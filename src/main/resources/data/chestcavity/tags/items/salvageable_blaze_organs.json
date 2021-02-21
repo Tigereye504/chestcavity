@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:active_blaze_rod",
+      "chestcavity:blaze_shell",
+      "chestcavity:blaze_core"
+    ]
+}

@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.mixin;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -15,6 +16,9 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
@@ -28,6 +32,7 @@ import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactory;
+import net.tigereye.chestcavity.listeners.OrganFoodEffectCallback;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
@@ -43,6 +48,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Mixin(LivingEntity.class)
@@ -108,6 +115,24 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     public void setChestCavityInstance(ChestCavityInstance chestCavityInstance) {
         this.chestCavityInstance = chestCavityInstance;
+    }
+
+    @ModifyVariable(at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/item/Item;isFood()Z"),
+    method = "applyFoodEffects", ordinal = 0)
+    public Item chestCavityLivingEntityApplyFoodEffectsMixin(Item item, ItemStack stack, World world, LivingEntity targetEntity){
+        FoodComponent food = item.getFoodComponent();
+        if(food != null) {
+            Optional<ChestCavityEntity> option = ChestCavityEntity.of(targetEntity);
+            if (option.isPresent()) {
+                List<Pair<StatusEffectInstance, Float>> list = CCItems.DUMMY_FOOD.getFoodComponent().getStatusEffects();
+                list.clear();
+                list.addAll(food.getStatusEffects());
+                list = OrganFoodEffectCallback.EVENT.invoker().onApplyFoodEffects(list, stack, world, targetEntity, option.get().getChestCavityInstance());
+                return CCItems.DUMMY_FOOD;
+            }
+        }
+        return item;
     }
 
     @Inject(method = "readCustomDataFromTag", at = @At("TAIL"))
@@ -197,6 +222,24 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
             });
             return f;
         }*/
+    }
+
+    @Mixin(PlayerEntity.class)
+    private static abstract class Player extends LivingEntity{
+        protected Player(EntityType<? extends LivingEntity> entityType, World world) {
+            super(entityType, world);
+        }
+
+        @ModifyVariable(at = @At(value = "CONSTANT", args = "floatValue=0.0F", ordinal = 0), ordinal = 0, method = "applyDamage")
+        public float chestCavitPlayerEntityOnHitMixin(float amount, DamageSource source){
+            if(source.getAttacker() instanceof LivingEntity){
+                Optional<ChestCavityEntity> cce = ChestCavityEntity.of(source.getAttacker());
+                if(cce.isPresent()){
+                    amount = ChestCavityUtil.onHit(cce.get().getChestCavityInstance(), source, (LivingEntity)(Object)this,amount);
+                }
+            }
+            return amount;
+        }
     }
 
     @Mixin(ServerPlayerEntity.class)

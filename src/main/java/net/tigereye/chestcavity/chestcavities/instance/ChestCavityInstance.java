@@ -5,6 +5,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
@@ -25,6 +26,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public LivingEntity owner;
 
     public boolean opened = false;
+    public PacketByteBuf updatePacket = null;
     public ChestCavityInventory inventory = new ChestCavityInventory();
     public Map<Identifier,Float> oldOrganScores = new HashMap<>();
     public Map<Identifier,Float> organScores = new HashMap<>();

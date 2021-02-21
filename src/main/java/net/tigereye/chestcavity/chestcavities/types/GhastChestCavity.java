@@ -2,12 +2,15 @@ package net.tigereye.chestcavity.chestcavities.types;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.registration.CCItems;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class GhastChestCavity extends BaseChestCavity implements ChestCavityType {
@@ -44,10 +47,15 @@ public class GhastChestCavity extends BaseChestCavity implements ChestCavityType
     }
 
     @Override
+    public void loadBaseOrganScores(Map<Identifier, Float> organScores){
+        organScores.clear();
+        organScores.put(CCOrganScores.BUOYANT,-4f);
+    }
+    @Override
     public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot) {
         LinkedList<Item> organPile = new LinkedList<>();
         for(int i = 0; i < 4; i++){
-            organPile.add(CCItems.ANIMAL_RIB);
+            organPile.add(CCItems.GAS_BLADDER);
         }
         for(int i = 0; i < 8; i++){
             organPile.add(CCItems.ANIMAL_MUSCLE);
@@ -60,8 +68,8 @@ public class GhastChestCavity extends BaseChestCavity implements ChestCavityType
         organPile.add(CCItems.ANIMAL_KIDNEY);
         organPile.add(CCItems.ANIMAL_KIDNEY);
         organPile.add(CCItems.ANIMAL_LIVER);
-        organPile.add(CCItems.GAS_BLADDER);
-        organPile.add(CCItems.GAS_BLADDER);
+        organPile.add(CCItems.ANIMAL_RIB);
+        organPile.add(CCItems.ANIMAL_RIB);
         organPile.add(CCItems.ANIMAL_SPINE);
         organPile.add(CCItems.ANIMAL_SPLEEN);
         organPile.add(CCItems.VOLATILE_STOMACH);

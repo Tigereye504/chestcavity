@@ -1,7 +1,8 @@
 package net.tigereye.chestcavity.mixin;
 
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.listeners.EffectiveFoodScores;
+import net.tigereye.chestcavity.listeners.OrganFoodCallback;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,10 +50,17 @@ public class MixinHungerManager {
                         //so before hunger changes, calculate the saturation gain I intend
                         FoodComponent itemFoodComponent = item.getFoodComponent();
                         if(itemFoodComponent != null) {
-                                float saturationGain = ChestCavityUtil.applyIntestinesSaturation(CC_player.getChestCavityInstance(),
-                                        item.getFoodComponent().getSaturationModifier()) * item.getFoodComponent().getHunger() * 2.0F;
+                                EffectiveFoodScores efs = new EffectiveFoodScores(
+                                        CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.DIGESTION),
+                                        CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.NUTRITION));
+                                efs = OrganFoodCallback.EVENT.invoker().onEatFood(item,itemFoodComponent,CC_player,efs);
+                                //TODO: pass effective nutrition to applyIntestinesSaturation, rename to applyNutrition?
+                                //TODO: pass effective digestion to applyStomachHunger, rename to applyDigestion?
+                                //TODO: mixin to LivingEntity::applyFoodEffects for OrganFoodEffectCallback
+                                float saturationGain = ChestCavityUtil.applyNutrition(CC_player.getChestCavityInstance(),efs.nutrition,item.getFoodComponent().getSaturationModifier())
+                                         * item.getFoodComponent().getHunger() * 2.0F;
                                 //now find the modified hunger gains
-                                int hungerGain = ChestCavityUtil.applyStomachHunger(CC_player.getChestCavityInstance(),item.getFoodComponent().getHunger());
+                                int hungerGain = ChestCavityUtil.applyStomachHunger(CC_player.getChestCavityInstance(),efs.digestion,item.getFoodComponent().getHunger());
                                 //now calculate the saturation modifier that gives me what I want
                                 float newSaturation = saturationGain / (hungerGain * 2);
                                 //now make a dummy food item with the modified stats and feed it to HungerManager.eat();

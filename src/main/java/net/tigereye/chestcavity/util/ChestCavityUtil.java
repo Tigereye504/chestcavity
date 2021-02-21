@@ -5,6 +5,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.ProjectileDamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -179,11 +180,15 @@ public class ChestCavityUtil {
         return damage;
     }
 
-    public static float applyIntestinesSaturation(ChestCavityInstance cc, float sat){
-        if(!cc.opened){
-            return sat;
+    public static float applyNutrition(ChestCavityInstance cc, float nutrition, float saturation){
+        if(nutrition == 1){
+            return saturation;
         }
-        return sat*cc.organScores.getOrDefault(CCOrganScores.NUTRITION,0f)/4;
+        if(nutrition < 0){
+            cc.owner.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER,(int)(saturation*nutrition*800)));
+            return 0;
+        }
+        return saturation*nutrition/4;
         //TODO: find a use for intestines for non-players
     }
 
@@ -200,12 +205,16 @@ public class ChestCavityUtil {
         //TODO: find a use for spleens for non-players
     }
 
-    public static int applyStomachHunger(ChestCavityInstance cc, int hunger){
-        if(!cc.opened){
+    public static int applyStomachHunger(ChestCavityInstance cc, float digestion, int hunger){
+        if(digestion == 1){
             return hunger;
         }
+        if(digestion < 0){
+            cc.owner.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,(int)(-hunger*digestion*400)));
+            return 0;
+        }
         //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
-        return Math.max((int)(hunger*cc.organScores.getOrDefault(CCOrganScores.DIGESTION,0f)),1);
+        return Math.max((int)(hunger*digestion),1);
         //TODO: find a use for stomachs for non-players
     }
 
@@ -386,6 +395,9 @@ public class ChestCavityUtil {
     }
 
     public static void onTick(ChestCavityInstance cc){
+        if(cc.updatePacket != null){
+            NetworkUtil.SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
+        }
         if(cc.opened) {
             OrganTickCallback.EVENT.invoker().onOrganTick(cc.owner, cc);
             organUpdate(cc);
@@ -415,15 +427,7 @@ public class ChestCavityUtil {
             OrganUpdateCallback.EVENT.invoker().onOrganUpdate(cc.owner, cc);
             cc.oldOrganScores.clear();
             cc.oldOrganScores.putAll(cc.organScores);
-            if((!cc.owner.world.isClient()) && cc.owner instanceof ServerPlayerEntity) {
-                try {
-                    ServerPlayNetworking.send((ServerPlayerEntity) cc.owner, CCNetworkingPackets.UPDATE_PACKET_ID, NetworkUtil.WriteChestCavityUpdatePacket(cc));
-                }
-                catch(Exception e){
-                    ChestCavity.LOGGER.warn("Could not send chest cavity update to client! If you are currently loading in this is normal.");
-
-                }
-            }
+            NetworkUtil.SendS2CChestCavityUpdatePacket(cc);
         }
     }
 

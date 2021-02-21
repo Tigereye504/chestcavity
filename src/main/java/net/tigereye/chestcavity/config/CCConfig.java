@@ -9,7 +9,7 @@ import net.tigereye.chestcavity.ChestCavity;
 public class CCConfig implements ConfigData {
 
     public float ORGAN_BUNDLE_LOOTING_BOOST = .01f;
-    public float UNIVERSAL_DONOR_RATE = .25f;
+    public float UNIVERSAL_DONOR_RATE = .035f;
 
     public int HEARTBLEED_RATE = 20; //how fast you die from lacking a heart in ticks
     public int KIDNEY_RATE = 60; //how often the kidneys prevent blood poisoning in ticks
@@ -21,9 +21,12 @@ public class CCConfig implements ConfigData {
 
     public int ARROW_DODGE_DISTANCE = 32; //how far you can teleport when dodging projectiles
     public float FIREPROOF_DEFENSE = .75f; //damage reduction from 4 stacks of fireproof organs
-    public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
     public int MAX_TELEPORT_ATTEMPTS = 5;
+    public int RUMINATION_TIME = 400; //time to eat a unit of grass
+    public int RUMINATION_GRASS_PER_SQUARE = 2; //number of grass units are in a square
+    public int RUMINATION_SQUARES_PER_STOMACH = 3; //number of grass squares a stomach can hold
     public int SHULKER_BULLET_TARGETING_RANGE = 20;
+    public float WITHERED_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
 
     public int ARROW_DODGE_COOLDOWN = 200; //how often an entity is allowed to dodge projectiles
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding

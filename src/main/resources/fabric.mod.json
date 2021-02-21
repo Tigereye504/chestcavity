@@ -21,6 +21,9 @@
     "client": [
       "net.tigereye.chestcavity.ChestCavityClient"
     ],
+    "server": [
+      "net.tigereye.chestcavity.ChestCavityServer"
+    ],
     "main": [
       "net.tigereye.chestcavity.ChestCavity"
     ],

@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.listeners;
 
 import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -18,20 +19,27 @@ public class OrganTickListeners {
     public static void register(){
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickProjectileQueue);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickActivatedOrgans);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHealth);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickFiltration);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickBuoyant);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickForcefulSpit);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickForcefulSpit);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydroallergenic);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickPyromancy);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickGhastly);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickShulkerBullets);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickPyromancy);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickGhastly);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickShulkerBullets);
+        //OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
+    }
+
+    private static void TickActivatedOrgans(LivingEntity entity, ChestCavityInstance chestCavity) {
+        if(entity.getPose() == EntityPose.CROUCHING){
+            OrganActivationCallback.EVENT.invoker().onOrganActivation(entity,chestCavity);
+        }
     }
 
     public static void TickBuoyant(LivingEntity entity, ChestCavityInstance chestCavity){
@@ -39,7 +47,7 @@ public class OrganTickListeners {
             return;
         }
         float buoyancy = chestCavity.getOrganScore(CCOrganScores.BUOYANT);
-        if(buoyancy > 0)
+        if(buoyancy != 0)
         {
             entity.addVelocity(0.0D, buoyancy*0.02D, 0.0D);
         }

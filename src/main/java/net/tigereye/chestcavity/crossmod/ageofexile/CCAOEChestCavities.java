@@ -31,10 +31,10 @@ public class CCAOEChestCavities {
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"nature_mage"), CCChestCavityTypes.HUMAN_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"healer_mage"), CCChestCavityTypes.HUMAN_CHEST_CAVITY);
 
-        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"fire_chicken"), CCChestCavityTypes.SMALL_ANIMAL_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"water_chicken"), CCChestCavityTypes.SMALL_ANIMAL_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"thunder_chicken"), CCChestCavityTypes.SMALL_ANIMAL_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"nature_chicken"), CCChestCavityTypes.SMALL_ANIMAL_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"fire_chicken"), CCChestCavityTypes.SMALL_OMNIVORE_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"water_chicken"), CCChestCavityTypes.SMALL_OMNIVORE_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"thunder_chicken"), CCChestCavityTypes.SMALL_OMNIVORE_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"nature_chicken"), CCChestCavityTypes.SMALL_OMNIVORE_CHEST_CAVITY);
 
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"fire_skeleton"), CCChestCavityTypes.SKELETON_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"water_skeleton"), CCChestCavityTypes.SKELETON_CHEST_CAVITY);

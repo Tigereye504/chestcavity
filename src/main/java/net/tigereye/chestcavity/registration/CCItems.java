@@ -13,7 +13,6 @@ public class CCItems {
 	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ItemGroup.TOOLS);
 	public static final Item.Settings FOOD_ITEM_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD);
 
-
 	public static final Item CHEST_OPENER = new ChestOpener();
 
 	public static final Organ HUMAN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,1f);
@@ -30,14 +29,14 @@ public class CCItems {
 
 	public static final Organ ROTTEN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.5f);
 	public static final Organ ROTTEN_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
-	public static final Organ ROTTEN_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
+	public static final Organ ROTTEN_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f).setOrganQuality(CCOrganScores.ROTGUT,1f);
 	public static final Organ ROTTEN_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,.5f);
 	public static final Organ ROTTEN_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,.5f);
 	public static final Organ ROTTEN_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,.5f);
 	public static final Organ ROTTEN_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,.5f);
 	public static final Organ ROTTEN_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f);
 	public static final Organ ROTTEN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.5f);
-	public static final Organ ROTTEN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
+	public static final Organ ROTTEN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f).setOrganQuality(CCOrganScores.ROT_DIGESTION,1f);
 	public static final Organ WITHERED_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,.5f).setOrganQuality(CCOrganScores.WITHERED,1);
 	public static final Organ WITHERED_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.5f).setOrganQuality(CCOrganScores.DEFENSE,.375f).setOrganQuality(CCOrganScores.WITHERED,1);
 	public static final Organ WRITHING_SOULSAND = new Organ(16).setOrganQuality(CCOrganScores.STRENGTH,1.5f).setOrganQuality(CCOrganScores.SPEED,.5f);
@@ -55,6 +54,12 @@ public class CCItems {
 	public static final Organ ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.75f);
 	public static final Organ GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,1);
 	public static final Organ LLAMA_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f).setOrganQuality(CCOrganScores.FORCEFUL_SPIT,1);
+	public static final Organ CARNIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,1.25f);
+	public static final Organ CARNIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,1.25f);
+	public static final Organ HERBIVORE_RUMEN = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,1f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,-.5f).setOrganQuality(CCOrganScores.GRAZING,1f);
+	public static final Organ HERBIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,1.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.25f);
+	public static final Organ HERBIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,1.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.25f);
+
 
 	public static final Organ SMALL_ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.5f);
 	public static final Organ SMALL_ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
@@ -69,6 +74,10 @@ public class CCItems {
 	public static final Organ SMALL_ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
 	public static final Organ RABBIT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
 	public static final Organ SMALL_GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,.5f);
+	public static final Organ SMALL_CARNIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.75f);
+	public static final Organ SMALL_CARNIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.75f);
+	public static final Organ SMALL_HERBIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.75f);
+	public static final Organ SMALL_HERBIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.75f);
 
 	public static final Organ INSECT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
 	public static final Organ INSECT_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
@@ -144,7 +153,9 @@ public class CCItems {
 	public static final Item COOKED_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_ALIEN_SAUSAGE_FOOD_COMPONENT));
 	public static final Item RAW_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
-	
+
+	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
+	public static final Item DUMMY_FOOD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.DUMMY_FOOD_COMPONENT));
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
 
@@ -187,6 +198,11 @@ public class CCItems {
 		registerItem("animal_stomach", ANIMAL_STOMACH);
 		registerItem("gills", GILLS);
 		registerItem("llama_lung", LLAMA_LUNG);
+		registerItem("carnivore_stomach",CARNIVORE_STOMACH);
+		registerItem("carnivore_intestine",CARNIVORE_INTESTINE);
+		registerItem("herbivore_rumen",HERBIVORE_RUMEN);
+		registerItem("herbivore_stomach",HERBIVORE_STOMACH);
+		registerItem("herbivore_intestine",HERBIVORE_INTESTINE);
 
 		registerItem("small_animal_appendix", SMALL_ANIMAL_APPENDIX);
 		registerItem("small_animal_heart", SMALL_ANIMAL_HEART);
@@ -201,6 +217,10 @@ public class CCItems {
 		registerItem("small_animal_stomach", SMALL_ANIMAL_STOMACH);
 		registerItem("rabbit_heart", RABBIT_HEART);
 		registerItem("small_gills", SMALL_GILLS);
+		registerItem("small_carnivore_stomach",SMALL_CARNIVORE_STOMACH);
+		registerItem("small_carnivore_intestine",SMALL_CARNIVORE_INTESTINE);
+		registerItem("small_herbivore_stomach",SMALL_HERBIVORE_STOMACH);
+		registerItem("small_herbivore_intestine",SMALL_HERBIVORE_INTESTINE);
 
 		registerItem("insect_heart", INSECT_HEART);
 		registerItem("insect_intestine", INSECT_INTESTINE);
@@ -275,6 +295,8 @@ public class CCItems {
 		registerItem("alien_sausage", COOKED_ALIEN_SAUSAGE);
 		registerItem("raw_rich_alien_sausage", RAW_RICH_ALIEN_SAUSAGE);
 		registerItem("rich_alien_sausage", COOKED_RICH_ALIEN_SAUSAGE);
+
+		registerItem("cud", CUD);
 	}
 	
 	private static void registerItem(String name, Item item) {

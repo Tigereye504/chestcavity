@@ -9,6 +9,15 @@
       "chestcavity:animal_lung",
       "chestcavity:animal_stomach",
       "chestcavity:animal_spleen",
-      "chestcavity:gills"
+      "chestcavity:carnivore_intestine",
+      "chestcavity:carnivore_stomach",
+      "chestcavity:gas_bladder",
+      "chestcavity:gills",
+      "chestcavity:herbivore_intestine",
+      "chestcavity:herbivore_stomach",
+      "chestcavity:herbivore_rumen",
+      "chestcavity:llama_lung",
+      "chestcavity:shulker_spleen",
+      "chestcavity:volatile_stomach"
     ]
 }
