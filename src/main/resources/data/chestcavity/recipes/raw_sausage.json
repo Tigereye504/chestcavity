@@ -26,7 +26,7 @@
         "item": "chestcavity:raw_butchered_meat"
       },
       {
-        "item": "chestcavity:animal_intestine"
+        "tag": "chestcavity:sausage_skins_animal"
       }
   ],
   "result": {
