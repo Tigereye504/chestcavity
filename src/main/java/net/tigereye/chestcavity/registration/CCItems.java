@@ -76,8 +76,8 @@ public class CCItems {
 	public static final Organ SMALL_GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,.5f);
 	public static final Organ SMALL_CARNIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.75f);
 	public static final Organ SMALL_CARNIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.75f);
-	public static final Organ SMALL_HERBIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.75f);
-	public static final Organ SMALL_HERBIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.75f);
+	public static final Organ SMALL_HERBIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.25f);
+	public static final Organ SMALL_HERBIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.25f);
 
 	public static final Organ INSECT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
 	public static final Organ INSECT_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
