@@ -1,7 +1,6 @@
 package net.tigereye.chestcavity.listeners;
 
 import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -217,7 +216,7 @@ public class OrganTickListeners {
     }
 
     public static void TickIncompatibility(LivingEntity entity,ChestCavityInstance chestCavity){
-        if(entity.getEntityWorld().isClient()){ //this is a server-side event
+        if(entity.getEntityWorld().isClient() || ChestCavity.config.DISABLE_ORGAN_REJECTION){ //this is a server-side event
             return;
         }
         float incompatibility = chestCavity.getOrganScore(CCOrganScores.INCOMPATIBILITY);

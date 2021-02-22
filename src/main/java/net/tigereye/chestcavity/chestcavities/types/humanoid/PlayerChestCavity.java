@@ -34,7 +34,7 @@ public class PlayerChestCavity extends HumanChestCavity implements ChestCavityTy
     @Override
     public void onDeath(ChestCavityInstance cc){
         cc.projectileQueue.clear();
-        if(!cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
+        if(!ChestCavity.config.KEEP_CHEST_CAVITY) {
             ChestCavityUtil.dropUnboundOrgans(cc);
         }
         insertWelfareOrgans(cc);

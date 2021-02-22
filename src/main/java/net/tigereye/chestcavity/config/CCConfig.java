@@ -42,6 +42,8 @@ public class CCConfig implements ConfigData {
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
 
     public boolean CAN_OPEN_OTHER_PLAYERS = false;
+    public boolean KEEP_CHEST_CAVITY = false;
+    public boolean DISABLE_ORGAN_REJECTION = false;
     public boolean AGE_OF_EXILE_INTEGRATION = true;
     public boolean ANTHROPOPHAGY_INTEGRATION = true;
     public boolean BACKROOMS_INTEGRATION = true;
