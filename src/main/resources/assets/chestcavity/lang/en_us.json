@@ -212,6 +212,8 @@
     "text.autoconfig.chestcavity.option.ORGAN_REJECTION_RATE": "Organ Rejection Rate",
     "text.autoconfig.chestcavity.option.RISK_OF_PRIONS": "Risk of Prions",
     "text.autoconfig.chestcavity.option.CAN_OPEN_OTHER_PLAYERS": "Can Open Other Players",
+    "text.autoconfig.chestcavity.option.KEEP_CHEST_CAVITY": "Keep Unowned Organs on Death",
+    "text.autoconfig.chestcavity.option.DISABLE_ORGAN_REJECTION": "Disable Organ Rejection",
     "text.autoconfig.chestcavity.option.AGE_OF_EXILE_INTEGRATION": "Age Of Exile Integration (Restart)",
     "text.autoconfig.chestcavity.option.ANTHROPOPHAGY_INTEGRATION": "Anthropophagy Integration (Restart)",
     "text.autoconfig.chestcavity.option.BACKROOMS_INTEGRATION": "Backrooms Integration (Restart)",
