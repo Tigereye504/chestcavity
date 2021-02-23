@@ -11,6 +11,7 @@
     "MixinLivingEntity$Creeper",
     "MixinLivingEntity$Mob",
     "MixinLivingEntity$Player",
+    "MixinLivingEntity$PlayerMixinChooseBetterName",
     "MixinLivingEntity$Server",
     "MixinLivingEntity$Sheep",
     "MixinLivingEntity$Wither",
