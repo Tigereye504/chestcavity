@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactory;
+import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.listeners.OrganFoodEffectCallback;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.items.ChestOpener;
@@ -151,10 +152,26 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
         @Inject(at = @At("HEAD"), method = "method_29506", cancellable = true) //if this breaks, its likely because yarn changed the name to interactWithItem
         protected void chestCavityLivingEntityInteractMobMixin(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
-            if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER
-                    && (ChestCavity.config.CAN_OPEN_OTHER_PLAYERS || !(((LivingEntity)(Object)this) instanceof PlayerEntity))){
+            if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER && (!(((LivingEntity)(Object)this) instanceof PlayerEntity))){
                 ((ChestOpener)player.getStackInHand(hand).getItem()).openChestCavity(player,(LivingEntity)(Object)this);
                 info.setReturnValue(ActionResult.SUCCESS);
+            }
+        }
+    }
+    
+    @Mixin(PlayerEntity.class)
+    public static abstract class PlayerMixinChooseBetterName {
+        @Inject(at = @At("HEAD"), method = "interact", cancellable = true)
+        void chestCavityPlayerEntityInteractPlayerMixin(Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> info) {
+            if (entity instanceof LivingEntity && ChestCavity.config.CAN_OPEN_OTHER_PLAYERS) {
+                PlayerEntity player = ((PlayerEntity) (Object) this);
+                ItemStack stack = player.getStackInHand(hand);
+    
+                if (stack.getItem() == CCItems.CHEST_OPENER) {
+                    ((ChestOpener) stack.getItem()).openChestCavity(player, (LivingEntity) entity);
+                    info.setReturnValue(ActionResult.SUCCESS);
+                    info.cancel();
+                }
             }
         }
     }
