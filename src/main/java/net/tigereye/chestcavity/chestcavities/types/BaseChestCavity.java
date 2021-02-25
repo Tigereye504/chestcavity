@@ -18,6 +18,7 @@ public class BaseChestCavity implements ChestCavityType {
 
     private Map<Identifier,Float> defaultOrganScores = null;
     private ChestCavityInventory defaultChestCavity = new ChestCavityInventory();
+    //public boolean[] forbiddenSlots;
 
     public BaseChestCavity(){
         fillChestCavityInventory(defaultChestCavity);
@@ -37,7 +38,15 @@ public class BaseChestCavity implements ChestCavityType {
     public float getDefaultOrganScore(Identifier id){return getDefaultOrganScores().getOrDefault(id,0f);}
     @Override
     public ChestCavityInventory getDefaultChestCavity(){return defaultChestCavity;}
-
+    /*
+    @Override
+    public boolean isSlotForbidden(int index){
+        if(forbiddenSlots.length < index){
+            return true;
+        }
+        return forbiddenSlots[index];
+    }
+    */
     @Override
     public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
@@ -45,7 +54,12 @@ public class BaseChestCavity implements ChestCavityType {
             chestCavity.setStack(i,new ItemStack(Items.DIRT,64));
         }
     }
-
+    /*
+    @Override
+    public void shapeChestCavity() {
+        forbiddenSlots = new boolean[getDefaultChestCavity().size()];
+    }
+    */
     @Override
     public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
@@ -76,7 +90,7 @@ public class BaseChestCavity implements ChestCavityType {
             ItemStack itemStack = chestCavity.getStack(i);
             if(itemStack != null && itemStack != itemStack.EMPTY){
                 CompoundTag tag = new CompoundTag();
-                tag.putUuid("owner",instance.owner.getUuid());
+                tag.putUuid("owner",instance.compatibility_id);
                 tag.putString("name",instance.owner.getDisplayName().getString());
                 itemStack.putSubTag(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }

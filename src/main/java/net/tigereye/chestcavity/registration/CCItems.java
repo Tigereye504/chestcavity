@@ -155,7 +155,7 @@ public class CCItems {
 	public static final Item COOKED_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
 
 	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
-	public static final Item DUMMY_FOOD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.DUMMY_FOOD_COMPONENT));
+	public static final Item DUMMY_FOOD = new Item(new Item.Settings().food(CCFoodComponents.DUMMY_FOOD_COMPONENT));
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
 
@@ -296,7 +296,6 @@ public class CCItems {
 		registerItem("raw_rich_alien_sausage", RAW_RICH_ALIEN_SAUSAGE);
 		registerItem("rich_alien_sausage", COOKED_RICH_ALIEN_SAUSAGE);
 
-		registerItem("cud", CUD);
 	}
 	
 	private static void registerItem(String name, Item item) {

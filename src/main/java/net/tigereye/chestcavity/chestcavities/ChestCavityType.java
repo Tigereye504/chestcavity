@@ -13,8 +13,10 @@ public interface ChestCavityType {
     public Map<Identifier,Float> getDefaultOrganScores();
     public float getDefaultOrganScore(Identifier id);
     public ChestCavityInventory getDefaultChestCavity();
+    //public boolean isSlotForbidden(int index);
 
     public void fillChestCavityInventory(ChestCavityInventory chestCavity);
+    //public void shapeChestCavity();
     public void loadBaseOrganScores(Map<Identifier, Float> organScores);
     public boolean catchExceptionalOrgan(ItemStack slot,Map<Identifier, Float> organScores);
 

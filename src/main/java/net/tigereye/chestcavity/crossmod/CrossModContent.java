@@ -4,6 +4,7 @@ import net.tigereye.chestcavity.crossmod.ageofexile.CCAOE;
 import net.tigereye.chestcavity.crossmod.anthropophagy.CCAntropophagy;
 import net.tigereye.chestcavity.crossmod.backrooms.CCBackrooms;
 import net.tigereye.chestcavity.crossmod.direbats.CCDirebats;
+import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,5 +16,6 @@ public class CrossModContent {
         CCAntropophagy.register();
         CCBackrooms.register();
         CCDirebats.register();
+        CCRequiem.register();
     }
 }

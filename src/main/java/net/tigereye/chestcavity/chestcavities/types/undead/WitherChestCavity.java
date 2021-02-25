@@ -86,7 +86,7 @@ public class WitherChestCavity extends BaseChestCavity implements ChestCavityTyp
             ItemStack itemStack = cc.inventory.getStack(i);
             if(itemStack != null && itemStack != ItemStack.EMPTY){
                 CompoundTag tag = new CompoundTag();
-                tag.putUuid("owner",cc.owner.getUuid());
+                tag.putUuid("owner",cc.compatibility_id);
                 tag.putString("name",cc.owner.getDisplayName().getString());
                 itemStack.putSubTag(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }

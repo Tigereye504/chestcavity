@@ -34,6 +34,12 @@ dependencies {
 	// These are optional dependencies, though best as I can tell gradlew doesn't care
 	 //modApi "com.github.moriyashiine:anthropophagy-1.16.5-1"
 	// modImplementation "com.github.LudoCrypt:the-backrooms:1.3.0"
+	implementation "me.zeroeightsix:fiber:${project.fiber_version}"
+	modImplementation "io.github.ladysnake:requiem-api:${requiem_version}"
+	modRuntime "io.github.ladysnake:requiem:${requiem_version}"
+	//modApi "io.github.ladysnake:requiem:${requiem_version}"
+	//compileOnly "io.github.ladysnake:requiem:${requiem_version}"
+
 
 	// Jar-in-Jar dependencies
 	include "com.github.tigereye504:modify-drops-api:0.3.1"
@@ -42,10 +48,17 @@ dependencies {
 }
 
 repositories {
-    maven {
-        name = "Ladysnake Libs"
-        url = 'https://dl.bintray.com/ladysnake/libs/'
-    }
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://dl.bintray.com/ladysnake/mods'
+	}
+	maven {
+		name = "Ladysnake Libs"
+		url = 'https://dl.bintray.com/ladysnake/libs/'
+	}
+	maven {
+		url = "https://maven.modmuss50.me/"
+	}
 	maven { url = 'https://jitpack.io' }
 }
 

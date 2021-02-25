@@ -48,4 +48,5 @@ public class CCConfig implements ConfigData {
     public boolean ANTHROPOPHAGY_INTEGRATION = true;
     public boolean BACKROOMS_INTEGRATION = true;
     public boolean DIREBATS_INTEGRATION = true;
+    public boolean REQUIEM_INTEGRATION = true;
 }

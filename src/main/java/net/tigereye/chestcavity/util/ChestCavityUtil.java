@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.util;
 
+import ladysnake.requiem.api.v1.possession.Possessable;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -22,6 +23,7 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.Organ;
@@ -287,7 +289,7 @@ public class ChestCavityUtil {
                 CompoundTag tag = itemStack.getTag();
                 if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
                     tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
-                    if (!tag.getUuid("owner").equals(cc.owner.getUuid())) {
+                    if (!tag.getUuid("owner").equals(cc.compatibility_id)) {
                         //drop item
                         cc.owner.dropStack(cc.inventory.removeStack(i));
                     }
@@ -326,9 +328,9 @@ public class ChestCavityUtil {
                     String CompatTag = ChestCavity.COMPATIBILITY_TAG.toString();
                     if (tag != null && tag.contains(CompatTag) && slotitem instanceof Organ) {
                         tag = tag.getCompound(CompatTag);
-                        if (!tag.getUuid("owner").equals(cc.owner.getUuid())) {
+                        if (!tag.getUuid("owner").equals(cc.compatibility_id)) {
                             if (ChestCavity.DEBUG_MODE && cc.owner instanceof PlayerEntity) {
-                                System.out.println("incompatability found! item bound to UUID " + tag.getUuid("owner").toString() + " but player is UUID " + cc.owner.getUuid());
+                                System.out.println("incompatability found! item bound to UUID " + tag.getUuid("owner").toString() + " but player is UUID " + cc.compatibility_id);
                             }
                             addOrganScore(CCOrganScores.INCOMPATIBILITY, 1,cc.organScores);
                         }
@@ -397,6 +399,17 @@ public class ChestCavityUtil {
     public static void onTick(ChestCavityInstance cc){
         if(cc.updatePacket != null){
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
+        }
+        if(CCRequiem.REQUIEM_ACTIVE) {
+            if (cc.owner instanceof Possessable && ((Possessable) cc.owner).isBeingPossessed()) {
+                Optional<ChestCavityEntity> option = ChestCavityEntity.of(((Possessable) cc.owner).getPossessor());
+                if(option.isPresent()){
+                    ChestCavityInstance possessorCC = option.get().getChestCavityInstance();
+                    openChestCavity(possessorCC);
+                    possessorCC.organScores.clear();
+                    possessorCC.organScores.putAll(cc.organScores);
+                }
+            }
         }
         if(cc.opened) {
             OrganTickCallback.EVENT.invoker().onOrganTick(cc.owner, cc);

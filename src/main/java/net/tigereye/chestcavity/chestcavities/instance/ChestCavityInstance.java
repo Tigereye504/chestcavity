@@ -24,9 +24,9 @@ public class ChestCavityInstance implements InventoryChangedListener {
 
     public ChestCavityType type;
     public LivingEntity owner;
+    public UUID compatibility_id;
 
     public boolean opened = false;
-    public PacketByteBuf updatePacket = null;
     public ChestCavityInventory inventory = new ChestCavityInventory();
     public Map<Identifier,Float> oldOrganScores = new HashMap<>();
     public Map<Identifier,Float> organScores = new HashMap<>();
@@ -40,9 +40,13 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public float lungRemainder = 0;
     public int projectileCooldown = 0;
 
+    public PacketByteBuf updatePacket = null;
+    public ChestCavityInstance ccBeingOpened = null;
+
     public ChestCavityInstance(ChestCavityType type, LivingEntity owner){
         this.type = type;
         this.owner = owner;
+        this.compatibility_id = owner.getUuid();
         ChestCavityUtil.evaluateChestCavity(this);
     }
 
@@ -72,7 +76,12 @@ public class ChestCavityInstance implements InventoryChangedListener {
             this.liverTimer = ccTag.getInt("LiverTimer");
             this.spleenTimer = ccTag.getInt("SpleenTimer");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
-
+            if(ccTag.contains("compatibility_id")){
+                this.compatibility_id = ccTag.getUuid("compatibility_id");
+            }
+            else{
+                this.compatibility_id = owner.getUuid();
+            }
             try {
                 inventory.removeListener(this);
             }
@@ -113,6 +122,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
         }
         CompoundTag ccTag = new CompoundTag();
         ccTag.putBoolean("opened", this.opened);
+        ccTag.putUuid("compatibility_id", this.compatibility_id);
         ccTag.putInt("HeartTimer", this.heartBleedTimer);
         ccTag.putInt("KidneyTimer", this.bloodPoisonTimer);
         ccTag.putInt("LiverTimer", this.liverTimer);
@@ -129,9 +139,11 @@ public class ChestCavityInstance implements InventoryChangedListener {
             inventory.removeListener(this);
         }
         catch(NullPointerException ignored){}
-        for(int i = 0; i < inventory.size(); ++i) {
-            inventory.setStack(i, other.inventory.getStack(i));
-        }
+        //for(int i = 0; i < inventory.size(); ++i) {
+        //    inventory.setStack(i, other.inventory.getStack(i));
+        //    inventory.forbiddenSlots = other.inventory.forbiddenSlots;
+        //}
+        inventory.readTags(other.inventory.getTags());
         inventory.addListener(this);
 
         heartBleedTimer = other.heartBleedTimer;

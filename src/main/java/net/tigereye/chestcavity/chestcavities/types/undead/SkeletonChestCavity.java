@@ -18,7 +18,6 @@ public class SkeletonChestCavity extends BaseChestCavity implements ChestCavityT
     @Override
     public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
-        chestCavity.setStack(0, ItemStack.EMPTY);
         chestCavity.setStack(1, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
         chestCavity.setStack(2, ItemStack.EMPTY);
         chestCavity.setStack(3, ItemStack.EMPTY);
@@ -26,8 +25,6 @@ public class SkeletonChestCavity extends BaseChestCavity implements ChestCavityT
         chestCavity.setStack(5, ItemStack.EMPTY);
         chestCavity.setStack(6, ItemStack.EMPTY);
         chestCavity.setStack(7, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
-        chestCavity.setStack(8, ItemStack.EMPTY);
-        chestCavity.setStack(9, ItemStack.EMPTY);
         chestCavity.setStack(10, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
         chestCavity.setStack(11, ItemStack.EMPTY);
         chestCavity.setStack(12, ItemStack.EMPTY);
@@ -35,18 +32,26 @@ public class SkeletonChestCavity extends BaseChestCavity implements ChestCavityT
         chestCavity.setStack(14, ItemStack.EMPTY);
         chestCavity.setStack(15, ItemStack.EMPTY);
         chestCavity.setStack(16, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
-        chestCavity.setStack(17, ItemStack.EMPTY);
-        chestCavity.setStack(18, ItemStack.EMPTY);
-        chestCavity.setStack(19, ItemStack.EMPTY);
-        chestCavity.setStack(20, ItemStack.EMPTY);
-        chestCavity.setStack(21, ItemStack.EMPTY);
-        chestCavity.setStack(22, ItemStack.EMPTY);
-        chestCavity.setStack(23, ItemStack.EMPTY);
-        chestCavity.setStack(24, ItemStack.EMPTY);
-        chestCavity.setStack(25, ItemStack.EMPTY);
-        chestCavity.setStack(26, ItemStack.EMPTY);
     }
-
+    /*
+    @Override
+    public void shapeChestCavity() {
+        forbiddenSlots = new boolean[getDefaultChestCavity().size()];
+        forbiddenSlots[0] = true;
+        forbiddenSlots[8] = true;
+        forbiddenSlots[9] = true;
+        forbiddenSlots[17] = true;
+        forbiddenSlots[18] = true;
+        forbiddenSlots[19] = true;
+        forbiddenSlots[20] = true;
+        forbiddenSlots[21] = true;
+        forbiddenSlots[22] = true;
+        forbiddenSlots[23] = true;
+        forbiddenSlots[24] = true;
+        forbiddenSlots[25] = true;
+        forbiddenSlots[26] = true;
+    }
+    */
     @Override
     public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();

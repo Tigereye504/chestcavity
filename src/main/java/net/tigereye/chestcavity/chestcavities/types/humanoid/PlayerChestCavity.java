@@ -24,7 +24,7 @@ public class PlayerChestCavity extends HumanChestCavity implements ChestCavityTy
             ItemStack itemStack = cc.inventory.getStack(i);
             if(itemStack != null && itemStack.getItem() instanceof Organ){
                 CompoundTag tag = new CompoundTag();
-                tag.putUuid("owner",cc.owner.getUuid());
+                tag.putUuid("owner",cc.compatibility_id);
                 tag.putString("name",cc.owner.getDisplayName().getString());
                 itemStack.putSubTag(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }

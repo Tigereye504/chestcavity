@@ -4,22 +4,37 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.Property;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 
 public class ChestCavityScreenHandler extends ScreenHandler {
 
-    private final Inventory inventory;
+    private final ChestCavityInventory inventory;
     private final int size;
     private final int rows;
 
-    public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new ChestCavityInventory());
+    private static ChestCavityInventory getOrCreateChestCavityInventory(PlayerInventory playerInventory){/*
+        ChestCavityInstance playerCC = ((ChestCavityEntity)playerInventory.player).getChestCavityInstance();
+        ChestCavityInstance targetCCI = playerCC.ccBeingOpened;
+        if(targetCCI != null){
+            ChestCavity.LOGGER.info("Found CCI");
+            return targetCCI.inventory;
+        }
+        ChestCavity.LOGGER.info("Missed CCI");*/
+        return new ChestCavityInventory();
     }
 
-    public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+    public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, getOrCreateChestCavityInventory(playerInventory));
+    }
+
+    public ChestCavityScreenHandler(int syncId, PlayerInventory playerInventory, ChestCavityInventory inventory) {
         super(ChestCavity.CHEST_CAVITY_SCREEN_HANDLER, syncId);
         this.size = inventory.size();
         this.inventory = inventory;
@@ -55,6 +70,9 @@ public class ChestCavityScreenHandler extends ScreenHandler {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.size()) {
+                /*if(inventory.getInstance().type.isSlotForbidden(invSlot)){
+                    return ItemStack.EMPTY;
+                }*/
                 if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
