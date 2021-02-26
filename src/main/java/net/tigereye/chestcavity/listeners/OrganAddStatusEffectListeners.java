@@ -17,16 +17,16 @@ public class OrganAddStatusEffectListeners {
     }
 
     private static StatusEffectInstance ApplyDetoxification(LivingEntity entity, ChestCavityInstance cc, StatusEffectInstance instance) {
-        if(cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DETOXIFICATION) <= 0)
-                //|| entity.getEntityWorld().isClient())
-        { //this is a server-side event only for things that use detox
+        if(cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DETOXIFICATION) <= 0
+        || cc.getOrganScore(CCOrganScores.DETOXIFICATION) == cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DETOXIFICATION))
+        {
             return instance;
         }
         CCStatusEffect ccStatusEffect = (CCStatusEffect)instance.getEffectType();
         if(ccStatusEffect.CC_IsHarmful()){
             CCStatusEffectInstance ccInstance = (CCStatusEffectInstance) instance;
             float detoxRatio = cc.getOrganScore(CCOrganScores.DETOXIFICATION)/cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DETOXIFICATION);
-            ccInstance.CC_setDuration((int) (instance.getDuration() * 2 / (1 + detoxRatio)));
+            ccInstance.CC_setDuration((int) Math.max(1,instance.getDuration() * 2 / (1 + detoxRatio)));
         }
         return instance;
     }

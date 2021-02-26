@@ -78,7 +78,7 @@ public class OrganTickListeners {
         {
             cc.bloodPoisonTimer = cc.bloodPoisonTimer+1;
             if(cc.bloodPoisonTimer >= ChestCavity.config.KIDNEY_RATE){
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)(48*(1-KidneyRatio))));
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, (int)Math.max(1,48*(1-KidneyRatio))));
                 cc.bloodPoisonTimer = 0;
             }
         }
