@@ -3,21 +3,16 @@ package net.tigereye.chestcavity.crossmod.direbats;
 import net.fabricmc.loader.api.FabricLoader;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.crossmod.CrossModContent;
-import net.tigereye.chestcavity.crossmod.ageofexile.CCAOEChestCavities;
+import net.tigereye.chestcavity.crossmod.age_of_exile.CCAOEChestCavities;
+import net.tigereye.chestcavity.crossmod.bewitchment.CCBewitchmentChestCavities;
 
 public class CCDirebats {
     public static final String MODID = "direbats";
+    private static final String NAME = "Direbats";
+
     public static void register(){
-        CCAOEChestCavities.register();
-        if (FabricLoader.getInstance().isModLoaded(MODID)){
-            CrossModContent.LOGGER.info("[Chest Cavity] Direbats Detected!");
-            if(ChestCavity.config.DIREBATS_INTEGRATION) {
-                CrossModContent.LOGGER.info("[Chest Cavity] Integrating with Direbats");
-                CCDirebatsChestCavities.register();
-            }
-            else{
-                CrossModContent.LOGGER.info("[Chest Cavity] Direbats integration has been disabled in the config.");
-            }
+        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.DIREBATS_INTEGRATION)){
+            CCDirebatsChestCavities.register();
         }
     }
 }

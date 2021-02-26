@@ -21,6 +21,8 @@ import net.tigereye.chestcavity.chestcavities.types.undead.ZombieChestCavity;
 
 public class CCChestCavityTypes {
     public static final ChestCavityType BASE_CHEST_CAVITY = new BaseChestCavity();
+    public static final ChestCavityType EMPTY_CHEST_CAVITY = new EmptyChestCavity();
+    public static final ChestCavityType NULL_CHEST_CAVITY = new NullChestCavity();
 
     public static final ChestCavityType OMNIVORE_CHEST_CAVITY = new OmnivoreChestCavity();
     public static final ChestCavityType CARNIVORE_CHEST_CAVITY = new CarnivoreChestCavity();

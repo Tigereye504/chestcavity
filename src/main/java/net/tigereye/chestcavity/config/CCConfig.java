@@ -44,9 +44,13 @@ public class CCConfig implements ConfigData {
     public boolean CAN_OPEN_OTHER_PLAYERS = false;
     public boolean KEEP_CHEST_CAVITY = false;
     public boolean DISABLE_ORGAN_REJECTION = false;
+
     public boolean AGE_OF_EXILE_INTEGRATION = true;
     public boolean ANTHROPOPHAGY_INTEGRATION = true;
     public boolean BACKROOMS_INTEGRATION = true;
+    public boolean BEWITCHMENT_INTEGRATION = true;
+    public boolean BIOME_MAKEOVER_INTEGRATION = true;
     public boolean DIREBATS_INTEGRATION = true;
+    public boolean RATS_MISCHIEF_INTEGRATION = true;
     public boolean REQUIEM_INTEGRATION = true;
 }

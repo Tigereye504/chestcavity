@@ -1,4 +1,4 @@
-package net.tigereye.chestcavity.crossmod.ageofexile;
+package net.tigereye.chestcavity.crossmod.age_of_exile;
 
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactory;
