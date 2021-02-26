@@ -8,7 +8,7 @@ public class CCSnowMercy {
     private static final String NAME = "Snow Mercy";
 
     public static void register(){
-        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.DIREBATS_INTEGRATION)){
+        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.SNOW_MERCY_INTEGRATION)){
             CCSnowMercyChestCavities.register();
         }
     }

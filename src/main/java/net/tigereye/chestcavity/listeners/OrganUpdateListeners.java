@@ -34,7 +34,7 @@ public class OrganUpdateListeners {
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_LUCK);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(APPENDIX_ID, "ChestCavityAppendixLuck",
-                        (cc.getOrganScore(CCOrganScores.LUCK) - cc.type.getDefaultOrganScore(CCOrganScores.LUCK))
+                        (cc.getOrganScore(CCOrganScores.LUCK) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.LUCK))
                                 * ChestCavity.config.APPENDIX_LUCK, EntityAttributeModifier.Operation.ADDITION);
                 ReplaceAttributeModifier(att, mod);
             }
@@ -47,7 +47,7 @@ public class OrganUpdateListeners {
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(HEART_ID, "ChestCavityHeartMaxHP",
-                        (cc.getOrganScore(CCOrganScores.HEALTH) - cc.type.getDefaultOrganScore(CCOrganScores.HEALTH))
+                        (cc.getOrganScore(CCOrganScores.HEALTH) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.HEALTH))
                                 * ChestCavity.config.HEART_HP, EntityAttributeModifier.Operation.ADDITION);
                 ReplaceAttributeModifier(att, mod);
             }
@@ -60,7 +60,7 @@ public class OrganUpdateListeners {
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             if (att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(MUSCLE_STRENGTH_ID, "ChestCavityMuscleAttackDamage",
-                        (cc.getOrganScore(CCOrganScores.STRENGTH) - cc.type.getDefaultOrganScore(CCOrganScores.STRENGTH))
+                        (cc.getOrganScore(CCOrganScores.STRENGTH) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.STRENGTH))
                         * ChestCavity.config.MUSCLE_STRENGTH / 8, EntityAttributeModifier.Operation.MULTIPLY_BASE);
                 ReplaceAttributeModifier(att, mod);
             }
@@ -73,7 +73,7 @@ public class OrganUpdateListeners {
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(MUSCLE_SPEED_ID, "ChestCavityMovementSpeed",
-                        (cc.getOrganScore(CCOrganScores.SPEED) - cc.type.getDefaultOrganScore(CCOrganScores.SPEED))
+                        (cc.getOrganScore(CCOrganScores.SPEED) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.SPEED))
                                 * ChestCavity.config.MUSCLE_SPEED / 8, EntityAttributeModifier.Operation.MULTIPLY_BASE);
                 ReplaceAttributeModifier(att, mod);
             }
@@ -82,13 +82,13 @@ public class OrganUpdateListeners {
 
     public static void UpdateSpine(LivingEntity entity, ChestCavityInstance cc) {
         if(cc.getOldOrganScore(CCOrganScores.NERVOUS_SYSTEM) != cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM)
-                && cc.type.getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM) != 0) {
+                && cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM) != 0) {
             //Update Speed Modifier. No spine? NO MOVING.
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(SPINE_ID, "ChestCavitySpineMovement",
-                        Math.min(0, cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM) - cc.type.getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM))
-                        / cc.type.getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+                        Math.min(0, cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM))
+                        / cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
                 ReplaceAttributeModifier(att, mod);
             }
         }

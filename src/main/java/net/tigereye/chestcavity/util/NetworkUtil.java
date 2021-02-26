@@ -18,8 +18,8 @@ public class NetworkUtil {
     public static PacketByteBuf WriteChestCavityUpdatePacket(ChestCavityInstance cc){
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBoolean(cc.opened);
-        buf.writeInt(cc.organScores.size());
-        cc.organScores.forEach((id, value) -> {
+        buf.writeInt(cc.getOrganScores().size());
+        cc.getOrganScores().forEach((id, value) -> {
             buf.writeString(id.toString());
             buf.writeFloat(value);
         });
@@ -33,7 +33,7 @@ public class NetworkUtil {
         for(int i = 0; i < entries; i++){
             organScores.put(new Identifier(buf.readString()),buf.readFloat());
         }
-        cc.organScores = organScores;
+        cc.setOrganScores(organScores);
         SendC2SChestCavityRecievedUpdatePacket(cc);
     }
 

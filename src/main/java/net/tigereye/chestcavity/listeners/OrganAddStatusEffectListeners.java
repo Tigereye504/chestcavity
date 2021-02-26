@@ -17,7 +17,7 @@ public class OrganAddStatusEffectListeners {
     }
 
     private static StatusEffectInstance ApplyDetoxification(LivingEntity entity, ChestCavityInstance cc, StatusEffectInstance instance) {
-        if(cc.type.getDefaultOrganScore(CCOrganScores.DETOXIFICATION) <= 0)
+        if(cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DETOXIFICATION) <= 0)
                 //|| entity.getEntityWorld().isClient())
         { //this is a server-side event only for things that use detox
             return instance;
@@ -25,7 +25,7 @@ public class OrganAddStatusEffectListeners {
         CCStatusEffect ccStatusEffect = (CCStatusEffect)instance.getEffectType();
         if(ccStatusEffect.CC_IsHarmful()){
             CCStatusEffectInstance ccInstance = (CCStatusEffectInstance) instance;
-            float detoxRatio = cc.getOrganScore(CCOrganScores.DETOXIFICATION)/cc.type.getDefaultOrganScore(CCOrganScores.DETOXIFICATION);
+            float detoxRatio = cc.getOrganScore(CCOrganScores.DETOXIFICATION)/cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DETOXIFICATION);
             ccInstance.CC_setDuration((int) (instance.getDuration() * 2 / (1 + detoxRatio)));
         }
         return instance;

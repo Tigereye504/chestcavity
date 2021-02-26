@@ -60,7 +60,7 @@ public class LootRegister {
                     random = new Random();
                 }
                 //with all this passed, finally we ask the chest cavity manager what the loot will actually be.
-                loot.addAll(cc.type.generateLootDrops(random,lootingLevel));
+                loot.addAll(cc.getChestCavityType().generateLootDrops(random,lootingLevel));
             }
 
             return loot;

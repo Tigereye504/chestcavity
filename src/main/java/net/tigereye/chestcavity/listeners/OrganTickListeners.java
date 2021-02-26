@@ -54,11 +54,11 @@ public class OrganTickListeners {
 
     public static void TickHealth(LivingEntity entity, ChestCavityInstance cc){
         if (cc.getOrganScore(CCOrganScores.HEALTH) <= 0
-                && cc.type.getDefaultOrganScore(CCOrganScores.HEALTH) != 0)
+                && cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.HEALTH) != 0)
         {
             if(entity.world.getTime() % ChestCavity.config.HEARTBLEED_RATE == 0) {
                 cc.heartBleedTimer = cc.heartBleedTimer + 1;
-                entity.damage(CCDamageSource.HEARTBLEED, Math.min(cc.heartBleedTimer,cc.type.getHeartBleedCap()));
+                entity.damage(CCDamageSource.HEARTBLEED, Math.min(cc.heartBleedTimer,cc.getChestCavityType().getHeartBleedCap()));
             }
         }
         else{
@@ -70,10 +70,10 @@ public class OrganTickListeners {
         if(entity.getEntityWorld().isClient()){ //this is a server-side event
             return;
         }
-        if(cc.type.getDefaultOrganScore(CCOrganScores.FILTRATION) <= 0){ //don't bother if the target doesn't need kidneys
+        if(cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.FILTRATION) <= 0){ //don't bother if the target doesn't need kidneys
             return;
         }
-        float KidneyRatio = cc.getOrganScore(CCOrganScores.FILTRATION)/cc.type.getDefaultOrganScore(CCOrganScores.FILTRATION);
+        float KidneyRatio = cc.getOrganScore(CCOrganScores.FILTRATION)/cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.FILTRATION);
         if(KidneyRatio < 1)
         {
             cc.bloodPoisonTimer = cc.bloodPoisonTimer+1;
@@ -207,7 +207,7 @@ public class OrganTickListeners {
     public static void TickHydrophobia(LivingEntity entity, ChestCavityInstance cc){
         float hydrophobia = cc.getOrganScore(CCOrganScores.HYDROPHOBIA);
         if(hydrophobia == 0                                                         //do nothing if the target isn't hydrophobic
-            || cc.type.getDefaultOrganScore(CCOrganScores.HYDROPHOBIA) != 0){   //do nothing if they are by default, otherwise endermen will spaz even harder
+            || cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.HYDROPHOBIA) != 0){   //do nothing if they are by default, otherwise endermen will spaz even harder
             return;                                                                 //TODO: make enderman water-teleporting dependent on hydrophobia
         }
         if(entity.isTouchingWaterOrRain()){

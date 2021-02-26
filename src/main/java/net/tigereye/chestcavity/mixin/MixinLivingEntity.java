@@ -102,7 +102,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("HEAD"), method = "dropInventory")
     public void chestCavityLivingEntityDropInventoryMixin(CallbackInfo info){
-        chestCavityInstance.type.onDeath(chestCavityInstance);
+        chestCavityInstance.getChestCavityType().onDeath(chestCavityInstance);
     }
 
     @ModifyVariable(at = @At("HEAD"), method = "addStatusEffect", ordinal = 0)
@@ -126,11 +126,12 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         if(food != null) {
             Optional<ChestCavityEntity> option = ChestCavityEntity.of(targetEntity);
             if (option.isPresent()) {
-                List<Pair<StatusEffectInstance, Float>> list = CCItems.DUMMY_FOOD.getFoodComponent().getStatusEffects();
+                Item dummyFood = new Item(new Item.Settings().food(new FoodComponent.Builder().hunger(1).saturationModifier(.1f).build()));
+                List<Pair<StatusEffectInstance, Float>> list = dummyFood.getFoodComponent().getStatusEffects();
                 list.clear();
                 list.addAll(food.getStatusEffects());
-                list = OrganFoodEffectCallback.EVENT.invoker().onApplyFoodEffects(list, stack, world, targetEntity, option.get().getChestCavityInstance());
-                return CCItems.DUMMY_FOOD;
+                OrganFoodEffectCallback.EVENT.invoker().onApplyFoodEffects(list, stack, world, targetEntity, option.get().getChestCavityInstance());
+                return dummyFood;
             }
         }
         return item;
@@ -234,7 +235,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                 ChestCavityInstance cc = cce.getChestCavityInstance();
                 if(cc.opened){
                     boom.setValue(f*Math.sqrt(cc.getOrganScore(CCOrganScores.EXPLOSIVE))
-                            /Math.min(1,Math.sqrt(cc.type.getDefaultOrganScore(CCOrganScores.EXPLOSIVE))));
+                            /Math.min(1,Math.sqrt(cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.EXPLOSIVE))));
                 }
             });
             return f;

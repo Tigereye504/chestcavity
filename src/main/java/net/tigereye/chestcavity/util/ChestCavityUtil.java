@@ -47,14 +47,14 @@ public class ChestCavityUtil {
     }
 
     public static float applyBoneDefense(ChestCavityInstance cc, float damage){
-        float boneDiff = (cc.getOrganScore(CCOrganScores.DEFENSE) - cc.type.getDefaultOrganScore(CCOrganScores.DEFENSE))/4;
+        float boneDiff = (cc.getOrganScore(CCOrganScores.DEFENSE) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DEFENSE))/4;
         return (float)(damage*Math.pow(ChestCavity.config.BONE_DEFENSE,boneDiff));
     }
 
     public static int applyBreathInWater(ChestCavityInstance cc, int oldAir, int newAir){
         //if your chest cavity is untouched or normal, we do nothing
-        if(!cc.opened || ( cc.type.getDefaultOrganScore(CCOrganScores.BREATH) == cc.getOrganScore(CCOrganScores.BREATH) &&
-                cc.type.getDefaultOrganScore(CCOrganScores.WATERBREATH) == cc.getOrganScore(CCOrganScores.WATERBREATH))){
+        if(!cc.opened || ( cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH) == cc.getOrganScore(CCOrganScores.BREATH) &&
+                cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.WATERBREATH) == cc.getOrganScore(CCOrganScores.WATERBREATH))){
             return newAir;
         }
 
@@ -100,8 +100,8 @@ public class ChestCavityUtil {
         //we have to recreate breath mechanics here I'm afraid
         //if your chest cavity is untouched or normal, we do nothing
 
-        if(!cc.opened|| ( cc.type.getDefaultOrganScore(CCOrganScores.BREATH) == cc.getOrganScore(CCOrganScores.BREATH) &&
-                cc.type.getDefaultOrganScore(CCOrganScores.WATERBREATH) == cc.getOrganScore(CCOrganScores.WATERBREATH))){
+        if(!cc.opened|| ( cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH) == cc.getOrganScore(CCOrganScores.BREATH) &&
+                cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.WATERBREATH) == cc.getOrganScore(CCOrganScores.WATERBREATH))){
             return oldAir;
         }
 
@@ -302,23 +302,24 @@ public class ChestCavityUtil {
         evaluateChestCavity(cc);
     }
     public static void evaluateChestCavity(ChestCavityInstance cc) {
+        Map<Identifier,Float> organScores = cc.getOrganScores();
         if(!cc.opened){
-            cc.organScores.clear();
-            cc.organScores.putAll(cc.type.getDefaultOrganScores());
+            organScores.clear();
+            organScores.putAll(cc.getChestCavityType().getDefaultOrganScores());
         }
         else {
             cc.onHitListeners.clear();
-            cc.type.loadBaseOrganScores(cc.organScores);
+            cc.getChestCavityType().loadBaseOrganScores(organScores);
 
             for (int i = 0; i < cc.inventory.size(); i++) {
                 ItemStack itemStack = cc.inventory.getStack(i);
                 if (itemStack != null && itemStack != ItemStack.EMPTY) {
                     Item slotitem = itemStack.getItem();
-                    if (!cc.type.catchExceptionalOrgan(itemStack,cc.organScores)) {//if a manager chooses to handle some organ in a special way, this lets it skip the normal evaluation.
+                    if (!cc.getChestCavityType().catchExceptionalOrgan(itemStack,organScores)) {//if a manager chooses to handle some organ in a special way, this lets it skip the normal evaluation.
                         Map<Identifier, Float> organMap = lookupOrganScore(itemStack,cc.owner);
                         if (organMap != null) {
                             organMap.forEach((key, value) ->
-                                    addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1),cc.organScores));
+                                    addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1),organScores));
                         }
                         if(slotitem instanceof OrganOnHitListener){
                             cc.onHitListeners.add(new OrganOnHitContext(itemStack,(OrganOnHitListener)slotitem));
@@ -332,7 +333,7 @@ public class ChestCavityUtil {
                             if (ChestCavity.DEBUG_MODE && cc.owner instanceof PlayerEntity) {
                                 System.out.println("incompatability found! item bound to UUID " + tag.getUuid("owner").toString() + " but player is UUID " + cc.compatibility_id);
                             }
-                            addOrganScore(CCOrganScores.INCOMPATIBILITY, 1,cc.organScores);
+                            addOrganScore(CCOrganScores.INCOMPATIBILITY, 1,organScores);
                         }
                     }
                 }
@@ -343,8 +344,8 @@ public class ChestCavityUtil {
 
     public static void generateChestCavityIfOpened(ChestCavityInstance cc){
         if(cc.opened) {
-            cc.inventory.readTags(cc.type.getDefaultChestCavity().getTags());
-            cc.type.setOrganCompatibility(cc);
+            cc.inventory.readTags(cc.getChestCavityType().getDefaultChestCavity().getTags());
+            cc.getChestCavityType().setOrganCompatibility(cc);
         }
     }
 
@@ -399,7 +400,7 @@ public class ChestCavityUtil {
     public static void onTick(ChestCavityInstance cc){
         if(cc.updatePacket != null){
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
-        }
+        }/*
         if(CCRequiem.REQUIEM_ACTIVE) {
             if (cc.owner instanceof Possessable && ((Possessable) cc.owner).isBeingPossessed()) {
                 Optional<ChestCavityEntity> option = ChestCavityEntity.of(((Possessable) cc.owner).getPossessor());
@@ -410,7 +411,7 @@ public class ChestCavityUtil {
                     possessorCC.organScores.putAll(cc.organScores);
                 }
             }
-        }
+        }*/
         if(cc.opened) {
             OrganTickCallback.EVENT.invoker().onOrganTick(cc.owner, cc);
             organUpdate(cc);
@@ -432,14 +433,15 @@ public class ChestCavityUtil {
 
 
     public static void organUpdate(ChestCavityInstance cc){
-        if(!cc.oldOrganScores.equals(cc.organScores))
+        Map<Identifier,Float> organScores = cc.getOrganScores();
+        if(!cc.oldOrganScores.equals(organScores))
         {
             if(ChestCavity.DEBUG_MODE && cc.owner instanceof PlayerEntity) {
                 ChestCavityUtil.outputOrganScoresString(System.out::println,cc);
             }
             OrganUpdateCallback.EVENT.invoker().onOrganUpdate(cc.owner, cc);
             cc.oldOrganScores.clear();
-            cc.oldOrganScores.putAll(cc.organScores);
+            cc.oldOrganScores.putAll(organScores);
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc);
         }
     }
@@ -452,7 +454,7 @@ public class ChestCavityUtil {
         catch(Exception e){
             output.accept("[Chest Cavity] Displaying organ scores:");
         }
-        cc.organScores.forEach((key, value) ->
+        cc.getOrganScores().forEach((key, value) ->
                 output.accept(key.getPath() + ": " + value + " "));
     }
 }

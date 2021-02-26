@@ -42,13 +42,13 @@ public class PlayerChestCavity extends HumanChestCavity implements ChestCavityTy
 
     protected void insertWelfareOrgans(ChestCavityInstance cc){
         //urgently essential organs are: heart, spine, lung
-        if(cc.organScores.getOrDefault(CCOrganScores.HEALTH,0f) == 0){
+        if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
         }
-        if(cc.organScores.getOrDefault(CCOrganScores.BREATH,0f) == 0){
+        if(cc.getOrganScore(CCOrganScores.BREATH) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_LUNG),3);
         }
-        if(cc.organScores.getOrDefault(CCOrganScores.NERVOUS_SYSTEM,0f) == 0){
+        if(cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_SPINE),13);
         }
     }

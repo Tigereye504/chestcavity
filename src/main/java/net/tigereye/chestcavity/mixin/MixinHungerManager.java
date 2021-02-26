@@ -75,14 +75,14 @@ public class MixinHungerManager {
         @ModifyVariable(at = @At("HEAD"), ordinal = 0, method = "addExhaustion")
         public float chestCavityAddExhaustionMixin(float exhaustion) {
                 if(CC_player != null){
-                        if(CC_player.getChestCavityInstance().type.getDefaultOrganScore(CCOrganScores.ENDURANCE) == 0){
+                        if(CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE) == 0){
                                 return exhaustion;
                         }
                         if(this.exhaustion != this.exhaustion){
                                 //NaN check. Not sure what keep causing it...
                                 this.exhaustion = 0;
                         }
-                        float enduranceRatio = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)/CC_player.getChestCavityInstance().type.getDefaultOrganScore(CCOrganScores.ENDURANCE);
+                        float enduranceRatio = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)/CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE);
                         return (exhaustion * 2f / (1 + enduranceRatio));
                 }
                 return exhaustion;

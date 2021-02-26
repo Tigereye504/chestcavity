@@ -8,7 +8,7 @@ public class CCSmallEndermen {
     private static final String NAME = "Small Endermen";
 
     public static void register(){
-        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.DIREBATS_INTEGRATION)){
+        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.SMALL_ENDERMEN_INTEGRATION)){
             CCSmallEndermenChestCavities.register();
         }
     }

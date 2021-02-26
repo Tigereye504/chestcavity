@@ -53,7 +53,7 @@ public class ChestOpener extends Item {
 		if(optional.isPresent()){
 			ChestCavityEntity chestCavityEntity = optional.get();
 			ChestCavityInstance cc = chestCavityEntity.getChestCavityInstance();
-			if(cc.type.isOpenable(cc)) {
+			if(cc.getChestCavityType().isOpenable(cc)) {
 				if (cc.getOrganScore(CCOrganScores.EASE_OF_ACCESS) <= 0) {
 					if (!shouldKnockback) {
 						target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.

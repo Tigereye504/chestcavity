@@ -12,7 +12,7 @@ public class CCRequiem {
     public static boolean REQUIEM_ACTIVE = false;
 
     public static void register(){
-        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.RATS_MISCHIEF_INTEGRATION)){
+        if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.REQUIEM_INTEGRATION)){
             REQUIEM_ACTIVE = true;
         }
     }

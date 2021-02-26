@@ -53,4 +53,6 @@ public class CCConfig implements ConfigData {
     public boolean DIREBATS_INTEGRATION = true;
     public boolean RATS_MISCHIEF_INTEGRATION = true;
     public boolean REQUIEM_INTEGRATION = true;
+    public boolean SMALL_ENDERMEN_INTEGRATION = true;
+    public boolean SNOW_MERCY_INTEGRATION = true;
 }

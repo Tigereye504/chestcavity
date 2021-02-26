@@ -1,6 +1,10 @@
 package net.tigereye.chestcavity.chestcavities.instance;
 
+import ladysnake.requiem.api.v1.possession.PossessionComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.nbt.CompoundTag;
@@ -10,6 +14,8 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
+import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.OrganOnHitContext;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import org.apache.logging.log4j.LogManager;
@@ -22,14 +28,14 @@ public class ChestCavityInstance implements InventoryChangedListener {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public ChestCavityType type;
+    protected ChestCavityType type;
     public LivingEntity owner;
     public UUID compatibility_id;
 
     public boolean opened = false;
     public ChestCavityInventory inventory = new ChestCavityInventory();
     public Map<Identifier,Float> oldOrganScores = new HashMap<>();
-    public Map<Identifier,Float> organScores = new HashMap<>();
+    protected Map<Identifier,Float> organScores = new HashMap<>();
     public List<OrganOnHitContext> onHitListeners = new ArrayList<>();
     public LinkedList<Consumer<LivingEntity>> projectileQueue = new LinkedList<>();
 
@@ -50,7 +56,31 @@ public class ChestCavityInstance implements InventoryChangedListener {
         ChestCavityUtil.evaluateChestCavity(this);
     }
 
+    public ChestCavityType getChestCavityType(){
+        if(CCRequiem.REQUIEM_ACTIVE){
+            MobEntity victim = PossessionComponent.getPossessedEntity(owner);
+            if(victim instanceof ChestCavityEntity){
+                return ((ChestCavityEntity)victim).getChestCavityInstance().getChestCavityType();
+            }
+        }
+        return this.type;
+    }
+
+    public Map<Identifier,Float> getOrganScores() {
+        return organScores;
+    }
+
+    public void setOrganScores(Map<Identifier,Float> organScores) {
+        this.organScores = organScores;
+    }
+
     public float getOrganScore(Identifier id) {
+        if(CCRequiem.REQUIEM_ACTIVE){
+            MobEntity victim = PossessionComponent.getPossessedEntity(owner);
+            if(victim instanceof ChestCavityEntity){
+                return ((ChestCavityEntity)victim).getChestCavityInstance().getOrganScore(id);
+            }
+        }
         return organScores.getOrDefault(id, 0f);
     }
 
@@ -135,6 +165,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public void clone(ChestCavityInstance other) {
         opened = other.opened;
         type = other.type;
+        compatibility_id = other.compatibility_id;
         try {
             inventory.removeListener(this);
         }
