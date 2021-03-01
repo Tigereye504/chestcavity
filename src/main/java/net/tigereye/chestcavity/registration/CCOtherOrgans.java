@@ -51,28 +51,28 @@ public class CCOtherOrgans {
         ironbars.put(CCOrganScores.DEFENSE,1.25f);
         ironbars.put(CCOrganScores.BUOYANT,-.5f);
         ironbars.put(CCOrganScores.SPEED,-.25f);
-        ironbars.put(CCOrganScores.FIREPROOF,1f);
+        ironbars.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.IRON_BARS,ironbars);
 
         Map<Identifier,Float> ironblock = new HashMap<>();
         ironbars.put(CCOrganScores.DEFENSE,2f);
         ironbars.put(CCOrganScores.BUOYANT,-1f);
         ironbars.put(CCOrganScores.SPEED,-1f);
-        ironbars.put(CCOrganScores.FIREPROOF,1f);
+        ironbars.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.IRON_BLOCK,ironblock);
 
         Map<Identifier,Float> goldblock = new HashMap<>();
         ironbars.put(CCOrganScores.LUCK,1.25f);
         ironbars.put(CCOrganScores.BUOYANT,-1f);
         ironbars.put(CCOrganScores.SPEED,-1f);
-        ironbars.put(CCOrganScores.FIREPROOF,1f);
+        ironbars.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.GOLD_BLOCK,goldblock);
 
         Map<Identifier,Float> emeraldblock = new HashMap<>();
         ironbars.put(CCOrganScores.LUCK,1f);
         ironbars.put(CCOrganScores.BUOYANT,-1f);
         ironbars.put(CCOrganScores.SPEED,-1f);
-        ironbars.put(CCOrganScores.FIREPROOF,1f);
+        ironbars.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.EMERALD_BLOCK,emeraldblock);
 
         Map<Identifier,Float> diamondblock = new HashMap<>();
@@ -80,7 +80,7 @@ public class CCOtherOrgans {
         ironbars.put(CCOrganScores.DEFENSE,2f);
         ironbars.put(CCOrganScores.BUOYANT,-1f);
         ironbars.put(CCOrganScores.SPEED,-1f);
-        ironbars.put(CCOrganScores.FIREPROOF,1f);
+        ironbars.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.DIAMOND_BLOCK,diamondblock);
 
         Map<Identifier,Float> netheriteblock = new HashMap<>();
@@ -88,7 +88,7 @@ public class CCOtherOrgans {
         ironbars.put(CCOrganScores.DEFENSE,3f);
         ironbars.put(CCOrganScores.BUOYANT,-1.5f);
         ironbars.put(CCOrganScores.SPEED,-1.5f);
-        ironbars.put(CCOrganScores.FIREPROOF,4f);
+        ironbars.put(CCOrganScores.FIRE_RESISTANT,4f);
         map.put(Items.NETHERITE_BLOCK,netheriteblock);
 
         Map<Identifier,Float> gunpowder = new HashMap<>();
@@ -119,7 +119,7 @@ public class CCOtherOrgans {
 
         Map<Identifier,Float> obsidian = new HashMap<>();
         obsidian.put(CCOrganScores.DEFENSE,.5f);
-        obsidian.put(CCOrganScores.FIREPROOF,1f);
+        obsidian.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.OBSIDIAN,obsidian);
         map.put(Items.CRYING_OBSIDIAN,obsidian);
     }

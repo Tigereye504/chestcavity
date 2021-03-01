@@ -25,10 +25,11 @@ public class CCOrganScores {
     public static final Identifier ARROW_DODGING = new Identifier(ChestCavity.MODID, "arrow_dodging");
     public static final Identifier BUOYANT = new Identifier(ChestCavity.MODID, "buoyant");
     public static final Identifier EASE_OF_ACCESS = new Identifier(ChestCavity.MODID, "ease_of_access");
-    public static final Identifier FIREPROOF = new Identifier(ChestCavity.MODID, "fireproof");
+    public static final Identifier FIRE_RESISTANT = new Identifier(ChestCavity.MODID, "fireproof");
     public static final Identifier GLOWING = new Identifier(ChestCavity.MODID, "glowing");
     public static final Identifier HYDROALLERGENIC = new Identifier(ChestCavity.MODID, "hydroallergenic");
     public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
+    public static final Identifier SWIM_SPEED = new Identifier(ChestCavity.MODID, "swim_speed");
     public static final Identifier WATERBREATH = new Identifier(ChestCavity.MODID, "water_breath");
     public static final Identifier WITHERED = new Identifier(ChestCavity.MODID, "withered");
 

@@ -78,7 +78,7 @@ public class CCChestCavityTypes {
         ChestCavityInstanceFactory.register(EntityType.HORSE, HERBIVORE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.LLAMA, LLAMA_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.TRADER_LLAMA, LLAMA_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(EntityType.MOOSHROOM, RUMINANT_CHEST_CAVITY);//TODO: MYCELIUM GRAZING
+        ChestCavityInstanceFactory.register(EntityType.MOOSHROOM, RUMINANT_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.MULE, HERBIVORE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.PANDA, CARNIVORE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.PIG, OMNIVORE_CHEST_CAVITY);

@@ -1,34 +1,26 @@
 package net.tigereye.chestcavity.util;
 
-import ladysnake.requiem.api.v1.possession.Possessable;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.ProjectileDamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
-import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.listeners.*;
-import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
@@ -169,13 +161,13 @@ public class ChestCavityUtil {
             damage = applyBoneDefense(cc,damage);
         }
         if(source.isFire()){
-            damage = applyFireproof(cc,damage);
+            damage = applyFireResistant(cc,damage);
         }
         return damage;
     }
 
-    public static float applyFireproof(ChestCavityInstance cc, float damage){
-        float fireproof = cc.getOrganScore(CCOrganScores.FIREPROOF);
+    public static float applyFireResistant(ChestCavityInstance cc, float damage){
+        float fireproof = cc.getOrganScore(CCOrganScores.FIRE_RESISTANT);
         if(fireproof > 0){
             return (float)(damage*Math.pow(ChestCavity.config.FIREPROOF_DEFENSE,fireproof/4));
         }
@@ -207,7 +199,7 @@ public class ChestCavityUtil {
         //TODO: find a use for spleens for non-players
     }
 
-    public static int applyStomachHunger(ChestCavityInstance cc, float digestion, int hunger){
+    public static int applyDigestion(ChestCavityInstance cc, float digestion, int hunger){
         if(digestion == 1){
             return hunger;
         }
@@ -456,5 +448,15 @@ public class ChestCavityUtil {
         }
         cc.getOrganScores().forEach((key, value) ->
                 output.accept(key.getPath() + ": " + value + " "));
+    }
+
+    public static float applySwimSpeedInWater(ChestCavityInstance cc) {
+        if(!cc.opened || !cc.owner.isTouchingWater()){return 1;}
+        float speedDiff = cc.getOrganScore(CCOrganScores.SWIM_SPEED) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.SWIM_SPEED);
+        if(speedDiff == 0){return 1;}
+        else{
+            return Math.max(0,1+(speedDiff*ChestCavity.config.SWIMSPEED_FACTOR/8));
+        }
+
     }
 }

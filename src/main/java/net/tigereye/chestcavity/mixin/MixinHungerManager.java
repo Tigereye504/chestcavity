@@ -54,13 +54,10 @@ public class MixinHungerManager {
                                         CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.DIGESTION),
                                         CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.NUTRITION));
                                 efs = OrganFoodCallback.EVENT.invoker().onEatFood(item,itemFoodComponent,CC_player,efs);
-                                //TODO: pass effective nutrition to applyIntestinesSaturation, rename to applyNutrition?
-                                //TODO: pass effective digestion to applyStomachHunger, rename to applyDigestion?
-                                //TODO: mixin to LivingEntity::applyFoodEffects for OrganFoodEffectCallback
                                 float saturationGain = ChestCavityUtil.applyNutrition(CC_player.getChestCavityInstance(),efs.nutrition,item.getFoodComponent().getSaturationModifier())
                                          * item.getFoodComponent().getHunger() * 2.0F;
                                 //now find the modified hunger gains
-                                int hungerGain = ChestCavityUtil.applyStomachHunger(CC_player.getChestCavityInstance(),efs.digestion,item.getFoodComponent().getHunger());
+                                int hungerGain = ChestCavityUtil.applyDigestion(CC_player.getChestCavityInstance(),efs.digestion,item.getFoodComponent().getHunger());
                                 //now calculate the saturation modifier that gives me what I want
                                 float newSaturation = saturationGain / (hungerGain * 2);
                                 //now make a dummy food item with the modified stats and feed it to HungerManager.eat();
