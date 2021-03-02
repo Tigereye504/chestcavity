@@ -1,13 +1,8 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-      {
-      "tag": "chestcavity:salvageable_alien_meat_organs"
-      }
-  ],
-  "result": {
-    "item": "chestcavity:raw_alien_organ_meat",
-    "count": 1
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": {
+    "tag": "chestcavity:salvageable_alien_meat_organs"
   },
-  "group": "raw_alien_organ_meat"
+  "result": "chestcavity:raw_alien_organ_meat",
+  "count": 1
 }

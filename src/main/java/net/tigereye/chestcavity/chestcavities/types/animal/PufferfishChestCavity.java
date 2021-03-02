@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class SmallFishChestCavity extends BaseChestCavity implements ChestCavityType {
+public class PufferfishChestCavity extends BaseChestCavity implements ChestCavityType {
     @Override
     public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
@@ -21,7 +21,7 @@ public class SmallFishChestCavity extends BaseChestCavity implements ChestCavity
         chestCavity.setStack(3, new ItemStack(CCItems.SMALL_GILLS, CCItems.SMALL_GILLS.getMaxCount()));
         chestCavity.setStack(4, new ItemStack(CCItems.SMALL_ANIMAL_HEART, CCItems.SMALL_ANIMAL_HEART.getMaxCount()));
         chestCavity.setStack(5, new ItemStack(CCItems.SMALL_GILLS, CCItems.SMALL_GILLS.getMaxCount()));
-        chestCavity.setStack(6, ItemStack.EMPTY);
+        chestCavity.setStack(6, new ItemStack(CCItems.VENOM_GLAND, CCItems.VENOM_GLAND.getMaxCount()));
         chestCavity.setStack(7, new ItemStack(CCItems.SMALL_ANIMAL_RIB, CCItems.SMALL_ANIMAL_RIB.getMaxCount()));
         chestCavity.setStack(8, new ItemStack(CCItems.SMALL_FISH_MUSCLE, CCItems.SMALL_FISH_MUSCLE.getMaxCount()));
         chestCavity.setStack(9, new ItemStack(CCItems.SMALL_FISH_MUSCLE, CCItems.SMALL_FISH_MUSCLE.getMaxCount()));
@@ -66,6 +66,7 @@ public class SmallFishChestCavity extends BaseChestCavity implements ChestCavity
         organPile.add(CCItems.SMALL_ANIMAL_SPINE);
         organPile.add(CCItems.SMALL_ANIMAL_SPLEEN);
         organPile.add(CCItems.SMALL_ANIMAL_STOMACH);
+        organPile.add(CCItems.VENOM_GLAND);
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
         for (int i = 0; i < rolls; i++){
             int roll = random.nextInt(organPile.size());

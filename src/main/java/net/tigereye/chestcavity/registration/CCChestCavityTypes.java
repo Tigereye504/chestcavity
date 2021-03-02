@@ -26,15 +26,18 @@ public class CCChestCavityTypes {
 
     public static final ChestCavityType OMNIVORE_CHEST_CAVITY = new OmnivoreChestCavity();
     public static final ChestCavityType CARNIVORE_CHEST_CAVITY = new CarnivoreChestCavity();
+    public static final ChestCavityType DOLPHIN_CHEST_CAVITY = new DolphinChestCavity();
     public static final ChestCavityType HERBIVORE_CHEST_CAVITY = new HerbivoreChestCavity();
     public static final ChestCavityType LARGE_FISH_CHEST_CAVITY = new LargeFishChestCavity();
     public static final ChestCavityType LLAMA_CHEST_CAVITY = new LlamaChestCavity();
+    public static final ChestCavityType PUFFERFISH_CHEST_CAVITY = new PufferfishChestCavity();
     public static final ChestCavityType RABBIT_CHEST_CAVITY = new RabbitChestCavity();
     public static final ChestCavityType RUMINANT_CHEST_CAVITY = new RuminantChestCavity();
     public static final ChestCavityType SMALL_OMNIVORE_CHEST_CAVITY = new SmallOmnivoreChestCavity();
     public static final ChestCavityType SMALL_CARNIVORE_CHEST_CAVITY = new SmallCarnivoreChestCavity();
     public static final ChestCavityType SMALL_FISH_CHEST_CAVITY = new SmallFishChestCavity();
     public static final ChestCavityType SMALL_HERBIVORE_CHEST_CAVITY = new SmallHerbivoreChestCavity();
+    public static final ChestCavityType TURTLE_CHEST_CAVITY = new TurtleChestCavity();
 
     public static final ChestCavityType BEE_CHEST_CAVITY = new BeeChestCavity();
     public static final ChestCavityType CAVE_SPIDER_CHEST_CAVITY = new CaveSpiderChestCavity();
@@ -68,12 +71,12 @@ public class CCChestCavityTypes {
         ChestCavityInstanceFactory.register(EntityType.PARROT, SMALL_OMNIVORE_CHEST_CAVITY);
 
         ChestCavityInstanceFactory.register(EntityType.COD, SMALL_FISH_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(EntityType.PUFFERFISH,SMALL_FISH_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(EntityType.PUFFERFISH,PUFFERFISH_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.SALMON,SMALL_FISH_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.TROPICAL_FISH,SMALL_FISH_CHEST_CAVITY);
 
         ChestCavityInstanceFactory.register(EntityType.COW, RUMINANT_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(EntityType.DOLPHIN, CARNIVORE_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(EntityType.DOLPHIN, DOLPHIN_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.DONKEY, HERBIVORE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.HORSE, HERBIVORE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.LLAMA, LLAMA_CHEST_CAVITY);
@@ -85,7 +88,7 @@ public class CCChestCavityTypes {
         ChestCavityInstanceFactory.register(EntityType.POLAR_BEAR, CARNIVORE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.SHEEP, RUMINANT_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.STRIDER, OMNIVORE_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(EntityType.TURTLE, OMNIVORE_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(EntityType.TURTLE, TURTLE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.WOLF, CARNIVORE_CHEST_CAVITY);
 
         ChestCavityInstanceFactory.register(EntityType.HOGLIN, OMNIVORE_CHEST_CAVITY);

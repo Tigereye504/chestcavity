@@ -26,7 +26,6 @@ public class CCItems {
 	public static final Organ HUMAN_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.DEFENSE,.75f);
 	public static final Organ HUMAN_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1f);
 	public static final Organ HUMAN_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1f);
-	//TODO: Aquatic Humanoid Muscle... how to get?
 	//TODO: Salvage crafting type
 	//TODO: Fix furnace recipes
 	//TODO: Dynamically generated sausages?
@@ -56,7 +55,8 @@ public class CCItems {
 	public static final Organ ANIMAL_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,.75f).setOrganQuality(CCOrganScores.DEFENSE,.5625f);
 	public static final Organ ANIMAL_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.75f);
 	public static final Organ ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.75f);
-	public static final Organ AQUATIC_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.5f).setOrganQuality(CCOrganScores.SWIM_SPEED, 1f);
+	public static final Organ AQUATIC_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,1f).setOrganQuality(CCOrganScores.SPEED,.5f).setOrganQuality(CCOrganScores.SWIM_SPEED, 1f);
+	public static final Organ FISH_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.75f).setOrganQuality(CCOrganScores.SPEED,.25f).setOrganQuality(CCOrganScores.SWIM_SPEED, .75f);
 	public static final Organ GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,1);
 	public static final Organ LLAMA_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f).setOrganQuality(CCOrganScores.FORCEFUL_SPIT,1);
 	public static final Organ CARNIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,1.25f);
@@ -79,6 +79,7 @@ public class CCItems {
 	public static final Organ SMALL_ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
 	public static final Organ RABBIT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
 	public static final Organ SMALL_AQUATIC_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.25f).setOrganQuality(CCOrganScores.SWIM_SPEED, .5f);
+	public static final Organ SMALL_FISH_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.25f).setOrganQuality(CCOrganScores.SPEED,.25f).setOrganQuality(CCOrganScores.SWIM_SPEED, .5f);
 	public static final Organ SMALL_GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,.5f);
 	public static final Organ SMALL_CARNIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.75f);
 	public static final Organ SMALL_CARNIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.75f);
@@ -202,6 +203,7 @@ public class CCItems {
 		registerItem("animal_spleen", ANIMAL_SPLEEN);
 		registerItem("animal_stomach", ANIMAL_STOMACH);
 		registerItem("aquatic_muscle", AQUATIC_MUSCLE);
+		registerItem("fish_muscle", FISH_MUSCLE);
 		registerItem("gills", GILLS);
 		registerItem("llama_lung", LLAMA_LUNG);
 		registerItem("carnivore_stomach",CARNIVORE_STOMACH);
@@ -223,6 +225,7 @@ public class CCItems {
 		registerItem("small_animal_stomach", SMALL_ANIMAL_STOMACH);
 		registerItem("rabbit_heart", RABBIT_HEART);
 		registerItem("small_aquatic_muscle", SMALL_AQUATIC_MUSCLE);
+		registerItem("small_fish_muscle", SMALL_FISH_MUSCLE);
 		registerItem("small_gills", SMALL_GILLS);
 		registerItem("small_carnivore_stomach",SMALL_CARNIVORE_STOMACH);
 		registerItem("small_carnivore_intestine",SMALL_CARNIVORE_INTESTINE);

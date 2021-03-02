@@ -1,0 +1,8 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": {
+    "tag": "chestcavity:salvageable_blaze_powder_organs"
+  },
+  "result": "minecraft:blaze_powder",
+  "count": 1
+}

@@ -1,13 +1,8 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-      {
-      "tag": "chestcavity:salvageable_bone_organs"
-      }
-  ],
-  "result": {
-    "item": "minecraft:bone_meal",
-    "count": 1
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": {
+    "tag": "chestcavity:salvageable_bone_organs"
   },
-  "group": "bonemeal"
+  "result": "minecraft:bone_meal",
+  "count": 1
 }
