@@ -40,20 +40,20 @@ public class SalvageRecipe implements CraftingRecipe {
                     //ChestCavity.LOGGER.info("Salvage recipe counts "+count+" "+target.getName()+"s");
                 }
                 else{
-                    ChestCavity.LOGGER.info("Salvage recipe found bad item: "+target.getName().getString());
+                    //ChestCavity.LOGGER.info("Salvage recipe found bad item: "+target.getName().getString());
                     return false;
                 }
             }
         }
-        if(count > 0){
-            ChestCavity.LOGGER.info("Found salvage recipe match");
-        }
+        //if(count > 0){
+        //    ChestCavity.LOGGER.info("Found salvage recipe match");
+        //}
         return count > 0 && count % required == 0;
     }
 
     @Override
     public ItemStack craft(CraftingInventory inv) {
-        ChestCavity.LOGGER.info("Attempting to craft salvage recipe");
+        //ChestCavity.LOGGER.info("Attempting to craft salvage recipe");
         int count = 0;
         ItemStack target;
         for(int i = 0; i < inv.size(); ++i) {
@@ -69,12 +69,12 @@ public class SalvageRecipe implements CraftingRecipe {
         }
         ChestCavity.LOGGER.info("Found salvage recipe, count "+count);
         if(count == 0 || count % required != 0){
-            ChestCavity.LOGGER.info("Salvage recipe failed modulo check");
+            //ChestCavity.LOGGER.info("Salvage recipe failed modulo check");
             return ItemStack.EMPTY;
         }
         count = (count / required) * outputStack.getCount();
         if(count > outputStack.getMaxCount()) {
-            ChestCavity.LOGGER.info("Salvage recipe exceeded max stack size");
+            //ChestCavity.LOGGER.info("Salvage recipe exceeded max stack size");
             return ItemStack.EMPTY;
         }
         ItemStack out = getOutput();

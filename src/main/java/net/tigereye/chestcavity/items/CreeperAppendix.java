@@ -19,6 +19,6 @@ public class CreeperAppendix extends Organ{
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack,world,tooltip,tooltipContext);
         tooltip.add(new LiteralText("This appears to be a fuse.").formatted(Formatting.ITALIC));
-        tooltip.add(new LiteralText("It won't do anything by itself.").formatted(Formatting.ITALIC));
+        tooltip.add(new LiteralText("It won't do much by itself.").formatted(Formatting.ITALIC));
     }
 }
