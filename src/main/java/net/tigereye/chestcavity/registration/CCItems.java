@@ -76,7 +76,7 @@ public class CCItems {
 	public static final Organ SMALL_ANIMAL_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,.5f);
 	public static final Organ RABBIT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f).setOrganQuality(CCOrganScores.SPEED, 1f);
 	public static final Organ SMALL_AQUATIC_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,.25f).setOrganQuality(CCOrganScores.SWIM_SPEED, .5f);
-	public static final Organ SMALL_FISH_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.25f).setOrganQuality(CCOrganScores.SPEED,.25f).setOrganQuality(CCOrganScores.SWIM_SPEED, .5f);
+	public static final Organ SMALL_FISH_MUSCLE = new Organ(16,CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.25f).setOrganQuality(CCOrganScores.SPEED,.25f).setOrganQuality(CCOrganScores.SWIM_SPEED, .25f);
 	public static final Organ SMALL_GILLS = new Organ().setOrganQuality(CCOrganScores.WATERBREATH,.5f);
 	public static final Organ SMALL_CARNIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.75f);
 	public static final Organ SMALL_CARNIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.75f);
