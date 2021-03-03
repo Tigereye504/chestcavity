@@ -67,7 +67,7 @@ public class SalvageRecipe implements CraftingRecipe {
                 }
             }
         }
-        ChestCavity.LOGGER.info("Found salvage recipe, count "+count);
+        //ChestCavity.LOGGER.info("Found salvage recipe, count "+count);
         if(count == 0 || count % required != 0){
             //ChestCavity.LOGGER.info("Salvage recipe failed modulo check");
             return ItemStack.EMPTY;
