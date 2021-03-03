@@ -119,6 +119,8 @@ public class CCItems {
 	public static final Organ CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.LUCK,.75f).setOrganQuality(CCOrganScores.CREEPY,1);
 	public static final Organ SHULKER_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.75f).setOrganQuality(CCOrganScores.SHULKER_BULLETS,1f);
 
+	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64));
+	public static final Item MINI_SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64));
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
 	public static final Item RAW_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -264,6 +266,9 @@ public class CCItems {
 		registerItem("saltwater_lung", SALTWATER_LUNG);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
 		registerItem("shulker_spleen", SHULKER_SPLEEN);
+
+		registerItem("sausage_skin", SAUSAGE_SKIN);
+		registerItem("mini_sausage_skin", MINI_SAUSAGE_SKIN);
 
 		registerItem("burnt_meat_chunk", BURNT_MEAT_CHUNK);
 		registerItem("raw_organ_meat", RAW_ORGAN_MEAT);

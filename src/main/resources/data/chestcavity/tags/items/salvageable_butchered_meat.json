@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:aquatic_muscle",
+      "chestcavity:animal_muscle",
+      "chestcavity:fish_muscle"
+    ]
+}

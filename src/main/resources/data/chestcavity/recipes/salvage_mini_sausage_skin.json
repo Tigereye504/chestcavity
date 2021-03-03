@@ -1,0 +1,8 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": {
+    "tag": "chestcavity:salvageable_mini_sausage_skin"
+  },
+  "result": "chestcavity:mini_sausage_skin",
+  "count": 2
+}

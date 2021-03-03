@@ -14,7 +14,7 @@
         "item": "chestcavity:raw_butchered_meat"
       },
       {
-        "tag": "chestcavity:sausage_skins_small_animal"
+        "item": "chestcavity:mini_sausage_skin"
       }
   ],
   "result": {
