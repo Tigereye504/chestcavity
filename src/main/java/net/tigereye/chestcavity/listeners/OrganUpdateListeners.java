@@ -99,7 +99,7 @@ public class OrganUpdateListeners {
             try {
                 entity.removeStatusEffect(CCStatusEffects.ORGAN_REJECTION);
             }
-            catch(Exception e){}
+            catch(Exception ignore){}
         }
     }
 

@@ -1,6 +1,5 @@
 package net.tigereye.chestcavity;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -13,11 +12,7 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.crossmod.CrossModContent;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.listeners.LootRegister;
 import net.fabricmc.api.ModInitializer;
-import net.tigereye.chestcavity.listeners.OrganAddStatusEffectListeners;
-import net.tigereye.chestcavity.listeners.OrganTickListeners;
-import net.tigereye.chestcavity.listeners.OrganUpdateListeners;
 import net.tigereye.chestcavity.registration.*;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;
 import net.tigereye.chestcavity.util.NetworkUtil;
@@ -59,7 +54,7 @@ public class ChestCavity implements ModInitializer {
 
 		ServerPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.RECEIVED_UPDATE_PACKET_ID, (server, player, handler, buf, sender) -> {
 			Optional<ChestCavityEntity> optional = ChestCavityEntity.of(player);
-			optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityRecieveUpdatePacket(chestCavityEntity.getChestCavityInstance()));
+			optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityReceiveUpdatePacket(chestCavityEntity.getChestCavityInstance()));
 		});
 	}
 }

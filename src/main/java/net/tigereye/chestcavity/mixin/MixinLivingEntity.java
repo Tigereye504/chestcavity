@@ -23,6 +23,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
@@ -38,6 +39,7 @@ import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
+import net.tigereye.chestcavity.util.NetworkUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -280,6 +282,14 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                 }
                 chestCavityEntity.getChestCavityInstance().clone(oldCCPlayerEntityInterface.getChestCavityInstance());
             }));
+        }
+
+        @Inject(at = @At("RETURN"), method = "moveToWorld", cancellable = true)
+        public void chestCavityEntityMoveToWorldMixin(ServerWorld destination, CallbackInfoReturnable<Entity> info){
+            Entity entity = info.getReturnValue();
+            if(entity instanceof ChestCavityEntity && !entity.world.isClient){
+                NetworkUtil.SendS2CChestCavityUpdatePacket(((ChestCavityEntity)entity).getChestCavityInstance());
+            }
         }
     }
 

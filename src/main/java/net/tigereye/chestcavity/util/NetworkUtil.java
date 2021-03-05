@@ -3,11 +3,9 @@ package net.tigereye.chestcavity.util;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 
@@ -34,7 +32,7 @@ public class NetworkUtil {
             organScores.put(new Identifier(buf.readString()),buf.readFloat());
         }
         cc.setOrganScores(organScores);
-        SendC2SChestCavityRecievedUpdatePacket(cc);
+        SendC2SChestCavityReceivedUpdatePacket(cc);
     }
 
     public static boolean SendS2CChestCavityUpdatePacket(ChestCavityInstance cc){
@@ -58,12 +56,12 @@ public class NetworkUtil {
         return false;
     }
 
-    public static boolean SendC2SChestCavityRecievedUpdatePacket(ChestCavityInstance cc){
+    public static boolean SendC2SChestCavityReceivedUpdatePacket(ChestCavityInstance cc){
         ClientPlayNetworking.send(CCNetworkingPackets.RECEIVED_UPDATE_PACKET_ID, PacketByteBufs.empty());
         return SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
     }
 
-    public static void ReadChestCavityRecieveUpdatePacket(ChestCavityInstance cc) {
+    public static void ReadChestCavityReceiveUpdatePacket(ChestCavityInstance cc) {
         cc.updatePacket = null;
     }
 }
