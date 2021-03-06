@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.mixin;
 
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.EffectiveFoodScores;
 import net.tigereye.chestcavity.listeners.OrganFoodCallback;
@@ -72,15 +73,22 @@ public class MixinHungerManager {
         @ModifyVariable(at = @At("HEAD"), ordinal = 0, method = "addExhaustion")
         public float chestCavityAddExhaustionMixin(float exhaustion) {
                 if(CC_player != null){
-                        if(CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE) == 0){
-                                return exhaustion;
-                        }
                         if(this.exhaustion != this.exhaustion){
                                 //NaN check. Not sure what keep causing it...
                                 this.exhaustion = 0;
                         }
-                        float enduranceRatio = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)/CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE);
-                        return (exhaustion * 2f / (1 + enduranceRatio));
+                        float enduranceDif = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)-CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE);
+                        ChestCavity.LOGGER.info("In: "+exhaustion);
+                        float out;
+                        if(enduranceDif > 0) {
+                                out = exhaustion/(1+(enduranceDif/2));
+                        }
+                        else{
+                                out = exhaustion*(1-(enduranceDif/2));
+                        }
+                        //float out = exhaustion*(float)Math.pow(ChestCavity.config.LUNG_ENDURANCE,enduranceDif/2);
+                        ChestCavity.LOGGER.info("Out: "+out);
+                        return out;
                 }
                 return exhaustion;
         }

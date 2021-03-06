@@ -1,10 +1,9 @@
 package net.tigereye.chestcavity.chestcavities.instance;
 
 import ladysnake.requiem.api.v1.possession.PossessionComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.nbt.CompoundTag;
@@ -45,6 +44,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public int spleenTimer = 0;
     public float lungRemainder = 0;
     public int projectileCooldown = 0;
+    public EndCrystalEntity connectedCrystal = null;
 
     public PacketByteBuf updatePacket = null;
     public ChestCavityInstance ccBeingOpened = null;
@@ -182,6 +182,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
         bloodPoisonTimer = other.bloodPoisonTimer;
         spleenTimer = other.spleenTimer;
         lungRemainder = other.lungRemainder;
+        connectedCrystal = other.connectedCrystal;
         ChestCavityUtil.evaluateChestCavity(this);
     }
 

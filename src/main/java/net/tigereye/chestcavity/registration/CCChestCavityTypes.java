@@ -57,6 +57,7 @@ public class CCChestCavityTypes {
     public static final ChestCavityType SNOW_GOLEM_CHEST_CAVITY = new SnowGolemChestCavity();
 
     public static final ChestCavityType CREEPER_CHEST_CAVITY = new CreeperChestCavity();
+    public static final ChestCavityType DRAGON_CHEST_CAVITY = new DragonChestCavity();
     public static final ChestCavityType GHAST_CHEST_CAVITY = new GhastChestCavity();
     public static final ChestCavityType SHULKER_CHEST_CAVITY = new ShulkerChestCavity();
     public static final ChestCavityType SLIME_CHEST_CAVITY = new SlimeChestCavity();
@@ -133,6 +134,7 @@ public class CCChestCavityTypes {
 
         ChestCavityInstanceFactory.register(EntityType.BLAZE,BLAZE_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.CREEPER, CREEPER_CHEST_CAVITY);
+        ChestCavityInstanceFactory.register(EntityType.ENDER_DRAGON, DRAGON_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.ENDERMAN, ENDERMAN_CHEST_CAVITY);
         //ChestCavityInstanceFactory.register(EntityType.IRON_GOLEM, IRON_GOLEM_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(EntityType.GHAST, GHAST_CHEST_CAVITY);

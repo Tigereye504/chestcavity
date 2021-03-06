@@ -16,4 +16,9 @@ public class MixinStatusEffect implements CCStatusEffect {
     public boolean CC_IsHarmful() {
         return (type == StatusEffectType.HARMFUL);
     }
+
+    @Override
+    public boolean CC_IsBeneficial() {
+        return (type == StatusEffectType.BENEFICIAL);
+    }
 }

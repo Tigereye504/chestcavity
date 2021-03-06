@@ -62,7 +62,6 @@ public class CCItems {
 	public static final Organ HERBIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,1.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.25f);
 	public static final Organ HERBIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,1.25f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.25f);
 
-
 	public static final Organ SMALL_ANIMAL_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.5f);
 	public static final Organ SMALL_ANIMAL_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
 	public static final Organ SMALL_ANIMAL_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
@@ -103,6 +102,22 @@ public class CCItems {
 	public static final Organ ENDER_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1.25f).setOrganQuality(CCOrganScores.DEFENSE,.9375f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 	public static final Organ ENDER_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 	public static final Organ ENDER_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
+
+	public static final Organ DRAGON_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.75f).setOrganQuality(CCOrganScores.DRAGON_BOMBS,1f);
+	//TODO: Dragon Bombs
+	public static final Organ DRAGON_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
+	public static final Organ DRAGON_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
+	public static final Organ DRAGON_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,1.5f).setOrganQuality(CCOrganScores.BUFF_PURGING,1f);
+	public static final Organ DRAGON_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,1f).setOrganQuality(CCOrganScores.DRAGON_BREATH,1f);
+	//TODO: Dragon Breath
+	public static final Organ DRAGON_MUSCLE = new Organ(16,CCFoodComponents.DRAGON_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1.5f).setOrganQuality(CCOrganScores.LAUNCHING,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
+	//TODO: Launching
+	public static final Organ DRAGON_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1f).setOrganQuality(CCOrganScores.IMPACT_RESISTANT,1f).setOrganQuality(CCOrganScores.DESTRUCTIVE_COLLISIONS,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
+	//TODO: Impact Resistance
+	//TODO: Destructive Collisions
+	public static final Organ DRAGON_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.DEFENSE,.75f).setOrganQuality(CCOrganScores.IMPACT_RESISTANT,1f).setOrganQuality(CCOrganScores.DESTRUCTIVE_COLLISIONS,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
+	public static final Organ DRAGON_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
+	public static final Organ MANA_REACTOR = new Organ().setOrganQuality(CCOrganScores.CRYSTALSYNTHESIS,1f);
 
 	public static final Organ ACTIVE_BLAZE_ROD = new Organ(3).setOrganQuality(CCOrganScores.PYROMANCY,3f).setOrganQuality(CCOrganScores.FIRE_RESISTANT,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,3f);
 	public static final Organ BLAZE_SHELL = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1f).setOrganQuality(CCOrganScores.FIRE_RESISTANT,1f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,3f);
@@ -159,6 +174,15 @@ public class CCItems {
 	public static final Item COOKED_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_ALIEN_SAUSAGE_FOOD_COMPONENT));
 	public static final Item RAW_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_ALIEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT));
+
+	public static final Item RAW_DRAGON_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_DRAGON_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_DRAGON_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_DRAGON_MEAT_FOOD_COMPONENT));
+	public static final Item COOKED_DRAGON_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_DRAGON_MEAT_FOOD_COMPONENT));
+	public static final Item RAW_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_DRAGON_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_DRAGON_SAUSAGE_FOOD_COMPONENT));
+	public static final Item RAW_RICH_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT));
+	public static final Item COOKED_RICH_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT));
 
 	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
 	public static void register() {
@@ -252,6 +276,17 @@ public class CCItems {
 		registerItem("ender_spleen", ENDER_SPLEEN);
 		registerItem("ender_stomach", ENDER_STOMACH);
 
+		registerItem("dragon_appendix", DRAGON_APPENDIX);
+		registerItem("dragon_heart", DRAGON_HEART);
+		registerItem("dragon_kidney", DRAGON_KIDNEY);
+		registerItem("dragon_liver", DRAGON_LIVER);
+		registerItem("dragon_lung", DRAGON_LUNG);
+		registerItem("dragon_muscle", DRAGON_MUSCLE);
+		registerItem("dragon_rib", DRAGON_RIB);
+		registerItem("dragon_spine", DRAGON_SPINE);
+		registerItem("dragon_spleen", DRAGON_SPLEEN);
+		registerItem("mana_reactor", MANA_REACTOR);
+
 		registerItem("active_blaze_rod", ACTIVE_BLAZE_ROD);
 		registerItem("blaze_shell", BLAZE_SHELL);
 		registerItem("blaze_core", BLAZE_CORE);
@@ -308,6 +343,14 @@ public class CCItems {
 		registerItem("raw_rich_alien_sausage", RAW_RICH_ALIEN_SAUSAGE);
 		registerItem("rich_alien_sausage", COOKED_RICH_ALIEN_SAUSAGE);
 
+		registerItem("raw_dragon_organ_meat", RAW_DRAGON_ORGAN_MEAT);
+		registerItem("cooked_dragon_organ_meat", COOKED_DRAGON_ORGAN_MEAT);
+		registerItem("raw_dragon_meat", RAW_DRAGON_MEAT);
+		registerItem("cooked_dragon_meat", COOKED_DRAGON_MEAT);
+		registerItem("raw_dragon_sausage", RAW_DRAGON_SAUSAGE);
+		registerItem("dragon_sausage", COOKED_DRAGON_SAUSAGE);
+		registerItem("raw_rich_dragon_sausage", RAW_RICH_DRAGON_SAUSAGE);
+		registerItem("rich_dragon_sausage", COOKED_RICH_DRAGON_SAUSAGE);
 	}
 	
 	private static void registerItem(String name, Item item) {

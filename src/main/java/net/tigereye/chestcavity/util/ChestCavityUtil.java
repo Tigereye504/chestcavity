@@ -40,7 +40,7 @@ public class ChestCavityUtil {
 
     public static float applyBoneDefense(ChestCavityInstance cc, float damage){
         float boneDiff = (cc.getOrganScore(CCOrganScores.DEFENSE) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.DEFENSE))/4;
-        return (float)(damage*Math.pow(ChestCavity.config.BONE_DEFENSE,boneDiff));
+        return (float)(damage*Math.pow(1-ChestCavity.config.BONE_DEFENSE,boneDiff));
     }
 
     public static int applyBreathInWater(ChestCavityInstance cc, int oldAir, int newAir){
@@ -160,6 +160,9 @@ public class ChestCavityUtil {
         if(!source.bypassesArmor()) {
             damage = applyBoneDefense(cc,damage);
         }
+        if(source == DamageSource.FALL || source == DamageSource.FLY_INTO_WALL){
+            damage = applyImpactResistant(cc,damage);
+        }
         if(source.isFire()){
             damage = applyFireResistant(cc,damage);
         }
@@ -169,7 +172,15 @@ public class ChestCavityUtil {
     public static float applyFireResistant(ChestCavityInstance cc, float damage){
         float fireproof = cc.getOrganScore(CCOrganScores.FIRE_RESISTANT);
         if(fireproof > 0){
-            return (float)(damage*Math.pow(ChestCavity.config.FIREPROOF_DEFENSE,fireproof/4));
+            return (float)(damage*Math.pow(1-ChestCavity.config.FIREPROOF_DEFENSE,fireproof/4));
+        }
+        return damage;
+    }
+
+    public static float applyImpactResistant(ChestCavityInstance cc, float damage){
+        float impactResistant = cc.getOrganScore(CCOrganScores.IMPACT_RESISTANT);
+        if(impactResistant > 0){
+            return (float)(damage*Math.pow(1-ChestCavity.config.IMPACT_DEFENSE,impactResistant/4));
         }
         return damage;
     }
@@ -380,10 +391,13 @@ public class ChestCavityUtil {
 
     public static float onHit(ChestCavityInstance cc, DamageSource source, LivingEntity target, float damage){
         if(cc.opened) {
+            //this is for individual organs
             for (OrganOnHitContext e:
                     cc.onHitListeners) {
                 damage = e.listener.onHit(source,cc.owner,target,cc,e.organ,damage);
             }
+            //this is for organ scores
+            //OrganOnHitCallback.EVENT.invoker().onHit(source,cc.owner,target,cc,damage);
             organUpdate(cc);
         }
         return damage;

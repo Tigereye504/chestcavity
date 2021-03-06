@@ -45,7 +45,17 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("more")
     public int ARROW_DODGE_DISTANCE = 32; //how far you can teleport when dodging projectiles
     @ConfigEntry.Category("more")
+    public float BUFF_PURGING_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
+    @ConfigEntry.Category("more")
+    public int CRYSTALSYNTESIS_RANGE = 32; //range at which you can link to a End Crystal
+    @ConfigEntry.Category("more")
+    public int CRYSTALSYNTESIS_FREQUENCY = 10; //how often the link to an End Crystal is updated and perks gained
+    @ConfigEntry.Category("more")
     public float FIREPROOF_DEFENSE = .75f; //damage reduction from 4 stacks of fireproof organs
+    @ConfigEntry.Category("more")
+    public float IMPACT_DEFENSE = .75f; //damage reduction from 4 stacks of impact resistant organs
+    @ConfigEntry.Category("more")
+    public float LAUNCHING_POWER = .25f; //upward velocity per launching
     @ConfigEntry.Category("more")
     public int MAX_TELEPORT_ATTEMPTS = 5;
     @ConfigEntry.Category("more")

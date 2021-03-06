@@ -11,5 +11,6 @@ public class CCListeners {
         OrganAddStatusEffectListeners.register();
         OrganFoodListeners.register();
         OrganFoodEffectListeners.register();
+        OrganOnHitListeners.register();
     }
 }

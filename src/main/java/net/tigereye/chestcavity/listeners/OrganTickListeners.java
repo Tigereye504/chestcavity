@@ -3,8 +3,11 @@ package net.tigereye.chestcavity.listeners;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.HungerManager;
+import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.registration.CCDamageSource;
@@ -12,6 +15,9 @@ import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class OrganTickListeners {
 
@@ -24,14 +30,9 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickFiltration);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickBuoyant);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickCreepiness);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickForcefulSpit);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickCrystalsynthesis);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydroallergenic);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickPyromancy);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickGhastly);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickShulkerBullets);
-        //OrganTickCallback.EVENT.register(OrganTickListeners::TickSilk);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
     }
 
@@ -49,6 +50,74 @@ public class OrganTickListeners {
         if(buoyancy != 0)
         {
             entity.addVelocity(0.0D, buoyancy*0.02D, 0.0D);
+        }
+    }
+
+    public static void TickCrystalsynthesis(LivingEntity entity, ChestCavityInstance cc){
+        float crystalsynthesis = cc.getOrganScore(CCOrganScores.CRYSTALSYNTHESIS) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.CRYSTALSYNTHESIS);
+        //if the old crystal had been exploded, suffer
+        if (cc.connectedCrystal != null) {
+            if(cc.connectedCrystal.removed) {
+                entity.damage(DamageSource.STARVE, crystalsynthesis * 2);
+                cc.connectedCrystal = null;
+            }
+            else{
+                if(crystalsynthesis != 0){
+                    cc.connectedCrystal.setBeamTarget(entity.getBlockPos().down(2));
+                }
+                else{
+                    cc.connectedCrystal.setBeamTarget(null);
+                    cc.connectedCrystal = null;
+                }
+            }
+        }
+        if(crystalsynthesis != 0 && entity.world.getTime() % ChestCavity.config.CRYSTALSYNTESIS_FREQUENCY == 0)
+        {
+            EndCrystalEntity oldcrystal = cc.connectedCrystal;
+            //attempt to bind to a crystal
+            List<EndCrystalEntity> list = entity.world.getNonSpectatingEntities(EndCrystalEntity.class, entity.getBoundingBox().expand(ChestCavity.config.CRYSTALSYNTESIS_RANGE));
+            EndCrystalEntity endCrystalEntity = null;
+            double d = Double.MAX_VALUE;
+
+            for (EndCrystalEntity endCrystalEntity2 : list) {
+                double e = endCrystalEntity2.squaredDistanceTo(entity);
+                if (e < d) {
+                    d = e;
+                    endCrystalEntity = endCrystalEntity2;
+                }
+            }
+            cc.connectedCrystal = endCrystalEntity;
+            if(oldcrystal != null && oldcrystal != cc.connectedCrystal){
+                oldcrystal.setBeamTarget(null);
+            }
+            //then, if a crystal has been bound to
+            if (cc.connectedCrystal != null) {
+                if(entity instanceof PlayerEntity){
+                    PlayerEntity playerEntity = (PlayerEntity)entity;
+                    HungerManager hungerManager = playerEntity.getHungerManager();
+                    //first restore hunger
+                    if(hungerManager.isNotFull()) {
+                        if(crystalsynthesis >= 5
+                                || entity.world.getTime() % (ChestCavity.config.CRYSTALSYNTESIS_FREQUENCY*5) < (ChestCavity.config.CRYSTALSYNTESIS_FREQUENCY*crystalsynthesis)) {
+                            hungerManager.add(1, 0f);
+                        }
+                    }
+                    //then restore saturation
+                    else if(hungerManager.getSaturationLevel() < hungerManager.getFoodLevel()){
+                        hungerManager.add(1, crystalsynthesis/10);
+                    }
+                    //then restore health
+                    else {
+                        playerEntity.heal(crystalsynthesis / 5);
+                    }
+                }
+                else{
+                    //just restore health...
+                    entity.heal(crystalsynthesis/5);
+                }
+                //finally, something about shiny lines linking to crystals?
+            }
+
         }
     }
 
@@ -84,49 +153,6 @@ public class OrganTickListeners {
         }
     }
 
-    public static void TickCreepiness(LivingEntity entity,ChestCavityInstance cc){
-        if(cc.getOrganScore(CCOrganScores.CREEPY) < 1){
-            return;
-        }
-        if(entity.hasStatusEffect(CCStatusEffects.EXPLOSION_COOLDOWN)){
-            return;
-        }
-        else if(entity.getPose() == EntityPose.CROUCHING /*|| entity.isOnFire()*/){
-            float explosion_yield = cc.getOrganScore(CCOrganScores.EXPLOSIVE);
-            ChestCavityUtil.destroyOrgansWithKey(cc,CCOrganScores.EXPLOSIVE);
-            OrganUtil.explode(entity, explosion_yield);
-            if(entity.isAlive()) {
-                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.EXPLOSION_COOLDOWN, ChestCavity.config.EXPLOSION_COOLDOWN, 0, false, false, true));
-            }
-        }
-    }
-
-    public static void TickForcefulSpit(LivingEntity entity,ChestCavityInstance cc){
-        //if(entity.world.isClient){
-        //    return; //we are spawning entities, this is no place for a client
-        //}
-        float projectiles = cc.getOrganScore(CCOrganScores.FORCEFUL_SPIT);
-        if(cc.getOrganScore(CCOrganScores.FORCEFUL_SPIT) < 1){
-            return;
-        }
-        if(!entity.hasStatusEffect(CCStatusEffects.FORCEFUL_SPIT_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
-            OrganUtil.queueForcefulSpit(entity,cc,(int)projectiles);
-        }
-    }
-
-    public static void TickGhastly(LivingEntity entity,ChestCavityInstance cc){
-        //if(entity.world.isClient){
-        //    return; //this is spawning entities, this is no place for a client
-        //}
-        float ghastly = cc.getOrganScore(CCOrganScores.GHASTLY);
-        if(cc.getOrganScore(CCOrganScores.GHASTLY) < 1){
-            return;
-        }
-        if(!entity.hasStatusEffect(CCStatusEffects.GHASTLY_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
-            OrganUtil.queueGhastlyFireballs(entity,cc,(int)ghastly);
-        }
-    }
-
     private static void TickProjectileQueue(LivingEntity entity, ChestCavityInstance cc) {
         //if(entity.world.isClient){
             //this is spawning entities, this is no place for a client
@@ -139,46 +165,6 @@ public class OrganTickListeners {
         if(!cc.projectileQueue.isEmpty()) {
             cc.projectileCooldown = 5;
             cc.projectileQueue.pop().accept(entity);
-        }
-    }
-
-    public static void TickPyromancy(LivingEntity entity,ChestCavityInstance cc){
-        //if(entity.world.isClient){
-        //    return; //we are spawning entities, this is no place for a client
-        //}
-        float pyromancy = cc.getOrganScore(CCOrganScores.PYROMANCY);
-        if(cc.getOrganScore(CCOrganScores.PYROMANCY) < 1){
-            return;
-        }
-        if(!entity.hasStatusEffect(CCStatusEffects.PYROMANCY_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
-            OrganUtil.queuePyromancyFireballs(entity,cc,(int)pyromancy);
-        }
-    }
-
-    public static void TickShulkerBullets(LivingEntity entity,ChestCavityInstance cc){
-        //if(entity.world.isClient){
-        //    return; //we are spawning entities, this is no place for a client
-        //}
-        float projectiles = cc.getOrganScore(CCOrganScores.SHULKER_BULLETS);
-        if(cc.getOrganScore(CCOrganScores.SHULKER_BULLETS) < 1){
-            return;
-        }
-        if(!entity.hasStatusEffect(CCStatusEffects.SHULKER_BULLET_COOLDOWN) && entity.getPose() == EntityPose.CROUCHING){
-            OrganUtil.queueShulkerBullets(entity,cc,(int)projectiles);
-        }
-    }
-
-    public static void TickSilk(LivingEntity entity,ChestCavityInstance cc){
-        if(cc.getOrganScore(CCOrganScores.SILK) == 0){
-            return;
-        }
-        if(entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
-            return;
-        }
-        else if(entity.getPose() == EntityPose.CROUCHING){
-            if(OrganUtil.spinWeb(entity,cc.getOrganScore(CCOrganScores.SILK))) {
-                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN,ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
-            }
         }
     }
 

@@ -12,8 +12,20 @@ import net.tigereye.chestcavity.registration.CCOrganScores;
 public class OrganAddStatusEffectListeners {
 
     public static void register(){
+        OrganAddStatusEffectCallback.EVENT.register(OrganAddStatusEffectListeners::ApplyBuffPurging);
         OrganAddStatusEffectCallback.EVENT.register(OrganAddStatusEffectListeners::ApplyDetoxification);
         OrganAddStatusEffectCallback.EVENT.register(OrganAddStatusEffectListeners::ApplyWithered);
+    }
+
+    private static StatusEffectInstance ApplyBuffPurging(LivingEntity entity, ChestCavityInstance cc, StatusEffectInstance instance) {
+        if(cc.getOrganScore(CCOrganScores.BUFF_PURGING) > 0
+                && ((CCStatusEffect)(instance.getEffectType())).CC_IsBeneficial())
+        {
+            CCStatusEffectInstance ccInstance = (CCStatusEffectInstance) instance;
+            ccInstance.CC_setDuration((int)(instance.getDuration()/
+                    (1+(ChestCavity.config.BUFF_PURGING_DURATION_FACTOR*cc.getOrganScore(CCOrganScores.BUFF_PURGING)))));
+        }
+        return instance;
     }
 
     private static StatusEffectInstance ApplyDetoxification(LivingEntity entity, ChestCavityInstance cc, StatusEffectInstance instance) {

@@ -34,7 +34,11 @@ public class PlayerChestCavity extends HumanChestCavity implements ChestCavityTy
     @Override
     public void onDeath(ChestCavityInstance cc){
         cc.projectileQueue.clear();
-        if(!ChestCavity.config.KEEP_CHEST_CAVITY) {
+        if(cc.connectedCrystal != null) {
+            cc.connectedCrystal.setBeamTarget(null);
+            cc.connectedCrystal = null;
+        }
+        if(cc.opened && !ChestCavity.config.KEEP_CHEST_CAVITY) {
             ChestCavityUtil.dropUnboundOrgans(cc);
         }
         insertWelfareOrgans(cc);

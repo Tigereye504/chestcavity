@@ -120,6 +120,10 @@ public class BaseChestCavity implements ChestCavityType {
     @Override
     public void onDeath(ChestCavityInstance cc) {
         cc.projectileQueue.clear();
+        if(cc.connectedCrystal != null) {
+            cc.connectedCrystal.setBeamTarget(null);
+            cc.connectedCrystal = null;
+        }
         if(cc.opened) {
             ChestCavityUtil.dropUnboundOrgans(cc);
         }

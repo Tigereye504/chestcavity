@@ -60,6 +60,55 @@ public class CCFoodComponents {
     public static final FoodComponent COOKED_RICH_ALIEN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(1.2f).meat()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 40, 1), 1f).build();
 
+    public static final FoodComponent DRAGON_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 300), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 300), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent RAW_DRAGON_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 900), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 900), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent COOKED_DRAGON_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.8f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 150, 1), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 150, 1), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.6f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 90*20), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 90*20), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent COOKED_DRAGON_ORGAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(1.2f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 15*20, 1), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 15*20, 1), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent RAW_DRAGON_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.4f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 480*20), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 480*20), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent COOKED_DRAGON_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(.8f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 90*20, 1), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 90*20, 1), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent RAW_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(4).saturationModifier(.6f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 960*20), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 960*20), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent COOKED_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(1.2f).meat()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 180*20, 1), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 180*20, 1), 1f)
+            .alwaysEdible().build();
+    public static final FoodComponent DRAGON_HEART_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 10*20, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 10*20, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.WITHER, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 2, 3), 1f)
+            .alwaysEdible().build();
+    
     public static final FoodComponent HUMAN_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat().snack()
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 600, 1), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 1), ChestCavity.config.RISK_OF_PRIONS).build();
     public static final FoodComponent RAW_MAN_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.4f).meat()

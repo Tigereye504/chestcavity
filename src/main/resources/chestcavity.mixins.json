@@ -4,6 +4,7 @@
   "package": "net.tigereye.chestcavity.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MixinEnchantmentHelper",
     "MixinEntity",
     "MixinHungerManager",
     "MixinLivingEntity",

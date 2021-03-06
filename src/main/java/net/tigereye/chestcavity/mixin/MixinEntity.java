@@ -2,9 +2,11 @@ package net.tigereye.chestcavity.mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.listeners.OrganOnHitCallback;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.NetworkUtil;
@@ -31,7 +33,13 @@ public class MixinEntity {
         }
         return finalHeightDifference;
     }
-
-
+/*
+    @Inject(at = @At("TAIL"), method = "dealDamage")
+    public void chestCavityDealDamageMixin(LivingEntity attacker, Entity target, CallbackInfo info) {
+        Optional<ChestCavityEntity> cce = ChestCavityEntity.of(attacker);
+        if (cce.isPresent() && target instanceof LivingEntity) {
+            OrganOnHitCallback.EVENT.invoker().onHit(attacker, (LivingEntity)target, cce.get().getChestCavityInstance());
+        }
+    }*/
     
 }
