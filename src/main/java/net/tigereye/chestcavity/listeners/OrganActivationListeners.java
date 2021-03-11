@@ -1,29 +1,63 @@
 package net.tigereye.chestcavity.listeners;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.RaycastContext;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
+import net.tigereye.chestcavity.util.MathUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 
-public class OrganActivationListeners {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
+public class OrganActivationListeners {
+    private static Map<Identifier, BiConsumer<LivingEntity,ChestCavityInstance>> abilityIDMap = new HashMap<>();
     public static void register(){
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivateCreepy);
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivateForcefulSpit);
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivatePyromancy);
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivateGhastly);
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivateGrazing);
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivateShulkerBullets);
-        OrganActivationCallback.EVENT.register(OrganActivationListeners::ActivateSilk);
+        register(CCOrganScores.CREEPY, OrganActivationListeners::ActivateCreepy);
+        register(CCOrganScores.DRAGON_BREATH, OrganActivationListeners::ActivateDragonBreath);
+        register(CCOrganScores.DRAGON_BOMBS, OrganActivationListeners::ActivateDragonBombs);
+        register(CCOrganScores.FORCEFUL_SPIT, OrganActivationListeners::ActivateForcefulSpit);
+        register(CCOrganScores.PYROMANCY, OrganActivationListeners::ActivatePyromancy);
+        register(CCOrganScores.GHASTLY, OrganActivationListeners::ActivateGhastly);
+        register(CCOrganScores.GRAZING, OrganActivationListeners::ActivateGrazing);
+        register(CCOrganScores.SHULKER_BULLETS, OrganActivationListeners::ActivateShulkerBullets);
+        register(CCOrganScores.SILK, OrganActivationListeners::ActivateSilk);
+    }
+    public static void register(Identifier id,BiConsumer<LivingEntity,ChestCavityInstance> ability){
+        abilityIDMap.put(id,ability);
+    }
+    public static boolean activate(Identifier id, ChestCavityInstance cc){
+        if(abilityIDMap.containsKey(id)) {
+            abilityIDMap.get(id).accept(cc.owner,cc);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public static void ActivateCreepy(LivingEntity entity, ChestCavityInstance cc){
@@ -41,12 +75,64 @@ public class OrganActivationListeners {
         }
     }
 
+    public static void ActivateDragonBreath(LivingEntity entity, ChestCavityInstance cc){
+        //if(entity.world.isClient){
+        //    return; //this is spawning entities, this is no place for a client
+        //}
+        float breath = cc.getOrganScore(CCOrganScores.DRAGON_BREATH);
+        if(entity instanceof PlayerEntity){
+            ((PlayerEntity)entity).addExhaustion(breath*.6f);
+        }
+        if(breath <= 0){
+            return;
+        }
+        if(!entity.hasStatusEffect(CCStatusEffects.DRAGON_BREATH_COOLDOWN)){
+            entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.DRAGON_BREATH_COOLDOWN, ChestCavity.config.DRAGON_BREATH_COOLDOWN, 0, false, false, true));
+            double range = Math.sqrt(breath/2)*5;
+            HitResult result = entity.raycast(range, 0, false);
+            Vec3d pos = result.getPos();
+            double x = pos.x;
+            double y = pos.y;
+            double z = pos.z;
+            BlockPos.Mutable mutable = new BlockPos.Mutable(x,y,z);
+            while(entity.world.isAir(mutable)) {
+                --y;
+                if (y < 0.0D) {
+                    return;
+                }
+
+                mutable.set(x,y,z);
+            }
+            y = (double)(MathHelper.floor(y) + 1);
+            AreaEffectCloudEntity breathEntity = new AreaEffectCloudEntity(entity.world, x, y, z);
+            breathEntity.setOwner(entity);
+            breathEntity.setRadius((float)Math.max(range/2,Math.min(range, MathUtil.horizontalDistanceTo(breathEntity,entity))));
+            breathEntity.setDuration((int)(200));
+            breathEntity.setParticleType(ParticleTypes.DRAGON_BREATH);
+            breathEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE));
+            entity.world.spawnEntity(breathEntity);
+        }
+    }
+
+    public static void ActivateDragonBombs(LivingEntity entity, ChestCavityInstance cc){
+        //if(entity.world.isClient){
+        //    return; //this is spawning entities, this is no place for a client
+        //}
+        float projectiles = cc.getOrganScore(CCOrganScores.DRAGON_BOMBS);
+        if(projectiles < 1){
+            return;
+        }
+        if(!entity.hasStatusEffect(CCStatusEffects.DRAGON_BOMB_COOLDOWN)){
+            OrganUtil.queueDragonBombs(entity,cc,(int)projectiles);
+        }
+    }
+
     public static void ActivateForcefulSpit(LivingEntity entity, ChestCavityInstance cc){
         //if(entity.world.isClient){
         //    return; //we are spawning entities, this is no place for a client
         //}
         float projectiles = cc.getOrganScore(CCOrganScores.FORCEFUL_SPIT);
-        if(cc.getOrganScore(CCOrganScores.FORCEFUL_SPIT) < 1){
+        if(projectiles < 1){
             return;
         }
         if(!entity.hasStatusEffect(CCStatusEffects.FORCEFUL_SPIT_COOLDOWN)){
@@ -59,7 +145,7 @@ public class OrganActivationListeners {
         //    return; //this is spawning entities, this is no place for a client
         //}
         float ghastly = cc.getOrganScore(CCOrganScores.GHASTLY);
-        if(cc.getOrganScore(CCOrganScores.GHASTLY) < 1){
+        if(ghastly < 1){
             return;
         }
         if(!entity.hasStatusEffect(CCStatusEffects.GHASTLY_COOLDOWN)){
@@ -104,7 +190,7 @@ public class OrganActivationListeners {
         //    return; //we are spawning entities, this is no place for a client
         //}
         float pyromancy = cc.getOrganScore(CCOrganScores.PYROMANCY);
-        if(cc.getOrganScore(CCOrganScores.PYROMANCY) < 1){
+        if(pyromancy < 1){
             return;
         }
         if(!entity.hasStatusEffect(CCStatusEffects.PYROMANCY_COOLDOWN)){
@@ -117,7 +203,7 @@ public class OrganActivationListeners {
         //    return; //we are spawning entities, this is no place for a client
         //}
         float projectiles = cc.getOrganScore(CCOrganScores.SHULKER_BULLETS);
-        if(cc.getOrganScore(CCOrganScores.SHULKER_BULLETS) < 1){
+        if(projectiles < 1){
             return;
         }
         if(!entity.hasStatusEffect(CCStatusEffects.SHULKER_BULLET_COOLDOWN)){

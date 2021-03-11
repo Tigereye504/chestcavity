@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.listeners.OrganActivationListeners;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 
 import java.util.HashMap;
@@ -56,12 +58,28 @@ public class NetworkUtil {
         return false;
     }
 
+    public static void ReadChestCavityReceiveUpdatePacket(ChestCavityInstance cc) {
+        cc.updatePacket = null;
+    }
+
     public static boolean SendC2SChestCavityReceivedUpdatePacket(ChestCavityInstance cc){
         ClientPlayNetworking.send(CCNetworkingPackets.RECEIVED_UPDATE_PACKET_ID, PacketByteBufs.empty());
         return SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
     }
 
-    public static void ReadChestCavityReceiveUpdatePacket(ChestCavityInstance cc) {
-        cc.updatePacket = null;
+    public static PacketByteBuf WriteChestCavityHotkeyPacket(Identifier organScore) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeIdentifier(organScore);
+        return buf;
     }
+
+    public static void ReadChestCavityHotkeyPacket(ChestCavityInstance cc, PacketByteBuf buf) {
+        Identifier id = buf.readIdentifier();
+        OrganActivationListeners.activate(id,cc);
+    }
+
+    public static void SendC2SChestCavityHotkeyPacket(Identifier organScore){
+        ClientPlayNetworking.send(CCNetworkingPackets.HOTKEY_PACKET_ID, NetworkUtil.WriteChestCavityHotkeyPacket(organScore));
+    }
+
 }

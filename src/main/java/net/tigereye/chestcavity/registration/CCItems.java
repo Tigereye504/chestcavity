@@ -104,18 +104,14 @@ public class CCItems {
 	public static final Organ ENDER_STOMACH = new Organ().setOrganQuality(CCOrganScores.DIGESTION,1.25f).setOrganQuality(CCOrganScores.HYDROALLERGENIC,1f);
 
 	public static final Organ DRAGON_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,.75f).setOrganQuality(CCOrganScores.DRAGON_BOMBS,1f);
-	//TODO: Dragon Bombs
-	public static final Organ DRAGON_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
-	public static final Organ DRAGON_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
+	public static final Organ DRAGON_HEART = new Organ(1,CCFoodComponents.DRAGON_HEART_FOOD_COMPONENT).setOrganQuality(CCOrganScores.HEALTH,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
+	public static final Organ DRAGON_KIDNEY = new Organ().setOrganQuality(CCOrganScores.FILTRATION,1.5f).setOrganQuality(CCOrganScores.BUFF_PURGING,1f);
 	public static final Organ DRAGON_LIVER = new Organ().setOrganQuality(CCOrganScores.DETOXIFICATION,1.5f).setOrganQuality(CCOrganScores.BUFF_PURGING,1f);
 	public static final Organ DRAGON_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.5f).setOrganQuality(CCOrganScores.ENDURANCE,1f).setOrganQuality(CCOrganScores.DRAGON_BREATH,1f);
-	//TODO: Dragon Breath
 	public static final Organ DRAGON_MUSCLE = new Organ(16,CCFoodComponents.DRAGON_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1.5f).setOrganQuality(CCOrganScores.LAUNCHING,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
-	//TODO: Launching
-	public static final Organ DRAGON_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1f).setOrganQuality(CCOrganScores.IMPACT_RESISTANT,1f).setOrganQuality(CCOrganScores.DESTRUCTIVE_COLLISIONS,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
-	//TODO: Impact Resistance
+	public static final Organ DRAGON_RIB = new Organ(4).setOrganQuality(CCOrganScores.DEFENSE,1f).setOrganQuality(CCOrganScores.IMPACT_RESISTANT,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
 	//TODO: Destructive Collisions
-	public static final Organ DRAGON_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.DEFENSE,.75f).setOrganQuality(CCOrganScores.IMPACT_RESISTANT,1f).setOrganQuality(CCOrganScores.DESTRUCTIVE_COLLISIONS,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
+	public static final Organ DRAGON_SPINE = new Organ().setOrganQuality(CCOrganScores.NERVOUS_SYSTEM,1f).setOrganQuality(CCOrganScores.DEFENSE,.75f).setOrganQuality(CCOrganScores.IMPACT_RESISTANT,1f).setOrganQuality(CCOrganScores.ENDURANCE,-.25f);
 	public static final Organ DRAGON_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,1.5f).setOrganQuality(CCOrganScores.ENDURANCE,-.5f);
 	public static final Organ MANA_REACTOR = new Organ().setOrganQuality(CCOrganScores.CRYSTALSYNTHESIS,1f);
 
@@ -131,7 +127,7 @@ public class CCItems {
 	public static final Organ CREEPER_APPENDIX = new CreeperAppendix().setOrganQuality(CCOrganScores.LUCK,.75f).setOrganQuality(CCOrganScores.CREEPY,1).setOrganQuality(CCOrganScores.EXPLOSIVE,1);
 	public static final Organ SHULKER_SPLEEN = new Organ().setOrganQuality(CCOrganScores.METABOLISM,.75f).setOrganQuality(CCOrganScores.SHULKER_BULLETS,1f);
 
-	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64));
+	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64).group(ItemGroup.MISC));
 	public static final Item MINI_SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64));
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));

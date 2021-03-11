@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+      "item": "chestcavity:raw_rich_dragon_sausage"
+    },
+    "result": "chestcavity:rich_dragon_sausage",
+    "experience": 16.0,
+    "cookingtime": 400
+  }

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:raw_dragon_organ_meat"
+      },
+      {
+        "item": "chestcavity:sausage_skin"
+      }
+  ],
+  "result": {
+    "item": "chestcavity:raw_rich_dragon_sausage",
+    "count": 1
+  }
+}

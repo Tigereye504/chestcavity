@@ -109,7 +109,7 @@ public class DragonChestCavity extends BaseChestCavity implements ChestCavityTyp
         organPile.add(CCItems.DRAGON_LUNG);
         organPile.add(CCItems.DRAGON_SPINE);
         organPile.add(CCItems.DRAGON_SPLEEN);
-        int rolls = 1 + random.nextInt(2+looting) + random.nextInt(2+looting);
+        int rolls = 3 + random.nextInt(2+looting) + random.nextInt(2+looting);
         for (int i = 0; i < rolls; i++) {
             int roll = random.nextInt(organPile.size());
             int count = 1;

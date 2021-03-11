@@ -16,5 +16,9 @@ public class ChestCavityServer implements DedicatedServerModInitializer{
             Optional<ChestCavityEntity> optional = ChestCavityEntity.of(player);
             optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityReceiveUpdatePacket(chestCavityEntity.getChestCavityInstance()));
         });
+        ServerPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.HOTKEY_PACKET_ID, (server, player, handler, buf, sender) -> {
+            Optional<ChestCavityEntity> optional = ChestCavityEntity.of(player);
+            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityHotkeyPacket(chestCavityEntity.getChestCavityInstance(),buf));
+        });
     }
 }

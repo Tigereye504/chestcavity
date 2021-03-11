@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.listeners;
 
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -13,10 +14,8 @@ import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
-import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class OrganTickListeners {
@@ -24,7 +23,6 @@ public class OrganTickListeners {
     public static void register(){
         OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickProjectileQueue);
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickActivatedOrgans);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHealth);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickFiltration);
@@ -34,12 +32,6 @@ public class OrganTickListeners {
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydroallergenic);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
-    }
-
-    private static void TickActivatedOrgans(LivingEntity entity, ChestCavityInstance chestCavity) {
-        if(entity.getPose() == EntityPose.CROUCHING){
-            OrganActivationCallback.EVENT.invoker().onOrganActivation(entity,chestCavity);
-        }
     }
 
     public static void TickBuoyant(LivingEntity entity, ChestCavityInstance chestCavity){
@@ -54,7 +46,7 @@ public class OrganTickListeners {
     }
 
     public static void TickCrystalsynthesis(LivingEntity entity, ChestCavityInstance cc){
-        float crystalsynthesis = cc.getOrganScore(CCOrganScores.CRYSTALSYNTHESIS) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.CRYSTALSYNTHESIS);
+        float crystalsynthesis = cc.getOrganScore(CCOrganScores.CRYSTALSYNTHESIS);
         //if the old crystal had been exploded, suffer
         if (cc.connectedCrystal != null) {
             if(cc.connectedCrystal.removed) {
@@ -71,11 +63,11 @@ public class OrganTickListeners {
                 }
             }
         }
-        if(crystalsynthesis != 0 && entity.world.getTime() % ChestCavity.config.CRYSTALSYNTESIS_FREQUENCY == 0)
+        if(crystalsynthesis != 0 && entity.world.getTime() % ChestCavity.config.CRYSTALSYNTHESIS_FREQUENCY == 0 && !(entity instanceof EnderDragonEntity))
         {
             EndCrystalEntity oldcrystal = cc.connectedCrystal;
             //attempt to bind to a crystal
-            List<EndCrystalEntity> list = entity.world.getNonSpectatingEntities(EndCrystalEntity.class, entity.getBoundingBox().expand(ChestCavity.config.CRYSTALSYNTESIS_RANGE));
+            List<EndCrystalEntity> list = entity.world.getNonSpectatingEntities(EndCrystalEntity.class, entity.getBoundingBox().expand(ChestCavity.config.CRYSTALSYNTHESIS_RANGE));
             EndCrystalEntity endCrystalEntity = null;
             double d = Double.MAX_VALUE;
 
@@ -98,7 +90,7 @@ public class OrganTickListeners {
                     //first restore hunger
                     if(hungerManager.isNotFull()) {
                         if(crystalsynthesis >= 5
-                                || entity.world.getTime() % (ChestCavity.config.CRYSTALSYNTESIS_FREQUENCY*5) < (ChestCavity.config.CRYSTALSYNTESIS_FREQUENCY*crystalsynthesis)) {
+                                || entity.world.getTime() % (ChestCavity.config.CRYSTALSYNTHESIS_FREQUENCY *5) < (ChestCavity.config.CRYSTALSYNTHESIS_FREQUENCY *crystalsynthesis)) {
                             hungerManager.add(1, 0f);
                         }
                     }

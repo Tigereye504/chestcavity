@@ -24,6 +24,8 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("core")
     public int KIDNEY_RATE = 60; //how often the kidneys prevent blood poisoning in ticks
     @ConfigEntry.Category("core")
+    public float FILTRATION_DURATION_FACTOR = 1f; //how much extra kidneys reduce poison duration
+    @ConfigEntry.Category("core")
     public float APPENDIX_LUCK = .1f; //how lucky your appendix is
     @ConfigEntry.Category("core")
     public float HEART_HP = 4; //how much health each heart is worth
@@ -47,15 +49,15 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("more")
     public float BUFF_PURGING_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
     @ConfigEntry.Category("more")
-    public int CRYSTALSYNTESIS_RANGE = 32; //range at which you can link to a End Crystal
+    public int CRYSTALSYNTHESIS_RANGE = 32; //range at which you can link to a End Crystal
     @ConfigEntry.Category("more")
-    public int CRYSTALSYNTESIS_FREQUENCY = 10; //how often the link to an End Crystal is updated and perks gained
+    public int CRYSTALSYNTHESIS_FREQUENCY = 10; //how often the link to an End Crystal is updated and perks gained
     @ConfigEntry.Category("more")
     public float FIREPROOF_DEFENSE = .75f; //damage reduction from 4 stacks of fireproof organs
     @ConfigEntry.Category("more")
     public float IMPACT_DEFENSE = .75f; //damage reduction from 4 stacks of impact resistant organs
     @ConfigEntry.Category("more")
-    public float LAUNCHING_POWER = .25f; //upward velocity per launching
+    public float LAUNCHING_POWER = .1f; //upward velocity per launching
     @ConfigEntry.Category("more")
     public int MAX_TELEPORT_ATTEMPTS = 5;
     @ConfigEntry.Category("more")
@@ -74,9 +76,13 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("cooldown")
     public int ARROW_DODGE_COOLDOWN = 200; //how often an entity is allowed to dodge projectiles
     @ConfigEntry.Category("cooldown")
+    public int DRAGON_BOMB_COOLDOWN = 200; //how often an entity is allowed to fire bombs
+    @ConfigEntry.Category("cooldown")
+    public int DRAGON_BREATH_COOLDOWN = 200; //how often an entity is allowed to fire bombs
+    @ConfigEntry.Category("cooldown")
     public int EXPLOSION_COOLDOWN = 200; //how often an entity is allowed to try exploding
     @ConfigEntry.Category("cooldown")
-    public int FORCEFUL_SPIT_COOLDOWN = 20; //how often an entity is allowed to try exploding
+    public int FORCEFUL_SPIT_COOLDOWN = 20; //how often an entity is allowed to spit
     @ConfigEntry.Category("cooldown")
     public int GHASTLY_COOLDOWN = 60; //how often an entity is allowed to fire ghast bombs
     @ConfigEntry.Category("cooldown")
@@ -94,6 +100,10 @@ public class CCConfig implements ConfigData {
     public boolean ANTHROPOPHAGY_INTEGRATION = true;
     @ConfigEntry.Category("integration")
     public boolean BACKROOMS_INTEGRATION = true;
+    @ConfigEntry.Category("integration")
+    public int BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS = 2;
+    @ConfigEntry.Category("integration")
+    public float BACKROOMS_CHEST_ORGAN_LOOT_CHANCE = 0.2f;
     @ConfigEntry.Category("integration")
     public boolean BEWITCHMENT_INTEGRATION = true;
     @ConfigEntry.Category("integration")

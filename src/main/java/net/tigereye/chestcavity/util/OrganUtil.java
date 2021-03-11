@@ -11,10 +11,7 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FireballEntity;
-import net.minecraft.entity.projectile.LlamaSpitEntity;
-import net.minecraft.entity.projectile.ShulkerBulletEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
+import net.minecraft.entity.projectile.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
@@ -86,6 +83,16 @@ public class OrganUtil {
                 }
             });
         }
+    }
+
+    public static void queueDragonBombs(LivingEntity entity, ChestCavityInstance cc, int bombs){
+        if(entity instanceof PlayerEntity){
+            ((PlayerEntity)entity).addExhaustion(bombs*.6f);
+        }
+        for(int i = 0; i < bombs;i++){
+            cc.projectileQueue.add(OrganUtil::spawnDragonBomb);
+        }
+        entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.DRAGON_BOMB_COOLDOWN, ChestCavity.config.DRAGON_BOMB_COOLDOWN, 0, false, false, true));
     }
 
     public static void queueForcefulSpit(LivingEntity entity, ChestCavityInstance cc, int projectiles){
@@ -205,25 +212,19 @@ public class OrganUtil {
         fakeLlama.bodyYaw = entity.bodyYaw;
         LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(entity.world, fakeLlama);
         llamaSpitEntity.setOwner(entity);
-        //llamaSpitEntity.updatePosition(llamaSpitEntity.getX(), entity.getBodyY(0.5D) + 0.3D, llamaSpitEntity.getZ());
         llamaSpitEntity.setVelocity(entityFacing.x*2,entityFacing.y*2,entityFacing.z*2);
         entity.world.spawnEntity(llamaSpitEntity);
         entityFacing = entityFacing.multiply(-.1D);
         entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
-        /*
-        LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(EntityType.LLAMA_SPIT,entity.world);
-        llamaSpitEntity.setOwner(entity);
-        llamaSpitEntity.updatePosition(llamaSpitEntity.getX(), entity.getBodyY(0.5D) + 0.3D, llamaSpitEntity.getZ());
+    }
 
-        for(int i = 0; i < 7; ++i) {
-            double d = 0.4D + 0.1D * (double)i;
-            entity.world.addParticle(ParticleTypes.SPIT, llamaSpitEntity.getX(), llamaSpitEntity.getY(), llamaSpitEntity.getZ(),
-                    entityFacing.x* d,entityFacing.y,entityFacing.z* d);
-        }
-
-        llamaSpitEntity.setVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
-        entity.world.spawnEntity(llamaSpitEntity);
-        */
+    public static void spawnDragonBomb(LivingEntity entity){
+        Vec3d entityFacing = entity.getRotationVector().normalize();
+        DragonFireballEntity fireballEntity = new DragonFireballEntity(entity.world, entity, entityFacing.x, entityFacing.y, entityFacing.z);
+        fireballEntity.updatePosition(fireballEntity.getX(), entity.getBodyY(0.5D) + 0.3D, fireballEntity.getZ());
+        entity.world.spawnEntity(fireballEntity);
+        entityFacing = entityFacing.multiply(-0.2D);
+        entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
 
     public static void spawnGhastlyFireball(LivingEntity entity){

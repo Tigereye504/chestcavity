@@ -97,8 +97,8 @@ public class CCFoodComponents {
             .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 180*20, 1), 1f)
             .alwaysEdible().build();
     public static final FoodComponent DRAGON_HEART_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
-            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 10*20, 3), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 10*20, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30*20, 3), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.HASTE, 30*20, 3), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 2, 3), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.WITHER, 2, 3), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2, 3), 1f)

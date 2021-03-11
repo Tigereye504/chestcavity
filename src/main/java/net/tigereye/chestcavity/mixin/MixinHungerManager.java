@@ -78,7 +78,7 @@ public class MixinHungerManager {
                                 this.exhaustion = 0;
                         }
                         float enduranceDif = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)-CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE);
-                        ChestCavity.LOGGER.info("In: "+exhaustion);
+                        //ChestCavity.LOGGER.info("In: "+exhaustion);
                         float out;
                         if(enduranceDif > 0) {
                                 out = exhaustion/(1+(enduranceDif/2));
@@ -87,7 +87,7 @@ public class MixinHungerManager {
                                 out = exhaustion*(1-(enduranceDif/2));
                         }
                         //float out = exhaustion*(float)Math.pow(ChestCavity.config.LUNG_ENDURANCE,enduranceDif/2);
-                        ChestCavity.LOGGER.info("Out: "+out);
+                        //ChestCavity.LOGGER.info("Out: "+out);
                         return out;
                 }
                 return exhaustion;

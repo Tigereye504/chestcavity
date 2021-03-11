@@ -3,8 +3,15 @@ package net.tigereye.chestcavity.mixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPart;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.OrganOnHitCallback;
 import net.tigereye.chestcavity.registration.CCOrganScores;
@@ -32,6 +39,18 @@ public class MixinEntity {
             }
         }
         return finalHeightDifference;
+    }
+
+    @Inject(at = @At("RETURN"), method = "interact", cancellable = true)
+    public void chestCavityEntityInteractMixin(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info){
+        if(info.getReturnValue() == ActionResult.PASS && ((Entity)(Object)this) instanceof EnderDragonPart){
+            ChestCavity.LOGGER.info("Attempting to open dragon's " + ((EnderDragonPart)(Object)this).name);
+            EnderDragonEntity dragon = ((EnderDragonPart)(Object)this).owner;
+            if(dragon != null){
+                ChestCavity.LOGGER.info("Dragon was not null");
+                info.setReturnValue(dragon.interact(player,hand));
+            }
+        }
     }
 /*
     @Inject(at = @At("TAIL"), method = "dealDamage")

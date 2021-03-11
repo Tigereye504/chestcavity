@@ -1,0 +1,8 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": {
+    "tag": "chestcavity:salvageable_dragon_organ_meat"
+  },
+  "result": "chestcavity:raw_dragon_organ_meat",
+  "count": 2
+}

@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smoking",
+    "ingredient": {
+      "item": "chestcavity:raw_dragon_sausage"
+    },
+    "result": "chestcavity:dragon_sausage",
+    "experience": 8.0,
+    "cookingtime": 200
+  }

@@ -7,11 +7,13 @@
       "chestcavity:rotten_rib",
       "chestcavity:withered_rib",
       "chestcavity:ender_rib",
+      "chestcavity:dragon_rib",
       "chestcavity:spine",
       "chestcavity:animal_spine",
       "chestcavity:small_animal_spine",
       "chestcavity:rotten_spine",
       "chestcavity:withered_spine",
-      "chestcavity:ender_spine"
+      "chestcavity:ender_spine",
+      "chestcavity:dragon_spine"
     ]
 }

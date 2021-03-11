@@ -43,6 +43,18 @@ public class OrganAddStatusEffectListeners {
         return instance;
     }
 
+    private static StatusEffectInstance ApplyFiltration(LivingEntity entity, ChestCavityInstance cc, StatusEffectInstance instance) {
+        float filtrationDiff = cc.getOrganScore(CCOrganScores.FILTRATION) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.FILTRATION);
+        if(filtrationDiff > 0
+                && instance.getEffectType() == StatusEffects.POISON)
+        {
+            CCStatusEffectInstance ccInstance = (CCStatusEffectInstance) instance;
+            ccInstance.CC_setDuration((int)(instance.getDuration()/
+                    (1+(ChestCavity.config.FILTRATION_DURATION_FACTOR*cc.getOrganScore(CCOrganScores.FILTRATION)))));
+        }
+        return instance;
+    }
+
     private static StatusEffectInstance ApplyWithered(LivingEntity entity, ChestCavityInstance cc, StatusEffectInstance instance) {
         if(cc.getOrganScore(CCOrganScores.WITHERED) > 0
                 && instance.getEffectType() == StatusEffects.WITHER)

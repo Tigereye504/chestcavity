@@ -13,6 +13,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.LootFunctionTypes;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
@@ -34,7 +35,7 @@ public class CCBackroomsLootRegister {
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
             if (LEVEL0CHEST.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(BinomialLootTableRange.create(2,.05f))
+                        .rolls(BinomialLootTableRange.create(ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS, ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE))
                         .with(ItemEntry.builder(CCItems.ROTTEN_APPENDIX))
                         .with(ItemEntry.builder(CCItems.ROTTEN_HEART))
                         .with(ItemEntry.builder(CCItems.ROTTEN_INTESTINE))
@@ -51,7 +52,7 @@ public class CCBackroomsLootRegister {
             }
             if (LEVEL1CHEST.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(BinomialLootTableRange.create(2,.05f))
+                        .rolls(BinomialLootTableRange.create(ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS,ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE))
                         .with(ItemEntry.builder(CCItems.ROTTEN_APPENDIX).weight(2))
                         .with(ItemEntry.builder(CCItems.ROTTEN_HEART).weight(2))
                         .with(ItemEntry.builder(CCItems.ROTTEN_INTESTINE).weight(2))
@@ -81,7 +82,7 @@ public class CCBackroomsLootRegister {
             }
             if (LEVEL3CHEST.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(BinomialLootTableRange.create(2,.05f))
+                        .rolls(BinomialLootTableRange.create(ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS,ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE))
                         .withEntry(ItemEntry.builder(CCItems.HUMAN_MUSCLE).weight(8)
                             .apply(SetCountLootFunction.builder(BinomialLootTableRange.create(16,.6f))).build())
                         .with(ItemEntry.builder(CCItems.HUMAN_APPENDIX).weight(4))

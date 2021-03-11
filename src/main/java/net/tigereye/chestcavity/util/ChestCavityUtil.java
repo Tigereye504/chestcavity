@@ -32,7 +32,6 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class ChestCavityUtil {
-    public static final Logger LOGGER = LogManager.getLogger();
 
     public static void addOrganScore(Identifier id, float value, Map<Identifier,Float> organScores){
         organScores.put(id,organScores.getOrDefault(id,0f)+value);
@@ -276,7 +275,7 @@ public class ChestCavityUtil {
             }
         }
         catch(IllegalStateException e){
-            LOGGER.warn(e.getMessage()+". Chest Cavity will attempt to calculate this default organ score later.");
+            ChestCavity.LOGGER.warn(e.getMessage()+". Chest Cavity will attempt to calculate this default organ score later.");
             return false;
         }
         return true;
