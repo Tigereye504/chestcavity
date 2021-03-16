@@ -8,6 +8,7 @@ import net.tigereye.chestcavity.crossmod.anthropophagy.CCAntropophagy;
 import net.tigereye.chestcavity.crossmod.backrooms.CCBackrooms;
 import net.tigereye.chestcavity.crossmod.bewitchment.CCBewitchment;
 import net.tigereye.chestcavity.crossmod.biome_makeover.CCBiomeMakeover;
+import net.tigereye.chestcavity.crossmod.creeperspores.CCCreeperSpores;
 import net.tigereye.chestcavity.crossmod.direbats.CCDirebats;
 import net.tigereye.chestcavity.crossmod.rats_mischief.CCRatsMischief;
 import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
@@ -25,6 +26,7 @@ public class CrossModContent {
         CCBackrooms.register();
         CCBewitchment.register();
         CCBiomeMakeover.register();
+        CCCreeperSpores.register();
         CCDirebats.register();
         CCRatsMischief.register();
         CCRequiem.register();

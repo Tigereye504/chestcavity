@@ -109,6 +109,8 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("integration")
     public boolean BIOME_MAKEOVER_INTEGRATION = true;
     @ConfigEntry.Category("integration")
+    public boolean CREEPER_SPORES_INTEGRATION = true;
+    @ConfigEntry.Category("integration")
     public boolean DIREBATS_INTEGRATION = true;
     @ConfigEntry.Category("integration")
     public boolean RATS_MISCHIEF_INTEGRATION = true;

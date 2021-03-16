@@ -1,5 +1,8 @@
 package net.tigereye.chestcavity.util;
 
+import ladysnake.requiem.api.v1.RequiemApi;
+import ladysnake.requiem.api.v1.possession.Possessable;
+import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,10 +16,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.Organ;
@@ -185,7 +190,7 @@ public class ChestCavityUtil {
     }
 
     public static float applyNutrition(ChestCavityInstance cc, float nutrition, float saturation){
-        if(nutrition == 1){
+        if(nutrition == 4){
             return saturation;
         }
         if(nutrition < 0){
@@ -282,6 +287,11 @@ public class ChestCavityUtil {
     }
 
     public static void dropUnboundOrgans(ChestCavityInstance cc) {
+        if(ChestCavity.config.REQUIEM_INTEGRATION){
+            if(Registry.ENTITY_TYPE.getId(cc.owner.getType()) == CCRequiem.PLAYER_SHELL_ID){
+                return; //player shells shall not drop organs
+            }
+        }
         try {
             cc.inventory.removeListener(cc);
         } catch(NullPointerException ignored){}

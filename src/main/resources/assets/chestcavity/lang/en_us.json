@@ -280,6 +280,7 @@
     "text.autoconfig.chestcavity.option.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS": "Backrooms Chest Organ Loot Attempts",
     "text.autoconfig.chestcavity.option.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE": "Backrooms Chest Organ Loot Chance",
     "text.autoconfig.chestcavity.option.BEWITCHMENT_INTEGRATION": "Bewitchment Integration (Restart)",
+    "text.autoconfig.chestcavity.option.CREEPER_SPORES_INTEGRATION": "Creeper Spores Integration (Restart)",
     "text.autoconfig.chestcavity.option.BIOME_MAKEOVER_INTEGRATION": "Biome Makeover Integration (Restart)",
     "text.autoconfig.chestcavity.option.DIREBATS_INTEGRATION": "Direbats Integration (Restart)",
     "text.autoconfig.chestcavity.option.RATS_MISCHIEF_INTEGRATION": "Rat's Mischief Integration (Restart)",
