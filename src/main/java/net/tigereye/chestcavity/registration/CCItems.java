@@ -2,6 +2,8 @@ package net.tigereye.chestcavity.registration;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.registry.Registry;
 
 import net.tigereye.chestcavity.ChestCavity;
@@ -14,6 +16,12 @@ public class CCItems {
 	public static final Item.Settings FOOD_ITEM_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD);
 
 	public static final Item CHEST_OPENER = new ChestOpener();
+	public static final SwordItem WOODEN_CLEAVER = new SwordItem(ToolMaterials.WOOD,6,-3.2f,new Item.Settings().group(ItemGroup.COMBAT));
+	public static final SwordItem GOLD_CLEAVER = new SwordItem(ToolMaterials.GOLD,6,-3.0f,new Item.Settings().group(ItemGroup.COMBAT));
+	public static final SwordItem STONE_CLEAVER = new SwordItem(ToolMaterials.STONE,7,-3.2f,new Item.Settings().group(ItemGroup.COMBAT));
+	public static final SwordItem IRON_CLEAVER = new SwordItem(ToolMaterials.IRON,6,-3.1f,new Item.Settings().group(ItemGroup.COMBAT));
+	public static final SwordItem DIAMOND_CLEAVER = new SwordItem(ToolMaterials.DIAMOND,5,-3.0f,new Item.Settings().group(ItemGroup.COMBAT));
+	public static final SwordItem NETHERITE_CLEAVER = new SwordItem(ToolMaterials.NETHERITE,5,-3.0f,new Item.Settings().group(ItemGroup.COMBAT).fireproof());
 
 	public static final Organ HUMAN_APPENDIX = new Organ().setOrganQuality(CCOrganScores.LUCK,1f);
 	public static final Organ HUMAN_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,1f);
@@ -183,6 +191,12 @@ public class CCItems {
 	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
+		registerItem("wooden_cleaver", WOODEN_CLEAVER);
+		registerItem("stone_cleaver", STONE_CLEAVER);
+		registerItem("gold_cleaver", GOLD_CLEAVER);
+		registerItem("iron_cleaver", IRON_CLEAVER);
+		registerItem("diamond_cleaver", DIAMOND_CLEAVER);
+		registerItem("netherite_cleaver", NETHERITE_CLEAVER);
 
 		registerItem("appendix", HUMAN_APPENDIX);
 		registerItem("heart", HUMAN_HEART);

@@ -33,25 +33,33 @@ public class SkeletonChestCavity extends BaseChestCavity implements ChestCavityT
         chestCavity.setStack(15, ItemStack.EMPTY);
         chestCavity.setStack(16, new ItemStack(CCItems.ROTTEN_RIB, CCItems.ROTTEN_RIB.getMaxCount()));
     }
-    /*
+
     @Override
     public void shapeChestCavity() {
-        forbiddenSlots = new boolean[getDefaultChestCavity().size()];
-        forbiddenSlots[0] = true;
-        forbiddenSlots[8] = true;
-        forbiddenSlots[9] = true;
-        forbiddenSlots[17] = true;
-        forbiddenSlots[18] = true;
-        forbiddenSlots[19] = true;
-        forbiddenSlots[20] = true;
-        forbiddenSlots[21] = true;
-        forbiddenSlots[22] = true;
-        forbiddenSlots[23] = true;
-        forbiddenSlots[24] = true;
-        forbiddenSlots[25] = true;
-        forbiddenSlots[26] = true;
+        forbiddenSlots.add(0);
+        forbiddenSlots.add(2);
+        forbiddenSlots.add(3);
+        forbiddenSlots.add(4);
+        forbiddenSlots.add(5);
+        forbiddenSlots.add(6);
+        forbiddenSlots.add(8);
+        forbiddenSlots.add(9);
+        forbiddenSlots.add(11);
+        forbiddenSlots.add(12);
+        forbiddenSlots.add(14);
+        forbiddenSlots.add(15);
+        forbiddenSlots.add(17);
+        forbiddenSlots.add(18);
+        forbiddenSlots.add(19);
+        forbiddenSlots.add(20);
+        forbiddenSlots.add(21);
+        forbiddenSlots.add(22);
+        forbiddenSlots.add(23);
+        forbiddenSlots.add(24);
+        forbiddenSlots.add(25);
+        forbiddenSlots.add(26);
     }
-    */
+
     @Override
     public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();

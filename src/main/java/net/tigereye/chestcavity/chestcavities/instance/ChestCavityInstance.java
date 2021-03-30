@@ -89,6 +89,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     }
 
     public void onInventoryChanged(Inventory sender) {
+        ChestCavityUtil.clearForbiddenSlots(this);
         ChestCavityUtil.evaluateChestCavity(this);
     }
 
@@ -170,10 +171,10 @@ public class ChestCavityInstance implements InventoryChangedListener {
             inventory.removeListener(this);
         }
         catch(NullPointerException ignored){}
-        //for(int i = 0; i < inventory.size(); ++i) {
-        //    inventory.setStack(i, other.inventory.getStack(i));
-        //    inventory.forbiddenSlots = other.inventory.forbiddenSlots;
-        //}
+        for(int i = 0; i < inventory.size(); ++i) {
+            inventory.setStack(i, other.inventory.getStack(i));
+            //inventory.forbiddenSlots = other.inventory.forbiddenSlots;
+        }
         inventory.readTags(other.inventory.getTags());
         inventory.addListener(this);
 

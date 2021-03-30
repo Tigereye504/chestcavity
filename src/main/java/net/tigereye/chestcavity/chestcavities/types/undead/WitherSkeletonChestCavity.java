@@ -48,6 +48,32 @@ public class WitherSkeletonChestCavity extends BaseChestCavity implements ChestC
     }
 
     @Override
+    public void shapeChestCavity() {
+        forbiddenSlots.add(0);
+        forbiddenSlots.add(2);
+        forbiddenSlots.add(3);
+        forbiddenSlots.add(4);
+        forbiddenSlots.add(5);
+        forbiddenSlots.add(6);
+        forbiddenSlots.add(8);
+        forbiddenSlots.add(9);
+        forbiddenSlots.add(11);
+        forbiddenSlots.add(12);
+        forbiddenSlots.add(14);
+        forbiddenSlots.add(15);
+        forbiddenSlots.add(17);
+        forbiddenSlots.add(18);
+        forbiddenSlots.add(19);
+        forbiddenSlots.add(20);
+        forbiddenSlots.add(21);
+        forbiddenSlots.add(22);
+        forbiddenSlots.add(23);
+        forbiddenSlots.add(24);
+        forbiddenSlots.add(25);
+        forbiddenSlots.add(26);
+    }
+
+    @Override
     public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
         organScores.put(CCOrganScores.LUCK, 1f);

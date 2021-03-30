@@ -101,7 +101,7 @@ public class SalvageRecipe implements CraftingRecipe {
     public RecipeSerializer<?> getSerializer() {
         return SalvageRecipeSerializer.INSTANCE;
     }
-    /*
+
     public static class Type implements RecipeType<SalvageRecipe> {
         // Define ExampleRecipe.Type as a singleton by making its constructor private and exposing an instance.
         private Type() {}
@@ -114,5 +114,5 @@ public class SalvageRecipe implements CraftingRecipe {
     public RecipeType<?> getType() {
         return Type.INSTANCE;
     }
-    */
+
 }

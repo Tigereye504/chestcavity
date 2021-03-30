@@ -16,13 +16,19 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.recipes.SalvageRecipe;
 import net.tigereye.chestcavity.registration.CCItems;
+import net.tigereye.chestcavity.registration.CCRecipes;
+import net.tigereye.chestcavity.registration.CCTags;
 import net.tigereye.modifydropsapi.api.GenerateBlockLootCallbackModifyLoot;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
+import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackModifyLoot;
 
 import java.util.*;
 
@@ -52,7 +58,12 @@ public class LootRegister {
                 }
                 //get looting level and random
                 if(lootContext.get(LootContextParameters.KILLER_ENTITY) instanceof LivingEntity){
-                    lootingLevel = EnchantmentHelper.getLooting((LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY));
+                    LivingEntity killer = (LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY);
+                    lootingLevel = EnchantmentHelper.getLooting(killer);
+                    if(killer.getStackInHand(killer.getActiveHand()).getItem().isIn(CCTags.BUTCHERING_TOOL))
+                    {
+                        lootingLevel += 3;
+                    }
                     random = lootContext.getRandom();
                 }
                 else{
@@ -63,6 +74,37 @@ public class LootRegister {
                 loot.addAll(cc.getChestCavityType().generateLootDrops(random,lootingLevel));
             }
 
+            return loot;
+        });
+
+        GenerateEntityLootCallbackModifyLoot.EVENT.register((type,lootContext,loot) -> {
+            if (lootContext.hasParameter(LootContextParameters.KILLER_ENTITY)) {
+                LivingEntity killer = (LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY);
+                if(killer.getStackInHand(killer.getActiveHand()).getItem().isIn(CCTags.BUTCHERING_TOOL)){
+                    //first, remove everything that can be salvaged from the loot and count them up
+                    Map<SalvageRecipe, Integer> salvageResults = new HashMap<>();
+                    Iterator<ItemStack> i = loot.iterator();
+                    while(i.hasNext()){
+                        ItemStack stack = i.next();
+                        List<SalvageRecipe> recipes = killer.world.getRecipeManager().listAllOfType(CCRecipes.SALVAGE_RECIPE_TYPE);
+                        if(stack.getItem().isIn(CCTags.SALVAGEABLE)){
+                            for (SalvageRecipe recipe: recipes) {
+                                if(recipe.getInput().test(stack)){
+                                    salvageResults.put(recipe,salvageResults.getOrDefault(recipe,0)+stack.getCount());
+                                    i.remove();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    //then, get the output of the salvage and add it to the loot
+                    salvageResults.forEach((recipe,count) -> {
+                        ItemStack out = recipe.getOutput();
+                        out.setCount(out.getCount()*(count/recipe.getRequired()));
+                        loot.add(out);
+                    });
+                }
+            }
             return loot;
         });
 

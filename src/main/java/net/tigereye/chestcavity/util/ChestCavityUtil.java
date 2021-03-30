@@ -288,7 +288,7 @@ public class ChestCavityUtil {
 
     public static void dropUnboundOrgans(ChestCavityInstance cc) {
         if(ChestCavity.config.REQUIEM_INTEGRATION){
-            if(Registry.ENTITY_TYPE.getId(cc.owner.getType()) == CCRequiem.PLAYER_SHELL_ID){
+            if(Registry.ENTITY_TYPE.getId(cc.owner.getType()).compareTo(CCRequiem.PLAYER_SHELL_ID) == 0){
                 return; //player shells shall not drop organs
             }
         }
@@ -481,5 +481,17 @@ public class ChestCavityUtil {
             return Math.max(0,1+(speedDiff*ChestCavity.config.SWIMSPEED_FACTOR/8));
         }
 
+    }
+
+    public static void clearForbiddenSlots(ChestCavityInstance cc) {
+        try {
+            cc.inventory.removeListener(cc);
+        } catch(NullPointerException ignored){}
+        for(int i = 0; i < cc.inventory.size();i++){
+            if(cc.getChestCavityType().isSlotForbidden(i)){
+                cc.owner.dropStack(cc.inventory.removeStack(i));
+            }
+        }
+        cc.inventory.addListener(cc);
     }
 }

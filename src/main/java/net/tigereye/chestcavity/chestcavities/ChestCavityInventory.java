@@ -7,6 +7,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChestCavityInventory extends SimpleInventory {
 
     ChestCavityInstance instance;

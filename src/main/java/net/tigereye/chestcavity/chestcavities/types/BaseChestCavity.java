@@ -18,10 +18,11 @@ public class BaseChestCavity implements ChestCavityType {
 
     private Map<Identifier,Float> defaultOrganScores = null;
     private ChestCavityInventory defaultChestCavity = new ChestCavityInventory();
-    //public boolean[] forbiddenSlots;
+    public List<Integer> forbiddenSlots = new ArrayList<>();
 
     public BaseChestCavity(){
         fillChestCavityInventory(defaultChestCavity);
+        shapeChestCavity();
     }
 
     @Override
@@ -38,15 +39,12 @@ public class BaseChestCavity implements ChestCavityType {
     public float getDefaultOrganScore(Identifier id){return getDefaultOrganScores().getOrDefault(id,0f);}
     @Override
     public ChestCavityInventory getDefaultChestCavity(){return defaultChestCavity;}
-    /*
+
     @Override
     public boolean isSlotForbidden(int index){
-        if(forbiddenSlots.length < index){
-            return true;
-        }
-        return forbiddenSlots[index];
+        return forbiddenSlots.contains(index);
     }
-    */
+
     @Override
     public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
         chestCavity.clear();
@@ -54,12 +52,11 @@ public class BaseChestCavity implements ChestCavityType {
             chestCavity.setStack(i,new ItemStack(Items.DIRT,64));
         }
     }
-    /*
+
     @Override
     public void shapeChestCavity() {
-        forbiddenSlots = new boolean[getDefaultChestCavity().size()];
     }
-    */
+
     @Override
     public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
