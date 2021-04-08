@@ -90,7 +90,7 @@ public class CCItems {
 	public static final Organ SMALL_HERBIVORE_STOMACH = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_DIGESTION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_DIGESTION,.25f);
 	public static final Organ SMALL_HERBIVORE_INTESTINE = new Organ().setOrganQuality(CCOrganScores.HERBIVOROUS_NUTRITION,.75f).setOrganQuality(CCOrganScores.CARNIVOROUS_NUTRITION,.25f);
 
-	public static final Organ INSECT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f);
+	public static final Organ INSECT_HEART = new Organ().setOrganQuality(CCOrganScores.HEALTH,.5f).setOrganQuality(CCOrganScores.FILTRATION,.5f);
 	public static final Organ INSECT_INTESTINE = new Organ().setOrganQuality(CCOrganScores.NUTRITION,.5f);
 	public static final Organ INSECT_LUNG = new Organ().setOrganQuality(CCOrganScores.BREATH,.75f).setOrganQuality(CCOrganScores.ENDURANCE,.75f);
 	public static final Organ INSECT_MUSCLE = new Organ(16,CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT).setOrganQuality(CCOrganScores.STRENGTH,.5f).setOrganQuality(CCOrganScores.SPEED,1.25f);

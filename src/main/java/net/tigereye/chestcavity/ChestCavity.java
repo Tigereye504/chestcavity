@@ -39,6 +39,7 @@ public class ChestCavity implements ModInitializer {
 		AutoConfig.register(CCConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(CCConfig.class).getConfig();
 		CCItems.register();
+		CCEnchantments.register();
 		CCListeners.register();
 		CCRecipes.register();
 		CCStatusEffects.register();

@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.items;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
@@ -13,6 +14,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
@@ -105,10 +107,19 @@ public class Organ extends Item implements ChestCavityOrgan {
 
 	protected void displaySoulBinding(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 		CompoundTag tag = itemStack.getTag();
-		if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
+		if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
+			Text text = new LiteralText("Unsafe to use");
+			tooltip.add(text);
+		}
+		else if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())
+			&& EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack) <= 0) {
 			tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
 			String name = tag.getString("name");
-			Text text = new LiteralText("Owner: "+name);
+			Text text = new LiteralText("Only Compatible With: "+name);
+			tooltip.add(text);
+		}
+		else{
+			Text text = new LiteralText("Safe to Use");
 			tooltip.add(text);
 		}
 	}

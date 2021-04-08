@@ -6,6 +6,7 @@ import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.types.BaseChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -67,15 +68,7 @@ public class LargeFishChestCavity extends BaseChestCavity implements ChestCavity
         organPile.add(CCItems.ANIMAL_SPLEEN);
         organPile.add(CCItems.ANIMAL_STOMACH);
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
-        for (int i = 0; i < rolls; i++){
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            Item rolledItem = organPile.get(roll);
-            if(rolledItem.getMaxCount() > 1){
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            loot.add(new ItemStack(organPile.remove(roll),count));
-        }
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
     }
 
 }

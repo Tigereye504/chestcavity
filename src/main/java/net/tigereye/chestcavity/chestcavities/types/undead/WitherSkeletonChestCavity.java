@@ -8,6 +8,7 @@ import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.types.BaseChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -50,17 +51,8 @@ public class WitherSkeletonChestCavity extends BaseChestCavity implements ChestC
     @Override
     public void shapeChestCavity() {
         forbiddenSlots.add(0);
-        forbiddenSlots.add(2);
-        forbiddenSlots.add(3);
-        forbiddenSlots.add(4);
-        forbiddenSlots.add(5);
-        forbiddenSlots.add(6);
         forbiddenSlots.add(8);
         forbiddenSlots.add(9);
-        forbiddenSlots.add(11);
-        forbiddenSlots.add(12);
-        forbiddenSlots.add(14);
-        forbiddenSlots.add(15);
         forbiddenSlots.add(17);
         forbiddenSlots.add(18);
         forbiddenSlots.add(19);
@@ -99,15 +91,7 @@ public class WitherSkeletonChestCavity extends BaseChestCavity implements ChestC
         }
         organPile.add(CCItems.WITHERED_SPINE);
         int rolls = 1 + random.nextInt(1) + random.nextInt(1);
-        for (int i = 0; i < rolls; i++){
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            Item rolledItem = organPile.get(roll);
-            if(rolledItem.getMaxCount() > 1){
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            loot.add(new ItemStack(organPile.remove(roll),count));
-        }
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
     }
 
 }

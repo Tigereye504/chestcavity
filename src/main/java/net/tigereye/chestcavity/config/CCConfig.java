@@ -38,6 +38,10 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("core")
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
     @ConfigEntry.Category("core")
+    public int CHEST_OPENER_ABSOLUTE_HEALTH_THRESHOLD = 20; //health below which a chest can be opened
+    @ConfigEntry.Category("core")
+    public float CHEST_OPENER_FRACTIONAL_HEALTH_THRESHOLD = .5f; //health below which a chest can be opened
+    @ConfigEntry.Category("core")
     public boolean CAN_OPEN_OTHER_PLAYERS = false;
     @ConfigEntry.Category("core")
     public boolean KEEP_CHEST_CAVITY = false;

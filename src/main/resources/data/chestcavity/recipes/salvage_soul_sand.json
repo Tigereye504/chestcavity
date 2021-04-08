@@ -1,0 +1,9 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": {
+    "item": "chestcavity:writhing_soulsand"
+  },
+  "required": 4,
+  "result": "minecraft:soul_sand",
+  "count": 1
+}

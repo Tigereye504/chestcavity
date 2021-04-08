@@ -110,15 +110,7 @@ public class DragonChestCavity extends BaseChestCavity implements ChestCavityTyp
         organPile.add(CCItems.DRAGON_SPINE);
         organPile.add(CCItems.DRAGON_SPLEEN);
         int rolls = 3 + random.nextInt(2+looting) + random.nextInt(2+looting);
-        for (int i = 0; i < rolls; i++) {
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            Item rolledItem = organPile.get(roll);
-            if (rolledItem.getMaxCount() > 1) {
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            loot.add(new ItemStack(organPile.remove(roll), count));
-        }
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
     }
 
     @Override

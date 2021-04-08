@@ -26,14 +26,14 @@ import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.listeners.*;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCOtherOrgans;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ChestCavityUtil {
@@ -286,6 +286,27 @@ public class ChestCavityUtil {
         return true;
     }
 
+    public static int getCompatibilityLevel(ChestCavityInstance cc, ItemStack itemStack){
+        if(itemStack != null && itemStack != ItemStack.EMPTY) {
+            if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack)>0){
+                return 0;
+            }
+            int oNegative = EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack);
+            int ownership = 0;
+            CompoundTag tag = itemStack.getTag();
+            if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
+                tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
+                if (tag.getUuid("owner").equals(cc.compatibility_id)) {
+                    ownership = 2;
+                }
+            } else {
+                ownership = 1;
+            }
+            return Math.max(oNegative,ownership);
+        }
+        return 1;
+    }
+
     public static void dropUnboundOrgans(ChestCavityInstance cc) {
         if(ChestCavity.config.REQUIEM_INTEGRATION){
             if(Registry.ENTITY_TYPE.getId(cc.owner.getType()).compareTo(CCRequiem.PLAYER_SHELL_ID) == 0){
@@ -298,14 +319,8 @@ public class ChestCavityUtil {
         for(int i = 0; i < cc.inventory.size(); i++){
             ItemStack itemStack = cc.inventory.getStack(i);
             if(itemStack != null && itemStack != ItemStack.EMPTY) {
-                CompoundTag tag = itemStack.getTag();
-                if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
-                    tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
-                    if (!tag.getUuid("owner").equals(cc.compatibility_id)) {
-                        //drop item
-                        cc.owner.dropStack(cc.inventory.removeStack(i));
-                    }
-                } else {
+                int compatibility = getCompatibilityLevel(cc,itemStack);
+                if(compatibility < 2){
                     cc.owner.dropStack(cc.inventory.removeStack(i));
                 }
             }
@@ -313,6 +328,7 @@ public class ChestCavityUtil {
         cc.inventory.addListener(cc);
         evaluateChestCavity(cc);
     }
+
     public static void evaluateChestCavity(ChestCavityInstance cc) {
         Map<Identifier,Float> organScores = cc.getOrganScores();
         if(!cc.opened){
@@ -337,15 +353,10 @@ public class ChestCavityUtil {
                             cc.onHitListeners.add(new OrganOnHitContext(itemStack,(OrganOnHitListener)slotitem));
                         }
                     }
-                    CompoundTag tag = itemStack.getTag();
-                    String CompatTag = ChestCavity.COMPATIBILITY_TAG.toString();
-                    if (tag != null && tag.contains(CompatTag) && slotitem instanceof Organ) {
-                        tag = tag.getCompound(CompatTag);
-                        if (!tag.getUuid("owner").equals(cc.compatibility_id)) {
-                            if (ChestCavity.DEBUG_MODE && cc.owner instanceof PlayerEntity) {
-                                System.out.println("incompatability found! item bound to UUID " + tag.getUuid("owner").toString() + " but player is UUID " + cc.compatibility_id);
-                            }
-                            addOrganScore(CCOrganScores.INCOMPATIBILITY, 1,organScores);
+                    if (slotitem instanceof Organ) {
+                        int compatibility = getCompatibilityLevel(cc,itemStack);
+                        if(compatibility < 1){
+                            addOrganScore(CCOrganScores.INCOMPATIBILITY, 1, organScores);
                         }
                     }
                 }
@@ -493,5 +504,25 @@ public class ChestCavityUtil {
             }
         }
         cc.inventory.addListener(cc);
+    }
+
+    public static List<ItemStack> drawOrgansFromPile(List<Item> organPile, int rolls, Random random){
+        List<ItemStack> loot = new ArrayList<>();
+        drawOrgansFromPile(organPile,rolls,random,loot);
+        return loot;
+    }
+    public static void drawOrgansFromPile(List<Item> organPile, int rolls, Random random, List<ItemStack> loot){
+        for (int i = 0; i < rolls; i++) {
+            if(organPile.isEmpty()){
+                break;
+            }
+            int roll = random.nextInt(organPile.size());
+            int count = 1;
+            Item rolledItem = organPile.get(roll);
+            if (rolledItem.getMaxCount() > 1) {
+                count += random.nextInt(rolledItem.getMaxCount());
+            }
+            loot.add(new ItemStack(organPile.remove(roll), count));
+        }
     }
 }

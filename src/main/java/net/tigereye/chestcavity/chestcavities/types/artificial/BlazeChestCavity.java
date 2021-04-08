@@ -81,15 +81,7 @@ public class BlazeChestCavity extends BaseChestCavity implements ChestCavityType
         organPile.add(CCItems.BLAZE_SHELL);
         organPile.add(CCItems.BLAZE_CORE);
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
-        for (int i = 0; i < rolls; i++){
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            Item rolledItem = organPile.get(roll);
-            if(rolledItem.getMaxCount() > 1){
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            loot.add(new ItemStack(organPile.remove(roll),count));
-        }
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
     }
 
 }

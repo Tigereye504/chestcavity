@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.chestcavities.types;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -9,6 +10,7 @@ import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 
@@ -112,7 +114,13 @@ public class BaseChestCavity implements ChestCavityType {
     public float getHeartBleedCap(){return Float.MAX_VALUE;}
 
     @Override
-    public boolean isOpenable(ChestCavityInstance instance){return true;}
+    public boolean isOpenable(ChestCavityInstance instance){
+        boolean weakEnough = instance.owner.getHealth() <= ChestCavity.config.CHEST_OPENER_ABSOLUTE_HEALTH_THRESHOLD
+                || instance.owner.getHealth() <= instance.owner.getMaxHealth()*ChestCavity.config.CHEST_OPENER_FRACTIONAL_HEALTH_THRESHOLD;
+        boolean chestVulnerable = instance.owner.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+        boolean easeOfAccess = instance.getOrganScore(CCOrganScores.EASE_OF_ACCESS) > 0;
+        return chestVulnerable && (easeOfAccess || weakEnough);
+    }
 
     @Override
     public void onDeath(ChestCavityInstance cc) {

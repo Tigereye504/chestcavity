@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.chestcavities.types.humanoid;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
@@ -45,7 +46,7 @@ public class PlayerChestCavity extends HumanChestCavity implements ChestCavityTy
     }
 
     protected void insertWelfareOrgans(ChestCavityInstance cc){
-        //urgently essential organs are: heart, spine, lung
+        //urgently essential organs are: heart, spine, lung, and just a touch of strength
         if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
         }
@@ -54,6 +55,9 @@ public class PlayerChestCavity extends HumanChestCavity implements ChestCavityTy
         }
         if(cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_SPINE),13);
+        }
+        if(cc.getOrganScore(CCOrganScores.STRENGTH) == 0){
+            forcefullyAddStack(cc, new ItemStack(Items.ROTTEN_FLESH,16),0);
         }
     }
 

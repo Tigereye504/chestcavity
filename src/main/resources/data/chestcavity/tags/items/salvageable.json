@@ -18,6 +18,7 @@
       "#chestcavity:salvageable_small_animal_organ_meat",
       "#chestcavity:salvageable_small_butchered_meat",
       "#chestcavity:salvageable_toxic_meat",
-      "#chestcavity:salvageable_toxic_organ_meat"
+      "#chestcavity:salvageable_toxic_organ_meat",
+      "chestcavity:writhing_soulsand"
     ]
 }

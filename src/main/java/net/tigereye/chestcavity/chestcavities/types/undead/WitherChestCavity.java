@@ -113,20 +113,13 @@ public class WitherChestCavity extends BaseChestCavity implements ChestCavityTyp
         }
         organPile.add(CCItems.WITHERED_SPINE);
         int rolls = 1 + random.nextInt(1) + random.nextInt(1);
-        for (int i = 0; i < rolls; i++){
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            Item rolledItem = organPile.get(roll);
-            if(rolledItem.getMaxCount() > 1){
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            loot.add(new ItemStack(organPile.remove(roll),count));
-        }
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
     }
 
     @Override
     public void generateGuaranteedOrganDrops(Random random, int looting, List<ItemStack> loot) {
         int soulsandCount = 16 + random.nextInt(4 + 4*looting) + random.nextInt(4 + 4*looting) + random.nextInt(4 + 4*looting) + random.nextInt(4 + 4*looting);
+        soulsandCount = Math.min(64*21,soulsandCount);
         while(soulsandCount > CCItems.WRITHING_SOULSAND.getMaxCount()){
             loot.add(new ItemStack(CCItems.WRITHING_SOULSAND, CCItems.WRITHING_SOULSAND.getMaxCount()));
             soulsandCount -= CCItems.WRITHING_SOULSAND.getMaxCount();
@@ -142,9 +135,9 @@ public class WitherChestCavity extends BaseChestCavity implements ChestCavityTyp
     @Override
     public boolean isOpenable(ChestCavityInstance cc){
         if(cc.owner instanceof WitherEntity){
-            return ((WitherEntity)cc.owner).getInvulnerableTimer() <= 0;
+            return ((WitherEntity)cc.owner).getInvulnerableTimer() <= 0 && super.isOpenable(cc);
         }
-        return true;
+        return super.isOpenable(cc);
     }
 
 }

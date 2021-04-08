@@ -3,6 +3,7 @@ package net.tigereye.chestcavity.listeners;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -22,7 +23,9 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCRecipes;
 import net.tigereye.chestcavity.registration.CCTags;
@@ -59,10 +62,15 @@ public class LootRegister {
                 //get looting level and random
                 if(lootContext.get(LootContextParameters.KILLER_ENTITY) instanceof LivingEntity){
                     LivingEntity killer = (LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY);
-                    lootingLevel = EnchantmentHelper.getLooting(killer);
+                    //check if loot is forbidden due to malpractice
+                    if(EnchantmentHelper.getEquipmentLevel(CCEnchantments.TOMOPHOBIA, killer) > 0){
+                        return loot;
+                    }
+                    lootingLevel = EnchantmentHelper.getEquipmentLevel(Enchantments.LOOTING, killer);
+                    lootingLevel += EnchantmentHelper.getEquipmentLevel(CCEnchantments.SURGICAL, killer)*2;
                     if(killer.getStackInHand(killer.getActiveHand()).getItem().isIn(CCTags.BUTCHERING_TOOL))
                     {
-                        lootingLevel += 3;
+                        lootingLevel = 10 + 10*lootingLevel;
                     }
                     random = lootContext.getRandom();
                 }
@@ -103,6 +111,15 @@ public class LootRegister {
                         out.setCount(out.getCount()*(count/recipe.getRequired()));
                         loot.add(out);
                     });
+                }
+
+                if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,killer.getStackInHand(killer.getActiveHand())) > 0){
+                    //first, remove everything that can be salvaged from the loot and count them up
+                    for (ItemStack stack : loot) {
+                        if (stack.getItem() instanceof Organ) {
+                            stack.addEnchantment(CCEnchantments.MALPRACTICE, 1);
+                        }
+                    }
                 }
             }
             return loot;
