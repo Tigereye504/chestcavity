@@ -17,6 +17,7 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.Identifier;
@@ -40,7 +41,7 @@ public class LootRegister {
 
     private static final Identifier DESERT_PYRAMID_LOOT_TABLE_ID = new Identifier("minecraft", "chests/desert_pyramid");
 
-
+    private static List<SalvageRecipe> salvageRecipeList;
 
     public static void register(){
         GenerateEntityLootCallbackAddLoot.EVENT.register((type, lootContext) -> {
@@ -92,11 +93,19 @@ public class LootRegister {
                     //first, remove everything that can be salvaged from the loot and count them up
                     Map<SalvageRecipe, Integer> salvageResults = new HashMap<>();
                     Iterator<ItemStack> i = loot.iterator();
+                    if(salvageRecipeList == null){
+                        salvageRecipeList = new ArrayList<>();
+                        List<CraftingRecipe> recipes = killer.world.getRecipeManager().listAllOfType(RecipeType.CRAFTING);
+                        for(CraftingRecipe recipe : recipes){
+                            if(recipe instanceof SalvageRecipe){
+                                salvageRecipeList.add((SalvageRecipe) recipe);
+                            }
+                        }
+                    }
                     while(i.hasNext()){
                         ItemStack stack = i.next();
-                        List<SalvageRecipe> recipes = killer.world.getRecipeManager().listAllOfType(CCRecipes.SALVAGE_RECIPE_TYPE);
                         if(stack.getItem().isIn(CCTags.SALVAGEABLE)){
-                            for (SalvageRecipe recipe: recipes) {
+                            for (SalvageRecipe recipe: salvageRecipeList) {
                                 if(recipe.getInput().test(stack)){
                                     salvageResults.put(recipe,salvageResults.getOrDefault(recipe,0)+stack.getCount());
                                     i.remove();

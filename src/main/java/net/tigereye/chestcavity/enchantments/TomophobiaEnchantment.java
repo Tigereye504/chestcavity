@@ -2,7 +2,9 @@ package net.tigereye.chestcavity.enchantments;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 
 public class TomophobiaEnchantment extends Enchantment {
     public TomophobiaEnchantment(){
@@ -23,5 +25,11 @@ public class TomophobiaEnchantment extends Enchantment {
 
     public boolean isTreasure() {
         return true;
+    }
+
+    public boolean canAccept(Enchantment other) {
+        return super.canAccept(other)
+                && other != CCEnchantments.SURGICAL
+                && other != CCEnchantments.MALPRACTICE;
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.LuckEnchantment;
 import net.minecraft.entity.EquipmentSlot;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 
 public class SurgicalEnchantment extends LuckEnchantment {
     public SurgicalEnchantment() {
@@ -25,6 +26,7 @@ public class SurgicalEnchantment extends LuckEnchantment {
 
     public boolean canAccept(Enchantment other) {
         return super.canAccept(other) &&
-                other.canCombine(Enchantments.LOOTING);
+                other.canCombine(Enchantments.LOOTING)
+                && other != CCEnchantments.TOMOPHOBIA;
     }
 }

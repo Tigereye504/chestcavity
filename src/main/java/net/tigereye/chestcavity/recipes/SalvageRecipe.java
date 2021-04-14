@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.recipes.json.SalvageRecipeSerializer;
+import net.tigereye.chestcavity.registration.CCRecipes;
 
 public class SalvageRecipe implements CraftingRecipe {
     private final Ingredient input;
@@ -30,6 +31,7 @@ public class SalvageRecipe implements CraftingRecipe {
 
     @Override
     public boolean matches(CraftingInventory inv, World world) {
+        //ChestCavity.LOGGER.info("Attempting to match salvage recipe");
         int count = 0;
         ItemStack target;
         for(int i = 0; i < inv.size(); ++i) {
@@ -46,7 +48,7 @@ public class SalvageRecipe implements CraftingRecipe {
             }
         }
         //if(count > 0){
-        //    ChestCavity.LOGGER.info("Found salvage recipe match");
+            //ChestCavity.LOGGER.info("Found salvage recipe match");
         //}
         return count > 0 && count % required == 0;
     }
@@ -99,20 +101,13 @@ public class SalvageRecipe implements CraftingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SalvageRecipeSerializer.INSTANCE;
+        return CCRecipes.SALVAGE_RECIPE_SERIALIZER;
     }
 
-    public static class Type implements RecipeType<SalvageRecipe> {
-        // Define ExampleRecipe.Type as a singleton by making its constructor private and exposing an instance.
-        private Type() {}
-        public static final Type INSTANCE = new Type();
-
-        // This will be needed in step 4
-        public static final String ID = "crafting_salvage";
+    /*@Override
+    public RecipeType<SalvageRecipe> getType() {
+        return CCRecipes.SALVAGE_RECIPE_TYPE;
     }
-    @Override
-    public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
+    */
 
 }

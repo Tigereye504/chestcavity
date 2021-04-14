@@ -14,13 +14,6 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
 
 public class SalvageRecipeSerializer implements RecipeSerializer<SalvageRecipe> {
-    private SalvageRecipeSerializer() {
-    }
-
-    public static final SalvageRecipeSerializer INSTANCE = new SalvageRecipeSerializer();
-
-    // This will be the "type" field in the json
-    public static final Identifier ID = new Identifier(ChestCavity.MODID,"crafting_salvage");
 
     @Override
     public SalvageRecipe read(Identifier id, JsonObject json) {

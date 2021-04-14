@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 
 public class MalpracticeCurseEnchantment extends Enchantment {
     public MalpracticeCurseEnchantment(){
@@ -31,7 +32,8 @@ public class MalpracticeCurseEnchantment extends Enchantment {
     }
 
     public boolean canAccept(Enchantment other) {
-        return super.canAccept(other);
+        return super.canAccept(other)
+                && other != CCEnchantments.TOMOPHOBIA;
     }
 
     public boolean isCursed() {
