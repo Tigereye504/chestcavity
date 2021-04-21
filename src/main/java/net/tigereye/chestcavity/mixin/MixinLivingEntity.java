@@ -43,9 +43,7 @@ import net.tigereye.chestcavity.util.NetworkUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -129,11 +127,28 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         return item;
     }
 
-    @ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z"), method = "travel",ordinal = 1)
+    /*
+    Lnet/minecraft/entity/Entity; (maybe LivingEntity)
+    updateVelocity(
+            F
+            Lnet/minecraft/util/math/Vec3d;
+    )V
+     */
+    //Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z
+    //@ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",ordinal = 1)
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0)
     protected float chestCavityLivingEntityWaterTravelMixin(float g) {
         //h = h*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
         //return h;
-        return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
+        if((LivingEntity)(Object)(this) instanceof PlayerEntity) {
+            ChestCavity.LOGGER.info("Incoming Variable: " + g);
+        }
+        float r = g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
+        if((LivingEntity)(Object)(this) instanceof PlayerEntity) {
+            ChestCavity.LOGGER.info("Output Variable: " + r);
+        }
+        return r;
+        //return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
     }
 
     public ChestCavityInstance getChestCavityInstance() {

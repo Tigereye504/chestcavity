@@ -63,7 +63,7 @@ public class CaveSpiderChestCavity extends BaseChestCavity implements ChestCavit
             organPile.add(CCItems.INSECT_CAECA);
         }
         organPile.add(CCItems.SILK_GLAND);
-        organPile.add(CCItems.SILK_GLAND);
+        organPile.add(CCItems.VENOM_GLAND);
         organPile.add(CCItems.INSECT_STOMACH);
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
         ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
