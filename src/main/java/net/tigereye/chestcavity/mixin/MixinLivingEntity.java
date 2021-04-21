@@ -140,13 +140,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     protected float chestCavityLivingEntityWaterTravelMixin(float g) {
         //h = h*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
         //return h;
-        if((LivingEntity)(Object)(this) instanceof PlayerEntity) {
-            ChestCavity.LOGGER.info("Incoming Variable: " + g);
-        }
         float r = g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
-        if((LivingEntity)(Object)(this) instanceof PlayerEntity) {
-            ChestCavity.LOGGER.info("Output Variable: " + r);
-        }
         return r;
         //return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
     }
