@@ -99,10 +99,6 @@ public class CCConfig implements ConfigData {
     public int VENOM_COOLDOWN = 40; //how often an entity is allowed to poison targets
 
     @ConfigEntry.Category("integration")
-    public boolean AGE_OF_EXILE_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
-    public boolean ANTHROPOPHAGY_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
     public boolean BACKROOMS_INTEGRATION = true;
     @ConfigEntry.Category("integration")
     public int BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS = 2;
@@ -113,15 +109,5 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("integration")
     public boolean BIOME_MAKEOVER_INTEGRATION = true;
     @ConfigEntry.Category("integration")
-    public boolean CREEPER_SPORES_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
-    public boolean DIREBATS_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
-    public boolean RATS_MISCHIEF_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
     public boolean REQUIEM_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
-    public boolean SMALL_ENDERMEN_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
-    public boolean SNOW_MERCY_INTEGRATION = true;
 }

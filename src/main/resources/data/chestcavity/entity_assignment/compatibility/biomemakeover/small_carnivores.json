@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_carnivore.json",
+  "entities": [
+    "biomemakeover:dragonfly",
+    "biomemakeover:toad"
+  ]
+}

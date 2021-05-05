@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/undead/zombie.json",
+  "entities": [
+    "biomemakeover:decayed"
+  ]
+}

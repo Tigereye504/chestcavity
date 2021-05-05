@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/human.json",
+  "entities": [
+    "biomemakeover:cowboy",
+    "biomemakeover:mushroom_trader"
+  ]
+}

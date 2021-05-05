@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_fish.json",
+  "entities": [
+    "biomemakeover:glowfish"
+  ]
+}

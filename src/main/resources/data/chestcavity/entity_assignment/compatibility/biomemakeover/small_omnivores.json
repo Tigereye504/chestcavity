@@ -1,0 +1,8 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_omnivore.json",
+  "entities": [
+    "biomemakeover:blightbat",
+    "biomemakeover:scuttler",
+    "biomemakeover:tadpole"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "chestcavity": "chestcavity:types/constructs/snow_golem.json",
+  "entities": [
+    "snowmercy:mister_snuggles",
+    "snowmercy:mister_chill_snuggles",
+    "snowmercy:sawman",
+    "snowmercy:aftermarket_snowman"
+  ]
+}

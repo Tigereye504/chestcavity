@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_herbivore.json",
+  "entities": [
+    "biomemakeover:lightning_bug",
+    "biomemakeover:lightning_bug_alternate"
+  ]
+}

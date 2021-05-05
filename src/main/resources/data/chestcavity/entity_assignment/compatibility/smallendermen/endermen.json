@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/enderman.json",
+  "entities": [
+    "smallendermen:small_enderman",
+    "smallendermen:tiny_enderman"
+  ]
+}

@@ -26,7 +26,7 @@ public class GeneratedChestCavityAssignmentManager implements SimpleSynchronousR
     @Override
     public void apply(ResourceManager manager) {
         GeneratedChestCavityAssignments.clear();
-        ChestCavity.LOGGER.info("Loading Chest Cavity Assignments");
+        ChestCavity.LOGGER.info("Loading chest cavity assignments.");
         for(Identifier id : manager.findResources(RESOURCE_LOCATION, path -> path.endsWith(".json"))) {
             try(InputStream stream = manager.getResource(id).getInputStream()) {
                 Reader reader = new InputStreamReader(stream);
@@ -35,5 +35,6 @@ public class GeneratedChestCavityAssignmentManager implements SimpleSynchronousR
                 ChestCavity.LOGGER.error("Error occurred while loading resource json " + id.toString(), e);
             }
         }
+        ChestCavity.LOGGER.info("Loaded "+GeneratedChestCavityAssignments.size()+" chest cavity assignments.");
     }
 }
