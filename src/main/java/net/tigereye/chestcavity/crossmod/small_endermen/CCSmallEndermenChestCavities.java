@@ -7,7 +7,8 @@ import net.tigereye.chestcavity.registration.CCChestCavityTypes;
 public class CCSmallEndermenChestCavities {
 
     public static void register(){
-        ChestCavityInstanceFactory.register(new Identifier(CCSmallEndermen.MODID,"small_enderman"), CCChestCavityTypes.ENDERMAN_CHEST_CAVITY);        ChestCavityInstanceFactory.register(new Identifier(CCSmallEndermen.MODID,"small_enderman"), CCChestCavityTypes.ENDERMAN_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCSmallEndermen.MODID,"tiny_enderman"), CCChestCavityTypes.ENDERMAN_CHEST_CAVITY);
+        //TODO: jsonize small endermen
+        //ChestCavityInstanceFactory.register(new Identifier(CCSmallEndermen.MODID,"small_enderman"), CCChestCavityTypes.ENDERMAN_CHEST_CAVITY);        ChestCavityInstanceFactory.register(new Identifier(CCSmallEndermen.MODID,"small_enderman"), CCChestCavityTypes.ENDERMAN_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCSmallEndermen.MODID,"tiny_enderman"), CCChestCavityTypes.ENDERMAN_CHEST_CAVITY);
     }
 }

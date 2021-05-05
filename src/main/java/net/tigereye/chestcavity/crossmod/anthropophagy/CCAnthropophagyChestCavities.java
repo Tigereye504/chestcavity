@@ -7,6 +7,6 @@ import net.tigereye.chestcavity.registration.CCChestCavityTypes;
 public class CCAnthropophagyChestCavities {
 
     public static void register(){
-        ChestCavityInstanceFactory.register(new Identifier(CCAntropophagy.MODID,"piglutton"), CCChestCavityTypes.HUMAN_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCAntropophagy.MODID,"piglutton"), CCChestCavityTypes.HUMAN_CHEST_CAVITY);
     }
 }

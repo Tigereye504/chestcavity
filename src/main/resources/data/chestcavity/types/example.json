@@ -1,0 +1,42 @@
+{
+  "defaultChestCavity": [
+    {"item": "chestcavity:animal_muscle","position": 0},
+    {"item": "chestcavity:animal_rib","position": 1,"count": 3},
+    {"item": "chestcavity:animal_appendix","position": 2},
+
+    {"item": "chestcavity:animal_heart","position": 4},
+    {"item": "chestcavity:animal_spleen","position": 11},
+    {"item": "chestcavity:animal_kidney","position": 12},
+    {"item": "chestcavity:animal_spine","position": 13},
+
+    {"item": "chestcavity:animal_liver","position": 15},
+    {"item": "chestcavity:animal_rib","position": 16},
+    {"item": "chestcavity:animal_muscle","position": 17},
+    {"item": "chestcavity:herbivore_stomach","position": 22},
+
+    {"item": "minecraft:stick","position": 6,"count": 34},
+    {"item": "minecraft:oak_log","position": 18}
+  ],
+  "baseOrganScores": [
+    {"id": "chestcavity:health","value": ".5"}
+  ],
+  "exceptionalOrgans": [
+    { "ingredient": {"item": "minecraft:slime_ball"},
+      "value": [
+        {"id":"chestcavity:health","value": ".25"},
+        {"id":"chestcavity:strength","value": ".5"},
+        {"id":"chestcavity:speed","value": ".5"},
+        {"id":"chestcavity:defense","value": ".25"}
+      ]
+    },
+    { "ingredient": {"tag": "minecraft:logs"},
+      "value": [
+        {"id":"chestcavity:launching","value": "3"},
+        {"id":"chestcavity:buoyancy","value": "-1.25"}
+      ]
+    }
+  ],
+  "forbiddenSlots": [3,14],
+  "bossChestCavity": true,
+  "playerChestCavity": false
+}

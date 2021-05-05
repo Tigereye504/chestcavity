@@ -6,7 +6,7 @@ import net.tigereye.chestcavity.registration.CCChestCavityTypes;
 
 public class CCAOEChestCavities {
 
-    public static void register(){
+    public static void register(){/*
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"arcane_slime"), CCChestCavityTypes.SLIME_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"fire_slime"), CCChestCavityTypes.SLIME_CHEST_CAVITY);
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"water_slime"), CCChestCavityTypes.SLIME_CHEST_CAVITY);
@@ -42,6 +42,6 @@ public class CCAOEChestCavities {
         ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"nature_skeleton"), CCChestCavityTypes.SKELETON_CHEST_CAVITY);
 
         //ChestCavityInstanceFactory.register(new Identifier(CCAOE.MODID,"boss_golem"), IronGolem_CHEST_CAVITY);
-        
+        */
     }
 }

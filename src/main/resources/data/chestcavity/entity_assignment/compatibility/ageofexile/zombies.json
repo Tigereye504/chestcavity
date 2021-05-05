@@ -1,0 +1,10 @@
+{
+  "chestcavity": "chestcavity:types/undead/zombie.json",
+  "entities": [
+    "mmorpg:arcane_zombie",
+    "mmorpg:fire_zombie",
+    "mmorpg:water_zombie",
+    "mmorpg:thunder_zombie",
+    "mmorpg:nature_zombie"
+  ]
+}

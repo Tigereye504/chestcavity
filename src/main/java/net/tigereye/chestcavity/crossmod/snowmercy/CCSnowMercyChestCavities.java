@@ -7,9 +7,10 @@ import net.tigereye.chestcavity.registration.CCChestCavityTypes;
 public class CCSnowMercyChestCavities {
 
     public static void register(){
-        ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"mister_snuggles"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"mister_chill_snuggles"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"sawman"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
-        ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"aftermarket_snowman"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
+        //TODO: jsonize snow mercy
+        //ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"mister_snuggles"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"mister_chill_snuggles"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"sawman"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCSnowMercy.MODID,"aftermarket_snowman"), CCChestCavityTypes.SNOW_GOLEM_CHEST_CAVITY);
     }
 }

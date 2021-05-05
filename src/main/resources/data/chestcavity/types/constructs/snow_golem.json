@@ -1,0 +1,55 @@
+{
+  "defaultChestCavity": [
+    {"item": "minecraft:snowball","position": 0},
+    {"item": "minecraft:snowball","position": 1},
+    {"item": "minecraft:snowball","position": 2},
+    {"item": "minecraft:snowball","position": 3},
+    {"item": "minecraft:charcoal","position": 4, "count":  1},
+    {"item": "minecraft:snowball","position": 5},
+    {"item": "minecraft:snowball","position": 6},
+    {"item": "minecraft:snowball","position": 7},
+    {"item": "minecraft:snowball","position": 8},
+    {"item": "minecraft:snowball","position": 9},
+    {"item": "minecraft:snowball","position": 10},
+    {"item": "minecraft:snowball","position": 11},
+    {"item": "minecraft:snowball","position": 12},
+    {"item": "minecraft:charcoal","position": 13, "count":  1},
+    {"item": "minecraft:snowball","position": 14},
+    {"item": "minecraft:snowball","position": 15},
+    {"item": "minecraft:snowball","position": 16},
+    {"item": "minecraft:snowball","position": 17},
+    {"item": "minecraft:snowball","position": 18},
+    {"item": "minecraft:snowball","position": 19},
+    {"item": "minecraft:snowball","position": 20},
+    {"item": "minecraft:snowball","position": 21},
+    {"item": "minecraft:charcoal","position": 22, "count":  1},
+    {"item": "minecraft:snowball","position": 23},
+    {"item": "minecraft:snowball","position": 24},
+    {"item": "minecraft:snowball","position": 25},
+    {"item": "minecraft:snowball","position": 26}
+  ],
+  "baseOrganScores": [
+    {"id":"chestcavity:breath","value": "2"}
+  ],
+  "exceptionalOrgans": [
+    { "ingredient": {"item": "minecraft:snowball"},
+      "value": [
+        {"id":"chestcavity:strength","value": ".3333"},
+        {"id":"chestcavity:speed","value": ".3333"}
+      ]
+    },
+    { "ingredient": {"item": "minecraft:snow_block"},
+      "value": [
+        {"id":"chestcavity:strength","value": "1"},
+        {"id":"chestcavity:speed","value": "1"}
+      ]
+    },
+    { "ingredient": {"item": "minecraft:charcoal"},
+      "value": [
+        {"id":"chestcavity:health","value": "1"},
+        {"id":"chestcavity:defense","value": "1"},
+        {"id":"chestcavity:nerves","value": "1"}
+      ]
+    }
+  ]
+}

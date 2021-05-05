@@ -20,7 +20,7 @@ public class CCOtherOrgans {
         dirt.put(CCOrganScores.HEALTH,1f/27);
         dirt.put(CCOrganScores.STRENGTH,8f/27);
         dirt.put(CCOrganScores.SPEED,8f/27);
-        dirt.put(CCOrganScores.NERVOUS_SYSTEM,1f/27);
+        dirt.put(CCOrganScores.NERVES,1f/27);
         dirt.put(CCOrganScores.DETOXIFICATION,1f/27);
         dirt.put(CCOrganScores.FILTRATION,2f/27);
         dirt.put(CCOrganScores.ENDURANCE,2f/27);

@@ -1,0 +1,10 @@
+{
+  "chestcavity": "chestcavity:types/magical_beasts/slime.json",
+  "entities": [
+    "mmorpg:arcane_slime",
+    "mmorpg:fire_slime",
+    "mmorpg:water_slime",
+    "mmorpg:thunder_slime",
+    "mmorpg:nature_slime"
+  ]
+}

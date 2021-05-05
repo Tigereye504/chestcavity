@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/humanoid/human.json",
+  "entities": [
+    "anthropophagy:piglutton"
+  ]
+}

@@ -136,13 +136,13 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
      */
     //Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z
     //@ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",ordinal = 1)
-    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0)
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0,require = 0)
     protected float chestCavityLivingEntityWaterTravelMixin(float g) {
-        //h = h*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
-        //return h;
-        float r = g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
-        return r;
-        //return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
+        return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
+    }
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(Lnet/minecraft/entity/LivingEntity;FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0,require = 0)
+    protected float chestCavityLivingEntityWaterTravelMixinAlt(float g) {
+        return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
     }
 
     public ChestCavityInstance getChestCavityInstance() {

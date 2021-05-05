@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/compatibility/bewitchment/werewolf.json",
+  "entities": [
+    "bewitchment:werewolf"
+  ]
+}

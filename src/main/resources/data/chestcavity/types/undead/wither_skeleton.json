@@ -1,0 +1,27 @@
+{
+  "defaultChestCavity": [
+    
+    {"item": "chestcavity:withered_rib","position": 1},
+    {"item": "chestcavity:withered_rib","position": 7},
+
+    {"item": "chestcavity:withered_rib","position": 10},
+    {"item": "chestcavity:withered_spine","position": 13},
+    {"item": "chestcavity:withered_rib","position": 16}
+  ],
+  "baseOrganScores": [
+    {"id": "chestcavity:luck","value": "1"},
+    {"id": "chestcavity:defense","value": "2.375"},
+    {"id": "chestcavity:health","value": "1"},
+    {"id": "chestcavity:nutrition","value": "4"},
+    {"id": "chestcavity:filtration","value": "2"},
+    {"id": "chestcavity:detoxification","value": "1"},
+    {"id": "chestcavity:strength","value": "8"},
+    {"id": "chestcavity:speed","value": "8"},
+    {"id": "chestcavity:nerves","value": ".5"},
+    {"id": "chestcavity:metabolism","value": "1"},
+    {"id": "chestcavity:digestion","value": "1"},
+    {"id": "chestcavity:breath","value": "2"},
+    {"id": "chestcavity:endurance","value": "2"}
+  ],
+  "forbiddenSlots": [0,2,3,4,5,6,8,9,11,12,14,15,17,18,19,20,21,22,23,24,25,26]
+}

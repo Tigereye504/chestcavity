@@ -1,0 +1,43 @@
+{
+  "defaultChestCavity": [
+    {"item": "minecraft:oak_leaves","position": 0,"count": 16},
+    {"item": "minecraft:stick","position": 1,"count": 4},
+    {"item": "chestcavity:creeper_appendix","position": 4},
+    {"item": "minecraft:stick","position": 7,"count": 4},
+    {"item": "minecraft:oak_leaves","position": 8,"count": 16},
+
+    {"item": "minecraft:oak_leaves","position": 9,"count": 16},
+    {"item": "minecraft:stick","position": 10,"count": 4},
+    {"item": "minecraft:gunpowder","position": 12, "count": 1},
+    {"item": "minecraft:oak_log","position": 13},
+    {"item": "minecraft:gunpowder","position": 14, "count": 1},
+    {"item": "minecraft:stick","position": 16,"count": 4},
+    {"item": "minecraft:oak_leaves","position": 17,"count": 16},
+
+    {"item": "minecraft:oak_leaves","position": 18,"count": 16},
+    {"item": "minecraft:oak_leaves","position": 19,"count": 16},
+    {"item": "minecraft:gunpowder","position": 22, "count": 1},
+    {"item": "minecraft:oak_leaves","position": 25,"count": 16},
+    {"item": "minecraft:oak_leaves","position": 26,"count": 16}
+  ],
+  "exceptionalOrgans": [
+    { "ingredient": {"tag": "minecraft:leaves"},
+      "value": [
+        {"id":"chestcavity:strength","value": "4"},
+        {"id":"chestcavity:speed","value": "4"}
+      ]
+    },
+    { "ingredient": {"item": "minecraft:stick"},
+      "value": [
+        {"id":"chestcavity:defense","value": "16"}
+      ]
+    },
+    { "ingredient": {"tag": "minecraft:logs"},
+      "value": [
+        {"id":"chestcavity:health","value": "64"},
+        {"id":"chestcavity:defense","value": "48"},
+        {"id":"chestcavity:nerves","value": "64"}
+      ]
+    }
+  ]
+}

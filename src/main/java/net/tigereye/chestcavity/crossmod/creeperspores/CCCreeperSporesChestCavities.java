@@ -8,6 +8,6 @@ import net.tigereye.chestcavity.registration.CCChestCavityTypes;
 public class CCCreeperSporesChestCavities {
 
     public static void register(){
-        ChestCavityInstanceFactory.register(new Identifier(CCCreeperSpores.MODID,"creeperling"), CCChestCavityTypes.CREEPER_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCCreeperSpores.MODID,"creeperling"), CCChestCavityTypes.CREEPER_CHEST_CAVITY);
     }
 }

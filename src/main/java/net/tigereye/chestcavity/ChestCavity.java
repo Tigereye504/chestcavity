@@ -3,11 +3,15 @@ package net.tigereye.chestcavity;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.types.generated.json.GeneratedChestCavityAssignmentManager;
+import net.tigereye.chestcavity.chestcavities.types.generated.json.GeneratedChestCavityTypeManager;
 import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.crossmod.CrossModContent;
 import net.fabricmc.api.ModInitializer;
@@ -46,6 +50,8 @@ public class ChestCavity implements ModInitializer {
 		CCOtherOrgans.init();
 		CCCommands.register();
 		CCChestCavityTypes.register();
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityTypeManager());
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityAssignmentManager());
 		CCNetworkingPackets.register();
 		CrossModContent.register();
 

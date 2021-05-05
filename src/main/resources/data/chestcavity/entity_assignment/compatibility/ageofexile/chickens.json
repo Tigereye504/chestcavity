@@ -1,0 +1,9 @@
+{
+  "chestcavity": "chestcavity:types/animals/chicken.json",
+  "entities": [
+    "mmorpg:fire_chicken",
+    "mmorpg:water_chicken",
+    "mmorpg:thunder_chicken",
+    "mmorpg:nature_chicken"
+  ]
+}

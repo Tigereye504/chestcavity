@@ -1,0 +1,9 @@
+{
+  "chestcavity": "chestcavity:types/undead/skeleton.json",
+  "entities": [
+    "mmorpg:fire_skeleton",
+    "mmorpg:water_skeleton",
+    "mmorpg:thunder_skeleton",
+    "mmorpg:nature_skeleton"
+  ]
+}

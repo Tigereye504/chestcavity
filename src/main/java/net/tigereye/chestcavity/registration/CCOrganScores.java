@@ -16,7 +16,7 @@ public class CCOrganScores {
     public static final Identifier STRENGTH = new Identifier(ChestCavity.MODID, "strength");
     public static final Identifier SPEED = new Identifier(ChestCavity.MODID, "speed");
     public static final Identifier DEFENSE = new Identifier(ChestCavity.MODID, "defense");
-    public static final Identifier NERVOUS_SYSTEM = new Identifier(ChestCavity.MODID, "nerves");
+    public static final Identifier NERVES = new Identifier(ChestCavity.MODID, "nerves");
     public static final Identifier METABOLISM = new Identifier(ChestCavity.MODID, "metabolism");
     public static final Identifier DIGESTION = new Identifier(ChestCavity.MODID, "digestion");
     public static final Identifier INCOMPATIBILITY = new Identifier(ChestCavity.MODID, "incompatibility");

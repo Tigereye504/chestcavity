@@ -30,7 +30,7 @@ public class NullChestCavity extends BaseChestCavity implements ChestCavityType 
         organScores.put(CCOrganScores.DETOXIFICATION, 1f);
         organScores.put(CCOrganScores.STRENGTH, 8f);
         organScores.put(CCOrganScores.SPEED, 8f);
-        organScores.put(CCOrganScores.NERVOUS_SYSTEM, 1f);
+        organScores.put(CCOrganScores.NERVES, 1f);
         organScores.put(CCOrganScores.METABOLISM, 1f);
         organScores.put(CCOrganScores.DIGESTION, 1f);
         organScores.put(CCOrganScores.BREATH, 2f);

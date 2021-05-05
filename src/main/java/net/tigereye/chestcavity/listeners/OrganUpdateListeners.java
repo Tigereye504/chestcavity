@@ -81,14 +81,14 @@ public class OrganUpdateListeners {
     }
 
     public static void UpdateSpine(LivingEntity entity, ChestCavityInstance cc) {
-        if(cc.getOldOrganScore(CCOrganScores.NERVOUS_SYSTEM) != cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM)
-                && cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM) != 0) {
+        if(cc.getOldOrganScore(CCOrganScores.NERVES) != cc.getOrganScore(CCOrganScores.NERVES)
+                && cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES) != 0) {
             //Update Speed Modifier. No spine? NO MOVING.
             EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             if(att != null) {
                 EntityAttributeModifier mod = new EntityAttributeModifier(SPINE_ID, "ChestCavitySpineMovement",
-                        Math.min(0, cc.getOrganScore(CCOrganScores.NERVOUS_SYSTEM) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM))
-                        / cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVOUS_SYSTEM), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+                        Math.min(0, cc.getOrganScore(CCOrganScores.NERVES) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES))
+                        / cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
                 ReplaceAttributeModifier(att, mod);
             }
         }

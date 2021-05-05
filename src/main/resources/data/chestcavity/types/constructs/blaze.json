@@ -1,0 +1,42 @@
+{
+  "defaultChestCavity": [
+    {"item": "chestcavity:active_blaze_rod","position": 1, "count":  1},
+    {"item": "chestcavity:blaze_shell","position": 2},
+    {"item": "minecraft:magma_block","position": 3, "count": 4},
+    {"item": "minecraft:magma_block","position": 4, "count": 4},
+    {"item": "minecraft:magma_block","position": 5, "count": 4},
+    {"item": "chestcavity:blaze_shell","position": 6},
+
+    {"item": "chestcavity:blaze_shell","position": 11},
+    {"item": "minecraft:magma_block","position": 12, "count": 4},
+    {"item": "minecraft:magma_block","position": 13, "count": 4},
+    {"item": "minecraft:magma_block","position": 14, "count": 4},
+    {"item": "chestcavity:blaze_shell","position": 15},
+    {"item": "chestcavity:active_blaze_rod","position": 16, "count":  1},
+
+    {"item": "chestcavity:active_blaze_rod","position": 18, "count":  1},
+
+    {"item": "chestcavity:blaze_shell","position": 20},
+    {"item": "minecraft:magma_block","position": 21, "count": 4},
+    {"item": "minecraft:magma_block","position": 22, "count": 4},
+    {"item": "minecraft:magma_block","position": 23, "count": 4},
+    {"item": "chestcavity:blaze_shell","position": 24}
+  ],
+  "exceptionalOrgans": [
+    { "ingredient": {"item": "minecraft:magma_block"},
+      "value": [
+        {"id":"chestcavity:detoxification","value": "2"},
+        {"id":"chestcavity:breath","value": "4"},
+        {"id":"chestcavity:filtration","value": "4"},
+        {"id":"chestcavity:metabolism","value": "2"},
+        {"id":"chestcavity:luck","value": "2"}
+      ]
+    },
+    { "ingredient": {"item": "chestcavity:active_blaze_rod"},
+      "value": [
+        {"id":"chestcavity:strength","value": "1"},
+        {"id":"chestcavity:speed","value": "1"}
+      ]
+    }
+  ]
+}

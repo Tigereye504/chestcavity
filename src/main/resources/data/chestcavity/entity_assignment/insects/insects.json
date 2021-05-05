@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/insects/insect.json",
+  "entities": [
+    "minecraft:endermite",
+    "minecraft:silverfish"
+  ]
+}

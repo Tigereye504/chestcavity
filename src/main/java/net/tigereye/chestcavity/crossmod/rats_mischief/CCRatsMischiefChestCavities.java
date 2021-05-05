@@ -7,6 +7,6 @@ import net.tigereye.chestcavity.registration.CCChestCavityTypes;
 public class CCRatsMischiefChestCavities {
 
     public static void register(){
-        ChestCavityInstanceFactory.register(new Identifier(CCRatsMischief.MODID,"rat"), CCChestCavityTypes.SMALL_OMNIVORE_CHEST_CAVITY);
+        //ChestCavityInstanceFactory.register(new Identifier(CCRatsMischief.MODID,"rat"), CCChestCavityTypes.SMALL_OMNIVORE_CHEST_CAVITY);
     }
 }

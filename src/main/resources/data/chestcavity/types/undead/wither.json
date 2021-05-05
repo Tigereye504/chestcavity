@@ -1,0 +1,51 @@
+{
+  "defaultChestCavity": [
+    {"item": "chestcavity:writhing_soulsand","position": 0},
+    {"item": "chestcavity:withered_rib","position": 1},
+    {"item": "chestcavity:writhing_soulsand","position": 2},
+    {"item": "chestcavity:writhing_soulsand","position": 3},
+    {"item": "minecraft:nether_star","position": 4},
+    {"item": "chestcavity:writhing_soulsand","position": 5},
+    {"item": "chestcavity:writhing_soulsand","position": 6},
+    {"item": "chestcavity:withered_rib","position": 7},
+    {"item": "chestcavity:writhing_soulsand","position": 8},
+    {"item": "chestcavity:writhing_soulsand","position": 9},
+    {"item": "chestcavity:withered_rib","position": 10},
+    {"item": "chestcavity:writhing_soulsand","position": 11},
+    {"item": "chestcavity:writhing_soulsand","position": 12},
+    {"item": "chestcavity:withered_spine","position": 13},
+    {"item": "chestcavity:writhing_soulsand","position": 14},
+    {"item": "chestcavity:writhing_soulsand","position": 15},
+    {"item": "chestcavity:withered_rib","position": 16},
+    {"item": "chestcavity:writhing_soulsand","position": 17},
+    {"item": "chestcavity:writhing_soulsand","position": 18},
+    {"item": "chestcavity:writhing_soulsand","position": 19},
+    {"item": "chestcavity:writhing_soulsand","position": 20},
+    {"item": "chestcavity:writhing_soulsand","position": 21},
+    {"item": "chestcavity:writhing_soulsand","position": 22},
+    {"item": "chestcavity:writhing_soulsand","position": 23},
+    {"item": "chestcavity:writhing_soulsand","position": 24},
+    {"item": "chestcavity:writhing_soulsand","position": 25},
+    {"item": "chestcavity:writhing_soulsand","position": 26}
+  ],
+  "baseOrganScores": [
+    {"id": "chestcavity:luck","value": "1"},
+    {"id": "chestcavity:defense","value": "2.375"},
+    {"id": "chestcavity:nutrition","value": "4"},
+    {"id": "chestcavity:filtration","value": "2"},
+    {"id": "chestcavity:detoxification","value": "1"},
+    {"id": "chestcavity:nerves","value": ".5"},
+    {"id": "chestcavity:metabolism","value": "1"},
+    {"id": "chestcavity:digestion","value": "1"},
+    {"id": "chestcavity:breath","value": "2"},
+    {"id": "chestcavity:endurance","value": "2"}
+  ],
+  "exceptionalOrgans": [
+    { "ingredient": {"item": "minecraft:nether_star"},
+      "value": [
+        {"id":"chestcavity:health","value": "64"}
+      ]
+    }
+  ],
+  "bossChestCavity": true
+}

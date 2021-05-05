@@ -1,8 +1,5 @@
 package net.tigereye.chestcavity.util;
 
-import ladysnake.requiem.api.v1.RequiemApi;
-import ladysnake.requiem.api.v1.possession.Possessable;
-import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -12,11 +9,13 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
@@ -26,12 +25,7 @@ import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
 import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.listeners.*;
-import net.tigereye.chestcavity.registration.CCEnchantments;
-import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCOtherOrgans;
-import net.tigereye.chestcavity.registration.CCStatusEffects;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.tigereye.chestcavity.registration.*;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -261,6 +255,7 @@ public class ChestCavityUtil {
     }
 
     public static boolean determineDefaultOrganScores(ChestCavityType chestCavityType) {
+        //TODO: make lookupOrganScore variant that can account for exceptional organs
         Map<Identifier,Float> organScores = chestCavityType.getDefaultOrganScores();
         chestCavityType.loadBaseOrganScores(organScores);
         try {
@@ -524,5 +519,47 @@ public class ChestCavityUtil {
             }
             loot.add(new ItemStack(organPile.remove(roll), count));
         }
+    }
+    public static void drawOrgansFromPilev2(List<ItemStack> organPile, int rolls, Random random, List<ItemStack> loot){
+        for (int i = 0; i < rolls; i++) {
+            if(organPile.isEmpty()){
+                break;
+            }
+            int roll = random.nextInt(organPile.size());
+            int count = 1;
+            ItemStack rolledItem = organPile.remove(roll).copy();
+            if (rolledItem.getCount() > 1) {
+                count += random.nextInt(rolledItem.getMaxCount());
+            }
+            rolledItem.setCount(count);
+            loot.add(rolledItem);
+        }
+    }
+    public static void insertWelfareOrgans(ChestCavityInstance cc){
+        //urgently essential organs are: heart, spine, lung, and just a touch of strength
+        if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
+            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
+        }
+        if(cc.getOrganScore(CCOrganScores.BREATH) == 0){
+            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_LUNG),3);
+        }
+        if(cc.getOrganScore(CCOrganScores.NERVES) == 0){
+            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_SPINE),13);
+        }
+        if(cc.getOrganScore(CCOrganScores.STRENGTH) == 0){
+            forcefullyAddStack(cc, new ItemStack(Items.ROTTEN_FLESH,16),0);
+        }
+    }
+    public static void forcefullyAddStack(ChestCavityInstance cc, ItemStack stack, int slot){
+        if(!cc.inventory.canInsert(stack)) {
+            if (!cc.inventory.canInsert(stack) && cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && cc.owner instanceof PlayerEntity) {
+                if (!((PlayerEntity) cc.owner).inventory.insertStack(stack)) {
+                    cc.owner.dropStack(cc.inventory.removeStack(slot));
+                }
+            } else {
+                cc.owner.dropStack(cc.inventory.removeStack(slot));
+            }
+        }
+        cc.inventory.addStack(stack);
     }
 }

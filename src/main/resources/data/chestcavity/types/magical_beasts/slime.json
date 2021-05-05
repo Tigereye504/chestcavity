@@ -1,0 +1,18 @@
+{
+  "defaultChestCavity": [
+    {"item": "minecraft:slime_ball","position": 5,"count": 1}
+  ],
+  "baseOrganScores": [
+    {"id": "chestcavity:health","value": ".5"}
+  ],
+  "exceptionalOrgans": [
+    {"ingredient": {"item": "minecraft:slime_ball"},
+      "value": [
+        {"id":"chestcavity:health","value": "32"},
+        {"id":"chestcavity:strength","value": "64"},
+        {"id":"chestcavity:speed","value": "64"},
+        {"id":"chestcavity:defense","value": "64"}
+      ]
+    }
+  ]
+}

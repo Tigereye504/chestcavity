@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/rabbit.json",
+  "entities": [
+    "minecraft:rabbit"
+  ]
+}

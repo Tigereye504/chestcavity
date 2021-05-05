@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.recipes.json;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.Item;
@@ -25,7 +26,6 @@ public class SalvageRecipeSerializer implements RecipeSerializer<SalvageRecipe> 
 
         if (recipeJson.required == 0) recipeJson.required = 1;
         if (recipeJson.count == 0) recipeJson.count = 1;
-
         Ingredient input = Ingredient.fromJson(recipeJson.ingredient);
         Item outputItem = Registry.ITEM.getOrEmpty(new Identifier(recipeJson.result))
                 // Validate the inputted item actually exists

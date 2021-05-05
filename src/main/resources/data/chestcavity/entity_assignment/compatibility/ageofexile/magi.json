@@ -1,0 +1,10 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/human.json",
+  "entities": [
+    "mmorpg:healer_mage",
+    "mmorpg:fire_mage",
+    "mmorpg:water_mage",
+    "mmorpg:thunder_mage",
+    "mmorpg:nature_mage"
+  ]
+}

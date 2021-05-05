@@ -1,0 +1,8 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_carnivore.json",
+  "entities": [
+    "minecraft:cat",
+    "minecraft:fox",
+    "minecraft:ocelot"
+  ]
+}

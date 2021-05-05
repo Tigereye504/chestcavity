@@ -1,0 +1,11 @@
+{
+  "chestcavity": "chestcavity:types/animals/omnivore.json",
+  "entities": [
+    "minecraft:pig",
+    "minecraft:strider",
+    "minecraft:hoglin",
+    "minecraft:ravager",
+    "minecraft:piglin",
+    "minecraft:piglin_brute"
+  ]
+}

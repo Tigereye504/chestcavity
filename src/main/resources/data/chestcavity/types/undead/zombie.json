@@ -1,0 +1,47 @@
+{
+  "defaultChestCavity": [
+    
+    {"item": "chestcavity:rotten_rib","position": 1},
+    {"item": "chestcavity:rotten_appendix","position": 2},
+    {"item": "chestcavity:rotten_lung","position": 3},
+    {"item": "chestcavity:rotten_heart","position": 4},
+    {"item": "chestcavity:rotten_lung","position": 5},
+
+
+    {"item": "minecraft:rotten_flesh","position": 8},
+    {"item": "minecraft:rotten_flesh","position": 9},
+    {"item": "chestcavity:rotten_rib","position": 10},
+    {"item": "chestcavity:rotten_spleen","position": 11},
+    {"item": "chestcavity:rotten_kidney","position": 12},
+    {"item": "chestcavity:rotten_spine","position": 13},
+    {"item": "chestcavity:rotten_kidney","position": 14},
+    {"item": "chestcavity:rotten_liver","position": 15},
+
+
+    {"item": "minecraft:rotten_flesh","position": 18},
+
+
+    {"item": "chestcavity:rotten_intestine","position": 21},
+    {"item": "chestcavity:rotten_stomach","position": 22},
+    {"item": "chestcavity:rotten_intestine","position": 23},
+    {"item": "chestcavity:rotten_intestine","position": 24},
+    {"item": "minecraft:rotten_flesh","position": 25}
+
+  ],
+  "baseOrganScores": [
+    {"id": "chestcavity:luck","value": ".5"},
+    {"id": "chestcavity:defense","value": "2.375"},
+    {"id": "chestcavity:health","value": ".5"},
+    {"id": "chestcavity:nutrition","value": "2"},
+    {"id": "chestcavity:filtration","value": "1"},
+    {"id": "chestcavity:detoxification","value": ".5"},
+    {"id": "chestcavity:strength","value": "4"},
+    {"id": "chestcavity:speed","value": "4"},
+    {"id": "chestcavity:nerves","value": ".5"},
+    {"id": "chestcavity:metabolism","value": ".5"},
+    {"id": "chestcavity:digestion","value": ".5"},
+    {"id": "chestcavity:breath","value": "1"},
+    {"id": "chestcavity:endurance","value": "1"}
+  ],
+  "forbiddenSlots": [0,7,16,17,19,20,26]
+}

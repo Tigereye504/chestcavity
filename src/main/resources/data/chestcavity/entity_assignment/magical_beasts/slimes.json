@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/magical_beasts/slime.json",
+  "entities": [
+    "minecraft:slime",
+    "minecraft:magma_cube"
+  ]
+}

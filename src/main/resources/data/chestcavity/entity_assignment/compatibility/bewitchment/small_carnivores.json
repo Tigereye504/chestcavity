@@ -1,0 +1,8 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_carnivore.json",
+  "entities": [
+    "bewitchment:owl",
+    "bewitchment:snake",
+    "bewitchment:toad"
+  ]
+}

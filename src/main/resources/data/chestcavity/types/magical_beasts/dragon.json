@@ -1,0 +1,32 @@
+{
+  "defaultChestCavity": [
+    {"item": "chestcavity:dragon_muscle","position": 0},
+    {"item": "chestcavity:dragon_rib","position": 1},
+    {"item": "chestcavity:dragon_appendix","position": 2},
+    {"item": "chestcavity:dragon_lung","position": 3},
+    {"item": "chestcavity:dragon_heart","position": 4},
+    {"item": "chestcavity:dragon_lung","position": 5},
+
+    {"item": "chestcavity:dragon_rib","position": 7},
+    {"item": "chestcavity:dragon_muscle","position": 8},
+    {"item": "chestcavity:dragon_muscle","position": 9},
+    {"item": "chestcavity:dragon_rib","position": 10},
+    {"item": "chestcavity:dragon_spleen","position": 11},
+    {"item": "chestcavity:dragon_kidney","position": 12},
+    {"item": "chestcavity:dragon_spine","position": 13},
+    {"item": "chestcavity:dragon_kidney","position": 14},
+    {"item": "chestcavity:dragon_liver","position": 15},
+    {"item": "chestcavity:dragon_rib","position": 16},
+    {"item": "chestcavity:dragon_muscle","position": 17},
+    {"item": "chestcavity:dragon_muscle","position": 18},
+    {"item": "chestcavity:dragon_muscle","position": 19},
+    {"item": "chestcavity:mana_reactor","position": 20},
+    {"item": "chestcavity:mana_reactor","position": 21},
+    {"item": "chestcavity:mana_reactor","position": 22},
+    {"item": "chestcavity:mana_reactor","position": 23},
+    {"item": "chestcavity:mana_reactor","position": 24},
+    {"item": "chestcavity:dragon_muscle","position": 25},
+    {"item": "chestcavity:dragon_muscle","position": 26}
+  ],
+  "bossChestCavity": true
+}
