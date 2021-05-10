@@ -6,17 +6,16 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
-import net.tigereye.chestcavity.chestcavities.types.generated.json.GeneratedChestCavityAssignmentManager;
-import net.tigereye.chestcavity.chestcavities.types.generated.json.GeneratedChestCavityTypeManager;
-import net.tigereye.chestcavity.registration.CCChestCavityTypes;
+import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
+import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 public class ChestCavityInstanceFactory {
 
     private static final Map<Identifier, ChestCavityType> entityIdentifierMap = new HashMap<>();
+    private static final Identifier DEFAULT_CCT_ID = new Identifier(ChestCavity.MODID,"types/default.json");
 
     public static ChestCavityInstance newChestCavityInstance(EntityType<? extends LivingEntity> entityType, LivingEntity owner){
         Identifier entityID = Registry.ENTITY_TYPE.getId(entityType);
@@ -29,7 +28,7 @@ public class ChestCavityInstanceFactory {
         if(entityIdentifierMap.containsKey(entityID)){
             return new ChestCavityInstance(entityIdentifierMap.get(Registry.ENTITY_TYPE.getId(entityType)),owner);
         }
-        return new ChestCavityInstance(CCChestCavityTypes.BASE_CHEST_CAVITY,owner);
+        return new ChestCavityInstance(GeneratedChestCavityTypeManager.GeneratedChestCavityTypes.get(DEFAULT_CCT_ID),owner);
     }
 
     public static void register(EntityType<? extends LivingEntity> entityType,ChestCavityType chestCavityType){

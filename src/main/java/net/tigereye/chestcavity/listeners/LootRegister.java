@@ -6,32 +6,20 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.passive.WanderingTraderEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
+import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
 import net.tigereye.chestcavity.registration.CCEnchantments;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCRecipes;
 import net.tigereye.chestcavity.registration.CCTags;
-import net.tigereye.modifydropsapi.api.GenerateBlockLootCallbackModifyLoot;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackModifyLoot;
 
@@ -126,7 +114,7 @@ public class LootRegister {
                 //organs gain malpractice
                 if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,killer.getStackInHand(killer.getActiveHand())) > 0){
                     for (ItemStack stack : loot) {
-                        if (stack.getItem() instanceof Organ || GeneratedOrganManager.isTrueOrgan(stack.getItem())) {
+                        if (OrganManager.isTrueOrgan(stack.getItem())) {
                             stack.addEnchantment(CCEnchantments.MALPRACTICE, 1);
                         }
                     }

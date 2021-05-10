@@ -1,4 +1,4 @@
-package net.tigereye.chestcavity.chestcavities.types.generated.json;
+package net.tigereye.chestcavity.chestcavities.types.json;
 
 import com.google.gson.*;
 import net.minecraft.item.Item;
@@ -8,9 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
-import net.tigereye.chestcavity.chestcavities.types.generated.GeneratedChestCavityType;
-import net.tigereye.chestcavity.recipes.SalvageRecipe;
-import net.tigereye.chestcavity.recipes.json.SalvageRecipeJsonFormat;
+import net.tigereye.chestcavity.chestcavities.types.GeneratedChestCavityType;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,27 +1,16 @@
-package net.tigereye.chestcavity.chestcavities.types.generated.json;
+package net.tigereye.chestcavity.chestcavities.types.json;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.SinglePreparationResourceReloadListener;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.chestcavities.types.generated.GeneratedChestCavityType;
-import net.tigereye.chestcavity.chestcavities.types.generated.json.ChestCavityTypeJsonFormat;
-import net.tigereye.chestcavity.chestcavities.types.generated.json.ChestCavityTypeSerializer;
+import net.tigereye.chestcavity.chestcavities.types.GeneratedChestCavityType;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GeneratedChestCavityTypeManager implements SimpleSynchronousResourceReloadListener {

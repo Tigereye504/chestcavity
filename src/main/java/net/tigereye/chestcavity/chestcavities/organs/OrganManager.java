@@ -8,8 +8,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.chestcavities.types.generated.json.ChestCavityTypeJsonFormat;
-import net.tigereye.chestcavity.chestcavities.types.generated.json.ChestCavityTypeSerializer;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,7 +15,7 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeneratedOrganManager implements SimpleSynchronousResourceReloadListener {
+public class OrganManager implements SimpleSynchronousResourceReloadListener {
     private static final String RESOURCE_LOCATION = "organs";
     private final OrganSerializer SERIALIZER = new OrganSerializer();
     public static Map<Identifier, OrganData> GeneratedOrganData = new HashMap<>();

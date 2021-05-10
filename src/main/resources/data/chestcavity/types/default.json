@@ -1,0 +1,38 @@
+{
+  "defaultChestCavity": [
+    {"item": "minecraft:dirt","position": 0},
+    {"item": "minecraft:dirt","position": 1},
+    {"item": "minecraft:dirt","position": 2},
+    {"item": "minecraft:dirt","position": 3},
+    {"item": "minecraft:dirt","position": 4},
+    {"item": "minecraft:dirt","position": 5},
+    {"item": "minecraft:dirt","position": 6},
+    {"item": "minecraft:dirt","position": 7},
+    {"item": "minecraft:dirt","position": 8},
+    {"item": "minecraft:dirt","position": 9},
+    {"item": "minecraft:dirt","position": 10},
+    {"item": "minecraft:dirt","position": 11},
+    {"item": "minecraft:dirt","position": 12},
+    {"item": "minecraft:dirt","position": 13},
+    {"item": "minecraft:dirt","position": 14},
+    {"item": "minecraft:dirt","position": 15},
+    {"item": "minecraft:dirt","position": 16},
+    {"item": "minecraft:dirt","position": 17},
+    {"item": "minecraft:dirt","position": 18},
+    {"item": "minecraft:dirt","position": 19},
+    {"item": "minecraft:dirt","position": 20},
+    {"item": "minecraft:dirt","position": 21},
+    {"item": "minecraft:dirt","position": 22},
+    {"item": "minecraft:dirt","position": 23},
+    {"item": "minecraft:dirt","position": 24},
+    {"item": "minecraft:dirt","position": 25},
+    {"item": "minecraft:dirt","position": 26}
+  ],
+  "baseOrganScores": [
+  ],
+  "exceptionalOrgans": [
+  ],
+  "forbiddenSlots": [],
+  "bossChestCavity": true,
+  "playerChestCavity": false
+}

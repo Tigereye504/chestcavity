@@ -14,7 +14,7 @@ public class OrganFoodListeners {
     }
 
     private static EffectiveFoodScores applyHerbivorousCarnivorous(Item food, FoodComponent foodComponent, ChestCavityEntity cce, EffectiveFoodScores efs) {
-        if(foodComponent.isMeat()){
+        if(foodComponent.isMeat() || food.isIn(CCTags.CARNIVORE_FOOD)){
             efs.digestion += cce.getChestCavityInstance().getOrganScore(CCOrganScores.CARNIVOROUS_DIGESTION);
             efs.nutrition += cce.getChestCavityInstance().getOrganScore(CCOrganScores.CARNIVOROUS_NUTRITION);
         }

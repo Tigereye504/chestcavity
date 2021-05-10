@@ -2,8 +2,6 @@ package net.tigereye.chestcavity.crossmod;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.tigereye.chestcavity.crossmod.backrooms.CCBackrooms;
-import net.tigereye.chestcavity.crossmod.bewitchment.CCBewitchment;
-import net.tigereye.chestcavity.crossmod.biomemakeover.CCBiomeMakeover;
 import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,8 +11,6 @@ public class CrossModContent {
 
     public static void register(){
         CCBackrooms.register();
-        CCBewitchment.register();
-        CCBiomeMakeover.register();
         CCRequiem.register();
     }
 

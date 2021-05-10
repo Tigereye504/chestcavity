@@ -2,7 +2,6 @@ package net.tigereye.chestcavity.registration;
 
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.Organ;
 
 public class CCOrganScores {
     //basic organ abilities

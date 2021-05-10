@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.listeners.OrganOnHitListener;
+import net.tigereye.chestcavity.registration.CCFoodComponents;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.util.OrganUtil;
 
@@ -24,7 +25,7 @@ import java.util.List;
 public class VenomGland extends Item implements OrganOnHitListener {
 
     public VenomGland() {
-        super(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));;
+        super(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
     }
 
     @Override

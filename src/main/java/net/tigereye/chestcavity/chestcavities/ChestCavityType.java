@@ -3,6 +3,7 @@ package net.tigereye.chestcavity.chestcavities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,8 @@ public interface ChestCavityType {
     public boolean isSlotForbidden(int index);
 
     public void fillChestCavityInventory(ChestCavityInventory chestCavity);
-    public void shapeChestCavity();
     public void loadBaseOrganScores(Map<Identifier, Float> organScores);
-    public boolean catchExceptionalOrgan(ItemStack slot,Map<Identifier, Float> organScores);
+    public OrganData catchExceptionalOrgan(ItemStack slot);
 
     public List<ItemStack> generateLootDrops(Random random, int looting);
 

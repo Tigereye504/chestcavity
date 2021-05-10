@@ -1,11 +1,10 @@
-package net.tigereye.chestcavity.chestcavities.types.generated.json;
+package net.tigereye.chestcavity.chestcavities.types.json;
 
 import com.google.gson.Gson;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.chestcavities.types.generated.GeneratedChestCavityType;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

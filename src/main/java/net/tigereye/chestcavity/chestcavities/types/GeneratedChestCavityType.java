@@ -1,4 +1,4 @@
-package net.tigereye.chestcavity.chestcavities.types.generated;
+package net.tigereye.chestcavity.chestcavities.types;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -9,8 +9,8 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
-import net.tigereye.chestcavity.items.Organ;
+import net.tigereye.chestcavity.chestcavities.organs.OrganData;
+import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 
@@ -28,8 +28,6 @@ public class GeneratedChestCavityType implements ChestCavityType {
     private boolean playerChestCavity = false;
 
     public GeneratedChestCavityType(){
-        //fillChestCavityInventory(defaultChestCavity);
-        //shapeChestCavity();
     }
 
     @Override
@@ -76,7 +74,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
         droppableOrgans = new LinkedList<>();
         for(int i = 0; i < defaultChestCavity.size(); i++){
             ItemStack stack = defaultChestCavity.getStack(i);
-            if(stack.getItem() instanceof Organ || GeneratedOrganManager.isTrueOrgan(stack.getItem())){
+            if(OrganManager.isTrueOrgan(stack.getItem())){
                 droppableOrgans.add(stack);
             }
         }
@@ -111,26 +109,21 @@ public class GeneratedChestCavityType implements ChestCavityType {
         }
     }
 
-    //TODO: methods are copy pasted and so likely bad from here. Move to utility?
-
-    @Override
-    public void shapeChestCavity() {
-    }
-
     @Override
     public void loadBaseOrganScores(Map<Identifier, Float> organScores){
         organScores.clear();
     }
 
     @Override
-    public boolean catchExceptionalOrgan(ItemStack slot, Map<Identifier, Float> organScores){
+    public OrganData catchExceptionalOrgan(ItemStack slot){
         Map<Identifier,Float> organMap = getExceptionalOrganScore(slot);
         if(organMap != null){
-            organMap.forEach((key, value) ->
-                    ChestCavityUtil.addOrganScore(key, value * Math.min(((float)slot.getCount()) / slot.getMaxCount(),1),organScores));
-            return true;
+            OrganData organData = new OrganData();
+            organData.organScores = organMap;
+            organData.pseudoOrgan = true;
+            return organData;
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -151,13 +144,13 @@ public class GeneratedChestCavityType implements ChestCavityType {
     public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot){
         LinkedList<ItemStack> organPile = new LinkedList<>(getDroppableOrgans());
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
-        ChestCavityUtil.drawOrgansFromPilev2(organPile,rolls,random,loot);
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
 
     }
     public void generateGuaranteedOrganDrops(Random random, int looting, List<ItemStack> loot){
         LinkedList<ItemStack> organPile = new LinkedList<>(getDroppableOrgans());
         int rolls = 3 + random.nextInt(2+looting) + random.nextInt(2+looting);
-        ChestCavityUtil.drawOrgansFromPilev2(organPile,rolls,random,loot);
+        ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
     }
 
     @Override

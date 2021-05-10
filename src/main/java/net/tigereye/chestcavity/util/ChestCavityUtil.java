@@ -20,12 +20,10 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
-import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
+import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.items.ChestCavityOrgan;
-import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.listeners.*;
 import net.tigereye.chestcavity.registration.*;
 
@@ -169,6 +167,19 @@ public class ChestCavityUtil {
         return damage;
     }
 
+    public static int applyDigestion(ChestCavityInstance cc, float digestion, int hunger){
+        if(digestion == 1){
+            return hunger;
+        }
+        if(digestion < 0){
+            cc.owner.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,(int)(-hunger*digestion*400)));
+            return 0;
+        }
+        //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
+        return Math.max((int)(hunger*digestion),1);
+        //TODO: find a use for stomachs for non-players
+    }
+
     public static float applyFireResistant(ChestCavityInstance cc, float damage){
         float fireproof = cc.getOrganScore(CCOrganScores.FIRE_RESISTANT);
         if(fireproof > 0){
@@ -210,17 +221,14 @@ public class ChestCavityUtil {
         //TODO: find a use for spleens for non-players
     }
 
-    public static int applyDigestion(ChestCavityInstance cc, float digestion, int hunger){
-        if(digestion == 1){
-            return hunger;
+    public static float applySwimSpeedInWater(ChestCavityInstance cc) {
+        if(!cc.opened || !cc.owner.isTouchingWater()){return 1;}
+        float speedDiff = cc.getOrganScore(CCOrganScores.SWIM_SPEED) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.SWIM_SPEED);
+        if(speedDiff == 0){return 1;}
+        else{
+            return Math.max(0,1+(speedDiff*ChestCavity.config.SWIMSPEED_FACTOR/8));
         }
-        if(digestion < 0){
-            cc.owner.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,(int)(-hunger*digestion*400)));
-            return 0;
-        }
-        //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
-        return Math.max((int)(hunger*digestion),1);
-        //TODO: find a use for stomachs for non-players
+
     }
 
     public static boolean attemptArrowDodging(ChestCavityInstance cc, DamageSource source){
@@ -241,14 +249,26 @@ public class ChestCavityUtil {
         return true;
     }
 
+    public static void clearForbiddenSlots(ChestCavityInstance cc) {
+        try {
+            cc.inventory.removeListener(cc);
+        } catch(NullPointerException ignored){}
+        for(int i = 0; i < cc.inventory.size();i++){
+            if(cc.getChestCavityType().isSlotForbidden(i)){
+                cc.owner.dropStack(cc.inventory.removeStack(i));
+            }
+        }
+        cc.inventory.addListener(cc);
+    }
+
     public static void destroyOrgansWithKey(ChestCavityInstance cc, Identifier organ){
         for (int i = 0; i < cc.inventory.size(); i++)
         {
             ItemStack slot = cc.inventory.getStack(i);
             if (slot != null && slot != ItemStack.EMPTY)
             {
-                Map<Identifier,Float> organScores = lookupOrganScore(slot,cc.owner);
-                if(organScores != null && organScores.containsKey(organ)){
+                OrganData organData = lookupOrgan(slot,cc.getChestCavityType());
+                if(organData != null && organData.organScores.containsKey(organ)){
                     cc.inventory.removeStack(i);
                 }
             }
@@ -265,14 +285,14 @@ public class ChestCavityUtil {
                 ItemStack itemStack = chestCavityType.getDefaultChestCavity().getStack(i);
                 if (itemStack != null && itemStack != ItemStack.EMPTY) {
                     Item slotitem = itemStack.getItem();
-                    if (!chestCavityType.catchExceptionalOrgan(itemStack, organScores)) {//if a manager handles an organ in a special way, this lets it skip the normal evaluation.
-                        Map<Identifier, Float> organMap = lookupOrganScore(itemStack, null);
-                        if (organMap != null) {
-                            organMap.forEach((key, value) ->
-                                    addOrganScore(key, value * Math.min(((float) itemStack.getCount()) / itemStack.getMaxCount(), 1), organScores));
-                        }
+
+                    OrganData data = lookupOrgan(itemStack,chestCavityType);
+                    if (data != null) {
+                        data.organScores.forEach((key, value) ->
+                                addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1),organScores)
+                        );
                     }
-                    CompoundTag tag = itemStack.getTag();
+
                 }
             }
         }
@@ -283,25 +303,20 @@ public class ChestCavityUtil {
         return true;
     }
 
-    public static int getCompatibilityLevel(ChestCavityInstance cc, ItemStack itemStack){
-        if(itemStack != null && itemStack != ItemStack.EMPTY) {
-            if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack)>0){
-                return 0;
+    public static void drawOrgansFromPile(List<ItemStack> organPile, int rolls, Random random, List<ItemStack> loot){
+        for (int i = 0; i < rolls; i++) {
+            if(organPile.isEmpty()){
+                break;
             }
-            int oNegative = EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack);
-            int ownership = 0;
-            CompoundTag tag = itemStack.getTag();
-            if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
-                tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
-                if (tag.getUuid("owner").equals(cc.compatibility_id)) {
-                    ownership = 2;
-                }
-            } else {
-                ownership = 1;
+            int roll = random.nextInt(organPile.size());
+            int count = 1;
+            ItemStack rolledItem = organPile.remove(roll).copy();
+            if (rolledItem.getCount() > 1) {
+                count += random.nextInt(rolledItem.getMaxCount());
             }
-            return Math.max(oNegative,ownership);
+            rolledItem.setCount(count);
+            loot.add(rolledItem);
         }
-        return 1;
     }
 
     public static void dropUnboundOrgans(ChestCavityInstance cc) {
@@ -340,45 +355,83 @@ public class ChestCavityUtil {
                 ItemStack itemStack = cc.inventory.getStack(i);
                 if (itemStack != null && itemStack != ItemStack.EMPTY) {
                     Item slotitem = itemStack.getItem();
-                    boolean isGeneratedOrgan = GeneratedOrganManager.hasEntry(slotitem);
-                    OrganData data = new OrganData();
-                    if(isGeneratedOrgan){
-                        data = GeneratedOrganManager.getEntry(slotitem);
-                    }
-                    if (!cc.getChestCavityType().catchExceptionalOrgan(itemStack,organScores)) {//if a manager chooses to handle some organ in a special way, this lets it skip the normal evaluation.
-                        Map<Identifier, Float> organMap;
-                        if(isGeneratedOrgan){
-                            organMap = data.organScores;
-                        }
-                        else {
-                            //TODO: make lookupOrganScore obsolete
-                            organMap = lookupOrganScore(itemStack, cc.owner);
-                        }
-                        if (organMap != null) {
-                            organMap.forEach((key, value) ->
-                                    addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1),organScores));
-                        }
+
+                    OrganData data = lookupOrgan(itemStack,cc.getChestCavityType());
+                    if (data != null) {
+                        data.organScores.forEach((key, value) ->
+                                addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1),organScores)
+                        );
                         if(slotitem instanceof OrganOnHitListener){
                             cc.onHitListeners.add(new OrganOnHitContext(itemStack,(OrganOnHitListener)slotitem));
                         }
-                    }
-
-                    if (slotitem instanceof Organ || !data.pseudoOrgan) {
-                        int compatibility = getCompatibilityLevel(cc,itemStack);
-                        if(compatibility < 1){
-                            addOrganScore(CCOrganScores.INCOMPATIBILITY, 1, organScores);
+                        if (!data.pseudoOrgan) {
+                            int compatibility = getCompatibilityLevel(cc,itemStack);
+                            if(compatibility < 1){
+                                addOrganScore(CCOrganScores.INCOMPATIBILITY, 1, organScores);
+                            }
                         }
                     }
+
                 }
             }
         }
         organUpdate(cc);
     }
 
+    public static void forcefullyAddStack(ChestCavityInstance cc, ItemStack stack, int slot){
+        if(!cc.inventory.canInsert(stack)) {
+            if (!cc.inventory.canInsert(stack) && cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && cc.owner instanceof PlayerEntity) {
+                if (!((PlayerEntity) cc.owner).inventory.insertStack(stack)) {
+                    cc.owner.dropStack(cc.inventory.removeStack(slot));
+                }
+            } else {
+                cc.owner.dropStack(cc.inventory.removeStack(slot));
+            }
+        }
+        cc.inventory.addStack(stack);
+    }
+
     public static void generateChestCavityIfOpened(ChestCavityInstance cc){
         if(cc.opened) {
             cc.inventory.readTags(cc.getChestCavityType().getDefaultChestCavity().getTags());
             cc.getChestCavityType().setOrganCompatibility(cc);
+        }
+    }
+
+    public static int getCompatibilityLevel(ChestCavityInstance cc, ItemStack itemStack){
+        if(itemStack != null && itemStack != ItemStack.EMPTY) {
+            if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack)>0){
+                return 0;
+            }
+            int oNegative = EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack);
+            int ownership = 0;
+            CompoundTag tag = itemStack.getTag();
+            if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
+                tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
+                if (tag.getUuid("owner").equals(cc.compatibility_id)) {
+                    ownership = 2;
+                }
+            } else {
+                ownership = 1;
+            }
+            return Math.max(oNegative,ownership);
+        }
+        return 1;
+    }
+
+    public static void insertWelfareOrgans(ChestCavityInstance cc){
+        //urgently essential organs are: heart, spine, lung, and just a touch of strength
+        if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
+            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
+        }
+        if(cc.getOrganScore(CCOrganScores.BREATH) == 0){
+            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_LUNG),3);
+        }
+        if(cc.getOrganScore(CCOrganScores.NERVES) == 0){
+            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_SPINE),13);
+        }
+        if(cc.getOrganScore(CCOrganScores.STRENGTH) == 0){
+            forcefullyAddStack(cc, new ItemStack(Items.ROTTEN_FLESH,16),0);
         }
     }
 
@@ -391,24 +444,23 @@ public class ChestCavityUtil {
         return false;
     }
 
-    protected static Map<Identifier,Float> lookupOrganScore(ItemStack itemStack, LivingEntity owner){
+    protected static OrganData lookupOrgan(ItemStack itemStack, ChestCavityType cct){
         Item item = itemStack.getItem();
-        if(item instanceof ChestCavityOrgan){
-            if(owner != null) {
-                return ((ChestCavityOrgan) item).getOrganQualityMap(itemStack, owner);
-            }
-            else{
-                return ((ChestCavityOrgan) item).getOrganQualityMap(itemStack);
-            }
+        OrganData organData = cct.catchExceptionalOrgan(itemStack);
+        if(organData != null){ //check for exceptional organs
+            return organData;
         }
-        else if(CCOtherOrgans.map.containsKey(item)){
-            return CCOtherOrgans.map.get(item);
+        else if(OrganManager.hasEntry(itemStack.getItem())){ //check for normal organs
+            return OrganManager.getEntry(itemStack.getItem());
         }
-        else{
+        else{ //check for tag organs
             for (Tag<Item> itemTag:
-                    CCOtherOrgans.tagMap.keySet()) {
+                    CCTagOrgans.tagMap.keySet()) {
                 if(item.isIn(itemTag)){
-                    return CCOtherOrgans.tagMap.get(itemTag);
+                    organData = new OrganData();
+                    organData.pseudoOrgan = true;
+                    organData.organScores = CCTagOrgans.tagMap.get(itemTag);
+                    return organData;
                 }
             }
         }
@@ -467,7 +519,6 @@ public class ChestCavityUtil {
         return cc.inventory;
     }
 
-
     public static void organUpdate(ChestCavityInstance cc){
         Map<Identifier,Float> organScores = cc.getOrganScores();
         if(!cc.oldOrganScores.equals(organScores))
@@ -492,89 +543,5 @@ public class ChestCavityUtil {
         }
         cc.getOrganScores().forEach((key, value) ->
                 output.accept(key.getPath() + ": " + value + " "));
-    }
-
-    public static float applySwimSpeedInWater(ChestCavityInstance cc) {
-        if(!cc.opened || !cc.owner.isTouchingWater()){return 1;}
-        float speedDiff = cc.getOrganScore(CCOrganScores.SWIM_SPEED) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.SWIM_SPEED);
-        if(speedDiff == 0){return 1;}
-        else{
-            return Math.max(0,1+(speedDiff*ChestCavity.config.SWIMSPEED_FACTOR/8));
-        }
-
-    }
-
-    public static void clearForbiddenSlots(ChestCavityInstance cc) {
-        try {
-            cc.inventory.removeListener(cc);
-        } catch(NullPointerException ignored){}
-        for(int i = 0; i < cc.inventory.size();i++){
-            if(cc.getChestCavityType().isSlotForbidden(i)){
-                cc.owner.dropStack(cc.inventory.removeStack(i));
-            }
-        }
-        cc.inventory.addListener(cc);
-    }
-
-    public static List<ItemStack> drawOrgansFromPile(List<Item> organPile, int rolls, Random random){
-        List<ItemStack> loot = new ArrayList<>();
-        drawOrgansFromPile(organPile,rolls,random,loot);
-        return loot;
-    }
-    public static void drawOrgansFromPile(List<Item> organPile, int rolls, Random random, List<ItemStack> loot){
-        for (int i = 0; i < rolls; i++) {
-            if(organPile.isEmpty()){
-                break;
-            }
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            Item rolledItem = organPile.get(roll);
-            if (rolledItem.getMaxCount() > 1) {
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            loot.add(new ItemStack(organPile.remove(roll), count));
-        }
-    }
-    public static void drawOrgansFromPilev2(List<ItemStack> organPile, int rolls, Random random, List<ItemStack> loot){
-        for (int i = 0; i < rolls; i++) {
-            if(organPile.isEmpty()){
-                break;
-            }
-            int roll = random.nextInt(organPile.size());
-            int count = 1;
-            ItemStack rolledItem = organPile.remove(roll).copy();
-            if (rolledItem.getCount() > 1) {
-                count += random.nextInt(rolledItem.getMaxCount());
-            }
-            rolledItem.setCount(count);
-            loot.add(rolledItem);
-        }
-    }
-    public static void insertWelfareOrgans(ChestCavityInstance cc){
-        //urgently essential organs are: heart, spine, lung, and just a touch of strength
-        if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
-            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
-        }
-        if(cc.getOrganScore(CCOrganScores.BREATH) == 0){
-            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_LUNG),3);
-        }
-        if(cc.getOrganScore(CCOrganScores.NERVES) == 0){
-            forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_SPINE),13);
-        }
-        if(cc.getOrganScore(CCOrganScores.STRENGTH) == 0){
-            forcefullyAddStack(cc, new ItemStack(Items.ROTTEN_FLESH,16),0);
-        }
-    }
-    public static void forcefullyAddStack(ChestCavityInstance cc, ItemStack stack, int slot){
-        if(!cc.inventory.canInsert(stack)) {
-            if (!cc.inventory.canInsert(stack) && cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && cc.owner instanceof PlayerEntity) {
-                if (!((PlayerEntity) cc.owner).inventory.insertStack(stack)) {
-                    cc.owner.dropStack(cc.inventory.removeStack(slot));
-                }
-            } else {
-                cc.owner.dropStack(cc.inventory.removeStack(slot));
-            }
-        }
-        cc.inventory.addStack(stack);
     }
 }

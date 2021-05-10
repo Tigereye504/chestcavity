@@ -1,4 +1,4 @@
-package net.tigereye.chestcavity.chestcavities.types.generated.json;
+package net.tigereye.chestcavity.chestcavities.types.json;
 
 import com.google.gson.JsonArray;
 
