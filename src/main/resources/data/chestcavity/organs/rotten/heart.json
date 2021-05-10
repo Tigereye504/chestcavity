@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:rotten_heart",
+  "organScores": [
+    {"id":"chestcavity:health","value": ".5"}
+  ]
+}

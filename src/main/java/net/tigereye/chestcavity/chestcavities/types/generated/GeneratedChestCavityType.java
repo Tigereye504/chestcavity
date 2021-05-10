@@ -9,6 +9,7 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
 import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
@@ -75,7 +76,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
         droppableOrgans = new LinkedList<>();
         for(int i = 0; i < defaultChestCavity.size(); i++){
             ItemStack stack = defaultChestCavity.getStack(i);
-            if(stack.getItem() instanceof Organ){
+            if(stack.getItem() instanceof Organ || GeneratedOrganManager.isTrueOrgan(stack.getItem())){
                 droppableOrgans.add(stack);
             }
         }

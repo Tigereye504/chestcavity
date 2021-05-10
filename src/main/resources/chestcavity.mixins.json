@@ -7,6 +7,7 @@
     "MixinEnchantmentHelper",
     "MixinEntity",
     "MixinHungerManager",
+    "MixinItem",
     "MixinLivingEntity",
     "MixinLivingEntity$Cow",
     "MixinLivingEntity$Creeper",

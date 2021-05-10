@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:animal_kidney",
+  "organScores": [
+    {"id":"chestcavity:filtration","value": ".75"}
+  ]
+}

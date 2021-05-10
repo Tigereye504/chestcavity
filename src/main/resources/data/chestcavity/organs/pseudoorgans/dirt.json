@@ -1,0 +1,19 @@
+{
+  "itemID": "minecraft:dirt",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:luck","value": ".037037"},
+    {"id":"chestcavity:health","value": ".037037"},
+    {"id":"chestcavity:strength","value": ".296296"},
+    {"id":"chestcavity:speed","value": ".296296"},
+    {"id":"chestcavity:nerves","value": ".037037"},
+    {"id":"chestcavity:detoxification","value": ".037037"},
+    {"id":"chestcavity:filtration","value": ".074074"},
+    {"id":"chestcavity:breath","value": ".074074"},
+    {"id":"chestcavity:endurance","value": ".074074"},
+    {"id":"chestcavity:metabolism","value": ".037037"},
+    {"id":"chestcavity:digestion","value": ".037037"},
+    {"id":"chestcavity:nutrition","value": ".148148"},
+    {"id":"chestcavity:defense","value": ".1759259"}
+  ]
+}

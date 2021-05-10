@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:glowstone_dust",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:glowing","value": "64"}
+  ]
+}

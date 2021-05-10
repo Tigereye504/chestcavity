@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:blaze_shell",
+  "organScores": [
+    {"id":"chestcavity:defense","value": "3"},
+    {"id":"chestcavity:fire_resistant","value": "1"},
+    {"id":"chestcavity:hydroallergenic","value": "3"}
+  ]
+}

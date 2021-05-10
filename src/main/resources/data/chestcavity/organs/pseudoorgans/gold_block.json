@@ -1,0 +1,10 @@
+{
+  "itemID": "minecraft:gold_block",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:luck","value": "1.25"},
+    {"id":"chestcavity:buoyant","value": "-1"},
+    {"id":"chestcavity:speed","value": "-1"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

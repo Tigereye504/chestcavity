@@ -15,7 +15,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCEnchantments;
-import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 
 import java.util.*;
@@ -62,14 +61,14 @@ public class Organ extends Item implements ChestCavityOrgan {
 	@Override
 	public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 		displayOrganQuality(itemStack,world,tooltip,tooltipContext);
-		displaySoulBinding(itemStack,world,tooltip,tooltipContext);
+		displayCompatibility(itemStack,world,tooltip,tooltipContext);
 		super.appendTooltip(itemStack,world,tooltip,tooltipContext);
 	}
 
 	protected void displayOrganQuality(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext){
 		organQualityMap.forEach((organ,score) -> {
 			String tier;
-			if(organ == CCOrganScores.HYDROALLERGENIC){
+			if(organ.equals(CCOrganScores.HYDROALLERGENIC)){
 				if(score >= 2){
 					tier = "Severely ";
 				}
@@ -105,7 +104,7 @@ public class Organ extends Item implements ChestCavityOrgan {
 		});
 	}
 
-	protected void displaySoulBinding(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+	protected void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 		CompoundTag tag = itemStack.getTag();
 		if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
 			Text text = new LiteralText("Unsafe to use");

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:rabbit_heart",
+  "organScores": [
+    {"id":"chestcavity:health","value": ".5"},
+    {"id":"chestcavity:speed","value": "1"}
+  ]
+}

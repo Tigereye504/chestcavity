@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:ender_spleen",
+  "organScores": [
+    {"id":"chestcavity:metabolism","value": "1.25"},
+    {"id":"chestcavity:hydroallergenic","value": "1"}
+  ]
+}

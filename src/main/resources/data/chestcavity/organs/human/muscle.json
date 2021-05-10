@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:muscle",
+  "organScores": [
+    {"id":"chestcavity:strength","value": "1"},
+    {"id":"chestcavity:speed","value": "1"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:dragon_appendix",
+  "organScores": [
+    {"id":"chestcavity:luck","value": ".75"},
+    {"id":"chestcavity:dragon_bombs","value": "1"}
+  ]
+}

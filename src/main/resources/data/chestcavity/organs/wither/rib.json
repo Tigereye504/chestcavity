@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:withered_rib",
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".5"},
+    {"id":"chestcavity:withered","value": ".5"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:shulker_spleen",
+  "organScores": [
+    {"id":"chestcavity:metabolism","value": ".75"},
+    {"id":"chestcavity:shulker_bullets","value": "1"}
+  ]
+}

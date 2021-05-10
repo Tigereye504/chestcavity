@@ -20,6 +20,8 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
+import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.ChestCavityOrgan;
@@ -338,8 +340,20 @@ public class ChestCavityUtil {
                 ItemStack itemStack = cc.inventory.getStack(i);
                 if (itemStack != null && itemStack != ItemStack.EMPTY) {
                     Item slotitem = itemStack.getItem();
+                    boolean isGeneratedOrgan = GeneratedOrganManager.hasEntry(slotitem);
+                    OrganData data = new OrganData();
+                    if(isGeneratedOrgan){
+                        data = GeneratedOrganManager.getEntry(slotitem);
+                    }
                     if (!cc.getChestCavityType().catchExceptionalOrgan(itemStack,organScores)) {//if a manager chooses to handle some organ in a special way, this lets it skip the normal evaluation.
-                        Map<Identifier, Float> organMap = lookupOrganScore(itemStack,cc.owner);
+                        Map<Identifier, Float> organMap;
+                        if(isGeneratedOrgan){
+                            organMap = data.organScores;
+                        }
+                        else {
+                            //TODO: make lookupOrganScore obsolete
+                            organMap = lookupOrganScore(itemStack, cc.owner);
+                        }
                         if (organMap != null) {
                             organMap.forEach((key, value) ->
                                     addOrganScore(key, value * Math.min(((float)itemStack.getCount()) / itemStack.getMaxCount(),1),organScores));
@@ -348,7 +362,8 @@ public class ChestCavityUtil {
                             cc.onHitListeners.add(new OrganOnHitContext(itemStack,(OrganOnHitListener)slotitem));
                         }
                     }
-                    if (slotitem instanceof Organ) {
+
+                    if (slotitem instanceof Organ || !data.pseudoOrgan) {
                         int compatibility = getCompatibilityLevel(cc,itemStack);
                         if(compatibility < 1){
                             addOrganScore(CCOrganScores.INCOMPATIBILITY, 1, organScores);

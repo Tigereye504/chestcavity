@@ -23,6 +23,7 @@ import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.items.Organ;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
@@ -122,10 +123,10 @@ public class LootRegister {
                     });
                 }
 
+                //organs gain malpractice
                 if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,killer.getStackInHand(killer.getActiveHand())) > 0){
-                    //first, remove everything that can be salvaged from the loot and count them up
                     for (ItemStack stack : loot) {
-                        if (stack.getItem() instanceof Organ) {
+                        if (stack.getItem() instanceof Organ || GeneratedOrganManager.isTrueOrgan(stack.getItem())) {
                             stack.addEnchantment(CCEnchantments.MALPRACTICE, 1);
                         }
                     }

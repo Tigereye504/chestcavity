@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:insect_caeca",
+  "organScores": [
+    {"id":"chestcavity:nutrition","value": ".5"},
+    {"id":"chestcavity:digestion","value": ".25"},
+    {"id":"chestcavity:nerves","value": ".5"}
+  ]
+}

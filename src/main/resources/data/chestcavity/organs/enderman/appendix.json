@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:ender_appendix",
+  "organScores": [
+    {"id":"chestcavity:luck","value": "1.25"},
+    {"id":"chestcavity:arrow_dodging","value": "1"},
+    {"id":"chestcavity:hydroallergenic","value": "1"}
+  ]
+}

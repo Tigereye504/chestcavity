@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:rotten_stomach",
+  "organScores": [
+    {"id":"chestcavity:digestion","value": ".5"},
+    {"id":"chestcavity:rot_digestion","value": "1"}
+  ]
+}

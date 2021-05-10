@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:dragon_heart",
+  "organScores": [
+    {"id":"chestcavity:health","value": "1.5"},
+    {"id":"chestcavity:endurance","value": "-.5"}
+  ]
+}

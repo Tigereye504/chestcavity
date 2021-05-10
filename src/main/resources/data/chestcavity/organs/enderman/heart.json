@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:ender_heart",
+  "organScores": [
+    {"id":"chestcavity:health","value": "1.25"},
+    {"id":"chestcavity:hydroallergenic","value": "1"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:small_animal_lung",
+  "organScores": [
+    {"id":"chestcavity:breath","value": ".5"},
+    {"id":"chestcavity:endurance","value": ".5"}
+  ]
+}

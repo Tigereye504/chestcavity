@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:insect_lung",
+  "organScores": [
+    {"id":"chestcavity:breath","value": ".75"},
+    {"id":"chestcavity:endurance","value": ".75"},
+    {"id":"chestcavity:metabolism","value": ".25"}
+  ]
+}

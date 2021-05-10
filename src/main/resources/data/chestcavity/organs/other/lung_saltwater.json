@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:saltwater_lung",
+  "organScores": [
+    {"id":"chestcavity:breath","value": ".75"},
+    {"id":"chestcavity:endurance","value": ".75"},
+    {"id":"chestcavity:water_breath","value": ".25"}
+  ]
+}

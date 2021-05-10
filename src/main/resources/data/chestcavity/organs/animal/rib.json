@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:animal_rib",
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".75"}
+  ]
+}

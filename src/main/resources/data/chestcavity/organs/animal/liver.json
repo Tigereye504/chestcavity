@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:animal_liver",
+  "organScores": [
+    {"id":"chestcavity:detoxification","value": ".75"}
+  ]
+}

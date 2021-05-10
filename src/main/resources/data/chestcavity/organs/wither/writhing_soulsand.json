@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:writhing_soulsand",
+  "organScores": [
+    {"id":"chestcavity:strength","value": "1.5"},
+    {"id":"chestcavity:speed","value": ".5"}
+  ]
+}

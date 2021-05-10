@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:bone_block",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".75"}
+  ]
+}

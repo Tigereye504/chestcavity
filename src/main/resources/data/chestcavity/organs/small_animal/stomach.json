@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:small_animal_stomach",
+  "organScores": [
+    {"id":"chestcavity:digestion","value": ".5"}
+  ]
+}

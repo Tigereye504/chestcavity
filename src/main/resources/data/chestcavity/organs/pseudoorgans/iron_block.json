@@ -1,0 +1,10 @@
+{
+  "itemID": "minecraft:iron_block",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": "2"},
+    {"id":"chestcavity:buoyant","value": "-1"},
+    {"id":"chestcavity:speed","value": "-1"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

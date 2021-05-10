@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:ender_intestine",
+  "organScores": [
+    {"id":"chestcavity:nutrition","value": "1.25"},
+    {"id":"chestcavity:hydroallergenic","value": "1"}
+  ]
+}

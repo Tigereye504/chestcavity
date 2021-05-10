@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:rotten_kidney",
+  "organScores": [
+    {"id":"chestcavity:filtration","value": ".5"}
+  ]
+}

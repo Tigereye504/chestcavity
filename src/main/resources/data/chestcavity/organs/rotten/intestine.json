@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:rotten_intestine",
+  "organScores": [
+    {"id":"chestcavity:nutrition","value": ".5"},
+    {"id":"chestcavity:rotgut","value": "1"}
+  ]
+}

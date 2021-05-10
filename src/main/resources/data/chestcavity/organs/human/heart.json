@@ -1,0 +1,6 @@
+{
+  "itemID": "chestcavity:heart",
+  "organScores": [
+    {"id":"chestcavity:health","value": "1"}
+  ]
+}

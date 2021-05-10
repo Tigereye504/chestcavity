@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:herbivore_rumen",
+  "organScores": [
+    {"id":"chestcavity:herbivorous_digestion","value": "1"},
+    {"id":"chestcavity:carnivorous_digestion","value": "-.5"},
+    {"id":"chestcavity:grazing","value": "1"}
+  ]
+}

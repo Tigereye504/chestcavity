@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:dragon_spleen",
+  "organScores": [
+    {"id":"chestcavity:metabolism","value": "1.5"},
+    {"id":"chestcavity:endurance","value": "-.5"}
+  ]
+}

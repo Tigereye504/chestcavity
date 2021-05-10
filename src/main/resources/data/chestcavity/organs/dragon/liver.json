@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:dragon_liver",
+  "organScores": [
+    {"id":"chestcavity:detoxification","value": "1.5"},
+    {"id":"chestcavity:buff_purging","value": "1"}
+  ]
+}

@@ -2,7 +2,9 @@ package net.tigereye.chestcavity.util;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.LlamaSpitEntityModel;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -19,27 +21,88 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.explosion.Explosion;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.registration.CCEnchantments;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class OrganUtil {
+
+    public static void displayOrganQuality(Map<Identifier,Float> organQualityMap, List<Text> tooltip){
+        organQualityMap.forEach((organ,score) -> {
+            String tier;
+            if(organ.equals(CCOrganScores.HYDROALLERGENIC)){
+                if(score >= 2){
+                    tier = "Severely ";
+                }
+                else{
+                    tier = "";
+                }
+            }
+            else {
+                if (score >= 1.5f) {
+                    tier = "Supernatural ";
+                } else if (score >= 1.25) {
+                    tier = "Exceptional ";
+                } else if (score >= 1) {
+                    tier = "Good ";
+                } else if (score >= .75f) {
+                    tier = "Average ";
+                } else if (score >= .5f) {
+                    tier = "Poor ";
+                } else if (score >= 0) {
+                    tier = "Pathetic ";
+                } else if (score >= -.25f) {
+                    tier = "Slightly Reduces ";
+                } else if (score >= -.5f) {
+                    tier = "Reduces ";
+                } else if (score >= -.75f) {
+                    tier = "Greatly Reduces ";
+                } else {
+                    tier = "Cripples ";
+                }
+            }
+            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier);
+            tooltip.add(text);
+        });
+    }
+
+    public static void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        CompoundTag tag = itemStack.getTag();
+        if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
+            Text text = new LiteralText("Unsafe to use");
+            tooltip.add(text);
+        }
+        else if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())
+                && EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack) <= 0) {
+            tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
+            String name = tag.getString("name");
+            Text text = new LiteralText("Only Compatible With: "+name);
+            tooltip.add(text);
+        }
+        else{
+            Text text = new LiteralText("Safe to Use");
+            tooltip.add(text);
+        }
+    }
 
     public static void explode(LivingEntity entity, float explosionYield) {
         if (!entity.world.isClient) {

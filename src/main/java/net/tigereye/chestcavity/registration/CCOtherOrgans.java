@@ -15,6 +15,7 @@ public class CCOtherOrgans {
     public static Map<Tag<Item>,Map<Identifier,Float>> tagMap = new HashMap<>();
 
     public static void init(){
+        /*
         Map<Identifier,Float> dirt = new HashMap<>();
         dirt.put(CCOrganScores.LUCK,1f/27);
         dirt.put(CCOrganScores.HEALTH,1f/27);
@@ -46,7 +47,6 @@ public class CCOtherOrgans {
         Map<Identifier,Float> defense = new HashMap<>();
         defense.put(CCOrganScores.DEFENSE,.5f);
         map.put(Items.BONE,defense);
-        //map.put(Items.IRON_BARS,defense);
 
         Map<Identifier,Float> ironbars = new HashMap<>();
         ironbars.put(CCOrganScores.DEFENSE,1.25f);
@@ -99,12 +99,12 @@ public class CCOtherOrgans {
         Map<Identifier,Float> tnt = new HashMap<>();
         tnt.put(CCOrganScores.EXPLOSIVE,16f*Items.GUNPOWDER.getMaxCount());
         map.put(Items.TNT,tnt);
-
+        */
         Map<Identifier,Float> ease_of_access = new HashMap<>();
         ease_of_access.put(CCOrganScores.EASE_OF_ACCESS,1f*Items.OAK_DOOR.getMaxCount());
         tagMap.put(ItemTags.DOORS,ease_of_access);
         tagMap.put(ItemTags.TRAPDOORS,ease_of_access);
-
+        /*
         Map<Identifier,Float> glowstoneDust = new HashMap<>();
         glowstoneDust.put(CCOrganScores.GLOWING,1f*Items.GLOWSTONE_DUST.getMaxCount());
         map.put(Items.GLOWSTONE_DUST,glowstoneDust);
@@ -123,5 +123,6 @@ public class CCOtherOrgans {
         obsidian.put(CCOrganScores.FIRE_RESISTANT,1f);
         map.put(Items.OBSIDIAN,obsidian);
         map.put(Items.CRYING_OBSIDIAN,obsidian);
+        */
     }
 }

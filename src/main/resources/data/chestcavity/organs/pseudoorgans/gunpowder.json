@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:gunpowder",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:explosive","value": "192"}
+  ]
+}

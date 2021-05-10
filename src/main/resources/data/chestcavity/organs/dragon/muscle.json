@@ -1,0 +1,9 @@
+{
+  "itemID": "chestcavity:dragon_muscle",
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".5"},
+    {"id":"chestcavity:speed","value": "1.5"},
+    {"id":"chestcavity:launching","value": "1"},
+    {"id":"chestcavity:endurance","value": "-.25"}
+  ]
+}

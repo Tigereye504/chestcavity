@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:volatile_stomach",
+  "organScores": [
+    {"id":"chestcavity:digestion","value": ".5"},
+    {"id":"chestcavity:ghastly","value": "1"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

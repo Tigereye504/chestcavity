@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.tigereye.chestcavity.chestcavities.organs.GeneratedOrganManager;
 import net.tigereye.chestcavity.chestcavities.types.generated.json.GeneratedChestCavityAssignmentManager;
 import net.tigereye.chestcavity.chestcavities.types.generated.json.GeneratedChestCavityTypeManager;
 import net.tigereye.chestcavity.config.CCConfig;
@@ -50,6 +51,7 @@ public class ChestCavity implements ModInitializer {
 		CCOtherOrgans.init();
 		CCCommands.register();
 		CCChestCavityTypes.register();
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedOrganManager());
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityTypeManager());
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityAssignmentManager());
 		CCNetworkingPackets.register();

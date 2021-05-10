@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:dragon_kidney",
+  "organScores": [
+    {"id":"chestcavity:filtration","value": "1.5"},
+    {"id":"chestcavity:buff_purging","value": "1"}
+  ]
+}
