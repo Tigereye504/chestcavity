@@ -10,7 +10,8 @@ public class CCOrganScores {
     public static final Identifier NUTRITION = new Identifier(ChestCavity.MODID, "nutrition");
     public static final Identifier FILTRATION = new Identifier(ChestCavity.MODID, "filtration");
     public static final Identifier DETOXIFICATION = new Identifier(ChestCavity.MODID, "detoxification");
-    public static final Identifier BREATH = new Identifier(ChestCavity.MODID, "breath");
+    public static final Identifier BREATH_RECOVERY = new Identifier(ChestCavity.MODID, "breath_recovery");
+    public static final Identifier BREATH_CAPACITY = new Identifier(ChestCavity.MODID, "breath_capacity");
     public static final Identifier ENDURANCE = new Identifier(ChestCavity.MODID, "endurance");
     public static final Identifier STRENGTH = new Identifier(ChestCavity.MODID, "strength");
     public static final Identifier SPEED = new Identifier(ChestCavity.MODID, "speed");

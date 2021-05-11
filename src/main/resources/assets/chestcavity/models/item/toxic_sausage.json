@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/toxic_sausage"
+    "layer0": "chestcavity:item/food/toxic_sausage"
   }
 }

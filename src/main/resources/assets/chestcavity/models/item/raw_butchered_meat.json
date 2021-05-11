@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/raw_butchered_meat"
+    "layer0": "chestcavity:item/food/raw_butchered_meat"
   }
 }

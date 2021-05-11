@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/mini_sausage_skin"
+    "layer0": "chestcavity:item/food/mini_sausage_skin"
   }
 }

@@ -1,7 +1,9 @@
 {
   "itemID": "chestcavity:saltwater_heart",
   "organScores": [
-    {"id":"chestcavity:health","value": ".75"},
-    {"id":"chestcavity:water_breath","value": ".25"}
+    {"id":"chestcavity:health","value": "1"},
+    {"id":"chestcavity:water_breath","value": ".5"},
+    {"id":"chestcavity:fire_resistant","value": "-1"}
+
   ]
 }

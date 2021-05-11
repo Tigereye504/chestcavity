@@ -43,7 +43,7 @@ public class ChestCavityUtil {
 
     public static int applyBreathInWater(ChestCavityInstance cc, int oldAir, int newAir){
         //if your chest cavity is untouched or normal, we do nothing
-        if(!cc.opened || ( cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH) == cc.getOrganScore(CCOrganScores.BREATH) &&
+        if(!cc.opened || ( cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH_CAPACITY) == cc.getOrganScore(CCOrganScores.BREATH_CAPACITY) &&
                 cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.WATERBREATH) == cc.getOrganScore(CCOrganScores.WATERBREATH))){
             return newAir;
         }
@@ -51,8 +51,11 @@ public class ChestCavityUtil {
         float airLoss = 1;
         //if you have waterbreath, you can breath underwater. Yay! This will overwrite any incoming air loss.
         float waterBreath = cc.getOrganScore(CCOrganScores.WATERBREATH);
+        if(cc.owner.isSprinting()) {
+            waterBreath /= 4;
+        }
         if(waterBreath > 0){
-            airLoss += (-2*waterBreath)+cc.lungRemainder;
+            airLoss += (-2*waterBreath);
         }
 
         //if you don't (or you are still breath negative),
@@ -63,12 +66,12 @@ public class ChestCavityUtil {
                 airLoss = 0;
             }
             else {
-                float breath = cc.getOrganScore(CCOrganScores.BREATH);
+                float capacity = cc.getOrganScore(CCOrganScores.BREATH_CAPACITY);
                 airLoss *= (oldAir - newAir); //if you are downing at bonus speed, ok
                 if (airLoss > 0) {
                     float lungRatio = 20f;
-                    if (breath != 0) {
-                        lungRatio = Math.min(2 / breath, 20f);
+                    if (capacity != 0) {
+                        lungRatio = Math.min(2 / capacity, 20f);
                     }
                     airLoss = (airLoss * lungRatio) + cc.lungRemainder;
                 }
@@ -90,7 +93,8 @@ public class ChestCavityUtil {
         //we have to recreate breath mechanics here I'm afraid
         //if your chest cavity is untouched or normal, we do nothing
 
-        if(!cc.opened|| ( cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH) == cc.getOrganScore(CCOrganScores.BREATH) &&
+        if(!cc.opened|| ( cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH_RECOVERY) == cc.getOrganScore(CCOrganScores.BREATH_RECOVERY) &&
+                cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.BREATH_CAPACITY) == cc.getOrganScore(CCOrganScores.BREATH_CAPACITY) &&
                 cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.WATERBREATH) == cc.getOrganScore(CCOrganScores.WATERBREATH))){
             return oldAir;
         }
@@ -105,15 +109,19 @@ public class ChestCavityUtil {
         //if you have breath, you can breath on land. Yay!
         //if in contact with water or rain apply on quarter your water breath as well
         //(so 2 gills can survive in humid conditions)
-        float breath = cc.getOrganScore(CCOrganScores.BREATH);
+        float breath = cc.getOrganScore(CCOrganScores.BREATH_RECOVERY);
+        if(cc.owner.isSprinting()) {
+            breath /= 4;
+        }
         if(cc.owner.isTouchingWaterOrRain()){
             breath += cc.getOrganScore(CCOrganScores.WATERBREATH)/4;
         }
         if(breath > 0){
-            airLoss += (-airGain * (breath) / 2) + cc.lungRemainder;
+            airLoss += (-airGain * (breath) / 2);// + cc.lungRemainder;
         }
 
         //if you don't then unless you have the water breathing status effect you must hold your watery breath.
+        //its also possible to not have enough breath to keep up with airLoss
         if (airLoss > 0) {
             //first, check if resperation cancels the sequence.
             int resperation = EnchantmentHelper.getRespiration(cc.owner);
@@ -121,19 +129,17 @@ public class ChestCavityUtil {
                 airLoss = 0;
             }
             else{
-                //then, we apply our beath capacity
-                float waterbreath = cc.getOrganScore(CCOrganScores.WATERBREATH);
-                float gillRatio = 20f;
-                if (waterbreath != 0) {
-                    gillRatio = Math.min(2 / waterbreath, 20f);
+                //then, we apply our breath capacity
+                float capacity = cc.getOrganScore(CCOrganScores.BREATH_CAPACITY);
+                float breathRatio = 20f;
+                if (capacity != 0) {
+                    breathRatio = Math.min(2 / capacity, 20f);
                 }
-                airLoss = airLoss * gillRatio + cc.lungRemainder;
+                airLoss = (airLoss * breathRatio) + cc.lungRemainder;
             }
         }
-        else{
-            if(oldAir == cc.owner.getMaxAir()){
-                return oldAir;
-            }
+        else if(oldAir == cc.owner.getMaxAir()) {
+            return oldAir;
         }
 
         cc.lungRemainder = airLoss % 1;
@@ -424,7 +430,7 @@ public class ChestCavityUtil {
         if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
         }
-        if(cc.getOrganScore(CCOrganScores.BREATH) == 0){
+        if(cc.getOrganScore(CCOrganScores.BREATH_RECOVERY) == 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_LUNG),3);
         }
         if(cc.getOrganScore(CCOrganScores.NERVES) == 0){

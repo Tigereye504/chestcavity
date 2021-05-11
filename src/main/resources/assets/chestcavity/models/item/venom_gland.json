@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/venom_gland"
+    "layer0": "chestcavity:item/insect/venom_gland"
   }
 }

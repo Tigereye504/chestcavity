@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/small_gills"
+    "layer0": "chestcavity:item/animal/small_gills"
   }
 }

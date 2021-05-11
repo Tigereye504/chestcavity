@@ -1,6 +1,8 @@
 {
   "itemID": "chestcavity:small_gills",
   "organScores": [
-    {"id":"chestcavity:water_breath","value": ".5"}
+    {"id":"chestcavity:water_breath","value": ".5"},
+    {"id":"chestcavity:breath_capacity","value": ".5"},
+    {"id":"chestcavity:endurance","value": ".5"}
   ]
 }
