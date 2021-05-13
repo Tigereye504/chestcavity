@@ -7,7 +7,6 @@
     "MixinEnchantmentHelper",
     "MixinEntity",
     "MixinHungerManager",
-    "MixinItem",
     "MixinLivingEntity",
     "MixinLivingEntity$Cow",
     "MixinLivingEntity$Creeper",
@@ -21,6 +20,7 @@
     "MixinStatusEffectInstance"
   ],
   "client": [
+    "MixinItem"
   ],
   "injectors": {
     "defaultRequire": 1
