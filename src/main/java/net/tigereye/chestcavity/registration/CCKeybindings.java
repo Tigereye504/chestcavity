@@ -22,6 +22,7 @@ public class CCKeybindings {
     public static KeyBinding DRAGON_BREATH;
     public static KeyBinding DRAGON_BOMBS;
     public static KeyBinding FORCEFUL_SPIT;
+    public static KeyBinding FURNACE_POWERED;
     public static KeyBinding PYROMANCY;
     public static KeyBinding GHASTLY;
     public static KeyBinding GRAZING;
@@ -35,6 +36,7 @@ public class CCKeybindings {
         DRAGON_BREATH = register(CCOrganScores.DRAGON_BREATH, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,true);
         DRAGON_BOMBS = register(CCOrganScores.DRAGON_BOMBS, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,true);
         FORCEFUL_SPIT = register(CCOrganScores.FORCEFUL_SPIT, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,true);
+        FURNACE_POWERED = register(CCOrganScores.FURNACE_POWERED, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,false);
         PYROMANCY = register(CCOrganScores.PYROMANCY, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,true);
         GHASTLY = register(CCOrganScores.GHASTLY, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,true);
         GRAZING = register(CCOrganScores.GRAZING, ORGAN_ABILITY_KEY_CATEGORY,GLFW.GLFW_KEY_KP_DECIMAL,false);

@@ -44,6 +44,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public int spleenTimer = 0;
     public float lungRemainder = 0;
     public int projectileCooldown = 0;
+    public int furnaceProgress = 0;
     public EndCrystalEntity connectedCrystal = null;
 
     public PacketByteBuf updatePacket = null;
@@ -107,6 +108,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
             this.liverTimer = ccTag.getInt("LiverTimer");
             this.spleenTimer = ccTag.getInt("SpleenTimer");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
+            this.furnaceProgress = ccTag.getInt("FurnaceProgress");
             if(ccTag.contains("compatibility_id")){
                 this.compatibility_id = ccTag.getUuid("compatibility_id");
             }
@@ -159,6 +161,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
         ccTag.putInt("LiverTimer", this.liverTimer);
         ccTag.putInt("SpleenTimer", this.spleenTimer);
         ccTag.putFloat("LungRemainder", this.lungRemainder);
+        ccTag.putInt("FurnaceProgress", this.liverTimer);
         ccTag.put("Inventory", this.inventory.getTags());
         tag.put("ChestCavity",ccTag);
     }
@@ -183,6 +186,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
         bloodPoisonTimer = other.bloodPoisonTimer;
         spleenTimer = other.spleenTimer;
         lungRemainder = other.lungRemainder;
+        furnaceProgress = other.furnaceProgress;
         connectedCrystal = other.connectedCrystal;
         ChestCavityUtil.evaluateChestCavity(this);
     }

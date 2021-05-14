@@ -57,6 +57,13 @@ public class KeybindingClientListeners {
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (CCKeybindings.FURNACE_POWERED.wasPressed()) {
+                if(client.player != null) {
+                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.FURNACE_POWERED);
+                }
+            }
+        });
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (CCKeybindings.PYROMANCY.wasPressed()) {
                 if(client.player != null) {
                     NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.PYROMANCY);

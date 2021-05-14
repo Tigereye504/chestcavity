@@ -1,16 +1,15 @@
 package net.tigereye.chestcavity.listeners;
 
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
@@ -22,6 +21,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
@@ -41,6 +41,7 @@ public class OrganActivationListeners {
         register(CCOrganScores.DRAGON_BREATH, OrganActivationListeners::ActivateDragonBreath);
         register(CCOrganScores.DRAGON_BOMBS, OrganActivationListeners::ActivateDragonBombs);
         register(CCOrganScores.FORCEFUL_SPIT, OrganActivationListeners::ActivateForcefulSpit);
+        register(CCOrganScores.FURNACE_POWERED, OrganActivationListeners::ActivateFurnacePowered);
         register(CCOrganScores.PYROMANCY, OrganActivationListeners::ActivatePyromancy);
         register(CCOrganScores.GHASTLY, OrganActivationListeners::ActivateGhastly);
         register(CCOrganScores.GRAZING, OrganActivationListeners::ActivateGrazing);
@@ -138,6 +139,51 @@ public class OrganActivationListeners {
         if(!entity.hasStatusEffect(CCStatusEffects.FORCEFUL_SPIT_COOLDOWN)){
             OrganUtil.queueForcefulSpit(entity,cc,(int)projectiles);
         }
+    }
+
+    public static void ActivateFurnacePowered(LivingEntity entity, ChestCavityInstance cc){
+        int furnacePowered = Math.round(cc.getOrganScore(CCOrganScores.FURNACE_POWERED));
+        if(furnacePowered < 1){
+            return;
+        }
+
+        int fuelValue = 0;
+        ItemStack itemStack = cc.owner.getEquippedStack(EquipmentSlot.MAINHAND);
+        if(itemStack != null && itemStack != ItemStack.EMPTY) {
+            try {
+                fuelValue = FuelRegistry.INSTANCE.get(itemStack.getItem());
+            }
+            catch (Exception e){
+                fuelValue = 0;
+            }
+        }
+        if(fuelValue == 0){
+            itemStack = cc.owner.getEquippedStack(EquipmentSlot.OFFHAND);
+            if(itemStack != null && itemStack != ItemStack.EMPTY) {
+                try{
+                fuelValue = FuelRegistry.INSTANCE.get(itemStack.getItem());
+                }
+                catch (Exception e){
+                    fuelValue = 0;
+                }
+            }
+        }
+        if(fuelValue == 0){
+            return;
+        }
+
+        itemStack.decrement(1);
+
+        int finalFuelValue = fuelValue;
+        int oldDuration = 0;
+        if(cc.owner.hasStatusEffect(CCStatusEffects.FURNACE_POWER)){
+            StatusEffectInstance oldPower = cc.owner.getStatusEffect(CCStatusEffects.FURNACE_POWER);
+            oldDuration = oldPower.getDuration();
+            finalFuelValue += oldDuration*(oldPower.getAmplifier()+1);
+        }
+        int duration = Math.max(Math.min(finalFuelValue/furnacePowered,fuelValue),oldDuration);
+        entity.removeStatusEffect(CCStatusEffects.FURNACE_POWER);
+        entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.FURNACE_POWER, duration, (int)furnacePowered-1, false, false, true));
     }
 
     public static void ActivateGhastly(LivingEntity entity, ChestCavityInstance cc){

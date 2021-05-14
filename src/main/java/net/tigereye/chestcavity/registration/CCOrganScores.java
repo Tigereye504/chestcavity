@@ -32,6 +32,7 @@ public class CCOrganScores {
     public static final Identifier HYDROALLERGENIC = new Identifier(ChestCavity.MODID, "hydroallergenic");
     public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
     public static final Identifier IMPACT_RESISTANT = new Identifier(ChestCavity.MODID, "impact_resistant");
+    public static final Identifier KNOCKBACK_RESISTANT = new Identifier(ChestCavity.MODID, "knockback_resistant");
     public static final Identifier LAUNCHING = new Identifier(ChestCavity.MODID, "launching");
     public static final Identifier SWIM_SPEED = new Identifier(ChestCavity.MODID, "swim_speed");
     public static final Identifier WATERBREATH = new Identifier(ChestCavity.MODID, "water_breath");
@@ -53,12 +54,11 @@ public class CCOrganScores {
     public static final Identifier CRYSTALSYNTHESIS = new Identifier(ChestCavity.MODID, "crystalsynthesis");
     public static final Identifier CARNIVOROUS_DIGESTION = new Identifier(ChestCavity.MODID,"carnivorous_digestion");
     public static final Identifier CARNIVOROUS_NUTRITION = new Identifier(ChestCavity.MODID,"carnivorous_nutrition");
+    public static final Identifier FURNACE_POWERED = new Identifier(ChestCavity.MODID,"furnace_powered");
     public static final Identifier HERBIVOROUS_DIGESTION = new Identifier(ChestCavity.MODID,"herbivorous_digestion");
     public static final Identifier HERBIVOROUS_NUTRITION = new Identifier(ChestCavity.MODID,"herbivorous_nutrition");
     public static final Identifier ROT_DIGESTION = new Identifier(ChestCavity.MODID,"rot_digestion");
     public static final Identifier ROTGUT = new Identifier(ChestCavity.MODID,"rotgut");
-    public static final Identifier FERROVOROUS = new Identifier(ChestCavity.MODID,"ferrovorous");
-    public static final Identifier PYROVOROUS = new Identifier(ChestCavity.MODID,"ferrovorous");
 
     //on hit abilities
     public static final Identifier VENOMOUS = new Identifier(ChestCavity.MODID, "venomous");

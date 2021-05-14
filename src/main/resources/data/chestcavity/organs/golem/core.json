@@ -1,0 +1,9 @@
+{
+  "itemID": "chestcavity:golem_core",
+  "organScores": [
+    {"id":"chestcavity:health","value": ".75"},
+    {"id":"chestcavity:defense","value": ".25"},
+    {"id":"chestcavity:nerves","value": ".5"},
+    {"id":"chestcavity:speed","value": "-.25"}
+  ]
+}

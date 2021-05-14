@@ -10,9 +10,7 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.types.GeneratedChestCavityType;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class ChestCavityTypeSerializer {
     public GeneratedChestCavityType read(Identifier id, ChestCavityTypeJsonFormat cctJson) {
@@ -32,6 +30,7 @@ public class ChestCavityTypeSerializer {
         cct.setDefaultChestCavity(readDefaultChestCavityFromJson(id,cctJson));
         cct.setBaseOrganScores(readBaseOrganScoresFromJson(id,cctJson));
         cct.setExceptionalOrganList(readExceptionalOrgansFromJson(id,cctJson));
+        cct.setForbiddenSlots(readForbiddenSlotsFromJson(id,cctJson));
         cct.setPlayerChestCavity(cctJson.playerChestCavity);
         cct.setBossChestCavity(cctJson.bossChestCavity);
 
@@ -137,5 +136,20 @@ public class ChestCavityTypeSerializer {
             }
         }
         return organScores;
+    }
+
+    private List<Integer> readForbiddenSlotsFromJson(Identifier id, ChestCavityTypeJsonFormat cctJson){
+        List<Integer> list = new ArrayList<>();
+        for (JsonElement entry:
+                cctJson.forbiddenSlots) {
+            try {
+                int slot = entry.getAsInt();
+                list.add(slot);
+            }
+            catch(Exception e){
+                ChestCavity.LOGGER.error("Error parsing " + id.toString() + "'s organ scores!");
+            }
+        }
+        return list;
     }
 }

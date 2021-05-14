@@ -18,6 +18,7 @@ public class OrganUpdateListeners {
     private static final UUID MUSCLE_STRENGTH_ID = UUID.fromString("bf560396-9855-496e-a942-99824467e1ad");
     private static final UUID MUSCLE_SPEED_ID = UUID.fromString("979aa156-3f01-45d3-8784-56185eeef96d");
     private static final UUID SPINE_ID = UUID.fromString("8f56feed-589f-416f-86c5-315765d41f57");
+    private static final UUID KNOCKBACK_RESISTANCE_ID = UUID.fromString("673566d3-5daa-40d7-955f-cbabc27a84cf");
 
     public static void register(){
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateAppendix);
@@ -25,6 +26,7 @@ public class OrganUpdateListeners {
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateStrength);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateSpeed);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateSpine);
+        OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateKnockbackResistance);
         OrganUpdateCallback.EVENT.register(OrganUpdateListeners::UpdateIncompatibility);
     }
 
@@ -89,6 +91,19 @@ public class OrganUpdateListeners {
                 EntityAttributeModifier mod = new EntityAttributeModifier(SPINE_ID, "ChestCavitySpineMovement",
                         Math.min(0, cc.getOrganScore(CCOrganScores.NERVES) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES))
                         / cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+                ReplaceAttributeModifier(att, mod);
+            }
+        }
+    }
+
+    public static void UpdateKnockbackResistance(LivingEntity entity, ChestCavityInstance cc) {
+        if(cc.getOldOrganScore(CCOrganScores.KNOCKBACK_RESISTANT) != cc.getOrganScore(CCOrganScores.KNOCKBACK_RESISTANT)) {
+            //Update Knockback Res Modifier
+            EntityAttributeInstance att = entity.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
+            if(att != null) {
+                EntityAttributeModifier mod = new EntityAttributeModifier(KNOCKBACK_RESISTANCE_ID, "ChestCavityKnockbackResistance",
+                        (cc.getOrganScore(CCOrganScores.KNOCKBACK_RESISTANT) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.KNOCKBACK_RESISTANT))
+                                * .1, EntityAttributeModifier.Operation.ADDITION);
                 ReplaceAttributeModifier(att, mod);
             }
         }

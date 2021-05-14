@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+      "chestcavity:golem_core",
+      "chestcavity:golem_cable",
+      "chestcavity:golem_plating",
+      "chestcavity:inner_furnace"
+    ]
+}

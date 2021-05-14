@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.mob_effect.CCStatusEffect;
+import net.tigereye.chestcavity.mob_effect.FurnacePower;
 import net.tigereye.chestcavity.mob_effect.OrganRejection;
 import net.tigereye.chestcavity.mob_effect.Ruminating;
 
@@ -17,6 +18,7 @@ public class CCStatusEffects {
     public static final StatusEffect DRAGON_BREATH_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
     public static final StatusEffect EXPLOSION_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
     public static final StatusEffect FORCEFUL_SPIT_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
+    public static final StatusEffect FURNACE_POWER = new FurnacePower();
     public static final StatusEffect GHASTLY_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
     public static final StatusEffect PYROMANCY_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
     public static final StatusEffect RUMINATING = new Ruminating();
@@ -33,6 +35,7 @@ public class CCStatusEffects {
         Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "dragon_breath_cooldown"), DRAGON_BREATH_COOLDOWN);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "explosion_cooldown"), EXPLOSION_COOLDOWN);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "forceful_spit_cooldown"), FORCEFUL_SPIT_COOLDOWN);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "furnace_power"), FURNACE_POWER);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "ghastly_cooldown"), GHASTLY_COOLDOWN);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "pyromancy_cooldown"), PYROMANCY_COOLDOWN);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(ChestCavity.MODID, "ruminating"), RUMINATING);

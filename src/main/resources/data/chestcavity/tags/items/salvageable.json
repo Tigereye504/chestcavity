@@ -11,6 +11,7 @@
       "#chestcavity:salvageable_dragon_organ_meat",
       "#chestcavity:salvageable_gunpowder",
       "#chestcavity:salvageable_human_organ_meat",
+      "#chestcavity:salvageable_iron_scrap",
       "#chestcavity:salvageable_man_meat",
       "#chestcavity:salvageable_mini_sausage_skin",
       "#chestcavity:salvageable_rotten_flesh",
@@ -19,6 +20,7 @@
       "#chestcavity:salvageable_small_butchered_meat",
       "#chestcavity:salvageable_toxic_meat",
       "#chestcavity:salvageable_toxic_organ_meat",
+      "chestcavity:piston_muscle",
       "chestcavity:writhing_soulsand"
     ]
 }

@@ -127,6 +127,13 @@ public class CCItems {
 	public static final Item GAS_BLADDER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item VOLATILE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 
+	public static final Item GOLEM_CABLE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item GOLEM_PLATING = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item GOLEM_CORE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item INNER_FURNACE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item PISTON_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item IRON_SCRAP = new Item(new Item.Settings().maxCount(16).group(ItemGroup.MATERIALS));
+
 	public static final Item SALTWATER_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item SALTWATER_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item CREEPER_APPENDIX = new CreeperAppendix();
@@ -186,6 +193,8 @@ public class CCItems {
 	public static final Item COOKED_RICH_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT));
 
 	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
+	public static final Item FURNACE_POWER = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.FURNACE_POWER_FOOD_COMPONENT));
+
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
 		registerItem("wooden_cleaver", WOODEN_CLEAVER);
@@ -300,7 +309,14 @@ public class CCItems {
 
 		registerItem("gas_bladder", GAS_BLADDER);
 		registerItem("volatile_stomach", VOLATILE_STOMACH);
-		
+
+		registerItem("golem_cable", GOLEM_CABLE);
+		registerItem("golem_plating", GOLEM_PLATING);
+		registerItem("golem_core", GOLEM_CORE);
+		registerItem("inner_furnace", INNER_FURNACE);
+		registerItem("piston_muscle", PISTON_MUSCLE);
+		registerItem("iron_scrap", IRON_SCRAP);
+
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
