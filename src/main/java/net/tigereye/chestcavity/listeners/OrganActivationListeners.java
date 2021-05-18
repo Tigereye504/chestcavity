@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.listeners;
 
+import it.unimi.dsi.fastutil.ints.IntComparators;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,8 +10,13 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -22,16 +28,15 @@ import net.minecraft.world.RaycastContext;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
+import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
+import net.tigereye.chestcavity.registration.CCTags;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.MathUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class OrganActivationListeners {
@@ -42,6 +47,7 @@ public class OrganActivationListeners {
         register(CCOrganScores.DRAGON_BOMBS, OrganActivationListeners::ActivateDragonBombs);
         register(CCOrganScores.FORCEFUL_SPIT, OrganActivationListeners::ActivateForcefulSpit);
         register(CCOrganScores.FURNACE_POWERED, OrganActivationListeners::ActivateFurnacePowered);
+        register(CCOrganScores.IRON_REPAIR, OrganActivationListeners::ActivateIronRepair);
         register(CCOrganScores.PYROMANCY, OrganActivationListeners::ActivatePyromancy);
         register(CCOrganScores.GHASTLY, OrganActivationListeners::ActivateGhastly);
         register(CCOrganScores.GRAZING, OrganActivationListeners::ActivateGrazing);
@@ -147,6 +153,7 @@ public class OrganActivationListeners {
             return;
         }
 
+        //test for fuel
         int fuelValue = 0;
         ItemStack itemStack = cc.owner.getEquippedStack(EquipmentSlot.MAINHAND);
         if(itemStack != null && itemStack != ItemStack.EMPTY) {
@@ -172,18 +179,72 @@ public class OrganActivationListeners {
             return;
         }
 
+        //setup the new status effect
+        StatusEffectInstance newSEI = null;
+        if(cc.owner.hasStatusEffect(CCStatusEffects.FURNACE_POWER)) {
+            StatusEffectInstance oldPower = cc.owner.getStatusEffect(CCStatusEffects.FURNACE_POWER);
+            if(oldPower.getAmplifier() >= furnacePowered-1){
+                return; //you can only fuel up if you have room
+            }
+            CompoundTag oldTag = new CompoundTag();
+            List<Integer> durations = new ArrayList<>();
+            durations.add(fuelValue);
+
+            oldPower.toTag(oldTag);
+            while(true) {
+                durations.add(oldTag.getInt("Duration"));
+                if (oldTag.contains("HiddenEffect")) {
+                    oldTag = oldTag.getCompound("HiddenEffect");
+                } else {
+                    break;
+                }
+            }
+
+            durations.sort(IntComparators.OPPOSITE_COMPARATOR);
+            int amplifier = 0;
+            for (Integer duration:
+                 durations) {
+                newSEI = new StatusEffectInstance(CCStatusEffects.FURNACE_POWER, duration, amplifier, false, false, true,newSEI);
+                amplifier++;
+            }
+        }
+        else{
+            newSEI = new StatusEffectInstance(CCStatusEffects.FURNACE_POWER, fuelValue, 0, false, false, true);
+        }
+        entity.removeStatusEffect(CCStatusEffects.FURNACE_POWER);
+        entity.addStatusEffect(newSEI);
+        itemStack.decrement(1);
+    }
+
+    public static void ActivateIronRepair(LivingEntity entity, ChestCavityInstance cc){
+        float ironRepair = cc.getOrganScore(CCOrganScores.IRON_REPAIR) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.IRON_REPAIR);
+        //test for ability
+        if(ironRepair <= 0){
+            return;
+        }
+        //test for cooldown
+        if(cc.owner.hasStatusEffect(CCStatusEffects.IRON_REPAIR_COOLDOWN)){
+            return;
+        }
+        //test for missing health
+        if(cc.owner.getHealth() >= cc.owner.getMaxHealth()){
+            return;
+        }
+        //test for iron
+        ItemStack itemStack = cc.owner.getEquippedStack(EquipmentSlot.MAINHAND);
+        if(itemStack == null || !CCTags.IRON_REPAIR_MATERIAL.contains(itemStack.getItem())) {
+            itemStack = cc.owner.getEquippedStack(EquipmentSlot.OFFHAND);
+            if(itemStack == null || !CCTags.IRON_REPAIR_MATERIAL.contains(itemStack.getItem())) {
+                return;
+            }
+        }
+
+        //success! heal target
+        cc.owner.heal(cc.owner.getMaxHealth()*ChestCavity.config.IRON_REPAIR_PERCENT);
+        entity.playSound(SoundEvents.ENTITY_IRON_GOLEM_REPAIR, .75f, 1);
+        cc.owner.addStatusEffect(new StatusEffectInstance(CCStatusEffects.IRON_REPAIR_COOLDOWN, (int)(ChestCavity.config.IRON_REPAIR_COOLDOWN/ironRepair), 0, false, false, true));
         itemStack.decrement(1);
 
-        int finalFuelValue = fuelValue;
-        int oldDuration = 0;
-        if(cc.owner.hasStatusEffect(CCStatusEffects.FURNACE_POWER)){
-            StatusEffectInstance oldPower = cc.owner.getStatusEffect(CCStatusEffects.FURNACE_POWER);
-            oldDuration = oldPower.getDuration();
-            finalFuelValue += oldDuration*(oldPower.getAmplifier()+1);
-        }
-        int duration = Math.max(Math.min(finalFuelValue/furnacePowered,fuelValue),oldDuration);
-        entity.removeStatusEffect(CCStatusEffects.FURNACE_POWER);
-        entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.FURNACE_POWER, duration, (int)furnacePowered-1, false, false, true));
     }
 
     public static void ActivateGhastly(LivingEntity entity, ChestCavityInstance cc){

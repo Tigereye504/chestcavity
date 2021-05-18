@@ -11,4 +11,5 @@ public class CCTags {
     public static final Tag<Item> ROTTEN_FOOD = TagRegistry.item(new Identifier(ChestCavity.MODID,"rotten_food"));
     public static final Tag<Item> CARNIVORE_FOOD = TagRegistry.item(new Identifier(ChestCavity.MODID,"carnivore_food"));
     public static final Tag<Item> SALVAGEABLE = TagRegistry.item(new Identifier(ChestCavity.MODID,"salvageable"));
+    public static final Tag<Item> IRON_REPAIR_MATERIAL = TagRegistry.item(new Identifier(ChestCavity.MODID,"iron_repair_material"));
 }

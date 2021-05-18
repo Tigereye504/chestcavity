@@ -27,10 +27,10 @@ public class ChestCavityTypeSerializer {
         //playerChestCavity should default to false
 
         GeneratedChestCavityType cct = new GeneratedChestCavityType();
-        cct.setDefaultChestCavity(readDefaultChestCavityFromJson(id,cctJson));
+        cct.setForbiddenSlots(readForbiddenSlotsFromJson(id,cctJson));
+        cct.setDefaultChestCavity(readDefaultChestCavityFromJson(id,cctJson,cct.getForbiddenSlots()));
         cct.setBaseOrganScores(readBaseOrganScoresFromJson(id,cctJson));
         cct.setExceptionalOrganList(readExceptionalOrgansFromJson(id,cctJson));
-        cct.setForbiddenSlots(readForbiddenSlotsFromJson(id,cctJson));
         cct.setPlayerChestCavity(cctJson.playerChestCavity);
         cct.setBossChestCavity(cctJson.bossChestCavity);
 
@@ -46,15 +46,13 @@ public class ChestCavityTypeSerializer {
         return cct;
     }
 
-    private ChestCavityInventory readDefaultChestCavityFromJson(Identifier id, ChestCavityTypeJsonFormat cctJson){
+    private ChestCavityInventory readDefaultChestCavityFromJson(Identifier id, ChestCavityTypeJsonFormat cctJson, List<Integer> forbiddenSlots){
         ChestCavityInventory inv = new ChestCavityInventory();
         int i = 0;
         for (JsonElement entry:
                 cctJson.defaultChestCavity) {
             ++i;
             try {
-                //TODO: check for organs in out-of-bounds slots
-                //TODO: check for organs in forbidden slots
                 JsonObject obj = entry.getAsJsonObject();
                 if (!obj.has("item")) {
                     ChestCavity.LOGGER.error("Missing item component in entry no." + i + " in " + id.toString() + "'s default chest cavity");
@@ -72,7 +70,16 @@ public class ChestCavityTypeSerializer {
                         } else {
                             stack = new ItemStack(item, item.getMaxCount());
                         }
-                        inv.setStack(obj.get("position").getAsInt(), stack);
+                        int pos = obj.get("position").getAsInt();
+                        if(pos >= inv.size()) {
+                            ChestCavity.LOGGER.error("Position component is out of bounds in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
+                        }
+                        else if(forbiddenSlots.contains(pos)){
+                            ChestCavity.LOGGER.error("Position component is forbidden in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
+                        }
+                        else{
+                            inv.setStack(pos, stack);
+                        }
                     } else {
                         ChestCavity.LOGGER.error("Unknown "+itemID.toString()+" in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
                     }

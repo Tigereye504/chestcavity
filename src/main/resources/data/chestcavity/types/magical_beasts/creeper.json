@@ -9,7 +9,7 @@
     {"item": "minecraft:oak_leaves","position": 9,"count": 16},
     {"item": "minecraft:stick","position": 10,"count": 4},
     {"item": "minecraft:gunpowder","position": 12, "count": 1},
-    {"item": "minecraft:oak_log","position": 13},
+    {"item": "minecraft:oak_log","position": 13, "count": 1},
     {"item": "minecraft:gunpowder","position": 14, "count": 1},
     {"item": "minecraft:stick","position": 16,"count": 4},
     {"item": "minecraft:oak_leaves","position": 17,"count": 16},

@@ -61,6 +61,8 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("more")
     public float IMPACT_DEFENSE = .75f; //damage reduction from 4 stacks of impact resistant organs
     @ConfigEntry.Category("more")
+    public float IRON_REPAIR_PERCENT = .25f; //damage reduction from 4 stacks of impact resistant organs
+    @ConfigEntry.Category("more")
     public float LAUNCHING_POWER = .1f; //upward velocity per launching
     @ConfigEntry.Category("more")
     public int MAX_TELEPORT_ATTEMPTS = 5;
@@ -89,6 +91,8 @@ public class CCConfig implements ConfigData {
     public int FORCEFUL_SPIT_COOLDOWN = 20; //how often an entity is allowed to spit
     @ConfigEntry.Category("cooldown")
     public int GHASTLY_COOLDOWN = 60; //how often an entity is allowed to fire ghast bombs
+    @ConfigEntry.Category("cooldown")
+    public int IRON_REPAIR_COOLDOWN = 1200; //how often an entity is allowed to use iron to heal
     @ConfigEntry.Category("cooldown")
     public int PYROMANCY_COOLDOWN = 78; //how often an entity is allowed to spew fireballs
     @ConfigEntry.Category("cooldown")

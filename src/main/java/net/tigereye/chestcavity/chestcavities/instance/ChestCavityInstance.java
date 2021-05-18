@@ -41,7 +41,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public int heartBleedTimer = 0;
     public int bloodPoisonTimer = 0;
     public int liverTimer = 0;
-    public int spleenTimer = 0;
+    public float metabolismRemainder = 0;
     public float lungRemainder = 0;
     public int projectileCooldown = 0;
     public int furnaceProgress = 0;
@@ -106,7 +106,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
             this.heartBleedTimer = ccTag.getInt("HeartTimer");
             this.bloodPoisonTimer = ccTag.getInt("KidneyTimer");
             this.liverTimer = ccTag.getInt("LiverTimer");
-            this.spleenTimer = ccTag.getInt("SpleenTimer");
+            this.metabolismRemainder = ccTag.getFloat("MetabolismRemainder");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
             this.furnaceProgress = ccTag.getInt("FurnaceProgress");
             if(ccTag.contains("compatibility_id")){
@@ -159,7 +159,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
         ccTag.putInt("HeartTimer", this.heartBleedTimer);
         ccTag.putInt("KidneyTimer", this.bloodPoisonTimer);
         ccTag.putInt("LiverTimer", this.liverTimer);
-        ccTag.putInt("SpleenTimer", this.spleenTimer);
+        ccTag.putFloat("MetabolismRemainder", this.metabolismRemainder);
         ccTag.putFloat("LungRemainder", this.lungRemainder);
         ccTag.putInt("FurnaceProgress", this.liverTimer);
         ccTag.put("Inventory", this.inventory.getTags());
@@ -184,7 +184,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
         heartBleedTimer = other.heartBleedTimer;
         liverTimer = other.liverTimer;
         bloodPoisonTimer = other.bloodPoisonTimer;
-        spleenTimer = other.spleenTimer;
+        metabolismRemainder = other.metabolismRemainder;
         lungRemainder = other.lungRemainder;
         furnaceProgress = other.furnaceProgress;
         connectedCrystal = other.connectedCrystal;

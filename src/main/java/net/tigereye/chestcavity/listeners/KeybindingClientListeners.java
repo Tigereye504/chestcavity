@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.listeners;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.options.KeyBinding;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.registration.CCKeybindings;
@@ -28,76 +29,28 @@ public class KeybindingClientListeners {
                 }
             }
         });
+
+        register(CCKeybindings.CREEPY,CCOrganScores.CREEPY);
+        register(CCKeybindings.DRAGON_BREATH,CCOrganScores.DRAGON_BREATH);
+        register(CCKeybindings.DRAGON_BOMBS,CCOrganScores.DRAGON_BOMBS);
+        register(CCKeybindings.FORCEFUL_SPIT,CCOrganScores.FORCEFUL_SPIT);
+        register(CCKeybindings.FURNACE_POWERED,CCOrganScores.FURNACE_POWERED);
+        register(CCKeybindings.IRON_REPAIR,CCOrganScores.IRON_REPAIR);
+        register(CCKeybindings.GHASTLY,CCOrganScores.GHASTLY);
+        register(CCKeybindings.GRAZING,CCOrganScores.GRAZING);
+        register(CCKeybindings.PYROMANCY,CCOrganScores.PYROMANCY);
+        register(CCKeybindings.SHULKER_BULLETS,CCOrganScores.SHULKER_BULLETS);
+        register(CCKeybindings.SILK,CCOrganScores.SILK);
+    }
+
+
+    public static void register(KeyBinding keybinding, Identifier id){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.CREEPY.wasPressed()) {
+            while (keybinding.wasPressed()) {
                 if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.CREEPY);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.DRAGON_BREATH.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.DRAGON_BREATH);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.DRAGON_BOMBS.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.DRAGON_BOMBS);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.FORCEFUL_SPIT.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.FORCEFUL_SPIT);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.FURNACE_POWERED.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.FURNACE_POWERED);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.PYROMANCY.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.PYROMANCY);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.GHASTLY.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.GHASTLY);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.GRAZING.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.GRAZING);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.SHULKER_BULLETS.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.SHULKER_BULLETS);
-                }
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.SILK.wasPressed()) {
-                if(client.player != null) {
-                    NetworkUtil.SendC2SChestCavityHotkeyPacket(CCOrganScores.SILK);
+                    NetworkUtil.SendC2SChestCavityHotkeyPacket(id);
                 }
             }
         });
     }
-
 }

@@ -132,7 +132,7 @@ public class CCItems {
 	public static final Item GOLEM_CORE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item INNER_FURNACE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item PISTON_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item IRON_SCRAP = new Item(new Item.Settings().maxCount(16).group(ItemGroup.MATERIALS));
+	public static final Item IRON_SCRAP = new Item(new Item.Settings().group(ItemGroup.MATERIALS));
 
 	public static final Item SALTWATER_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item SALTWATER_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));

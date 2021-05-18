@@ -57,6 +57,7 @@ public class CCOrganScores {
     public static final Identifier FURNACE_POWERED = new Identifier(ChestCavity.MODID,"furnace_powered");
     public static final Identifier HERBIVOROUS_DIGESTION = new Identifier(ChestCavity.MODID,"herbivorous_digestion");
     public static final Identifier HERBIVOROUS_NUTRITION = new Identifier(ChestCavity.MODID,"herbivorous_nutrition");
+    public static final Identifier IRON_REPAIR = new Identifier(ChestCavity.MODID,"iron_repair");
     public static final Identifier ROT_DIGESTION = new Identifier(ChestCavity.MODID,"rot_digestion");
     public static final Identifier ROTGUT = new Identifier(ChestCavity.MODID,"rotgut");
 

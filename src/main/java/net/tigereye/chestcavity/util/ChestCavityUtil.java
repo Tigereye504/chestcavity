@@ -218,11 +218,20 @@ public class ChestCavityUtil {
         if(!cc.opened){
             return foodStarvationTimer;
         }
-        cc.spleenTimer++;
-        if(cc.spleenTimer >= 2){
-            foodStarvationTimer += cc.getOrganScore(CCOrganScores.METABOLISM) - 1;
-            cc.spleenTimer = 0;
+        float metabolismDiff = cc.getOrganScore(CCOrganScores.METABOLISM)-cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.METABOLISM);
+        if(metabolismDiff == 0){
+            return foodStarvationTimer;
         }
+
+        if(metabolismDiff > 0){
+            cc.metabolismRemainder += metabolismDiff;
+            foodStarvationTimer += (int)cc.metabolismRemainder;
+        }
+        else{// metabolismDiff < 0
+            cc.metabolismRemainder += 1 - 1/((-metabolismDiff)+1);
+            foodStarvationTimer -= (int)cc.metabolismRemainder;
+        }
+        cc.metabolismRemainder = cc.metabolismRemainder % 1;
         return foodStarvationTimer;
         //TODO: find a use for spleens for non-players
     }
@@ -283,7 +292,6 @@ public class ChestCavityUtil {
     }
 
     public static boolean determineDefaultOrganScores(ChestCavityType chestCavityType) {
-        //TODO: make lookupOrganScore variant that can account for exceptional organs
         Map<Identifier,Float> organScores = chestCavityType.getDefaultOrganScores();
         chestCavityType.loadBaseOrganScores(organScores);
         try {
@@ -351,7 +359,12 @@ public class ChestCavityUtil {
         Map<Identifier,Float> organScores = cc.getOrganScores();
         if(!cc.opened){
             organScores.clear();
-            organScores.putAll(cc.getChestCavityType().getDefaultOrganScores());
+            if(cc.getChestCavityType().getDefaultOrganScores() != null) {
+                organScores.putAll(cc.getChestCavityType().getDefaultOrganScores());
+            }
+            else{
+
+            }
         }
         else {
             cc.onHitListeners.clear();

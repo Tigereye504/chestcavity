@@ -129,6 +129,5 @@ public class CCFoodComponents {
             .statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 24000, 0), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 24000, 0), ChestCavity.config.RISK_OF_PRIONS).statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 24000, 0), ChestCavity.config.RISK_OF_PRIONS).build();
 
     public static final FoodComponent CUD_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.1f).build();
-    public static final FoodComponent FURNACE_POWER_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(2f).build();
-    public static final FoodComponent DUMMY_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.1f).build();
+    public static final FoodComponent FURNACE_POWER_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.6f).build();
 }
