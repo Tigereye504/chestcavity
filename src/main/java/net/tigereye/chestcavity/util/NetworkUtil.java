@@ -2,12 +2,18 @@ package net.tigereye.chestcavity.util;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerLoginNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.chestcavities.organs.OrganData;
+import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.listeners.OrganActivationListeners;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 
@@ -58,7 +64,7 @@ public class NetworkUtil {
         return false;
     }
 
-    public static void ReadChestCavityReceiveUpdatePacket(ChestCavityInstance cc) {
+    public static void ReadChestCavityReceivedUpdatePacket(ChestCavityInstance cc) {
         cc.updatePacket = null;
     }
 
@@ -82,4 +88,40 @@ public class NetworkUtil {
         ClientPlayNetworking.send(CCNetworkingPackets.HOTKEY_PACKET_ID, NetworkUtil.WriteChestCavityHotkeyPacket(organScore));
     }
 
+    public static void sendOrganDataPacket(ServerLoginNetworkHandler serverLoginNetworkHandler, MinecraftServer minecraftServer, PacketSender packetSender, ServerLoginNetworking.LoginSynchronizer loginSynchronizer) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(OrganManager.GeneratedOrganData.size());
+        OrganManager.GeneratedOrganData.forEach((id,data) -> {
+            buf.writeIdentifier(id);
+            buf.writeBoolean(data.pseudoOrgan);
+            buf.writeInt(data.organScores.size());
+            data.organScores.forEach((ability,score) -> {
+                buf.writeIdentifier(ability);
+                buf.writeFloat(score);
+            });
+        });
+        packetSender.sendPacket(CCNetworkingPackets.ORGAN_DATA_PACKET_ID,buf);
+    }
+
+    public static boolean readOrganDataPacket(PacketByteBuf buf){
+        OrganManager.GeneratedOrganData.clear();
+        try {
+            int organCount = buf.readInt();
+            for (int i = 0; i < organCount; i++) {
+                Identifier organID = buf.readIdentifier();
+                OrganData organData = new OrganData();
+                organData.pseudoOrgan = buf.readBoolean();
+                int organAbilityCount = buf.readInt();
+                for (int j = 0; j < organAbilityCount; j++) {
+                    organData.organScores.put(buf.readIdentifier(), buf.readFloat());
+                }
+                OrganManager.GeneratedOrganData.put(organID, organData);
+            }
+            ChestCavity.LOGGER.info("loaded "+organCount+" organs from server");
+        }
+        catch(Exception e){
+            return false;
+        }
+        return true;
+    }
 }

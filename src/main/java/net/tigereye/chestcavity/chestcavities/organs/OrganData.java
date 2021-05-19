@@ -7,5 +7,5 @@ import java.util.Map;
 
 public class OrganData {
     public boolean pseudoOrgan;
-    public Map<Identifier,Float> organScores;
+    public Map<Identifier,Float> organScores = new HashMap<>();
 }

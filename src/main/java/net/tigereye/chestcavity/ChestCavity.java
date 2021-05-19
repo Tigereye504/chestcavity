@@ -50,10 +50,10 @@ public class ChestCavity implements ModInitializer {
 		CCStatusEffects.register();
 		CCTagOrgans.init();
 		CCCommands.register();
+		CCNetworkingPackets.register();
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new OrganManager());
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityTypeManager());
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityAssignmentManager());
-		CCNetworkingPackets.register();
 		CrossModContent.register();
 
 
