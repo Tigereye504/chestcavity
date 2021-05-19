@@ -4,7 +4,7 @@
     {"item": "chestcavity:withered_rib","position": 1},
     {"item": "chestcavity:writhing_soulsand","position": 2},
     {"item": "chestcavity:writhing_soulsand","position": 3},
-    {"item": "minecraft:nether_star","position": 4},
+    {"item": "minecraft:nether_star","position": 4, "count": 1},
     {"item": "chestcavity:writhing_soulsand","position": 5},
     {"item": "chestcavity:writhing_soulsand","position": 6},
     {"item": "chestcavity:withered_rib","position": 7},
