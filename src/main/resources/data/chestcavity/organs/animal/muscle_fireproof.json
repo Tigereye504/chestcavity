@@ -1,0 +1,8 @@
+{
+  "itemID": "chestcavity:fireproof_muscle",
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".75"},
+    {"id":"chestcavity:speed","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

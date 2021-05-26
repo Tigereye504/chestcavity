@@ -38,7 +38,7 @@ public class OrganTickListeners {
         if(entity.isOnGround() || entity.hasNoGravity()){
             return;
         }
-        float buoyancy = chestCavity.getOrganScore(CCOrganScores.BUOYANT);
+        float buoyancy = chestCavity.getOrganScore(CCOrganScores.BUOYANT) - chestCavity.getChestCavityType().getDefaultOrganScore(CCOrganScores.BUOYANT);
         if(buoyancy != 0)
         {
             entity.addVelocity(0.0D, buoyancy*0.02D, 0.0D);

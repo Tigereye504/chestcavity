@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:smelting",
-    "ingredient": {
-      "item": "chestcavity:small_animal_muscle"
-    },
-    "result": "chestcavity:burnt_meat_chunk",
-    "experience": 0.35,
-    "cookingtime": 200
-  }

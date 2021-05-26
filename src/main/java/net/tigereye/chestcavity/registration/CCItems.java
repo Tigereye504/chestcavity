@@ -67,6 +67,18 @@ public class CCItems {
 	public static final Item HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 
+	public static final Item FIREPROOF_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item FIREPROOF_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item FIREPROOF_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item FIREPROOF_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	
 	public static final Item SMALL_ANIMAL_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_ANIMAL_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_ANIMAL_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
@@ -251,6 +263,18 @@ public class CCItems {
 		registerItem("herbivore_stomach",HERBIVORE_STOMACH);
 		registerItem("herbivore_intestine",HERBIVORE_INTESTINE);
 
+		registerItem("fireproof_appendix", FIREPROOF_APPENDIX);
+		registerItem("fireproof_heart", FIREPROOF_HEART);
+		registerItem("fireproof_intestine", FIREPROOF_INTESTINE);
+		registerItem("fireproof_kidney", FIREPROOF_KIDNEY);
+		registerItem("fireproof_liver", FIREPROOF_LIVER);
+		registerItem("fireproof_lung", FIREPROOF_LUNG);
+		registerItem("fireproof_muscle", FIREPROOF_MUSCLE);
+		registerItem("fireproof_rib", FIREPROOF_RIB);
+		registerItem("fireproof_spine", FIREPROOF_SPINE);
+		registerItem("fireproof_spleen", FIREPROOF_SPLEEN);
+		registerItem("fireproof_stomach", FIREPROOF_STOMACH);
+		
 		registerItem("small_animal_appendix", SMALL_ANIMAL_APPENDIX);
 		registerItem("small_animal_heart", SMALL_ANIMAL_HEART);
 		registerItem("small_animal_intestine", SMALL_ANIMAL_INTESTINE);

@@ -1,7 +1,7 @@
 {
     "type": "minecraft:smoking",
     "ingredient": {
-      "item": "chestcavity:animal_muscle"
+      "tag": "chestcavity:burnable_meat"
     },
     "result": "chestcavity:burnt_meat_chunk",
     "experience": 0.35,

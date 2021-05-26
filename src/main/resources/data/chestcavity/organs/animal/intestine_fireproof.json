@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:fireproof_intestine",
+  "organScores": [
+    {"id":"chestcavity:nutrition","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

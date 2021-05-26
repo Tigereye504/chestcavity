@@ -3,6 +3,7 @@
     "values": [
       "chestcavity:rib",
       "chestcavity:animal_rib",
+      "chestcavity:fireproof_rib",
       "chestcavity:small_animal_rib",
       "chestcavity:rotten_rib",
       "chestcavity:withered_rib",
@@ -10,6 +11,7 @@
       "chestcavity:dragon_rib",
       "chestcavity:spine",
       "chestcavity:animal_spine",
+      "chestcavity:fireproof_spine",
       "chestcavity:small_animal_spine",
       "chestcavity:rotten_spine",
       "chestcavity:withered_spine",

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:fireproof_appendix",
+  "organScores": [
+    {"id":"chestcavity:luck","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

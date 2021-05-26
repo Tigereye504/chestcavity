@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:fireproof_spleen",
+  "organScores": [
+    {"id":"chestcavity:metabolism","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

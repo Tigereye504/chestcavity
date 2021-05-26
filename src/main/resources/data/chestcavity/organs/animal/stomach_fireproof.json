@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:fireproof_stomach",
+  "organScores": [
+    {"id":"chestcavity:digestion","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:fireproof_rib",
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}
