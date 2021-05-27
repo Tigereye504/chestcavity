@@ -28,6 +28,5 @@
     {"item": "chestcavity:fireproof_muscle","position": 25},
     {"item": "chestcavity:fireproof_muscle","position": 26}
   ],
-  "baseOrganScores": [
-  ]
+  "dropRateMultiplier": "3"
 }

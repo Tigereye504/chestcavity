@@ -23,14 +23,16 @@ public class ChestCavityTypeSerializer {
         if (cctJson.exceptionalOrgans == null) cctJson.exceptionalOrgans = new JsonArray();
         if (cctJson.baseOrganScores == null) cctJson.baseOrganScores = new JsonArray();
         if (cctJson.forbiddenSlots == null) cctJson.forbiddenSlots = new JsonArray();
-        //bossChestCavity should default to false
-        //playerChestCavity should default to false
+        //bossChestCavity defaults to false
+        //playerChestCavity defaults to false
+        //dropRateMultiplier defaults to true
 
         GeneratedChestCavityType cct = new GeneratedChestCavityType();
         cct.setForbiddenSlots(readForbiddenSlotsFromJson(id,cctJson));
         cct.setDefaultChestCavity(readDefaultChestCavityFromJson(id,cctJson,cct.getForbiddenSlots()));
         cct.setBaseOrganScores(readBaseOrganScoresFromJson(id,cctJson));
         cct.setExceptionalOrganList(readExceptionalOrgansFromJson(id,cctJson));
+        cct.setDropRateMultiplier(cctJson.dropRateMultiplier);
         cct.setPlayerChestCavity(cctJson.playerChestCavity);
         cct.setBossChestCavity(cctJson.bossChestCavity);
 

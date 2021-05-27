@@ -43,5 +43,6 @@
     {"id": "chestcavity:breath","value": "1"},
     {"id": "chestcavity:endurance","value": "1"}
   ],
+  "dropRateMultiplier": ".5",
   "forbiddenSlots": [0,7,16,17,19,20,26]
 }

@@ -24,6 +24,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
     private Map<Ingredient,Map<Identifier,Float>> exceptionalOrganList = null;
     private List<ItemStack> droppableOrgans = null;
     private List<Integer> forbiddenSlots = new ArrayList<>();
+    private float dropRateMultiplier = 1;
     private boolean bossChestCavity = false;
     private boolean playerChestCavity = false;
 
@@ -126,6 +127,14 @@ public class GeneratedChestCavityType implements ChestCavityType {
         return null;
     }
 
+    public float getDropRateMultiplier() {
+        return dropRateMultiplier;
+    }
+
+    public void setDropRateMultiplier(float multiplier) {
+        dropRateMultiplier = multiplier;
+    }
+
     @Override
     public List<ItemStack> generateLootDrops(Random random, int looting) {
         List<ItemStack> loot = new ArrayList<>();
@@ -136,7 +145,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
             generateGuaranteedOrganDrops(random,looting,loot);
             return loot;
         }
-        if(random.nextFloat() < ChestCavity.config.UNIVERSAL_DONOR_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting)) {
+        if(random.nextFloat() < (ChestCavity.config.UNIVERSAL_DONOR_RATE + (ChestCavity.config.ORGAN_BUNDLE_LOOTING_BOOST*looting))*getDropRateMultiplier()) {
             generateRareOrganDrops(random,looting,loot);
         }
         return loot;

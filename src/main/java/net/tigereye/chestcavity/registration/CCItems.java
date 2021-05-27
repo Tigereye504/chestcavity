@@ -66,6 +66,7 @@ public class CCItems {
 	public static final Item HERBIVORE_RUMEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item BRUTISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 
 	public static final Item FIREPROOF_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item FIREPROOF_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -262,6 +263,7 @@ public class CCItems {
 		registerItem("herbivore_rumen",HERBIVORE_RUMEN);
 		registerItem("herbivore_stomach",HERBIVORE_STOMACH);
 		registerItem("herbivore_intestine",HERBIVORE_INTESTINE);
+		registerItem("brutish_muscle", BRUTISH_MUSCLE);
 
 		registerItem("fireproof_appendix", FIREPROOF_APPENDIX);
 		registerItem("fireproof_heart", FIREPROOF_HEART);

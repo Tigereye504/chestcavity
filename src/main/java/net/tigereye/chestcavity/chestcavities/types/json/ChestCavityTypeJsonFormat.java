@@ -8,6 +8,7 @@ public class ChestCavityTypeJsonFormat {
     JsonArray baseOrganScores;
     JsonArray exceptionalOrgans;
     JsonArray forbiddenSlots;
-    boolean bossChestCavity;
-    boolean playerChestCavity;
+    boolean bossChestCavity = false;
+    boolean playerChestCavity = false;
+    float dropRateMultiplier = 1;
 }
