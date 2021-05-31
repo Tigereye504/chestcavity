@@ -9,7 +9,7 @@
 
     {"item": "chestcavity:blaze_shell","position": 11},
     {"item": "minecraft:magma_block","position": 12, "count": 4},
-    {"item": "minecraft:magma_block","position": 13, "count": 4},
+    {"item": "chestcavity:blaze_core", "position": 13},
     {"item": "minecraft:magma_block","position": 14, "count": 4},
     {"item": "chestcavity:blaze_shell","position": 15},
     {"item": "chestcavity:active_blaze_rod","position": 16, "count":  1},
