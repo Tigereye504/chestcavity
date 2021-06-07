@@ -377,6 +377,9 @@ public class OrganUtil {
     }
 
     public static boolean teleportTo(LivingEntity entity, double x, double y, double z) {
+        if(entity.hasVehicle()){
+            entity.stopRiding();
+        }
         BlockPos.Mutable targetPos = new BlockPos.Mutable(x, y, z);
         BlockState blockState = entity.world.getBlockState(targetPos);
         while(targetPos.getY() > 0 && !(blockState.getMaterial().blocksMovement()
