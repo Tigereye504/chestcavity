@@ -176,25 +176,6 @@ public class DefaultChestCavityType implements ChestCavityType {
                 itemStack.putSubTag(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }
         }
-        if(!playerChestCavity) {
-            int universalOrgans = 0;
-            Random random = instance.owner.getRandom();
-            if (bossChestCavity){
-                universalOrgans = 3+random.nextInt(2)+random.nextInt(2);
-            }
-            else if (random.nextFloat() < ChestCavity.config.UNIVERSAL_DONOR_RATE) {
-                universalOrgans = 1 + random.nextInt(3) + random.nextInt(3);
-            }
-            //each attempt, roll a random slot in the chestcavity and turn that organ, if any, compatible
-            while(universalOrgans > 0){
-                int i = random.nextInt(chestCavity.size());
-                ItemStack itemStack = chestCavity.getStack(i);
-                if(itemStack != null && itemStack != ItemStack.EMPTY){
-                    itemStack.removeSubTag(ChestCavity.COMPATIBILITY_TAG.toString());
-                }
-                universalOrgans--;
-            }
-        }
     }
 
     @Override

@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:swift_muscle",
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".75"},
+    {"id":"chestcavity:speed","value": "1.25"}
+  ]
+}
