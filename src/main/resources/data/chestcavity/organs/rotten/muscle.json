@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:rotten_muscle",
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".5"},
+    {"id":"chestcavity:speed","value": ".5"}
+  ]
+}

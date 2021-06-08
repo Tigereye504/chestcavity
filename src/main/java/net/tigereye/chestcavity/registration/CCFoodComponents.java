@@ -22,6 +22,9 @@ public class CCFoodComponents {
     public static final FoodComponent RAW_RICH_MINI_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(3).saturationModifier(.6f).meat().build();
     public static final FoodComponent COOKED_RICH_MINI_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(6).saturationModifier(1.2f).meat().build();
 
+    public static final FoodComponent ROTTEN_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(0.1F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.8F).meat().build();
+    public static final FoodComponent ROTTEN_SAUSAGE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(8).saturationModifier(0.1F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.8F).meat().build();
+
     public static final FoodComponent INSECT_MUSCLE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(.4f).meat().snack()
             .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 80), 1f).build();
     public static final FoodComponent RAW_TOXIC_MEAT_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(.4f).meat()
