@@ -188,7 +188,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
             while(universalOrgans > 0){
                 int i = random.nextInt(chestCavity.size());
                 ItemStack itemStack = chestCavity.getStack(i);
-                if(itemStack != null && itemStack != ItemStack.EMPTY){
+                if(itemStack != null && itemStack != ItemStack.EMPTY && OrganManager.isTrueOrgan(itemStack.getItem())){
                     itemStack.removeSubTag(ChestCavity.COMPATIBILITY_TAG.toString());
                 }
                 universalOrgans--;

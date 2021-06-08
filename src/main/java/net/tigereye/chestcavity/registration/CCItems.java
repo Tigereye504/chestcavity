@@ -38,6 +38,7 @@ public class CCItems {
 	public static final Item ROTTEN_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
 	public static final Item ROTTEN_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
 	public static final Item ROTTEN_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ROTTEN_MUSCLE_FOOD_COMPONENT));
 	public static final Item ROTTEN_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item ROTTEN_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item ROTTEN_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
@@ -67,6 +68,7 @@ public class CCItems {
 	public static final Item HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item BRUTISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SWIFT_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 
 	public static final Item FIREPROOF_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item FIREPROOF_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -168,7 +170,9 @@ public class CCItems {
 	public static final Item COOKED_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_MINI_SAUSAGE_FOOD_COMPONENT));
 	public static final Item RAW_RICH_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_MINI_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_MINI_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_MINI_SAUSAGE_FOOD_COMPONENT));
-	
+
+	public static final Item ROTTEN_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.ROTTEN_SAUSAGE_FOOD_COMPONENT));
+
 	public static final Item RAW_TOXIC_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item COOKED_TOXIC_ORGAN_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item RAW_TOXIC_MEAT = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_TOXIC_MEAT_FOOD_COMPONENT));
@@ -235,6 +239,7 @@ public class CCItems {
 		registerItem("rotten_kidney", ROTTEN_KIDNEY);
 		registerItem("rotten_liver", ROTTEN_LIVER);
 		registerItem("rotten_lung", ROTTEN_LUNG);
+		registerItem("rotten_muscle", ROTTEN_MUSCLE);
 		registerItem("rotten_rib", ROTTEN_RIB);
 		registerItem("rotten_spine", ROTTEN_SPINE);
 		registerItem("rotten_spleen", ROTTEN_SPLEEN);
@@ -264,6 +269,7 @@ public class CCItems {
 		registerItem("herbivore_stomach",HERBIVORE_STOMACH);
 		registerItem("herbivore_intestine",HERBIVORE_INTESTINE);
 		registerItem("brutish_muscle", BRUTISH_MUSCLE);
+		registerItem("swift_muscle", SWIFT_MUSCLE);
 
 		registerItem("fireproof_appendix", FIREPROOF_APPENDIX);
 		registerItem("fireproof_heart", FIREPROOF_HEART);
@@ -364,6 +370,8 @@ public class CCItems {
 		registerItem("mini_sausage", COOKED_MINI_SAUSAGE);
 		registerItem("raw_rich_mini_sausage", RAW_RICH_MINI_SAUSAGE);
 		registerItem("rich_mini_sausage", COOKED_RICH_MINI_SAUSAGE);
+
+		registerItem("rotten_sausage", ROTTEN_SAUSAGE);
 
 		registerItem("raw_toxic_organ_meat", RAW_TOXIC_ORGAN_MEAT);
 		registerItem("cooked_toxic_organ_meat", COOKED_TOXIC_ORGAN_MEAT);

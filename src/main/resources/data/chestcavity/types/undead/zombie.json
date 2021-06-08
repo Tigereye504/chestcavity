@@ -8,8 +8,8 @@
     {"item": "chestcavity:rotten_lung","position": 5},
 
 
-    {"item": "minecraft:rotten_flesh","position": 8},
-    {"item": "minecraft:rotten_flesh","position": 9},
+    {"item": "chestcavity:rotten_muscle","position": 8},
+    {"item": "chestcavity:rotten_muscle","position": 9},
     {"item": "chestcavity:rotten_rib","position": 10},
     {"item": "chestcavity:rotten_spleen","position": 11},
     {"item": "chestcavity:rotten_kidney","position": 12},
@@ -18,14 +18,14 @@
     {"item": "chestcavity:rotten_liver","position": 15},
 
 
-    {"item": "minecraft:rotten_flesh","position": 18},
+    {"item": "chestcavity:rotten_muscle","position": 18},
 
 
     {"item": "chestcavity:rotten_intestine","position": 21},
     {"item": "chestcavity:rotten_stomach","position": 22},
     {"item": "chestcavity:rotten_intestine","position": 23},
     {"item": "chestcavity:rotten_intestine","position": 24},
-    {"item": "minecraft:rotten_flesh","position": 25}
+    {"item": "chestcavity:rotten_muscle","position": 25}
 
   ],
   "baseOrganScores": [
