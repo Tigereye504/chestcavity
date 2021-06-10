@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:ghast_tear",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:metabolism","value": ".5"}
+  ]
+}

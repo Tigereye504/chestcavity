@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:conduit",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:water_breath","value": "1"},
+    {"id":"chestcavity:swim_speed","value": "1"}
+  ]
+}

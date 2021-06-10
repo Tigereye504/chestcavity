@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:redstone",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:nerves","value": "1"}
+  ]
+}

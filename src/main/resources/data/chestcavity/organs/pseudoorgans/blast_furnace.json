@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:blast_furnace",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:furnace_powered","value": "1"},
+    {"id":"chestcavity:defense","value": ".25"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:sponge",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:hydroallergenic","value": "-1"}
+  ]
+}

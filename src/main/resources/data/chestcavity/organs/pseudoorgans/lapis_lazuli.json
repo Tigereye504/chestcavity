@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:lapis_lazuli",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:luck","value": ".75"},
+    {"id":"chestcavity:detoxification","value": "-.25"},
+    {"id":"chestcavity:filtration","value": "-.25"}
+  ]
+}

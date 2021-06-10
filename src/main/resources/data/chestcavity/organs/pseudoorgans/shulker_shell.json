@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:shulker_shell",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": "1"}
+  ]
+}

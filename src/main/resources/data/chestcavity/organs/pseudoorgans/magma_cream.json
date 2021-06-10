@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:magma_cream",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

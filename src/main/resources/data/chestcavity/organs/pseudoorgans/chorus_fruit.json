@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:chorus_fruit",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:arrow_dodging","value": "1"}
+  ]
+}

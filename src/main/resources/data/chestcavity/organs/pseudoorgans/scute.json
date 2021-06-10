@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:scute",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": "0.75"}
+  ]
+}

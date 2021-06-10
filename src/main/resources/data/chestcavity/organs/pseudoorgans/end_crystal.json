@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:end_crystal",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:explosive","value": "1536"},
+    {"id":"chestcavity:crystalsynthesis","value": "1"},
+    {"id":"chestcavity:defense","value": "-2"}
+  ]
+}

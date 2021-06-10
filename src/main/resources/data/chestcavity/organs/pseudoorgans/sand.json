@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:sand",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:buoyant","value": "-1"},
+    {"id":"chestcavity:speed","value": "-.25"},
+    {"id":"chestcavity:filtration","value": ".75"}
+  ]
+}
