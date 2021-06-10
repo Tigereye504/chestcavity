@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:glow_berries",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:glowing","value": "64"}
+  ]
+}

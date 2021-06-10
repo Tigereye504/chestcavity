@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:potato",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:digestion","value": ".25"}
+  ]
+}

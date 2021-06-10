@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:string",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:nutrition","value": ".25"}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:honey_bottle",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:detoxification","value": ".5"},
+    {"id":"chestcavity:filtration","value": ".5"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:chainmail_chestplate",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".3"}
+  ]
+}

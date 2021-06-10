@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:leather_chestplate",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".1"}
+  ]
+}
