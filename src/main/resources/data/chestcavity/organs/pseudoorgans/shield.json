@@ -2,7 +2,7 @@
   "itemID": "minecraft:shield",
   "pseudoOrgan": true,
   "organScores": [
-    {"id":"chestcavity:defense","value": "0.75"},
-    {"id":"chestcavity:speed","value": "-0.5"}
+    {"id":"chestcavity:defense","value": ".75"},
+    {"id":"chestcavity:speed","value": "-.5"}
   ]
 }

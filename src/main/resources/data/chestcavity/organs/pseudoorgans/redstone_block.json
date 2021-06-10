@@ -3,8 +3,8 @@
   "pseudoOrgan": true,
   "organScores": [
     {"id":"chestcavity:nerves","value": "1"},
-    {"id":"chestcavity:defense","value": "0.5"},
+    {"id":"chestcavity:defense","value": ".5"},
     {"id":"chestcavity:buoyant","value": "-1"},
-    {"id":"chestcavity:fire_resistant","value": "0.25"}
+    {"id":"chestcavity:fire_resistant","value": ".25"}
   ]
 }

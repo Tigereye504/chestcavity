@@ -2,7 +2,7 @@
   "itemID": "minecraft:turtle_helmet",
   "pseudoOrgan": true,
   "organScores": [
-    {"id":"chestcavity:defense","value": "0.5"},
-    {"id":"chestcavity:water_breath","value": "0.25"}
+    {"id":"chestcavity:defense","value": ".5"},
+    {"id":"chestcavity:water_breath","value": ".25"}
   ]
 }

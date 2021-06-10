@@ -4,6 +4,6 @@
   "organScores": [
     {"id":"chestcavity:detoxification","value": ".25"},
     {"id":"chestcavity:fire_resistant","value": "-1"},
-    {"id":"chestcavity:filtration","value": "-0.5"}
+    {"id":"chestcavity:filtration","value": "-.5"}
   ]
 }

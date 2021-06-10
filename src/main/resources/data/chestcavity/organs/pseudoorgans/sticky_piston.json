@@ -3,6 +3,6 @@
   "pseudoOrgan": true,
   "organScores": [
     {"id":"chestcavity:strength","value": "1"},
-    {"id":"chestcavity:speed","value": "0.75"}
+    {"id":"chestcavity:speed","value": ".75"}
   ]
 }

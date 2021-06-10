@@ -2,6 +2,6 @@
   "itemID": "minecraft:scute",
   "pseudoOrgan": true,
   "organScores": [
-    {"id":"chestcavity:defense","value": "0.75"}
+    {"id":"chestcavity:defense","value": ".75"}
   ]
 }
