@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:azalea_leaves",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:breath_capacity","value": ".33"},
+    {"id":"chestcavity:breath_recovery","value": ".25"},
+    {"id":"chestcavity:water_breath","value": ".25"}
+  ]
+}

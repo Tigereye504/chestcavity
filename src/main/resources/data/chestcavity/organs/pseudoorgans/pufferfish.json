@@ -1,0 +1,15 @@
+{
+  "itemID": "minecraft:pufferfish",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".25"},
+    {"id":"chestcavity:speed","value": ".125"},
+    {"id":"chestcavity:swim_speed","value": ".25"},
+    {"id":"chestcavity:breath_capacity","value": ".1"},
+    {"id":"chestcavity:water_breath","value": ".5"},
+    {"id":"chestcavity:buoyant","value": ".1"},
+    {"id":"chestcavity:filtration","value": "-2"},
+    {"id":"chestcavity:endurance","value": "-1.5"},
+    {"id":"chestcavity:nutrition","value": "-1"}
+  ]
+}
