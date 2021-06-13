@@ -1,0 +1,11 @@
+{
+  "itemID": "minecraft:bone_meal",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".037037"},
+    {"id":"chestcavity:speed","value": ".25"},
+    {"id":"chestcavity:nerves","value": ".037037"},
+    {"id":"chestcavity:metabolism","value": ".25"},
+    {"id":"chestcavity:digestion","value": ".037037"}
+  ]
+}

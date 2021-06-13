@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:lightning_rod",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:nerves","value": "1"},
+    {"id":"chestcavity:fire_resistant","value": "1"}
+  ]
+}

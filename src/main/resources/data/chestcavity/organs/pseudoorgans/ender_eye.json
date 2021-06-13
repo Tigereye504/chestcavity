@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:ender_eye",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:hydroallergenic","value": "2"},
+    {"id":"chestcavity:hydrophobia","value": "1"},
+    {"id":"chestcavity:fire_resistant","value": ".5"}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:milk_bucket",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:detoxification","value": ".75"},
+    {"id":"chestcavity:filtration","value": ".75"},
+    {"id":"chestcavity:buff_purging","value": ".75"}
+  ]
+}

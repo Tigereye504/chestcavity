@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:furnace",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:furnace_powered","value": "1"}
+  ]
+}

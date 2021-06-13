@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:chain",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:nerves","value": "1"},
+    {"id":"chestcavity:defense","value": ".75"}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:stick",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:fire_resistant","value": "-.25"},
+    {"id":"chestcavity:defense","value": ".25"}
+  ]
+}

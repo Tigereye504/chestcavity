@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:sugar",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:speed","value": ".75"}
+  ]
+}

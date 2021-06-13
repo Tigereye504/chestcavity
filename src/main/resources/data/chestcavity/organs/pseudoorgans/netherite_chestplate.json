@@ -1,0 +1,9 @@
+{
+  "itemID": "minecraft:netherite_chestplate",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".5"},
+    {"id":"chestcavity:knockback_resistant","value": ".5"},
+    {"id":"chestcavity:fire_resistant","value": ".5"}
+  ]
+}

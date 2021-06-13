@@ -1,0 +1,7 @@
+{
+  "itemID": "minecraft:glow_ink_sac",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:glowing","value": "64"}
+  ]
+}

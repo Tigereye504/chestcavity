@@ -1,0 +1,13 @@
+{
+  "itemID": "minecraft:totem_of_undying",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:health","value": ".074074"},
+    {"id":"chestcavity:strength","value": "-1"},
+    {"id":"chestcavity:filtration","value": "1.5"},
+    {"id":"chestcavity:breath_recovery","value": ".074074"},
+    {"id":"chestcavity:endurance","value": "-2"},
+    {"id":"chestcavity:metabolism","value": ".25"},
+    {"id":"chestcavity:defense","value": ".2"}
+  ]
+}

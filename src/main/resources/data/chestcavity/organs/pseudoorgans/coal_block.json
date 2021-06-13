@@ -1,0 +1,11 @@
+{
+  "itemID": "minecraft:coal",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:detoxification","value": "1"},
+    {"id":"chestcavity:fire_resistant","value": "-9"},
+    {"id":"chestcavity:filtration","value": "-2.25"},
+    {"id":"chestcavity:buoyant","value": "-1"},
+    {"id":"chestcavity:speed","value": "-1"}
+  ]
+}

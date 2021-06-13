@@ -1,0 +1,8 @@
+{
+  "itemID": "minecraft:smoker",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:furnace_powered","value": "1"},
+    {"id":"chestcavity:metabolism","value": ".25"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "itemID": "minecraft:cod",
+  "pseudoOrgan": true,
+  "organScores": [
+    {"id":"chestcavity:strength","value": ".25"},
+    {"id":"chestcavity:speed","value": ".125"},
+    {"id":"chestcavity:swim_speed","value": ".25"},
+    {"id":"chestcavity:water_breath","value": ".125"}
+  ]
+}
