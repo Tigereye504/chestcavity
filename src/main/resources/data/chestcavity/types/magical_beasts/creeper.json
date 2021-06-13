@@ -1,23 +1,31 @@
 {
   "defaultChestCavity": [
     {"item": "minecraft:oak_leaves","position": 0,"count": 16},
-    {"item": "minecraft:stick","position": 1,"count": 4},
+    {"item": "chestcavity:creeper_tendril","position": 1,"count": 16},
+    {"item": "minecraft:stick","position": 2,"count": 4},
     {"item": "chestcavity:creeper_appendix","position": 4},
-    {"item": "minecraft:stick","position": 7,"count": 4},
+    {"item": "minecraft:stick","position": 6,"count": 4},
+    {"item": "chestcavity:creeper_tendril","position": 7,"count": 16},
     {"item": "minecraft:oak_leaves","position": 8,"count": 16},
 
     {"item": "minecraft:oak_leaves","position": 9,"count": 16},
-    {"item": "minecraft:stick","position": 10,"count": 4},
+    {"item": "chestcavity:creeper_tendril","position": 10,"count": 16},
+    {"item": "minecraft:stick","position": 11,"count": 4},
     {"item": "minecraft:gunpowder","position": 12, "count": 1},
     {"item": "minecraft:oak_log","position": 13, "count": 1},
     {"item": "minecraft:gunpowder","position": 14, "count": 1},
-    {"item": "minecraft:stick","position": 16,"count": 4},
+    {"item": "minecraft:stick","position": 15,"count": 4},
+    {"item": "chestcavity:creeper_tendril","position": 16,"count": 16},
     {"item": "minecraft:oak_leaves","position": 17,"count": 16},
 
     {"item": "minecraft:oak_leaves","position": 18,"count": 16},
-    {"item": "minecraft:oak_leaves","position": 19,"count": 16},
-    {"item": "minecraft:gunpowder","position": 22, "count": 1},
-    {"item": "minecraft:oak_leaves","position": 25,"count": 16},
+    {"item": "chestcavity:creeper_tendril","position": 19,"count": 16},
+    {"item": "minecraft:hanging_roots","position": 20, "count": 1},
+    {"item": "minecraft:hanging_roots","position": 21, "count": 1},
+    {"item": "minecraft:hanging_roots","position": 22, "count": 1},
+    {"item": "minecraft:hanging_roots","position": 23, "count": 1},
+    {"item": "minecraft:hanging_roots","position": 24, "count": 1},
+    {"item": "chestcavity:creeper_tendril","position": 25,"count": 16},
     {"item": "minecraft:oak_leaves","position": 26,"count": 16}
   ],
   "exceptionalOrgans": [

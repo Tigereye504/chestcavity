@@ -152,6 +152,7 @@ public class CCItems {
 	public static final Item SALTWATER_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item SALTWATER_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item CREEPER_APPENDIX = new CreeperAppendix();
+	public static final Item CREEPER_TENDRIL = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item SHULKER_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 
 	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64).group(ItemGroup.MISC));
@@ -352,6 +353,7 @@ public class CCItems {
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
+		registerItem("creeper_tendril", CREEPER_TENDRIL);
 		registerItem("shulker_spleen", SHULKER_SPLEEN);
 
 		registerItem("sausage_skin", SAUSAGE_SKIN);
