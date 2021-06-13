@@ -165,7 +165,7 @@ public class OrganTickListeners {
             return;
         }
         float Hydroallergy = cc.getOrganScore(CCOrganScores.HYDROALLERGENIC);
-        if(Hydroallergy == 0){   //do nothing if the target isn't hydrophobic
+        if(Hydroallergy <= 0){   //do nothing if the target isn't hydrophobic
             return;                                                                 //TODO: make enderman water-damage dependent on hydroallergenic
         }
         if (entity.isSubmergedInWater()) {
@@ -184,7 +184,7 @@ public class OrganTickListeners {
 
     public static void TickHydrophobia(LivingEntity entity, ChestCavityInstance cc){
         float hydrophobia = cc.getOrganScore(CCOrganScores.HYDROPHOBIA);
-        if(hydrophobia == 0                                                         //do nothing if the target isn't hydrophobic
+        if(hydrophobia <= 0                                                         //do nothing if the target isn't hydrophobic
             || cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.HYDROPHOBIA) != 0){   //do nothing if they are by default, otherwise endermen will spaz even harder
             return;                                                                 //TODO: make enderman water-teleporting dependent on hydrophobia
         }
