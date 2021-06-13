@@ -5,6 +5,6 @@
     {"id":"chestcavity:breath_capacity","value": "1"},
     {"id":"chestcavity:endurance","value": "1"},
     {"id":"chestcavity:water_breath","value": ".5"},
-    {"id":"chestcavity:fire_resistant","value": "-1"}
+    {"id":"chestcavity:fire_resistant","value": "-.5"}
   ]
 }
