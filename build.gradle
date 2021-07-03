@@ -50,11 +50,11 @@ dependencies {
 repositories {
 	maven {
 		name = 'Ladysnake Mods'
-		url = 'https://dl.bintray.com/ladysnake/mods'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods/'
 	}
 	maven {
 		name = "Ladysnake Libs"
-		url = 'https://dl.bintray.com/ladysnake/libs/'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 	}
 	maven {
 		url = "https://maven.modmuss50.me/"
