@@ -145,6 +145,11 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
     }
 
+    @Inject(at = @At("RETURN"), method = "getJumpVelocity",cancellable = true)
+    public void chestCavityLivingEntityJumpVelocityMixin(CallbackInfoReturnable<Float> info){
+        info.setReturnValue(ChestCavityUtil.applyLeaping(chestCavityInstance, info.getReturnValueF()));
+    }
+
     public ChestCavityInstance getChestCavityInstance() {
         return chestCavityInstance;
     }

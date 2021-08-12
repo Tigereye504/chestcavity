@@ -69,6 +69,7 @@ public class CCItems {
 	public static final Item HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item BRUTISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SWIFT_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SPRINGY_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 
 	public static final Item FIREPROOF_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item FIREPROOF_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -96,6 +97,7 @@ public class CCItems {
 	public static final Item RABBIT_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_AQUATIC_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_FISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_SPRINGY_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_GILLS = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_CARNIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_CARNIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
@@ -270,6 +272,7 @@ public class CCItems {
 		registerItem("herbivore_intestine",HERBIVORE_INTESTINE);
 		registerItem("brutish_muscle", BRUTISH_MUSCLE);
 		registerItem("swift_muscle", SWIFT_MUSCLE);
+		registerItem("springy_muscle", SPRINGY_MUSCLE);
 
 		registerItem("fireproof_appendix", FIREPROOF_APPENDIX);
 		registerItem("fireproof_heart", FIREPROOF_HEART);
@@ -297,6 +300,7 @@ public class CCItems {
 		registerItem("rabbit_heart", RABBIT_HEART);
 		registerItem("small_aquatic_muscle", SMALL_AQUATIC_MUSCLE);
 		registerItem("small_fish_muscle", SMALL_FISH_MUSCLE);
+		registerItem("small_springy_muscle", SMALL_SPRINGY_MUSCLE);
 		registerItem("small_gills", SMALL_GILLS);
 		registerItem("small_carnivore_stomach",SMALL_CARNIVORE_STOMACH);
 		registerItem("small_carnivore_intestine",SMALL_CARNIVORE_INTESTINE);

@@ -34,6 +34,7 @@ public class CCOrganScores {
     public static final Identifier IMPACT_RESISTANT = new Identifier(ChestCavity.MODID, "impact_resistant");
     public static final Identifier KNOCKBACK_RESISTANT = new Identifier(ChestCavity.MODID, "knockback_resistant");
     public static final Identifier LAUNCHING = new Identifier(ChestCavity.MODID, "launching");
+    public static final Identifier LEAPING = new Identifier(ChestCavity.MODID, "leaping");
     public static final Identifier SWIM_SPEED = new Identifier(ChestCavity.MODID, "swim_speed");
     public static final Identifier WATERBREATH = new Identifier(ChestCavity.MODID, "water_breath");
     public static final Identifier WITHERED = new Identifier(ChestCavity.MODID, "withered");

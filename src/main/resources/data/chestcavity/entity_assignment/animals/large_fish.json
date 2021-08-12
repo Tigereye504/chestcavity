@@ -2,6 +2,7 @@
   "chestcavity": "chestcavity:types/animals/large_fish.json",
   "entities": [
     "minecraft:squid",
+    "minecraft:glow_squid",
     "minecraft:guardian",
     "minecraft:elder_guardian"
   ]

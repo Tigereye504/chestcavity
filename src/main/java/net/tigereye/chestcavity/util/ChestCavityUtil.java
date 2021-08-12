@@ -164,6 +164,9 @@ public class ChestCavityUtil {
         if(!source.bypassesArmor()) {
             damage = applyBoneDefense(cc,damage);
         }
+        if(source == DamageSource.FALL){
+            damage = applyLeapingToFallDamage(cc,damage);
+        }
         if(source == DamageSource.FALL || source == DamageSource.FLY_INTO_WALL){
             damage = applyImpactResistant(cc,damage);
         }
@@ -198,6 +201,21 @@ public class ChestCavityUtil {
         float impactResistant = cc.getOrganScore(CCOrganScores.IMPACT_RESISTANT);
         if(impactResistant > 0){
             return (float)(damage*Math.pow(1-ChestCavity.config.IMPACT_DEFENSE,impactResistant/4));
+        }
+        return damage;
+    }
+
+
+    public static Float applyLeaping(ChestCavityInstance cc, float velocity) {
+        float leaping = cc.getOrganScore(CCOrganScores.LEAPING);
+        float defaultLeaping = cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.LEAPING);
+        return velocity * Math.max(0,1+((leaping-defaultLeaping)*.25f));
+    }
+
+    public static float applyLeapingToFallDamage(ChestCavityInstance cc, float damage){
+        float leapingDiff = cc.getOrganScore(CCOrganScores.LEAPING) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.LEAPING);
+        if(leapingDiff > 0) {
+            return Math.max(0, damage - (leapingDiff*leapingDiff/4));
         }
         return damage;
     }

@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_aquatic_carnivore.json",
+  "entities": [
+    "minecraft:axolotl"
+  ]
+}
