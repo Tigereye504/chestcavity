@@ -10,7 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -400,7 +400,7 @@ public class ChestCavityUtil {
     public static void forcefullyAddStack(ChestCavityInstance cc, ItemStack stack, int slot){
         if(!cc.inventory.canInsert(stack)) {
             if (!cc.inventory.canInsert(stack) && cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && cc.owner instanceof PlayerEntity) {
-                if (!((PlayerEntity) cc.owner).inventory.insertStack(stack)) {
+                if (!((PlayerEntity) cc.owner).getInventory().insertStack(stack)) {
                     cc.owner.dropStack(cc.inventory.removeStack(slot));
                 }
             } else {
@@ -424,7 +424,7 @@ public class ChestCavityUtil {
             }
             int oNegative = EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack);
             int ownership = 0;
-            CompoundTag tag = itemStack.getTag();
+            NbtCompound tag = itemStack.getNbt();
             if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())) {
                 tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
                 if (tag.getUuid("owner").equals(cc.compatibility_id)) {
@@ -464,7 +464,6 @@ public class ChestCavityUtil {
     }
 
     protected static OrganData lookupOrgan(ItemStack itemStack, ChestCavityType cct){
-        Item item = itemStack.getItem();
         OrganData organData = cct.catchExceptionalOrgan(itemStack);
         if(organData != null){ //check for exceptional organs
             return organData;
@@ -475,7 +474,7 @@ public class ChestCavityUtil {
         else{ //check for tag organs
             for (Tag<Item> itemTag:
                     CCTagOrgans.tagMap.keySet()) {
-                if(item.isIn(itemTag)){
+                if(itemStack.isIn(itemTag)){
                     organData = new OrganData();
                     organData.pseudoOrgan = true;
                     organData.organScores = CCTagOrgans.tagMap.get(itemTag);

@@ -26,7 +26,7 @@ public class OrganManager implements SimpleSynchronousResourceReloadListener {
     }
 
     @Override
-    public void apply(ResourceManager manager) {
+    public void reload(ResourceManager manager) {
         GeneratedOrganData.clear();
         ChestCavity.LOGGER.info("Loading organs.");
         for(Identifier id : manager.findResources(RESOURCE_LOCATION, path -> path.endsWith(".json"))) {

@@ -16,8 +16,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.sound.SoundEvents;
@@ -86,7 +86,7 @@ public class OrganUtil {
     }
 
     public static void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        CompoundTag tag = itemStack.getTag();
+        NbtCompound tag = itemStack.getNbt();
         if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
             Text text = new LiteralText("Unsafe to use");
             tooltip.add(text);
@@ -114,17 +114,17 @@ public class OrganUtil {
     }
 
     public static List<StatusEffectInstance> getStatusEffects(ItemStack organ){
-        CompoundTag tag = organ.getOrCreateTag();
-        ListTag listTag;
+        NbtCompound tag = organ.getOrCreateNbt();
+        NbtList NbtList;
         if (!tag.contains("CustomPotionEffects", 9)) {
             return new ArrayList<>();
         }
         else{
-            listTag = tag.getList("CustomPotionEffects",10);
+            NbtList = tag.getList("CustomPotionEffects",10);
             List<StatusEffectInstance> list = new ArrayList<>();
-            for(int i = 0; i < listTag.size(); ++i) {
-                CompoundTag compoundTag = listTag.getCompound(i);
-                StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromTag(compoundTag);
+            for(int i = 0; i < NbtList.size(); ++i) {
+                NbtCompound NbtCompound = NbtList.getCompound(i);
+                StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromNbt(NbtCompound);
                 if (statusEffectInstance != null) {
                     list.add(statusEffectInstance);
                 }
@@ -210,17 +210,17 @@ public class OrganUtil {
     }
 
     public static void setStatusEffects(ItemStack organ, List<StatusEffectInstance> list){
-        CompoundTag tag = organ.getOrCreateTag();
-        ListTag listTag = new ListTag();
+        NbtCompound tag = organ.getOrCreateNbt();
+        NbtList NbtList = new NbtList();
 
         for(int i = 0; i < list.size(); ++i) {
             StatusEffectInstance effect = list.get(i);
             if (effect != null) {
-                CompoundTag compoundTag = new CompoundTag();
-                listTag.add(effect.toTag(compoundTag));
+                NbtCompound NbtCompound = new NbtCompound();
+                NbtList.add(effect.writeNbt(NbtCompound));
             }
         }
-        tag.put("CustomPotionEffects",listTag);
+        tag.put("CustomPotionEffects",NbtList);
     }
 
     public static void shearSilk(LivingEntity entity){
@@ -270,8 +270,8 @@ public class OrganUtil {
 
         LlamaEntity fakeLlama = new LlamaEntity(EntityType.LLAMA,entity.world);
         fakeLlama.setPos(entity.getX(),entity.getY(),entity.getZ());
-        fakeLlama.pitch = entity.pitch;
-        fakeLlama.yaw = entity.yaw;
+        fakeLlama.setPitch(entity.getPitch());
+        fakeLlama.setYaw(entity.getYaw());
         fakeLlama.bodyYaw = entity.bodyYaw;
         LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(entity.world, fakeLlama);
         llamaSpitEntity.setOwner(entity);
@@ -292,7 +292,7 @@ public class OrganUtil {
 
     public static void spawnGhastlyFireball(LivingEntity entity){
         Vec3d entityFacing = entity.getRotationVector().normalize();
-        FireballEntity fireballEntity = new FireballEntity(entity.world, entity, entityFacing.x, entityFacing.y, entityFacing.z);
+        FireballEntity fireballEntity = new FireballEntity(entity.world, entity, entityFacing.x, entityFacing.y, entityFacing.z, 1);
         fireballEntity.updatePosition(fireballEntity.getX(), entity.getBodyY(0.5D) + 0.3D, fireballEntity.getZ());
         entity.world.spawnEntity(fireballEntity);
         entityFacing = entityFacing.multiply(-.8D);
@@ -310,7 +310,7 @@ public class OrganUtil {
 
     public static void spawnShulkerBullet(LivingEntity entity){
         //Vec3d entityFacing = entity.getRotationVector().normalize();
-        TargetPredicate targetPredicate = new TargetPredicate();
+        TargetPredicate targetPredicate = TargetPredicate.createAttackable();
         targetPredicate.setBaseMaxDistance(ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE*2);
         LivingEntity target = entity.world.getClosestEntity(LivingEntity.class,
                 targetPredicate, entity, entity.getX(), entity.getY(),entity.getZ(),
@@ -338,7 +338,7 @@ public class OrganUtil {
 
         if(silkScore >= 2) {
             BlockPos pos = entity.getBlockPos().offset(entity.getHorizontalFacing().getOpposite());
-            if(entity.getEntityWorld().getBlockState(pos).getBlock().is(Blocks.AIR)){
+            if(entity.getEntityWorld().getBlockState(pos).isAir()){
                 if(silkScore >= 3) {
                     hungerCost = 32;
                     silkScore -= 3;
@@ -404,7 +404,7 @@ public class OrganUtil {
             blockState2 = entity.world.getBlockState(targetPos.up());
         }
 
-        if(entity.world.getDimension().hasCeiling() && targetPos.getY() >= entity.world.getDimensionHeight()){
+        if(entity.world.getDimension().hasCeiling() && targetPos.getY() >= entity.world.getHeight()){
             return false;
         }
         entity.teleport(x, targetPos.getY()+.1, z);

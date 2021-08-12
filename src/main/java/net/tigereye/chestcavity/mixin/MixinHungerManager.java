@@ -22,7 +22,7 @@ import net.minecraft.item.Item;
 public class MixinHungerManager {
 
         @Shadow
-        private int foodStarvationTimer;
+        private int foodTickTimer;
         @Shadow
         private int foodLevel;
         @Shadow
@@ -39,7 +39,7 @@ public class MixinHungerManager {
                                 CC_player = ccPlayerEntityInterface;
                         });
                 }
-                foodStarvationTimer = ChestCavityUtil.applySpleenMetabolism(CC_player.getChestCavityInstance(),this.foodStarvationTimer);
+                foodTickTimer = ChestCavityUtil.applySpleenMetabolism(CC_player.getChestCavityInstance(),this.foodTickTimer);
         }
 
 

@@ -1,5 +1,5 @@
 package net.tigereye.chestcavity.mixin;
-
+/*
 import com.mojang.datafixers.util.Pair;
 import ladysnake.requiem.api.v1.entity.InventoryLimiter;
 import ladysnake.requiem.api.v1.entity.InventoryPart;
@@ -31,11 +31,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Slot.class)
 public abstract class MixinSlot {
     //move this somewhere else...
-    /*
+
     private static final Lazy<Pair<Identifier, Identifier>> LOCKED_SPRITE_REF = new Lazy(() -> {
         return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, RequiemClient.LOCKED_SLOT_SPRITE);
     });
-    */
+
     @Unique
     protected boolean CC_forbidden;
 
@@ -58,7 +58,7 @@ public abstract class MixinSlot {
             }
         }
     }
-    /*
+
     @Unique
     private boolean shouldBeLocked() {
         return this.CC_forbidden;
@@ -68,7 +68,7 @@ public abstract class MixinSlot {
     private boolean shouldBeInvisible() {
         return this.CC_forbidden;
     }
-    */
+
     @Inject(
             method = {"canInsert"},
             at = {@At("HEAD")},
@@ -92,7 +92,7 @@ public abstract class MixinSlot {
         }
 
     }
-    /*
+
     @Inject(
             method = {"getBackgroundSprite"},
             at = {@At("HEAD")},
@@ -105,7 +105,7 @@ public abstract class MixinSlot {
         }
 
     }
-    */
+
     @Inject(
             method = {"doDrawHoveringEffect"},
             at = {@At("HEAD")},
@@ -119,3 +119,4 @@ public abstract class MixinSlot {
 
     }
 }
+*/

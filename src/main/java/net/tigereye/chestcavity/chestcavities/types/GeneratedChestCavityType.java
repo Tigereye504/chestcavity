@@ -2,7 +2,7 @@ package net.tigereye.chestcavity.chestcavities.types;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
@@ -169,10 +169,10 @@ public class GeneratedChestCavityType implements ChestCavityType {
         for(int i = 0; i < chestCavity.size();i++){
             ItemStack itemStack = chestCavity.getStack(i);
             if(itemStack != null && itemStack != itemStack.EMPTY){
-                CompoundTag tag = new CompoundTag();
+                NbtCompound tag = new NbtCompound();
                 tag.putUuid("owner",instance.compatibility_id);
                 tag.putString("name",instance.owner.getDisplayName().getString());
-                itemStack.putSubTag(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
+                itemStack.setSubNbt(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }
         }
         if(!playerChestCavity) {
@@ -189,7 +189,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
                 int i = random.nextInt(chestCavity.size());
                 ItemStack itemStack = chestCavity.getStack(i);
                 if(itemStack != null && itemStack != ItemStack.EMPTY && OrganManager.isTrueOrgan(itemStack.getItem())){
-                    itemStack.removeSubTag(ChestCavity.COMPATIBILITY_TAG.toString());
+                    itemStack.removeSubNbt(ChestCavity.COMPATIBILITY_TAG.toString());
                 }
                 universalOrgans--;
             }

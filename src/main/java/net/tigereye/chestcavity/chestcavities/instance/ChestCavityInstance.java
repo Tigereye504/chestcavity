@@ -6,8 +6,8 @@ import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
@@ -94,14 +94,14 @@ public class ChestCavityInstance implements InventoryChangedListener {
         ChestCavityUtil.evaluateChestCavity(this);
     }
 
-    public void fromTag(CompoundTag tag, LivingEntity owner) {
+    public void fromTag(NbtCompound tag, LivingEntity owner) {
         LOGGER.debug("[Chest Cavity] Reading ChestCavityManager fromTag");
         this.owner = owner;
         if(tag.contains("ChestCavity")){
             if(ChestCavity.DEBUG_MODE) {
                 System.out.println("Found Save Data");
             }
-            CompoundTag ccTag = tag.getCompound("ChestCavity");
+            NbtCompound ccTag = tag.getCompound("ChestCavity");
             this.opened = ccTag.getBoolean("opened");
             this.heartBleedTimer = ccTag.getInt("HeartTimer");
             this.bloodPoisonTimer = ccTag.getInt("KidneyTimer");
@@ -120,8 +120,8 @@ public class ChestCavityInstance implements InventoryChangedListener {
             }
             catch(NullPointerException ignored){}
             if (ccTag.contains("Inventory")) {
-                ListTag listTag = ccTag.getList("Inventory", 10);
-                this.inventory.readTags(listTag);
+                NbtList NbtList = ccTag.getList("Inventory", 10);
+                this.inventory.readTags(NbtList);
             }
             else if(opened){
                 LOGGER.warn("[Chest Cavity] "+owner.getName().asString()+"'s Chest Cavity is mangled. It will be replaced");
@@ -130,18 +130,18 @@ public class ChestCavityInstance implements InventoryChangedListener {
             inventory.addListener(this);
         }
         else if(tag.contains("cardinal_components")){
-            CompoundTag temp = tag.getCompound("cardinal_components");
+            NbtCompound temp = tag.getCompound("cardinal_components");
             if(temp.contains("chestcavity:inventorycomponent")){
                 temp = tag.getCompound("chestcavity:inventorycomponent");
                 if(temp.contains("chestcavity")){
                     LOGGER.info("[Chest Cavity] Found "+owner.getName().asString()+"'s old [Cardinal Components] Chest Cavity.");
                     opened = true;
-                    ListTag listTag = temp.getList("Inventory", 10);
+                    NbtList NbtList = temp.getList("Inventory", 10);
                     try {
                         inventory.removeListener(this);
                     }
                     catch(NullPointerException ignored){}
-                    inventory.readTags(listTag);
+                    inventory.readTags(NbtList);
                     inventory.addListener(this);
                 }
             }
@@ -149,11 +149,11 @@ public class ChestCavityInstance implements InventoryChangedListener {
         ChestCavityUtil.evaluateChestCavity(this);
     }
 
-    public void toTag(CompoundTag tag) {
+    public void toTag(NbtCompound tag) {
         if(ChestCavity.DEBUG_MODE) {
             System.out.println("Writing ChestCavityManager toTag");
         }
-        CompoundTag ccTag = new CompoundTag();
+        NbtCompound ccTag = new NbtCompound();
         ccTag.putBoolean("opened", this.opened);
         ccTag.putUuid("compatibility_id", this.compatibility_id);
         ccTag.putInt("HeartTimer", this.heartBleedTimer);

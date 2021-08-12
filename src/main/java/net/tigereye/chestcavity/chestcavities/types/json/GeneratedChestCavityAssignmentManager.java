@@ -23,7 +23,7 @@ public class GeneratedChestCavityAssignmentManager implements SimpleSynchronousR
     }
 
     @Override
-    public void apply(ResourceManager manager) {
+    public void reload(ResourceManager manager) {
         GeneratedChestCavityAssignments.clear();
         ChestCavity.LOGGER.info("Loading chest cavity assignments.");
         for(Identifier id : manager.findResources(RESOURCE_LOCATION, path -> path.endsWith(".json"))) {

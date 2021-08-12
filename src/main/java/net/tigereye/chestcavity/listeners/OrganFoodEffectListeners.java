@@ -21,7 +21,7 @@ public class OrganFoodEffectListeners {
     private static List<Pair<StatusEffectInstance, Float>> applyRotgut(List<Pair<StatusEffectInstance, Float>> list, ItemStack itemStack, World world, LivingEntity entity, ChestCavityInstance cc) {
         float rotten = cc.getOrganScore(CCOrganScores.ROTGUT)+cc.getOrganScore(CCOrganScores.ROT_DIGESTION);
         if(rotten > 0){
-            if(itemStack.getItem().isIn(CCTags.ROTTEN_FOOD)) {
+            if(itemStack.isIn(CCTags.ROTTEN_FOOD)) {
                 list.removeIf(pair -> pair.getFirst().getEffectType() == StatusEffects.HUNGER);
             }
             else {

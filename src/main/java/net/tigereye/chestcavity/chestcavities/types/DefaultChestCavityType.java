@@ -3,7 +3,7 @@ package net.tigereye.chestcavity.chestcavities.types;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
@@ -170,10 +170,10 @@ public class DefaultChestCavityType implements ChestCavityType {
         for(int i = 0; i < chestCavity.size();i++){
             ItemStack itemStack = chestCavity.getStack(i);
             if(itemStack != null && itemStack != itemStack.EMPTY){
-                CompoundTag tag = new CompoundTag();
+                NbtCompound tag = new NbtCompound();
                 tag.putUuid("owner",instance.compatibility_id);
                 tag.putString("name",instance.owner.getDisplayName().getString());
-                itemStack.putSubTag(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
+                itemStack.setSubNbt(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }
         }
     }

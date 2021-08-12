@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -186,11 +186,11 @@ public class OrganActivationListeners {
             if(oldPower.getAmplifier() >= furnacePowered-1){
                 return; //you can only fuel up if you have room
             }
-            CompoundTag oldTag = new CompoundTag();
+            NbtCompound oldTag = new NbtCompound();
             List<Integer> durations = new ArrayList<>();
             durations.add(fuelValue);
 
-            oldPower.toTag(oldTag);
+            oldPower.writeNbt(oldTag);
             while(true) {
                 durations.add(oldTag.getInt("Duration"));
                 if (oldTag.contains("HiddenEffect")) {

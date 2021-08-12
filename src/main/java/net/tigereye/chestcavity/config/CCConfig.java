@@ -1,8 +1,8 @@
 package net.tigereye.chestcavity.config;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import net.minecraft.text.TranslatableText;

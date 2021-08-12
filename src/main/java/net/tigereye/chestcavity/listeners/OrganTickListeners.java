@@ -49,7 +49,7 @@ public class OrganTickListeners {
         float crystalsynthesis = cc.getOrganScore(CCOrganScores.CRYSTALSYNTHESIS);
         //if the old crystal had been exploded, suffer
         if (cc.connectedCrystal != null) {
-            if(cc.connectedCrystal.removed) {
+            if(cc.connectedCrystal.isRemoved()) {
                 entity.damage(DamageSource.STARVE, crystalsynthesis * 2);
                 cc.connectedCrystal = null;
             }

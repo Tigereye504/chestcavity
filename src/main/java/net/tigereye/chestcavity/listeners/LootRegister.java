@@ -7,9 +7,9 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.BinomialLootTableRange;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
@@ -58,7 +58,7 @@ public class LootRegister {
                     }
                     lootingLevel = EnchantmentHelper.getEquipmentLevel(Enchantments.LOOTING, killer);
                     lootingLevel += EnchantmentHelper.getEquipmentLevel(CCEnchantments.SURGICAL, killer)*2;
-                    if(killer.getStackInHand(killer.getActiveHand()).getItem().isIn(CCTags.BUTCHERING_TOOL))
+                    if(killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL))
                     {
                         lootingLevel = 10 + 10*lootingLevel;
                     }
@@ -78,7 +78,7 @@ public class LootRegister {
         GenerateEntityLootCallbackModifyLoot.EVENT.register((type,lootContext,loot) -> {
             if (lootContext.hasParameter(LootContextParameters.KILLER_ENTITY)) {
                 LivingEntity killer = (LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY);
-                if(killer.getStackInHand(killer.getActiveHand()).getItem().isIn(CCTags.BUTCHERING_TOOL)){
+                if(killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL)){
                     //first, remove everything that can be salvaged from the loot and count them up
                     Map<SalvageRecipe, Integer> salvageResults = new HashMap<>();
                     Iterator<ItemStack> i = loot.iterator();
@@ -93,7 +93,7 @@ public class LootRegister {
                     }
                     while(i.hasNext()){
                         ItemStack stack = i.next();
-                        if(stack.getItem().isIn(CCTags.SALVAGEABLE)){
+                        if(stack.isIn(CCTags.SALVAGEABLE)){
                             for (SalvageRecipe recipe: salvageRecipeList) {
                                 if(recipe.getInput().test(stack)){
                                     salvageResults.put(recipe,salvageResults.getOrDefault(recipe,0)+stack.getCount());
@@ -126,11 +126,11 @@ public class LootRegister {
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
             if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(BinomialLootTableRange.create(4,.25f))
+                        .rolls(BinomialLootNumberProvider.create(4,.25f))
                         .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
                 supplier.pool(poolBuilder);
                 poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(BinomialLootTableRange.create(1,.3f))
+                        .rolls(BinomialLootNumberProvider.create(1,.3f))
                         .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
                 supplier.pool(poolBuilder);
             }

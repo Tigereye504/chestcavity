@@ -3,8 +3,8 @@ package net.tigereye.chestcavity.chestcavities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 import java.util.ArrayList;
@@ -32,33 +32,33 @@ public class ChestCavityInventory extends SimpleInventory {
         this.instance = instance;
     }
 
-    public void readTags(ListTag tags) {
+    public void readTags(NbtList tags) {
         clear();
         for(int j = 0; j < tags.size(); ++j) {
-            CompoundTag compoundTag = tags.getCompound(j);
-            int k = compoundTag.getByte("Slot") & 255;
-            boolean f = compoundTag.getBoolean("Forbidden");
+            NbtCompound NbtCompound = tags.getCompound(j);
+            int k = NbtCompound.getByte("Slot") & 255;
+            boolean f = NbtCompound.getBoolean("Forbidden");
             if (k >= 0 && k < this.size()) {
-                this.setStack(k, ItemStack.fromTag(compoundTag));
+                this.setStack(k, ItemStack.fromNbt(NbtCompound));
             }
         }
 
     }
 
-    public ListTag getTags() {
-        ListTag listTag = new ListTag();
+    public NbtList getTags() {
+        NbtList list = new NbtList();
 
         for(int i = 0; i < this.size(); ++i) {
             ItemStack itemStack = this.getStack(i);
             if (!itemStack.isEmpty()) {
-                CompoundTag compoundTag = new CompoundTag();
-                compoundTag.putByte("Slot", (byte)i);
-                itemStack.toTag(compoundTag);
-                listTag.add(compoundTag);
+                NbtCompound NbtCompound = new NbtCompound();
+                NbtCompound.putByte("Slot", (byte)i);
+                itemStack.writeNbt(NbtCompound);
+                list.add(NbtCompound);
             }
         }
 
-        return listTag;
+        return list;
     }
 
     @Override

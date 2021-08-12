@@ -24,7 +24,7 @@ public class GeneratedChestCavityTypeManager implements SimpleSynchronousResourc
     }
 
     @Override
-    public void apply(ResourceManager manager) {
+    public void reload(ResourceManager manager) {
         GeneratedChestCavityTypes.clear();
         ChestCavity.LOGGER.info("Loading chest cavity types.");
         for(Identifier id : manager.findResources(RESOURCE_LOCATION, path -> path.endsWith(".json"))) {

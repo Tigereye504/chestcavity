@@ -20,7 +20,7 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -154,13 +154,13 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     }
 
 
-    @Inject(method = "readCustomDataFromTag", at = @At("TAIL"))
-    private void readCustomDataFromTag(CompoundTag tag, CallbackInfo callbackInfo) {
+    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+    private void readCustomDataFromNbt(NbtCompound tag, CallbackInfo callbackInfo) {
         chestCavityInstance.fromTag(tag,(LivingEntity)(Object)this);
     }
 
-    @Inject(method = "writeCustomDataToTag", at = @At("TAIL"))
-    private void writeCustomDataToTag(CompoundTag tag, CallbackInfo callbackInfo) {
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    private void writeCustomDataToNbt(NbtCompound tag, CallbackInfo callbackInfo) {
         chestCavityInstance.toTag(tag);
     }
 
@@ -168,7 +168,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     private static abstract class Mob extends LivingEntity{
         protected Mob(EntityType<? extends LivingEntity> entityType, World world) {super(entityType, world);}
 
-        @Inject(at = @At("HEAD"), method = "method_29506", cancellable = true) //if this breaks, its likely because yarn changed the name to interactWithItem
+        @Inject(at = @At("HEAD"), method = "interactWithItem"/*"method_29506"*/, cancellable = true) //if this breaks, its likely because yarn changed the name to interactWithItem
         protected void chestCavityLivingEntityInteractMobMixin(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
             if(player.getStackInHand(hand).getItem() == CCItems.CHEST_OPENER && (!(((LivingEntity)(Object)this) instanceof PlayerEntity))){
                 ((ChestOpener)player.getStackInHand(hand).getItem()).openChestCavity(player,(LivingEntity)(Object)this);
@@ -347,10 +347,10 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     protected void initDataTracker() {}
 
     @Shadow
-    protected void readCustomDataFromTag(CompoundTag tag) {}
+    protected void readCustomDataFromNbt(NbtCompound tag) {}
 
     @Shadow
-    protected void writeCustomDataToTag(CompoundTag tag) {}
+    protected void writeCustomDataToNbt(NbtCompound tag) {}
 
     @Shadow
     public Packet<?> createSpawnPacket() {return null;}
