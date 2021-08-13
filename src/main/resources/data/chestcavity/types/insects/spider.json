@@ -29,5 +29,6 @@
     {"item": "chestcavity:insect_muscle","position": 24},
     {"item": "chestcavity:silk_gland","position": 25},
     {"item": "chestcavity:silk_gland","position": 26}
-  ]
+  ],
+  "dropRateMultiplier": ".7"
 }

@@ -43,8 +43,8 @@ dependencies {
 
 	// Jar-in-Jar dependencies
 	include "com.github.tigereye504:modify-drops-api:master-SNAPSHOT"
-	include "me.shedaniel.cloth:config-2:4.8.2"
-	//include "me.sargunvohra.mcmods:autoconfig1u:3.2.2"
+	include "me.shedaniel.cloth:cloth-config-fabric:5.0.38"
+	//include "me.shedaniel.mcmods:autoconfig1u:3.2.2"
 }
 
 repositories {

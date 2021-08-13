@@ -12,9 +12,9 @@ import net.tigereye.chestcavity.ChestCavity;
 public class CCConfig implements ConfigData {
 
     @ConfigEntry.Category("core")
-    public float ORGAN_BUNDLE_LOOTING_BOOST = .01f;
+    public float ORGAN_BUNDLE_LOOTING_BOOST = .04f;
     @ConfigEntry.Category("core")
-    public float UNIVERSAL_DONOR_RATE = .035f;
+    public float UNIVERSAL_DONOR_RATE = .1f;
     @ConfigEntry.Category("core")
     public int ORGAN_REJECTION_DAMAGE = 2; //how much rejecting organs hurts
     @ConfigEntry.Category("core")
