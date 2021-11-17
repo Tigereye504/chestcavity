@@ -11,6 +11,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.*;
@@ -25,10 +26,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -137,9 +136,10 @@ public class OrganUtil {
         if(!entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
             ChestCavityEntity.of(entity).ifPresent(cce -> {
                 if(cce.getChestCavityInstance().opened){
-                    float silk = cce.getChestCavityInstance().getOrganScore(CCOrganScores.SILK);
+                    ChestCavityInstance cc = cce.getChestCavityInstance();
+                    float silk = cc.getOrganScore(CCOrganScores.SILK);
                     if(silk > 0){
-                        if(spinWeb(entity,silk)) {
+                        if(spinWeb(entity,cc,silk)) {
                             entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN, ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
                         }
                     }
@@ -265,6 +265,10 @@ public class OrganUtil {
 
     }
 
+    public static void spawnSilk(LivingEntity entity){
+        entity.dropItem(Items.STRING);
+    }
+
     public static void spawnSpit(LivingEntity entity){
         Vec3d entityFacing = entity.getRotationVector().normalize();
 
@@ -288,6 +292,40 @@ public class OrganUtil {
         entity.world.spawnEntity(fireballEntity);
         entityFacing = entityFacing.multiply(-0.2D);
         entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
+    }
+
+    public static void spawnDragonBreath(LivingEntity entity){
+        Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
+        if(optional.isEmpty()){
+            return;
+        }
+        ChestCavityEntity cce = optional.get();
+        ChestCavityInstance cc= cce.getChestCavityInstance();
+        float breath = cc.getOrganScore(CCOrganScores.DRAGON_BREATH);
+        double range = Math.sqrt(breath/2)*5;
+        HitResult result = entity.raycast(range, 0, false);
+        Vec3d pos = result.getPos();
+        double x = pos.x;
+        double y = pos.y;
+        double z = pos.z;
+        BlockPos.Mutable mutable = new BlockPos.Mutable(x,y,z);
+        while(entity.world.isAir(mutable)) {
+            --y;
+            if (y < 0.0D) {
+                return;
+            }
+
+            mutable.set(x,y,z);
+        }
+        y = (MathHelper.floor(y) + 1);
+        AreaEffectCloudEntity breathEntity = new AreaEffectCloudEntity(entity.world, x, y, z);
+        breathEntity.setOwner(entity);
+        breathEntity.setRadius((float)Math.max(range/2,Math.min(range, MathUtil.horizontalDistanceTo(breathEntity,entity))));
+        breathEntity.setDuration(200);
+        breathEntity.setParticleType(ParticleTypes.DRAGON_BREATH);
+        breathEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE));
+        entity.world.spawnEntity(breathEntity);
+
     }
 
     public static void spawnGhastlyFireball(LivingEntity entity){
@@ -326,12 +364,12 @@ public class OrganUtil {
         //entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
 
-    public static boolean spinWeb(LivingEntity entity, float silkScore){
+    public static boolean spinWeb(LivingEntity entity, ChestCavityInstance cc, float silkScore){
         int hungerCost = 0;
         PlayerEntity player = null;
         if(entity instanceof PlayerEntity){
             player = (PlayerEntity)entity;
-            if(player.getHungerManager().getFoodLevel() < 18){
+            if(player.getHungerManager().getFoodLevel() < 6){
                 return false;
             }
         }
@@ -340,12 +378,12 @@ public class OrganUtil {
             BlockPos pos = entity.getBlockPos().offset(entity.getHorizontalFacing().getOpposite());
             if(entity.getEntityWorld().getBlockState(pos).isAir()){
                 if(silkScore >= 3) {
-                    hungerCost = 32;
+                    hungerCost = 16;
                     silkScore -= 3;
                     entity.getEntityWorld().setBlockState(pos, Blocks.WHITE_WOOL.getDefaultState(), 2);
                 }
                 else{
-                    hungerCost = 16;
+                    hungerCost = 8;
                     silkScore -= 2;
                     entity.getEntityWorld().setBlockState(pos, Blocks.COBWEB.getDefaultState(), 2);
                 }
@@ -353,8 +391,8 @@ public class OrganUtil {
         }
         while(silkScore >= 1) {
             silkScore--;
-            hungerCost += 8;
-            entity.dropItem(Items.STRING);
+            hungerCost += 4;
+            cc.projectileQueue.add(OrganUtil::spawnSilk);
         }
         if(player != null){
             player.getHungerManager().addExhaustion(hungerCost);
@@ -409,7 +447,7 @@ public class OrganUtil {
         }
         entity.teleport(x, targetPos.getY()+.1, z);
         if (!entity.isSilent()) {
-            entity.world.playSound((PlayerEntity)null, entity.prevX, entity.prevY, entity.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, entity.getSoundCategory(), 1.0F, 1.0F);
+            entity.world.playSound(null, entity.prevX, entity.prevY, entity.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, entity.getSoundCategory(), 1.0F, 1.0F);
             entity.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
         }
 

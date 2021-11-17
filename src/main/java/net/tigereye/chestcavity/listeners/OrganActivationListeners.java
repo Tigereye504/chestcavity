@@ -93,31 +93,10 @@ public class OrganActivationListeners {
         if(breath <= 0){
             return;
         }
+
         if(!entity.hasStatusEffect(CCStatusEffects.DRAGON_BREATH_COOLDOWN)){
             entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.DRAGON_BREATH_COOLDOWN, ChestCavity.config.DRAGON_BREATH_COOLDOWN, 0, false, false, true));
-            double range = Math.sqrt(breath/2)*5;
-            HitResult result = entity.raycast(range, 0, false);
-            Vec3d pos = result.getPos();
-            double x = pos.x;
-            double y = pos.y;
-            double z = pos.z;
-            BlockPos.Mutable mutable = new BlockPos.Mutable(x,y,z);
-            while(entity.world.isAir(mutable)) {
-                --y;
-                if (y < 0.0D) {
-                    return;
-                }
-
-                mutable.set(x,y,z);
-            }
-            y = (double)(MathHelper.floor(y) + 1);
-            AreaEffectCloudEntity breathEntity = new AreaEffectCloudEntity(entity.world, x, y, z);
-            breathEntity.setOwner(entity);
-            breathEntity.setRadius((float)Math.max(range/2,Math.min(range, MathUtil.horizontalDistanceTo(breathEntity,entity))));
-            breathEntity.setDuration((int)(200));
-            breathEntity.setParticleType(ParticleTypes.DRAGON_BREATH);
-            breathEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE));
-            entity.world.spawnEntity(breathEntity);
+            cc.projectileQueue.add(OrganUtil::spawnDragonBreath);
         }
     }
 
@@ -325,7 +304,7 @@ public class OrganActivationListeners {
         if(entity.hasStatusEffect(CCStatusEffects.SILK_COOLDOWN)){
             return;
         }
-        if(OrganUtil.spinWeb(entity,cc.getOrganScore(CCOrganScores.SILK))) {
+        if(OrganUtil.spinWeb(entity,cc, cc.getOrganScore(CCOrganScores.SILK))) {
             entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.SILK_COOLDOWN,ChestCavity.config.SILK_COOLDOWN,0,false,false,true));
         }
     }

@@ -50,7 +50,11 @@ dependencies {
 repositories {
 	maven {
 		name = 'Ladysnake Mods'
-		url = 'https://ladysnake.jfrog.io/artifactory/mods/'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+		content {
+			includeGroup 'io.github.ladysnake'
+			includeGroupByRegex 'io\\.github\\.onyxstudios.*'
+		}
 	}
 	maven {
 		name = "Ladysnake Libs"
@@ -59,7 +63,11 @@ repositories {
 	maven {
 		url = "https://maven.modmuss50.me/"
 	}
-	maven { url = 'https://jitpack.io' } //good 'ol jitpack
+	maven { url = 'https://jitpack.io'
+		content{
+			excludeGroup 'io.github.ladysnake'
+		}
+	} //good 'ol jitpack
 	maven { url = 'https://maven.terraformersmc.com/releases/' } //for mod menu
 	maven { url "https://maven.shedaniel.me/" } //for cloth config
 	maven { url "https://oss.sonatype.org/service/local/repositories/snapshots/content"} //for a misbehaving requiem prereq?

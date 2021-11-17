@@ -59,7 +59,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
 
     public ChestCavityType getChestCavityType(){
         if(CCRequiem.REQUIEM_ACTIVE){
-            MobEntity victim = PossessionComponent.getPossessedEntity(owner);
+            MobEntity victim = PossessionComponent.getHost(owner);
             if(victim instanceof ChestCavityEntity){
                 return ((ChestCavityEntity)victim).getChestCavityInstance().getChestCavityType();
             }
@@ -77,7 +77,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
 
     public float getOrganScore(Identifier id) {
         if(CCRequiem.REQUIEM_ACTIVE){
-            MobEntity victim = PossessionComponent.getPossessedEntity(owner);
+            MobEntity victim = PossessionComponent.getHost(owner);
             if(victim instanceof ChestCavityEntity){
                 return ((ChestCavityEntity)victim).getChestCavityInstance().getOrganScore(id);
             }

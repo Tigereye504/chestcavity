@@ -36,7 +36,7 @@ public class ChestOpener extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		LivingEntity target = null;
 		if(CCRequiem.REQUIEM_ACTIVE){
-			target = PossessionComponent.getPossessedEntity(player);
+			target = PossessionComponent.getHost(player);
 
 		}
 		if(target == null) {
