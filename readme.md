@@ -1,4 +1,6 @@
 # Chest Cavity
+https://www.curseforge.com/minecraft/mc-mods/chest-cavity
+
 Chest Cavity lets you use a 'chest opener' to access a secondary inventory. There are some items already in it, but those probably aren't important so you can take them out to make room for other stuff\*. 
 
 It also adds a variety of drops that are similar to the junk you discarded from your extra storage.
@@ -6,7 +8,7 @@ It also adds a variety of drops that are similar to the junk you discarded from 
 *Side effects may include shortness of breath, inhibited healing, inability to fight off infection, vulnerability to physical harm, weakness, loss of nutrition, difficulty walking or running, and sacrifice to Aztec gods.*
 
 ## Requirements
-Requires Minecraft 1.16.x and Fabric API. 
+Requires Minecraft 1.17.1 and Fabric API. 
 
 Also uses Onyx Studio's Cardinal Components.
 
@@ -22,4 +24,3 @@ Also uses Onyx Studio's Cardinal Components.
 ![2_2_1 Sausage](https://user-images.githubusercontent.com/12503726/99456341-167be080-28de-11eb-9f44-04e412aa41dd.png)
 
 ![Example Chest Cavities](https://user-images.githubusercontent.com/12503726/99141626-fc05e680-2601-11eb-8437-a07a02188096.png)
-
