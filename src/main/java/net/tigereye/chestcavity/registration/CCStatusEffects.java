@@ -1,7 +1,7 @@
 package net.tigereye.chestcavity.registration;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
@@ -13,20 +13,20 @@ import net.tigereye.chestcavity.mob_effect.Ruminating;
 public class CCStatusEffects {
 
     public static final StatusEffect ORGAN_REJECTION = new OrganRejection();
-    public static final StatusEffect ARROW_DODGE_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect DRAGON_BOMB_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect DRAGON_BREATH_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect EXPLOSION_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect FORCEFUL_SPIT_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
+    public static final StatusEffect ARROW_DODGE_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect DRAGON_BOMB_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect DRAGON_BREATH_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect EXPLOSION_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect FORCEFUL_SPIT_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
     public static final StatusEffect FURNACE_POWER = new FurnacePower();
-    public static final StatusEffect GHASTLY_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect IRON_REPAIR_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect PYROMANCY_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
+    public static final StatusEffect GHASTLY_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect IRON_REPAIR_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect PYROMANCY_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
     public static final StatusEffect RUMINATING = new Ruminating();
-    public static final StatusEffect SHULKER_BULLET_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect SILK_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect VENOM_COOLDOWN = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
-    public static final StatusEffect WATER_VULNERABILITY = new CCStatusEffect(StatusEffectType.NEUTRAL,0x000000);
+    public static final StatusEffect SHULKER_BULLET_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect SILK_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect VENOM_COOLDOWN = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
+    public static final StatusEffect WATER_VULNERABILITY = new CCStatusEffect(StatusEffectCategory.NEUTRAL,0x000000);
 
 
     public static void register(){

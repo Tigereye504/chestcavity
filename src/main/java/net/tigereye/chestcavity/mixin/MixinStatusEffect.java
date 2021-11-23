@@ -1,7 +1,7 @@
 package net.tigereye.chestcavity.mixin;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.tigereye.chestcavity.interfaces.CCStatusEffect;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,15 +10,15 @@ import org.spongepowered.asm.mixin.Shadow;
 public class MixinStatusEffect implements CCStatusEffect {
 
     @Shadow
-    private StatusEffectType type;
+    private StatusEffectCategory category;
 
     @Override
     public boolean CC_IsHarmful() {
-        return (type == StatusEffectType.HARMFUL);
+        return (category == StatusEffectCategory.HARMFUL);
     }
 
     @Override
     public boolean CC_IsBeneficial() {
-        return (type == StatusEffectType.BENEFICIAL);
+        return (category == StatusEffectCategory.BENEFICIAL);
     }
 }
