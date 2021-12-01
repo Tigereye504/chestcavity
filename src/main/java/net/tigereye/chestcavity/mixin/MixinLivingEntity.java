@@ -51,7 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Mixin(LivingEntity.class)
+@Mixin(value = LivingEntity.class,priority = 900)
 public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     private ChestCavityInstance chestCavityInstance;
 
@@ -136,14 +136,17 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
      */
     //Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z
     //@ModifyVariable(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",ordinal = 1)
-    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0,require = 0)
+    //@Group(name = "WaterTravelMixins", max = 2, min = 1)
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0, require = 0)
     protected float chestCavityLivingEntityWaterTravelMixin(float g) {
         return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
     }
-    @ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(Lnet/minecraft/entity/LivingEntity;FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0,require = 0)
-    protected float chestCavityLivingEntityWaterTravelMixinAlt(float g) {
-        return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
-    }
+    //Origins combatibility variant. Why must I do this?!?
+    //@Group(name = "WaterTravelMixins")
+    //@ModifyArg(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateVelocity(Lnet/minecraft/entity/LivingEntity;FLnet/minecraft/util/math/Vec3d;)V"), method = "travel",index = 0)
+    //protected double chestCavityLivingEntityWaterTravelMixinAlt(double g) {
+    //    return g*ChestCavityUtil.applySwimSpeedInWater(chestCavityInstance);
+    //}
 
     @Inject(at = @At("RETURN"), method = "getJumpVelocity",cancellable = true)
     public void chestCavityLivingEntityJumpVelocityMixin(CallbackInfoReturnable<Float> info){
