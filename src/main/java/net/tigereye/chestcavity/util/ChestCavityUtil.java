@@ -7,6 +7,7 @@ import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
@@ -579,5 +581,29 @@ public class ChestCavityUtil {
         }
         cc.getOrganScores().forEach((key, value) ->
                 output.accept(key.getPath() + ": " + value + " "));
+    }
+
+    public static void splashHydrophobicWithWater(PotionEntity splash){
+        Box box = splash.getBoundingBox().expand(4.0D, 2.0D, 4.0D);
+        List<LivingEntity> list = splash.world.getEntitiesByClass(LivingEntity.class, box, ChestCavityUtil::isHydroPhobicOrAllergic);
+        if (!list.isEmpty()) {
+            for(LivingEntity livingEntity:list) {
+                double d = splash.squaredDistanceTo(livingEntity);
+                if(d < 16.0D) {
+                    Optional<ChestCavityEntity> optional = ChestCavityEntity.of(livingEntity);
+                    if (optional.isPresent()) {
+                        ChestCavityInstance cc = optional.get().getChestCavityInstance();
+                        float allergy = cc.getOrganScore(CCOrganScores.HYDROALLERGENIC);
+                        float phobia = cc.getOrganScore(CCOrganScores.HYDROPHOBIA);
+                        if (allergy > 0) {
+                            livingEntity.damage(DamageSource.magic(livingEntity, splash.getOwner()), allergy/26);
+                        }
+                        if (phobia > 0) {
+                            OrganUtil.teleportRandomly(livingEntity,phobia*32);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
