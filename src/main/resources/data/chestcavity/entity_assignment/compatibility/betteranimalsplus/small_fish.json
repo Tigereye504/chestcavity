@@ -1,0 +1,9 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_fish.json",
+  "entities": [
+    "betteranimalsplus:flying_fish",
+	"betteranimalsplus:lamprey",
+	"betteranimalsplus:nautilus",
+	"betteranimalsplus:piranha"
+  ]
+}

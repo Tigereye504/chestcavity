@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/compatibility/betteranimalsplus/crab.json",
+  "entities": [
+    "betteranimalsplus:crab",
+	"betteranimalsplus:horseshoecrab"
+  ]
+}
