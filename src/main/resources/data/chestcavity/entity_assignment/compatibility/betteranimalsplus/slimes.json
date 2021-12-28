@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/magical_beasts/slime.json",
+  "entities": [
+    "betteranimalsplus:jellyfish"
+  ]
+}

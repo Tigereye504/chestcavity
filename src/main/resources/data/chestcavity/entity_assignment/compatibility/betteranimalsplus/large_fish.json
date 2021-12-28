@@ -1,0 +1,13 @@
+{
+  "chestcavity": "chestcavity:types/animals/large_fish.json",
+  "entities": [
+    "betteranimalsplus:barracuda",
+	"betteranimalsplus:eel_freshwater",
+	"betteranimalsplus:eel_saltwater",
+	"betteranimalsplus:octopus",
+	"betteranimalsplus:shark",
+	"betteranimalsplus:squid_colossal",
+	"betteranimalsplus:squid_giant",
+	"betteranimalsplus:whale"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_omnivore.json",
+  "entities": [
+    "betteranimalsplus:badger",
+	"betteranimalsplus:pheasant",
+	"betteranimalsplus:songbird"
+  ]
+}
