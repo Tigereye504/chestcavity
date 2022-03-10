@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/human.json",
+  "entities": [
+    "adventurez:necromancer",
+    "adventurez:shaman"
+  ]
+}

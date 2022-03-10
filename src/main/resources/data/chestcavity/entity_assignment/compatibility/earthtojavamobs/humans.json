@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/human.json",
+  "entities": [
+    "earthtojavamobs:viler_witch"
+  ]
+}

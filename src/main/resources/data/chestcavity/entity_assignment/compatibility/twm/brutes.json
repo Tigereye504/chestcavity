@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/brutish.json",
+  "entities": [
+    "twm:warden"
+  ]
+}

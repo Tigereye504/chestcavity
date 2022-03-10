@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/undead/zombie.json",
+  "entities": [
+    "earthtojavamobs:bouldering_zombie",
+    "earthtojavamobs:lobber_zombie"
+  ]
+}

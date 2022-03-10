@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/human.json",
+  "entities": [
+    "guardvillagers:guard"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/large_fish.json",
+  "entities": [
+    "earthtojavamobs:glow_squid"
+  ]
+}

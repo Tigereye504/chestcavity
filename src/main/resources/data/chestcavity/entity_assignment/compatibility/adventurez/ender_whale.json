@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/compatibility/adventurez/ender_whale.json",
+  "entities": [
+    "adventurez:ender_whale"
+  ]
+}

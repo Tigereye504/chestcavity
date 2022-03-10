@@ -1,0 +1,9 @@
+{
+  "chestcavity": "chestcavity:types/animals/brutish.json",
+  "entities": [
+    "adventurez:piglin_beast",
+    "adventurez:enderwarthog",
+    "adventurez:desert_rhino",
+    "adventurez:orc"
+  ]
+}

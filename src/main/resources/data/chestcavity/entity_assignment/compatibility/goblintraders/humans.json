@@ -1,0 +1,8 @@
+{
+  "chestcavity": "chestcavity:types/humanoids/human.json",
+  "entities": [
+    "goblintraders:goblin_trader",
+    "goblintraders:vein_goblin_trader",
+    "endgoblintraders:end_goblin_trader"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/undead/skeleton.json",
+  "entities": [
+    "earthtojavamobs:skeleton_wolf",
+    "earthtojavamobs:bone_spider"
+  ]
+}

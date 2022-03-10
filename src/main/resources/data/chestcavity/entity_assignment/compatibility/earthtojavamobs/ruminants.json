@@ -1,0 +1,24 @@
+{
+  "chestcavity": "chestcavity:types/animals/ruminant.json",
+  "entities": [
+    "earthtojavamobs:albino_cow",
+    "earthtojavamobs:ashen_cow",
+    "earthtojavamobs:cookie_cow",
+    "earthtojavamobs:cream_cow",
+    "earthtojavamobs:dairy_cow",
+    "earthtojavamobs:pinto_cow",
+    "earthtojavamobs:sunset_cow",
+    "earthtojavamobs:umbra_cow",
+    "earthtojavamobs:wooly_cow",
+    "earthtojavamobs:moobloom",
+    "earthtojavamobs:moolip",
+    "earthtojavamobs:flecked_sheep",
+    "earthtojavamobs:fuzzy_sheep",
+    "earthtojavamobs:horned_sheep",
+    "earthtojavamobs:inky_sheep",
+    "earthtojavamobs:long_nosed_sheep",
+    "earthtojavamobs:patched_sheep",
+    "earthtojavamobs:rainbow_sheep",
+    "earthtojavamobs:rocky_sheep"
+  ]
+}

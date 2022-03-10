@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/insects/cave_spider.json",
+  "entities": [
+    "besmirchment:beelzebub"
+  ]
+}

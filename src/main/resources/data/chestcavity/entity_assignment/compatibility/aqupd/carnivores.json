@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/carnivore.json",
+  "entities": [
+    "aqupd:grizzly_bear"
+  ]
+}

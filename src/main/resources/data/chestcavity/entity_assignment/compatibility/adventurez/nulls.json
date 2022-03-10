@@ -1,0 +1,10 @@
+{
+  "chestcavity": "chestcavity:types/null.json",
+  "entities": [
+    "adventurez:void_shade",
+    "adventurez:the_eye",
+    "adventurez:tiny_eye",
+    "adventurez:brown_fungus",
+    "adventurez:red_fungus"
+  ]
+}

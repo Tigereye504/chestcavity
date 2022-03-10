@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/constructs/snow_golem.json",
+  "entities": [
+    "earthtojavamobs:melon_golem"
+  ]
+}

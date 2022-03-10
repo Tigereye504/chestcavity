@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_omnivore.json",
+  "entities": [
+    "earth:rubro"
+  ]
+}

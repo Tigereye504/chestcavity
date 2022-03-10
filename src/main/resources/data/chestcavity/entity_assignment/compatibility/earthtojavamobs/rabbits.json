@@ -1,0 +1,11 @@
+{
+  "chestcavity": "chestcavity:types/animals/rabbit.json",
+  "entities": [
+    "earthtojavamobs:bold_striped_rabbit",
+    "earthtojavamobs:freckled_rabbit",
+    "earthtojavamobs:harelequin_rabbit",
+    "earthtojavamobs:jumbo_rabbit",
+    "earthtojavamobs:muddy_foot_rabbit",
+    "earthtojavamobs:vested_rabbit"
+  ]
+}

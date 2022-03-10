@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/animals/small_carnivore.json",
+  "entities": [
+    "twm:frog",
+    "twm:tadpole"
+  ]
+}

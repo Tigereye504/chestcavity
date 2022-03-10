@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/animals/fireproof.json",
+  "entities": [
+    "adventurez:iguana"
+  ]
+}

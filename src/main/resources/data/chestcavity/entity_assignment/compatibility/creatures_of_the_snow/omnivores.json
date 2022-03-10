@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/animals/omnivore.json",
+  "entities": [
+    "creatures_of_the_snow:snikerbosh",
+    "creatures_of_the_snow:snow_trover"
+  ]
+}

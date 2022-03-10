@@ -1,0 +1,8 @@
+{
+  "chestcavity": "chestcavity:types/animals/dolphin.json",
+  "entities": [
+    "creatures_of_the_snow:beluga",
+    "creatures_of_the_snow:narwhal",
+    "creatures_of_the_snow:snow_wyrm"
+  ]
+}

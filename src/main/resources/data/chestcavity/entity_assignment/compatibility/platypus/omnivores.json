@@ -1,0 +1,7 @@
+{
+  "chestcavity": "chestcavity:types/animals/omnivore.json",
+  "entities": [
+    "platypus:platypus",
+    "platypus:perry"
+  ]
+}

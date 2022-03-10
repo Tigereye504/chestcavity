@@ -1,0 +1,12 @@
+{
+  "chestcavity": "chestcavity:types/animals/omnivore.json",
+  "entities": [
+    "earthtojavamobs:mottled_pig",
+    "earthtojavamobs:muddy_pig",
+    "earthtojavamobs:pale_pig",
+    "earthtojavamobs:piebald_pig",
+    "earthtojavamobs:pink_footed_pig",
+    "earthtojavamobs:sooty_pig",
+    "earthtojavamobs:spotted_pig"
+  ]
+}

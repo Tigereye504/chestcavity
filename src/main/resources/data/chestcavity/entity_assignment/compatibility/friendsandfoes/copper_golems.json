@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/constructs/iron_golem.json",
+  "entities": [
+    "friendsandfoes:copper_golem"
+  ]
+}

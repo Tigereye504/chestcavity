@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/constructs/blaze.json",
+  "entities": [
+    "adventurez:blaze_guardian"
+  ]
+}

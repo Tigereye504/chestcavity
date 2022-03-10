@@ -1,0 +1,6 @@
+{
+  "chestcavity": "chestcavity:types/insects/insect.json",
+  "entities": [
+    "earth:carboranea"
+  ]
+}
