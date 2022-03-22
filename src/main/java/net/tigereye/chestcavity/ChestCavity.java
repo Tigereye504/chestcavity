@@ -56,6 +56,5 @@ public class ChestCavity implements ModInitializer {
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityAssignmentManager());
 		CrossModContent.register();
 
-
 	}
 }

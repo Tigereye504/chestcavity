@@ -4,7 +4,9 @@ import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
 
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.*;
+import net.tigereye.chestcavity.items.ChestOpener;
+import net.tigereye.chestcavity.items.CreeperAppendix;
+import net.tigereye.chestcavity.items.VenomGland;
 
 public class CCItems {
 
@@ -412,6 +414,9 @@ public class CCItems {
 		registerItem("dragon_sausage", COOKED_DRAGON_SAUSAGE);
 		registerItem("raw_rich_dragon_sausage", RAW_RICH_DRAGON_SAUSAGE);
 		registerItem("rich_dragon_sausage", COOKED_RICH_DRAGON_SAUSAGE);
+
+		registerItem("cud",CUD);
+		registerItem("furnace_power",FURNACE_POWER);
 	}
 	
 	private static void registerItem(String name, Item item) {
