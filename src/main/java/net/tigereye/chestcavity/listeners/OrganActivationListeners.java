@@ -211,9 +211,9 @@ public class OrganActivationListeners {
         }
         //test for iron
         ItemStack itemStack = cc.owner.getEquippedStack(EquipmentSlot.MAINHAND);
-        if(itemStack == null || !CCTags.IRON_REPAIR_MATERIAL.contains(itemStack.getItem())) {
+        if(itemStack == null || !itemStack.isIn(CCTags.IRON_REPAIR_MATERIAL)) {
             itemStack = cc.owner.getEquippedStack(EquipmentSlot.OFFHAND);
-            if(itemStack == null || !CCTags.IRON_REPAIR_MATERIAL.contains(itemStack.getItem())) {
+            if(itemStack == null || !itemStack.isIn(CCTags.IRON_REPAIR_MATERIAL)) {
                 return;
             }
         }

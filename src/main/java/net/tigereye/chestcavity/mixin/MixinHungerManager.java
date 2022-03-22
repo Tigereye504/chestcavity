@@ -26,7 +26,7 @@ public class MixinHungerManager {
         @Shadow
         private int foodLevel;
         @Shadow
-        private float foodSaturationLevel;
+        private float saturationLevel;
         @Shadow
         private float exhaustion;
 

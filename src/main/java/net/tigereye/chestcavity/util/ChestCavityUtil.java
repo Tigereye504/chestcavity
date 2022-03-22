@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
@@ -382,9 +383,6 @@ public class ChestCavityUtil {
             if(cc.getChestCavityType().getDefaultOrganScores() != null) {
                 organScores.putAll(cc.getChestCavityType().getDefaultOrganScores());
             }
-            else{
-
-            }
         }
         else {
             cc.onHitListeners.clear();
@@ -492,7 +490,7 @@ public class ChestCavityUtil {
             return OrganManager.getEntry(itemStack.getItem());
         }
         else{ //check for tag organs
-            for (Tag<Item> itemTag:
+            for (TagKey<Item> itemTag:
                     CCTagOrgans.tagMap.keySet()) {
                 if(itemStack.isIn(itemTag)){
                     organData = new OrganData();
