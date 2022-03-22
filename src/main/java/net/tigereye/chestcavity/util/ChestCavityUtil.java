@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.util;
 
+import ladysnake.requiem.api.v1.possession.Possessable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -524,18 +525,7 @@ public class ChestCavityUtil {
     public static void onTick(ChestCavityInstance cc){
         if(cc.updatePacket != null){
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
-        }/*
-        if(CCRequiem.REQUIEM_ACTIVE) {
-            if (cc.owner instanceof Possessable && ((Possessable) cc.owner).isBeingPossessed()) {
-                Optional<ChestCavityEntity> option = ChestCavityEntity.of(((Possessable) cc.owner).getPossessor());
-                if(option.isPresent()){
-                    ChestCavityInstance possessorCC = option.get().getChestCavityInstance();
-                    openChestCavity(possessorCC);
-                    possessorCC.organScores.clear();
-                    possessorCC.organScores.putAll(cc.organScores);
-                }
-            }
-        }*/
+        }
         if(cc.opened) {
             OrganTickCallback.EVENT.invoker().onOrganTick(cc.owner, cc);
             organUpdate(cc);

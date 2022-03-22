@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.chestcavities.instance;
 
 //import ladysnake.requiem.api.v1.possession.PossessionComponent;
+import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.mob.MobEntity;
@@ -58,12 +59,12 @@ public class ChestCavityInstance implements InventoryChangedListener {
     }
 
     public ChestCavityType getChestCavityType(){
-        /*if(CCRequiem.REQUIEM_ACTIVE){
+        if(CCRequiem.REQUIEM_ACTIVE){
             MobEntity victim = PossessionComponent.getHost(owner);
             if(victim instanceof ChestCavityEntity){
                 return ((ChestCavityEntity)victim).getChestCavityInstance().getChestCavityType();
             }
-        }*/
+        }
         return this.type;
     }
 
@@ -76,12 +77,12 @@ public class ChestCavityInstance implements InventoryChangedListener {
     }
 
     public float getOrganScore(Identifier id) {
-        /*if(CCRequiem.REQUIEM_ACTIVE){
+        if(CCRequiem.REQUIEM_ACTIVE){
             MobEntity victim = PossessionComponent.getHost(owner);
             if(victim instanceof ChestCavityEntity){
                 return ((ChestCavityEntity)victim).getChestCavityInstance().getOrganScore(id);
             }
-        }*/
+        }
         return organScores.getOrDefault(id, 0f);
     }
 

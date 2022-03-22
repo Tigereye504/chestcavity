@@ -13,8 +13,6 @@ public class CCRequiem {
     public static void register(){
         if(CrossModContent.checkIntegration(MODID,NAME,ChestCavity.config.REQUIEM_INTEGRATION)){
             REQUIEM_ACTIVE = true;
-            ChestCavity.LOGGER.error("WARNING: Chest Cavity / Requiem compatibility does not function in 1.18.2.");
-            ChestCavity.LOGGER.error("Expect strange results if you use your chest cavity while undead.");
         }
     }
 }
