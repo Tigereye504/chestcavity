@@ -48,6 +48,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,23 +109,16 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         return ChestCavityUtil.onAddStatusEffect(chestCavityInstance,effect);
     }
 
-    @ModifyVariable(at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/item/Item;isFood()Z"),
+    @ModifyVariable(//at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;isFood()Z"),
+            at = @At("STORE"),
             method = "applyFoodEffects", ordinal = 0)
-    public Item chestCavityLivingEntityApplyFoodEffectsMixin(Item item, ItemStack stack, World world, LivingEntity targetEntity){
-        FoodComponent food = item.getFoodComponent();
-        if(food != null) {
-            Optional<ChestCavityEntity> option = ChestCavityEntity.of(targetEntity);
-            if (option.isPresent()) {
-                Item dummyFood = new Item(new Item.Settings().food(new FoodComponent.Builder().hunger(1).saturationModifier(.1f).build()));
-                List<Pair<StatusEffectInstance, Float>> list = dummyFood.getFoodComponent().getStatusEffects();
-                list.clear();
-                list.addAll(food.getStatusEffects());
-                OrganFoodEffectCallback.EVENT.invoker().onApplyFoodEffects(list, stack, world, targetEntity, option.get().getChestCavityInstance());
-                return dummyFood;
-            }
+    public List<Pair<StatusEffectInstance, Float>> chestCavityLivingEntityApplyFoodEffectsMixin(List<Pair<StatusEffectInstance, Float>> list, ItemStack stack, World world, LivingEntity targetEntity){
+        Optional<ChestCavityEntity> option = ChestCavityEntity.of(targetEntity);
+        if (option.isPresent()) {
+            list = new LinkedList<>(list); //this divorces the list I shall modify from the item's long term list
+            OrganFoodEffectCallback.EVENT.invoker().onApplyFoodEffects(list, stack, world, targetEntity, option.get().getChestCavityInstance());
         }
-        return item;
+        return list;
     }
 
     /*
