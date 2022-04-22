@@ -236,6 +236,15 @@ public class ChestCavityUtil {
         //TODO: find a use for intestines for non-players
     }
 
+    public static float applyNervesToMining(ChestCavityInstance cc, float miningProgress){
+        float defaultNerves = cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES);
+        if(defaultNerves == 0){
+            return miningProgress;
+        }
+        float NervesDiff = (cc.getOrganScore(CCOrganScores.NERVES) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES));
+        return miningProgress * (1+(ChestCavity.config.NERVES_HASTE * NervesDiff));
+    }
+
     public static int applySpleenMetabolism(ChestCavityInstance cc, int foodStarvationTimer){
         if(!cc.opened){
             return foodStarvationTimer;

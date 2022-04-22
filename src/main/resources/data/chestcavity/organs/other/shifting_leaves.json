@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:shifting_leaves",
+  "organScores": [
+    {"id":"chestcavity:speed","value": "1"},
+    {"id":"chestcavity:photosynthesis","value": "1"}
+  ]
+}

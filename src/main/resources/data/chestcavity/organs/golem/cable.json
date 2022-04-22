@@ -1,7 +1,7 @@
 {
   "itemID": "chestcavity:golem_cable",
   "organScores": [
-    {"id":"chestcavity:nerves","value": ".5"},
+    {"id":"chestcavity:nerves","value": ".25"},
     {"id":"chestcavity:defense","value": "1"},
     {"id":"chestcavity:knockback_resistant","value": "1"},
     {"id":"chestcavity:speed","value": "-.5"}

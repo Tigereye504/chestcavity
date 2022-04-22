@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.mixin;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -208,6 +209,10 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
                     info.cancel();
                 }
             }
+        }
+        @Inject(at = @At("RETURN"), method = "getBlockBreakingSpeed", cancellable = true)
+        void chestCavityPlayerEntityGetBlockBreakingSpeedMixin(BlockState block, CallbackInfoReturnable<Float> cir) {
+            cir.setReturnValue(ChestCavityUtil.applyNervesToMining(((ChestCavityEntity)this).getChestCavityInstance(),cir.getReturnValue()));
         }
     }
 

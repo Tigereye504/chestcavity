@@ -1,7 +1,7 @@
 {
   "itemID": "chestcavity:animal_spine",
   "organScores": [
-    {"id":"chestcavity:defense","value": ".5625"},
+    {"id":"chestcavity:defense","value": ".375"},
     {"id":"chestcavity:nerves","value": ".75"}
   ]
 }

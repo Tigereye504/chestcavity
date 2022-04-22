@@ -34,6 +34,8 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("core")
     public float MUSCLE_SPEED = .5f; //how much 8 stacks of muscles contribute to movement speed
     @ConfigEntry.Category("core")
+    public float NERVES_HASTE = .1f; //how much a spine contributes to mining and attack speed
+    @ConfigEntry.Category("core")
     public float BONE_DEFENSE = .5f; //damage reduction from 4 stacks of ribs
     @ConfigEntry.Category("core")
     public float RISK_OF_PRIONS = .01f; //risk of debuffs from human-derived foods
@@ -66,6 +68,8 @@ public class CCConfig implements ConfigData {
     public float LAUNCHING_POWER = .1f; //upward velocity per launching
     @ConfigEntry.Category("more")
     public int MAX_TELEPORT_ATTEMPTS = 5;
+    @ConfigEntry.Category("more")
+    public int PHOTOSYNTHESIS_FREQUENCY = 200; //how many ticks 8 photosynthetic organs in direct sunlight need to restore 1 hunger
     @ConfigEntry.Category("more")
     public int RUMINATION_TIME = 400; //time to eat a unit of grass
     @ConfigEntry.Category("more")

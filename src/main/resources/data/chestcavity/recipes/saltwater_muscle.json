@@ -1,0 +1,37 @@
+
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:nautilus_shell"
+    },
+    {
+    "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    },
+    {
+      "item": "chestcavity:muscle"
+    }
+  ],
+  "result": {
+    "item": "chestcavity:saltwater_muscle",
+    "count": 8
+  }
+}

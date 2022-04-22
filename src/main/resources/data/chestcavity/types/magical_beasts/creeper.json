@@ -1,30 +1,30 @@
 {
   "defaultChestCavity": [
-    {"item": "minecraft:oak_leaves","position": 0,"count": 16},
+    {"item": "chestcavity:shifting_leaves","position": 0},
     {"item": "minecraft:stick","position": 1,"count": 4},
     {"item": "chestcavity:creeper_appendix","position": 4},
     {"item": "minecraft:stick","position": 7,"count": 4},
-    {"item": "minecraft:oak_leaves","position": 8,"count": 16},
+    {"item": "chestcavity:shifting_leaves","position": 8},
 
-    {"item": "minecraft:oak_leaves","position": 9,"count": 16},
+    {"item": "chestcavity:shifting_leaves","position": 9},
     {"item": "minecraft:stick","position": 10,"count": 4},
     {"item": "minecraft:gunpowder","position": 12, "count": 1},
     {"item": "minecraft:oak_log","position": 13, "count": 1},
     {"item": "minecraft:gunpowder","position": 14, "count": 1},
     {"item": "minecraft:stick","position": 16,"count": 4},
-    {"item": "minecraft:oak_leaves","position": 17,"count": 16},
+    {"item": "chestcavity:shifting_leaves","position": 17},
 
-    {"item": "minecraft:oak_leaves","position": 18,"count": 16},
-    {"item": "minecraft:oak_leaves","position": 19,"count": 16},
+    {"item": "chestcavity:shifting_leaves","position": 18},
+    {"item": "chestcavity:shifting_leaves","position": 19},
     {"item": "minecraft:gunpowder","position": 22, "count": 1},
-    {"item": "minecraft:oak_leaves","position": 25,"count": 16},
-    {"item": "minecraft:oak_leaves","position": 26,"count": 16}
+    {"item": "chestcavity:shifting_leaves","position": 25},
+    {"item": "chestcavity:shifting_leaves","position": 26}
   ],
   "exceptionalOrgans": [
     { "ingredient": {"tag": "minecraft:leaves"},
       "value": [
-        {"id":"chestcavity:strength","value": "4"},
-        {"id":"chestcavity:speed","value": "4"}
+        {"id":"chestcavity:speed","value": "1"},
+        {"id":"chestcavity:photosynthetic","value": "1"}
       ]
     },
     { "ingredient": {"item": "minecraft:stick"},
