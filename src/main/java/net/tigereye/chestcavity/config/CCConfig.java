@@ -69,7 +69,7 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("more")
     public int MAX_TELEPORT_ATTEMPTS = 5;
     @ConfigEntry.Category("more")
-    public int PHOTOSYNTHESIS_FREQUENCY = 200; //how many ticks 8 photosynthetic organs in direct sunlight need to restore 1 hunger
+    public int PHOTOSYNTHESIS_FREQUENCY = 50; //how many ticks 8 photosynthetic organs in direct sunlight need to restore 1 hunger
     @ConfigEntry.Category("more")
     public int RUMINATION_TIME = 400; //time to eat a unit of grass
     @ConfigEntry.Category("more")
