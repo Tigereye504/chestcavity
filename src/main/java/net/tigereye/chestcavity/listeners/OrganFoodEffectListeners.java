@@ -24,10 +24,6 @@ public class OrganFoodEffectListeners {
             if(itemStack.isIn(CCTags.ROTTEN_FOOD)) {
                 list.removeIf(pair -> pair.getFirst().getEffectType() == StatusEffects.HUNGER);
             }
-            else {
-                StatusEffectInstance hunger = new StatusEffectInstance(StatusEffects.HUNGER, 600);
-                list.add(new Pair<>(hunger, rotten * .2f));
-            }
         }
         return list;
     }
