@@ -53,6 +53,7 @@ public class CCOrganScores {
 
     //food abilities
     public static final Identifier CRYSTALSYNTHESIS = new Identifier(ChestCavity.MODID, "crystalsynthesis");
+    public static final Identifier PHOTOSYNTHESIS = new Identifier(ChestCavity.MODID,"photosynthesis");
     public static final Identifier CARNIVOROUS_DIGESTION = new Identifier(ChestCavity.MODID,"carnivorous_digestion");
     public static final Identifier CARNIVOROUS_NUTRITION = new Identifier(ChestCavity.MODID,"carnivorous_nutrition");
     public static final Identifier FURNACE_POWERED = new Identifier(ChestCavity.MODID,"furnace_powered");

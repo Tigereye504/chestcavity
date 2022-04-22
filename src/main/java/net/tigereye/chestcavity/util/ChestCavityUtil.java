@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.util;
 
+import ladysnake.requiem.api.v1.possession.Possessable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
@@ -234,6 +236,15 @@ public class ChestCavityUtil {
         //TODO: find a use for intestines for non-players
     }
 
+    public static float applyNervesToMining(ChestCavityInstance cc, float miningProgress){
+        float defaultNerves = cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES);
+        if(defaultNerves == 0){
+            return miningProgress;
+        }
+        float NervesDiff = (cc.getOrganScore(CCOrganScores.NERVES) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.NERVES));
+        return miningProgress * (1+(ChestCavity.config.NERVES_HASTE * NervesDiff));
+    }
+
     public static int applySpleenMetabolism(ChestCavityInstance cc, int foodStarvationTimer){
         if(!cc.opened){
             return foodStarvationTimer;
@@ -382,9 +393,6 @@ public class ChestCavityUtil {
             if(cc.getChestCavityType().getDefaultOrganScores() != null) {
                 organScores.putAll(cc.getChestCavityType().getDefaultOrganScores());
             }
-            else{
-
-            }
         }
         else {
             cc.onHitListeners.clear();
@@ -492,7 +500,7 @@ public class ChestCavityUtil {
             return OrganManager.getEntry(itemStack.getItem());
         }
         else{ //check for tag organs
-            for (Tag<Item> itemTag:
+            for (TagKey<Item> itemTag:
                     CCTagOrgans.tagMap.keySet()) {
                 if(itemStack.isIn(itemTag)){
                     organData = new OrganData();
@@ -526,18 +534,7 @@ public class ChestCavityUtil {
     public static void onTick(ChestCavityInstance cc){
         if(cc.updatePacket != null){
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
-        }/*
-        if(CCRequiem.REQUIEM_ACTIVE) {
-            if (cc.owner instanceof Possessable && ((Possessable) cc.owner).isBeingPossessed()) {
-                Optional<ChestCavityEntity> option = ChestCavityEntity.of(((Possessable) cc.owner).getPossessor());
-                if(option.isPresent()){
-                    ChestCavityInstance possessorCC = option.get().getChestCavityInstance();
-                    openChestCavity(possessorCC);
-                    possessorCC.organScores.clear();
-                    possessorCC.organScores.putAll(cc.organScores);
-                }
-            }
-        }*/
+        }
         if(cc.opened) {
             OrganTickCallback.EVENT.invoker().onOrganTick(cc.owner, cc);
             organUpdate(cc);

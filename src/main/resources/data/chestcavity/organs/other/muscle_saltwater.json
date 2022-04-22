@@ -1,0 +1,9 @@
+{
+  "itemID": "chestcavity:saltwater_muscle",
+  "organScores": [
+    {"id":"chestcavity:strength","value": "1"},
+    {"id":"chestcavity:speed","value": "1"},
+    {"id":"chestcavity:swim_speed","value": ".5"},
+    {"id":"chestcavity:fire_resistant","value": "-.5"}
+  ]
+}

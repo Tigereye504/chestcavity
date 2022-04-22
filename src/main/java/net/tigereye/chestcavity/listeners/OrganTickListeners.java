@@ -29,6 +29,7 @@ public class OrganTickListeners {
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickBuoyant);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickCrystalsynthesis);
+        OrganTickCallback.EVENT.register(OrganTickListeners::TickPhotosynthesis);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydroallergenic);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHydrophobia);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickGlowing);
@@ -110,6 +111,39 @@ public class OrganTickListeners {
                 //finally, something about shiny lines linking to crystals?
             }
 
+        }
+    }
+
+    public static void TickPhotosynthesis(LivingEntity entity, ChestCavityInstance cc){
+        if(entity.getWorld().isClient()){
+            return;
+        }
+        float photosynthesis = cc.getOrganScore(CCOrganScores.PHOTOSYNTHESIS) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.PHOTOSYNTHESIS);
+        if(photosynthesis > 0){
+            cc.photosynthesisProgress += photosynthesis*entity.getWorld().getLightLevel(entity.getBlockPos());
+            if(cc.photosynthesisProgress > ChestCavity.config.PHOTOSYNTHESIS_FREQUENCY*8*15){
+                cc.photosynthesisProgress = 0;
+                if(entity instanceof PlayerEntity){
+                    PlayerEntity playerEntity = (PlayerEntity)entity;
+                    HungerManager hungerManager = playerEntity.getHungerManager();
+                    //first restore hunger
+                    if(hungerManager.isNotFull()) {
+                        hungerManager.add(1,0);
+                    }
+                    //then restore saturation
+                    else if(hungerManager.getSaturationLevel() < hungerManager.getFoodLevel()){
+                        hungerManager.add(1, .5f);
+                    }
+                    //then restore health
+                    else {
+                        playerEntity.heal(1);
+                    }
+                }
+                else{
+                    //just restore health
+                    entity.heal(1);
+                }
+            }
         }
     }
 

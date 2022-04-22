@@ -1,5 +1,6 @@
 package net.tigereye.chestcavity.chestcavities.instance;
 
+//import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
@@ -45,6 +46,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
     public float lungRemainder = 0;
     public int projectileCooldown = 0;
     public int furnaceProgress = 0;
+    public int photosynthesisProgress = 0;
     public EndCrystalEntity connectedCrystal = null;
 
     public PacketByteBuf updatePacket = null;
@@ -109,6 +111,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
             this.metabolismRemainder = ccTag.getFloat("MetabolismRemainder");
             this.lungRemainder = ccTag.getFloat("LungRemainder");
             this.furnaceProgress = ccTag.getInt("FurnaceProgress");
+            this.photosynthesisProgress = ccTag.getInt("PhotosynthesisProgress");
             if(ccTag.contains("compatibility_id")){
                 this.compatibility_id = ccTag.getUuid("compatibility_id");
             }
@@ -161,7 +164,8 @@ public class ChestCavityInstance implements InventoryChangedListener {
         ccTag.putInt("LiverTimer", this.liverTimer);
         ccTag.putFloat("MetabolismRemainder", this.metabolismRemainder);
         ccTag.putFloat("LungRemainder", this.lungRemainder);
-        ccTag.putInt("FurnaceProgress", this.liverTimer);
+        ccTag.putInt("FurnaceProgress", this.furnaceProgress);
+        ccTag.putInt("PhotosynthesisProgress", this.photosynthesisProgress);
         ccTag.put("Inventory", this.inventory.getTags());
         tag.put("ChestCavity",ccTag);
     }

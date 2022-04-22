@@ -4,7 +4,9 @@ import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
 
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.items.*;
+import net.tigereye.chestcavity.items.ChestOpener;
+import net.tigereye.chestcavity.items.CreeperAppendix;
+import net.tigereye.chestcavity.items.VenomGland;
 
 public class CCItems {
 
@@ -153,7 +155,9 @@ public class CCItems {
 
 	public static final Item SALTWATER_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item SALTWATER_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item SALTWATER_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item CREEPER_APPENDIX = new CreeperAppendix();
+	public static final Item SHIFTING_LEAVES = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
 	public static final Item SHULKER_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
 
 	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64).group(ItemGroup.MISC));
@@ -355,7 +359,9 @@ public class CCItems {
 
 		registerItem("saltwater_heart", SALTWATER_HEART);
 		registerItem("saltwater_lung", SALTWATER_LUNG);
+		registerItem("saltwater_muscle", SALTWATER_MUSCLE);
 		registerItem("creeper_appendix", CREEPER_APPENDIX);
+		registerItem("shifting_leaves", SHIFTING_LEAVES);
 		registerItem("shulker_spleen", SHULKER_SPLEEN);
 
 		registerItem("sausage_skin", SAUSAGE_SKIN);
@@ -412,6 +418,9 @@ public class CCItems {
 		registerItem("dragon_sausage", COOKED_DRAGON_SAUSAGE);
 		registerItem("raw_rich_dragon_sausage", RAW_RICH_DRAGON_SAUSAGE);
 		registerItem("rich_dragon_sausage", COOKED_RICH_DRAGON_SAUSAGE);
+
+		registerItem("cud",CUD);
+		registerItem("furnace_power",FURNACE_POWER);
 	}
 	
 	private static void registerItem(String name, Item item) {
