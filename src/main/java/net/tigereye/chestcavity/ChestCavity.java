@@ -14,7 +14,7 @@ import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
 import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager;
 import net.tigereye.chestcavity.config.CCConfig;
-import net.tigereye.chestcavity.crossmod.CrossModContent;
+import net.tigereye.chestcavity.compat.CrossModContent;
 import net.fabricmc.api.ModInitializer;
 import net.tigereye.chestcavity.registration.*;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;

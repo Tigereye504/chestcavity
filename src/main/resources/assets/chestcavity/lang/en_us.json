@@ -280,6 +280,7 @@
     "organscore.chestcavity.photosynthesis": "Photosynthesis",
     "organscore.chestcavity.cannibal_heart": "Variable Bonus Health",
     "organscore.chestcavity.tethered_cannibal_heart": "Cannibalism Control",
+    "rei.chestcavity.salvage_recipe": "Salvaging",
     "text.autoconfig.chestcavity.title": "Chest Cavity",
     "text.autoconfig.chestcavity.category.core": "Core",
     "text.autoconfig.chestcavity.category.more": "More",

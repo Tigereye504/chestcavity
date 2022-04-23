@@ -29,6 +29,9 @@
     ],
     "modmenu": [
       "net.tigereye.chestcavity.config.CCModMenuIntegration"
+    ],
+    "rei": [
+      "net.tigereye.chestcavity.compat.rei.SalvageRecipeREIPlugin"
     ]
   },
   "mixins": [
