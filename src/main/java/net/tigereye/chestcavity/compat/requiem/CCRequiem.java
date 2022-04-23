@@ -1,8 +1,8 @@
-package net.tigereye.chestcavity.crossmod.requiem;
+package net.tigereye.chestcavity.compat.requiem;
 
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.crossmod.CrossModContent;
+import net.tigereye.chestcavity.compat.CrossModContent;
 
 public class CCRequiem {
     public static String MODID = "requiem";

@@ -1,7 +1,7 @@
-package net.tigereye.chestcavity.crossmod.backrooms;
+package net.tigereye.chestcavity.compat.backrooms;
 
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.crossmod.CrossModContent;
+import net.tigereye.chestcavity.compat.CrossModContent;
 
 public class CCBackrooms {
     public static final String MODID = "backrooms";

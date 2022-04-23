@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
-import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
+import net.tigereye.chestcavity.compat.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.OrganOnHitContext;
 import net.tigereye.chestcavity.util.ChestCavityUtil;

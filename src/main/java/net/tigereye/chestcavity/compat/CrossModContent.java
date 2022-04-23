@@ -1,8 +1,8 @@
-package net.tigereye.chestcavity.crossmod;
+package net.tigereye.chestcavity.compat;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.tigereye.chestcavity.crossmod.backrooms.CCBackrooms;
-import net.tigereye.chestcavity.crossmod.requiem.CCRequiem;
+import net.tigereye.chestcavity.compat.backrooms.CCBackrooms;
+import net.tigereye.chestcavity.compat.requiem.CCRequiem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
