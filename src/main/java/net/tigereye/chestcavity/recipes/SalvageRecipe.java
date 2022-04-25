@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.recipes.json.SalvageRecipeSerializer;
@@ -28,6 +29,11 @@ public class SalvageRecipe implements CraftingRecipe {
     }
 
     public int getRequired(){return required;}
+
+    @Override
+    public DefaultedList<Ingredient> getIngredients() {
+        return DefaultedList.ofSize(required,input);
+    }
 
     @Override
     public boolean matches(CraftingInventory inv, World world) {
