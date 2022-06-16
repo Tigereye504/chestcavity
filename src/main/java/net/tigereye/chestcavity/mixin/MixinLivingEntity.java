@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
+import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -283,8 +284,8 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Mixin(ServerPlayerEntity.class)
     private static abstract class Server extends PlayerEntity {
-        public Server(World world, BlockPos pos, float yaw, GameProfile profile) {
-            super(world, pos, yaw, profile);
+        public Server(World world, BlockPos pos, float yaw, GameProfile profile, PlayerPublicKey playerPublicKey) {
+            super(world, pos, yaw, profile, playerPublicKey);
         }
 
         @Inject(method = "copyFrom", at = @At("TAIL"))

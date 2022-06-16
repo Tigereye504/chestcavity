@@ -2,7 +2,6 @@ package net.tigereye.chestcavity.listeners;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.registration.CCKeybindings;
 import net.tigereye.chestcavity.registration.CCOrganScores;

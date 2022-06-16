@@ -3,7 +3,6 @@ package net.tigereye.chestcavity.util;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.entity.model.LlamaSpitEntityModel;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
@@ -22,16 +21,12 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.explosion.Explosion;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
@@ -79,7 +74,7 @@ public class OrganUtil {
                     tier = "Cripples ";
                 }
             }
-            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier);
+            Text text = Text.translatable("organscore." + organ.getNamespace() + "." + organ.getPath(), tier);
             tooltip.add(text);
         });
     }
@@ -87,18 +82,18 @@ public class OrganUtil {
     public static void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         NbtCompound tag = itemStack.getNbt();
         if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
-            Text text = new LiteralText("Unsafe to use");
+            Text text = Text.literal("Unsafe to use");
             tooltip.add(text);
         }
         else if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())
                 && EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack) <= 0) {
             tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
             String name = tag.getString("name");
-            Text text = new LiteralText("Only Compatible With: "+name);
+            Text text = Text.literal("Only Compatible With: "+name);
             tooltip.add(text);
         }
         else{
-            Text text = new LiteralText("Safe to Use");
+            Text text = Text.literal("Safe to Use");
             tooltip.add(text);
         }
     }

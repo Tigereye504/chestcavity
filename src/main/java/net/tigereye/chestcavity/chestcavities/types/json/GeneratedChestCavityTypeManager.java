@@ -27,14 +27,14 @@ public class GeneratedChestCavityTypeManager implements SimpleSynchronousResourc
     public void reload(ResourceManager manager) {
         GeneratedChestCavityTypes.clear();
         ChestCavity.LOGGER.info("Loading chest cavity types.");
-        for(Identifier id : manager.findResources(RESOURCE_LOCATION, path -> path.endsWith(".json"))) {
-            try(InputStream stream = manager.getResource(id).getInputStream()) {
+        manager.findResources(RESOURCE_LOCATION, path -> path.getPath().endsWith(".json")).forEach((id,resource) -> {
+            try(InputStream stream = resource.getInputStream()) {
                 Reader reader = new InputStreamReader(stream);
                 GeneratedChestCavityTypes.put(id,SERIALIZER.read(id,new Gson().fromJson(reader,ChestCavityTypeJsonFormat.class)));
             } catch(Exception e) {
                 ChestCavity.LOGGER.error("Error occurred while loading resource json " + id.toString(), e);
             }
-        }
+        });
         ChestCavity.LOGGER.info("Loaded "+GeneratedChestCavityTypes.size()+" chest cavity types.");
     }
 }

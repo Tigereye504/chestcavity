@@ -2,12 +2,12 @@ package net.tigereye.chestcavity.chestcavities;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public interface ChestCavityType {
 

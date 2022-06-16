@@ -14,7 +14,6 @@ import me.shedaniel.rei.api.client.gui.Renderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.tigereye.chestcavity.registration.CCItems;
 
 import javax.swing.*;
@@ -23,7 +22,7 @@ import java.util.List;
 
 public class SalvageRecipeCategory implements DisplayCategory<SalvageRecipeDisplay> {
 
-    public static final MutableText TITLE = new TranslatableText("rei.chestcavity.salvage_recipe");
+    public static final MutableText TITLE = Text.translatable("rei.chestcavity.salvage_recipe");
     public static final EntryStack<ItemStack> ICON = EntryStacks.of(CCItems.IRON_CLEAVER);
 
     public static final int TEXT_LIGHT = 0xFF404040;

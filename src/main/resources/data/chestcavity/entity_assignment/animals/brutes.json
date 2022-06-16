@@ -3,6 +3,7 @@
   "entities": [
     "minecraft:hoglin",
     "minecraft:ravager",
-    "minecraft:piglin_brute"
+    "minecraft:piglin_brute",
+    "minecraft:warden"
   ]
 }

@@ -1,18 +1,20 @@
 package net.tigereye.chestcavity.listeners;
 
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootPool;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
@@ -24,6 +26,7 @@ import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
 import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackModifyLoot;
 
 import java.util.*;
+
 
 public class LootRegister {
     
@@ -66,7 +69,7 @@ public class LootRegister {
                 }
                 else{
                     lootingLevel = 0;
-                    random = new Random();
+                    random = Random.create();
                 }
                 //with all this passed, finally we ask the chest cavity manager what the loot will actually be.
                 loot.addAll(cc.getChestCavityType().generateLootDrops(random,lootingLevel));
@@ -123,13 +126,13 @@ public class LootRegister {
             return loot;
         });
 
-        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, supplier, setter) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, supplier, setter) -> {
             if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(BinomialLootNumberProvider.create(4,.25f))
                         .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
                 supplier.pool(poolBuilder);
-                poolBuilder = FabricLootPoolBuilder.builder()
+                poolBuilder = LootPool.builder()
                         .rolls(BinomialLootNumberProvider.create(1,.3f))
                         .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
                 supplier.pool(poolBuilder);

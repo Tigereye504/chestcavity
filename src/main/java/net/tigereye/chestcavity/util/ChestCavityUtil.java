@@ -28,6 +28,7 @@ import net.tigereye.chestcavity.compat.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.*;
 import net.tigereye.chestcavity.registration.*;
+import net.minecraft.util.math.random.Random;
 
 import java.util.*;
 import java.util.function.Consumer;
