@@ -50,7 +50,7 @@ public class OrganUtil {
             String tier;
             if(organ.equals(CCOrganScores.HYDROALLERGENIC)){
                 if(score >= 2){
-                    tier = "Severely ";
+                    tier = "quality.chestcavity.severely";
                 }
                 else{
                     tier = "";
@@ -58,28 +58,28 @@ public class OrganUtil {
             }
             else {
                 if (score >= 1.5f) {
-                    tier = "Supernatural ";
+                    tier = "quality.chestcavity.supernatural";
                 } else if (score >= 1.25) {
-                    tier = "Exceptional ";
+                    tier = "quality.chestcavity.exceptional";
                 } else if (score >= 1) {
-                    tier = "Good ";
+                    tier = "quality.chestcavity.good";
                 } else if (score >= .75f) {
-                    tier = "Average ";
+                    tier = "quality.chestcavity.average";
                 } else if (score >= .5f) {
-                    tier = "Poor ";
+                    tier = "quality.chestcavity.poor";
                 } else if (score >= 0) {
-                    tier = "Pathetic ";
+                    tier = "quality.chestcavity.pathetic";
                 } else if (score >= -.25f) {
-                    tier = "Slightly Reduces ";
+                    tier = "quality.chestcavity.slightly_reduces";
                 } else if (score >= -.5f) {
-                    tier = "Reduces ";
+                    tier = "quality.chestcavity.reduces";
                 } else if (score >= -.75f) {
-                    tier = "Greatly Reduces ";
+                    tier = "quality.chestcavity.greatly_reduces";
                 } else {
-                    tier = "Cripples ";
+                    tier = "quality.chestcavity.greatly_reduces";
                 }
             }
-            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier);
+            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), new TranslatableText(tier));
             tooltip.add(text);
         });
     }
