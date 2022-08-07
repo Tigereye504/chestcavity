@@ -63,6 +63,7 @@ public class CCItems {
 	public static final Item AQUATIC_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item FISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item GILLS = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item SWIM_BLADDER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item LLAMA_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item CARNIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item CARNIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
@@ -268,6 +269,7 @@ public class CCItems {
 		registerItem("aquatic_muscle", AQUATIC_MUSCLE);
 		registerItem("fish_muscle", FISH_MUSCLE);
 		registerItem("gills", GILLS);
+		registerItem("swim_bladder", SWIM_BLADDER);
 		registerItem("llama_lung", LLAMA_LUNG);
 		registerItem("carnivore_stomach",CARNIVORE_STOMACH);
 		registerItem("carnivore_intestine",CARNIVORE_INTESTINE);

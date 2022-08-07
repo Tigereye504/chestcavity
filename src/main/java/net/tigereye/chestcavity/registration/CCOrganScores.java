@@ -25,6 +25,7 @@ public class CCOrganScores {
     public static final Identifier ARROW_DODGING = new Identifier(ChestCavity.MODID, "arrow_dodging");
     public static final Identifier BUFF_PURGING = new Identifier(ChestCavity.MODID, "buff_purging");
     public static final Identifier BUOYANT = new Identifier(ChestCavity.MODID, "buoyant");
+    public static final Identifier NEUTRAL_FLUID_BUOYANT = new Identifier(ChestCavity.MODID, "neutral_fluid_buoyant");
     public static final Identifier DESTRUCTIVE_COLLISIONS = new Identifier(ChestCavity.MODID, "destructive_collisions");
     public static final Identifier EASE_OF_ACCESS = new Identifier(ChestCavity.MODID, "ease_of_access");
     public static final Identifier FIRE_RESISTANT = new Identifier(ChestCavity.MODID, "fire_resistant");
