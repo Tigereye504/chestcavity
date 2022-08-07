@@ -33,7 +33,9 @@ public class OrganAddStatusEffectListeners {
         float detox = cc.getOrganScore(CCOrganScores.DETOXIFICATION);
 
         float extraFiltration = cc.getOrganScore(CCOrganScores.FILTRATION) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.FILTRATION);
-        detox += extraFiltration;
+        if (extraFiltration > 0) {
+            detox += extraFiltration;
+        }
 
         if(defaultDetox <= 0 || detox == defaultDetox)
         {
