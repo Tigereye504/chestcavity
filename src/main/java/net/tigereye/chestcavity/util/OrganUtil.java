@@ -82,9 +82,14 @@ public class OrganUtil {
             }
             Text tier2 = new TranslatableText(tier1);
             if (Screen.hasShiftDown()) {
-                tier2 = new LiteralText(String.valueOf(score) + " ");
+                tier2 = new LiteralText("");
             }
-            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier2);
+            TranslatableText text1 = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier2);
+            TranslatableText text = text1;
+            if (Screen.hasShiftDown()) {
+                text = new TranslatableText(score + " ");
+                text.append(text1);
+            }
             tooltip.add(text);
         });
     }
