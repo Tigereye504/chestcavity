@@ -2,6 +2,7 @@ package net.tigereye.chestcavity.util;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.LlamaSpitEntityModel;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -78,6 +79,9 @@ public class OrganUtil {
                 } else {
                     tier = "quality.chestcavity.greatly_reduces";
                 }
+            }
+            if (Screen.hasShiftDown()) {
+                tier = String.valueOf(score) + " ";
             }
             TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), new TranslatableText(tier));
             tooltip.add(text);
