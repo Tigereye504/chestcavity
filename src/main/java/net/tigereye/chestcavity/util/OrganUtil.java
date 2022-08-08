@@ -48,42 +48,43 @@ public class OrganUtil {
 
     public static void displayOrganQuality(Map<Identifier,Float> organQualityMap, List<Text> tooltip){
         organQualityMap.forEach((organ,score) -> {
-            String tier;
+            String tier1;
             if(organ.equals(CCOrganScores.HYDROALLERGENIC)){
                 if(score >= 2){
-                    tier = "quality.chestcavity.severely";
+                    tier1 = "quality.chestcavity.severely";
                 }
                 else{
-                    tier = "";
+                    tier1 = "";
                 }
             }
             else {
                 if (score >= 1.5f) {
-                    tier = "quality.chestcavity.supernatural";
+                    tier1 = "quality.chestcavity.supernatural";
                 } else if (score >= 1.25) {
-                    tier = "quality.chestcavity.exceptional";
+                    tier1 = "quality.chestcavity.exceptional";
                 } else if (score >= 1) {
-                    tier = "quality.chestcavity.good";
+                    tier1 = "quality.chestcavity.good";
                 } else if (score >= .75f) {
-                    tier = "quality.chestcavity.average";
+                    tier1 = "quality.chestcavity.average";
                 } else if (score >= .5f) {
-                    tier = "quality.chestcavity.poor";
+                    tier1 = "quality.chestcavity.poor";
                 } else if (score >= 0) {
-                    tier = "quality.chestcavity.pathetic";
+                    tier1 = "quality.chestcavity.pathetic";
                 } else if (score >= -.25f) {
-                    tier = "quality.chestcavity.slightly_reduces";
+                    tier1 = "quality.chestcavity.slightly_reduces";
                 } else if (score >= -.5f) {
-                    tier = "quality.chestcavity.reduces";
+                    tier1 = "quality.chestcavity.reduces";
                 } else if (score >= -.75f) {
-                    tier = "quality.chestcavity.greatly_reduces";
+                    tier1 = "quality.chestcavity.greatly_reduces";
                 } else {
-                    tier = "quality.chestcavity.greatly_reduces";
+                    tier1 = "quality.chestcavity.greatly_reduces";
                 }
             }
+            Text tier2 = new TranslatableText(tier1);
             if (Screen.hasShiftDown()) {
-                tier = String.valueOf(score) + " ";
+                tier2 = new LiteralText(String.valueOf(score) + " ");
             }
-            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), new TranslatableText(tier));
+            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), tier2);
             tooltip.add(text);
         });
     }
