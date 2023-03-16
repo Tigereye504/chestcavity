@@ -106,7 +106,7 @@ public class OrganUtil {
         }
         if(serverPlayer instanceof ChestCavityEntity ccPlayer){
             UUID ccID = ccPlayer.getChestCavityInstance().compatibility_id;
-            tooltip.add(Text.literal("ServerPlayerCC: "+ccID));
+            //tooltip.add(Text.literal("ServerPlayerCC: "+ccID));
             compatLevel = ChestCavityUtil.getCompatibilityLevel(ccPlayer.getChestCavityInstance(),itemStack);
         }
 
@@ -117,8 +117,8 @@ public class OrganUtil {
                 && EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack) <= 0) {
             tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
             String name = tag.getString("name");
-            tooltip.add(Text.literal("OrganOwnerCC: "+tag.getUuid("owner")));
-            textString = "Only Compatible With: "+name+" ("+compatLevel+" compat)";
+            //tooltip.add(Text.literal("OrganOwnerCC: "+tag.getUuid("owner")));
+            textString = "Only Compatible With: "+name;
         }
         else{
             textString = "Safe to Use";
