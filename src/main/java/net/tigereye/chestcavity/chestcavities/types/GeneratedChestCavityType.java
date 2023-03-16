@@ -224,9 +224,9 @@ public class GeneratedChestCavityType implements ChestCavityType {
         if(cc.opened && !(playerChestCavity && ChestCavity.config.KEEP_CHEST_CAVITY)) {
             ChestCavityUtil.dropUnboundOrgans(cc);
         }
-        if(playerChestCavity){
-            ChestCavityUtil.insertWelfareOrgans(cc);
-        }
+        //if(playerChestCavity){
+        //    ChestCavityUtil.insertWelfareOrgans(cc);
+        //}
     }
 
 

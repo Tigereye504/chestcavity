@@ -53,8 +53,8 @@ public class LootRegister {
                     return loot;
                 }
                 //get looting level and random
-                if(lootContext.get(LootContextParameters.KILLER_ENTITY) instanceof LivingEntity){
-                    LivingEntity killer = (LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY);
+                Entity killer_ = lootContext.get(LootContextParameters.KILLER_ENTITY);
+                if(killer_ instanceof LivingEntity killer){
                     //check if loot is forbidden due to malpractice
                     if(EnchantmentHelper.getEquipmentLevel(CCEnchantments.TOMOPHOBIA, killer) > 0){
                         return loot;
@@ -80,45 +80,47 @@ public class LootRegister {
 
         GenerateEntityLootCallbackModifyLoot.EVENT.register((type,lootContext,loot) -> {
             if (lootContext.hasParameter(LootContextParameters.KILLER_ENTITY)) {
-                LivingEntity killer = (LivingEntity) lootContext.get(LootContextParameters.KILLER_ENTITY);
-                if(killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL)){
-                    //first, remove everything that can be salvaged from the loot and count them up
-                    Map<SalvageRecipe, Integer> salvageResults = new HashMap<>();
-                    Iterator<ItemStack> i = loot.iterator();
-                    if(salvageRecipeList == null){
-                        salvageRecipeList = new ArrayList<>();
-                        List<CraftingRecipe> recipes = killer.world.getRecipeManager().listAllOfType(RecipeType.CRAFTING);
-                        for(CraftingRecipe recipe : recipes){
-                            if(recipe instanceof SalvageRecipe){
-                                salvageRecipeList.add((SalvageRecipe) recipe);
-                            }
-                        }
-                    }
-                    while(i.hasNext()){
-                        ItemStack stack = i.next();
-                        if(stack.isIn(CCTags.SALVAGEABLE)){
-                            for (SalvageRecipe recipe: salvageRecipeList) {
-                                if(recipe.getInput().test(stack)){
-                                    salvageResults.put(recipe,salvageResults.getOrDefault(recipe,0)+stack.getCount());
-                                    i.remove();
-                                    break;
+                Entity killer_ = lootContext.get(LootContextParameters.KILLER_ENTITY);
+                if(killer_ instanceof LivingEntity killer){
+                    if (killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL)) {
+                        //first, remove everything that can be salvaged from the loot and count them up
+                        Map<SalvageRecipe, Integer> salvageResults = new HashMap<>();
+                        Iterator<ItemStack> i = loot.iterator();
+                        if (salvageRecipeList == null) {
+                            salvageRecipeList = new ArrayList<>();
+                            List<CraftingRecipe> recipes = killer.world.getRecipeManager().listAllOfType(RecipeType.CRAFTING);
+                            for (CraftingRecipe recipe : recipes) {
+                                if (recipe instanceof SalvageRecipe) {
+                                    salvageRecipeList.add((SalvageRecipe) recipe);
                                 }
                             }
                         }
+                        while (i.hasNext()) {
+                            ItemStack stack = i.next();
+                            if (stack.isIn(CCTags.SALVAGEABLE)) {
+                                for (SalvageRecipe recipe : salvageRecipeList) {
+                                    if (recipe.getInput().test(stack)) {
+                                        salvageResults.put(recipe, salvageResults.getOrDefault(recipe, 0) + stack.getCount());
+                                        i.remove();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        //then, get the output of the salvage and add it to the loot
+                        salvageResults.forEach((recipe, count) -> {
+                            ItemStack out = recipe.getOutput();
+                            out.setCount(out.getCount() * (count / recipe.getRequired()));
+                            loot.add(out);
+                        });
                     }
-                    //then, get the output of the salvage and add it to the loot
-                    salvageResults.forEach((recipe,count) -> {
-                        ItemStack out = recipe.getOutput();
-                        out.setCount(out.getCount()*(count/recipe.getRequired()));
-                        loot.add(out);
-                    });
-                }
 
-                //organs gain malpractice
-                if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,killer.getStackInHand(killer.getActiveHand())) > 0){
-                    for (ItemStack stack : loot) {
-                        if (OrganManager.isTrueOrgan(stack.getItem())) {
-                            stack.addEnchantment(CCEnchantments.MALPRACTICE, 1);
+                    //organs gain malpractice
+                    if (EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE, killer.getStackInHand(killer.getActiveHand())) > 0) {
+                        for (ItemStack stack : loot) {
+                            if (OrganManager.isTrueOrgan(stack.getItem())) {
+                                stack.addEnchantment(CCEnchantments.MALPRACTICE, 1);
+                            }
                         }
                     }
                 }

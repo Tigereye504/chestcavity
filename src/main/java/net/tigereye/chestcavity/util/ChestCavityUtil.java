@@ -22,6 +22,7 @@ import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactory;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.compat.requiem.CCRequiem;
@@ -426,7 +427,7 @@ public class ChestCavityUtil {
 
     public static void forcefullyAddStack(ChestCavityInstance cc, ItemStack stack, int slot){
         if(!cc.inventory.canInsert(stack)) {
-            if (!cc.inventory.canInsert(stack) && cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && cc.owner instanceof PlayerEntity) {
+            if (cc.owner.getEntityWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && cc.owner instanceof PlayerEntity) {
                 if (!((PlayerEntity) cc.owner).getInventory().insertStack(stack)) {
                     cc.owner.dropStack(cc.inventory.removeStack(slot));
                 }
@@ -467,16 +468,16 @@ public class ChestCavityUtil {
 
     public static void insertWelfareOrgans(ChestCavityInstance cc){
         //urgently essential organs are: heart, spine, lung, and just a touch of strength
-        if(cc.getOrganScore(CCOrganScores.HEALTH) == 0){
+        if(cc.getOrganScore(CCOrganScores.HEALTH) <= 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_HEART),4);
         }
-        if(cc.getOrganScore(CCOrganScores.BREATH_RECOVERY) == 0){
+        if(cc.getOrganScore(CCOrganScores.BREATH_RECOVERY) <= 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_LUNG),3);
         }
-        if(cc.getOrganScore(CCOrganScores.NERVES) == 0){
+        if(cc.getOrganScore(CCOrganScores.NERVES) <= 0){
             forcefullyAddStack(cc, new ItemStack(CCItems.ROTTEN_SPINE),13);
         }
-        if(cc.getOrganScore(CCOrganScores.STRENGTH) == 0){
+        if(cc.getOrganScore(CCOrganScores.STRENGTH) <= 0){
             forcefullyAddStack(cc, new ItemStack(Items.ROTTEN_FLESH,16),0);
         }
     }
@@ -514,6 +515,28 @@ public class ChestCavityUtil {
 
     public static StatusEffectInstance onAddStatusEffect(ChestCavityInstance cc, StatusEffectInstance effect) {
         return OrganAddStatusEffectCallback.EVENT.invoker().onAddStatusEffect(cc.owner, cc,effect);
+    }
+
+    public static void onDeath(ChestCavityEntity entity){
+        ChestCavityInstance ccinstance = entity.getChestCavityInstance();
+        ccinstance.getChestCavityType().onDeath(ccinstance);
+        if(entity instanceof PlayerEntity playerEntity){
+            if(!ChestCavity.config.KEEP_CHEST_CAVITY) {
+                Map<Integer,ItemStack> organsToKeep = new HashMap<>();
+                for (int i = 0; i < ccinstance.inventory.size(); i++) {
+                    ItemStack organ = ccinstance.inventory.getStack(i);
+                    if(EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,organ) >= 2){
+                        organsToKeep.put(i,organ.copy());
+                    }
+                }
+                ccinstance.compatibility_id = UUID.randomUUID();
+                generateChestCavityIfOpened(ccinstance);
+                for (Map.Entry<Integer,ItemStack> entry: organsToKeep.entrySet()) {
+                    ccinstance.inventory.setStack(entry.getKey(),entry.getValue());
+                }
+            }
+            insertWelfareOrgans(ccinstance);
+        }
     }
 
     public static float onHit(ChestCavityInstance cc, DamageSource source, LivingEntity target, float damage){

@@ -103,7 +103,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("HEAD"), method = "dropInventory")
     public void chestCavityLivingEntityDropInventoryMixin(CallbackInfo info){
-        chestCavityInstance.getChestCavityType().onDeath(chestCavityInstance);
+        ChestCavityUtil.onDeath(this);
     }
 
     @ModifyVariable(at = @At("HEAD"), method = "addStatusEffect", ordinal = 0)
@@ -188,7 +188,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         }
 
         @ModifyVariable(at = @At(value = "CONSTANT", args = "floatValue=0.0F", ordinal = 0), ordinal = 0, method = "applyDamage")
-        public float chestCavitPlayerEntityOnHitMixin(float amount, DamageSource source){
+        public float chestCavityPlayerEntityOnHitMixin(float amount, DamageSource source){
             if(source.getAttacker() instanceof LivingEntity){
                 Optional<ChestCavityEntity> cce = ChestCavityEntity.of(source.getAttacker());
                 if(cce.isPresent()){
