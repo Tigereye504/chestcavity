@@ -100,14 +100,14 @@ public class OrganUtil {
         }
         if(server != null) {
             serverPlayer = server.getPlayerManager().getPlayer(MinecraftClient.getInstance().player.getEntityName());
+            if(serverPlayer instanceof ChestCavityEntity ccPlayer){
+                UUID ccID = ccPlayer.getChestCavityInstance().compatibility_id;
+                //tooltip.add(Text.literal("ServerPlayerCC: "+ccID));
+                compatLevel = ChestCavityUtil.getCompatibilityLevel(ccPlayer.getChestCavityInstance(),itemStack);
+            }
         }
         else{
             compatLevel = -1;
-        }
-        if(serverPlayer instanceof ChestCavityEntity ccPlayer){
-            UUID ccID = ccPlayer.getChestCavityInstance().compatibility_id;
-            //tooltip.add(Text.literal("ServerPlayerCC: "+ccID));
-            compatLevel = ChestCavityUtil.getCompatibilityLevel(ccPlayer.getChestCavityInstance(),itemStack);
         }
 
         if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
