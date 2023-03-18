@@ -29,15 +29,15 @@ public class OrganManager implements SimpleSynchronousResourceReloadListener {
     public void reload(ResourceManager manager) {
         GeneratedOrganData.clear();
         ChestCavity.LOGGER.info("Loading organs.");
-        for(Identifier id : manager.findResources(RESOURCE_LOCATION, path -> path.endsWith(".json"))) {
-            try(InputStream stream = manager.getResource(id).getInputStream()) {
+        manager.findResources(RESOURCE_LOCATION, path -> path.getPath().endsWith(".json")).forEach((id,resource) -> {
+            try(InputStream stream = resource.getInputStream()) {
                 Reader reader = new InputStreamReader(stream);
                 Pair<Identifier,OrganData> organDataPair = SERIALIZER.read(id,new Gson().fromJson(reader,OrganJsonFormat.class));
                 GeneratedOrganData.put(organDataPair.getLeft(),organDataPair.getRight());
             } catch(Exception e) {
                 ChestCavity.LOGGER.error("Error occurred while loading resource json " + id.toString(), e);
             }
-        }
+        });
         ChestCavity.LOGGER.info("Loaded "+ GeneratedOrganData.size()+" organs.");
     }
 

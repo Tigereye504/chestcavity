@@ -1,12 +1,12 @@
 package net.tigereye.chestcavity.registration;
 
 import com.mojang.brigadier.context.CommandContext;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class CCCommands {
 
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(CommandManager.literal("chestcavity")
                 .then(CommandManager.literal("getscores")
                     .executes(CCCommands::getScoresNoArgs)
@@ -38,13 +38,13 @@ public class CCCommands {
             entity = context.getSource().getEntityOrThrow();
         }
         catch(Exception e){
-            context.getSource().sendError(new LiteralText("getScores failed to get entity"));
+            context.getSource().sendError(Text.literal("getScores failed to get entity"));
             return -1;
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
             ChestCavityUtil.outputOrganScoresString((string) -> {
-                context.getSource().sendFeedback(new LiteralText(string),false);
+                context.getSource().sendFeedback(Text.literal(string),false);
             },optional.get().getChestCavityInstance());
             return 1;
         }
@@ -57,13 +57,13 @@ public class CCCommands {
             entity = EntityArgumentType.getEntity(context, "entity");
         }
         catch(Exception e){
-            context.getSource().sendError(new LiteralText("getScores failed to get entity"));
+            context.getSource().sendError(Text.literal("getScores failed to get entity"));
             return -1;
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
             ChestCavityUtil.outputOrganScoresString((string) -> {
-                context.getSource().sendFeedback(new LiteralText(string),false);
+                context.getSource().sendFeedback(Text.literal(string),false);
             },optional.get().getChestCavityInstance());
             return 1;
         }
@@ -76,7 +76,7 @@ public class CCCommands {
             entity = context.getSource().getEntityOrThrow();
         }
         catch(Exception e){
-            context.getSource().sendError(new LiteralText("resetChestCavity failed to get entity"));
+            context.getSource().sendError(Text.literal("resetChestCavity failed to get entity"));
             return -1;
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
@@ -93,7 +93,7 @@ public class CCCommands {
             entity = EntityArgumentType.getEntity(context, "entity");
         }
         catch(Exception e){
-            context.getSource().sendError(new LiteralText("getChestCavity failed to get entity"));
+            context.getSource().sendError(Text.literal("getChestCavity failed to get entity"));
             return -1;
         }
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);

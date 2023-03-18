@@ -183,7 +183,7 @@ public class OrganActivationListeners {
             int amplifier = 0;
             for (Integer duration:
                  durations) {
-                newSEI = new StatusEffectInstance(CCStatusEffects.FURNACE_POWER, duration, amplifier, false, false, true,newSEI);
+                newSEI = new StatusEffectInstance(CCStatusEffects.FURNACE_POWER, duration, amplifier, false, false, true,newSEI,Optional.empty());
                 amplifier++;
             }
         }

@@ -34,7 +34,7 @@ public class MixinPotionEntity extends ThrownItemEntity {
         return null;
     }
 
-    @Inject(at = @At("TAIL"), method = "damageEntitiesHurtByWater")
+    @Inject(at = @At("TAIL"), method = "applyWater")
     private void ChestCavityPotionEntityDamageEntitiesHurtByWaterMixin(CallbackInfo info) {
         ChestCavityUtil.splashHydrophobicWithWater((PotionEntity) (Object) this);
     }

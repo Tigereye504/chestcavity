@@ -3,9 +3,6 @@ package net.tigereye.chestcavity.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import me.shedaniel.clothconfig2.api.ConfigCategory;
-import net.minecraft.text.TranslatableText;
 import net.tigereye.chestcavity.ChestCavity;
 
 @Config(name = ChestCavity.MODID)
@@ -112,10 +109,6 @@ public class CCConfig implements ConfigData {
     public int BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS = 2;
     @ConfigEntry.Category("integration")
     public float BACKROOMS_CHEST_ORGAN_LOOT_CHANCE = 0.2f;
-    @ConfigEntry.Category("integration")
-    public boolean BEWITCHMENT_INTEGRATION = true;
-    @ConfigEntry.Category("integration")
-    public boolean BIOME_MAKEOVER_INTEGRATION = true;
     @ConfigEntry.Category("integration")
     public boolean REQUIEM_INTEGRATION = true;
 }

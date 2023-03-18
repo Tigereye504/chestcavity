@@ -13,6 +13,7 @@ import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
+import net.minecraft.util.math.random.Random;
 
 import java.util.*;
 
@@ -223,9 +224,9 @@ public class GeneratedChestCavityType implements ChestCavityType {
         if(cc.opened && !(playerChestCavity && ChestCavity.config.KEEP_CHEST_CAVITY)) {
             ChestCavityUtil.dropUnboundOrgans(cc);
         }
-        if(playerChestCavity){
-            ChestCavityUtil.insertWelfareOrgans(cc);
-        }
+        //if(playerChestCavity){
+        //    ChestCavityUtil.insertWelfareOrgans(cc);
+        //}
     }
 
 

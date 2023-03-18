@@ -10,8 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -82,17 +81,17 @@ public class ChestOpener extends Item {
 					((ChestCavityEntity)player).getChestCavityInstance().ccBeingOpened = cc;
 					player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
 						return new ChestCavityScreenHandler(i, playerInventory, inv);
-					}, new TranslatableText(name + "Chest Cavity")));
+					}, Text.translatable(name + "Chest Cavity")));
 				}
 				return true;
 			}
 			else{
 				if(player.world.isClient) {
 					if (!target.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
-						player.sendMessage(new LiteralText("Target's chest is obstructed"),true);
+						player.sendMessage(Text.literal("Target's chest is obstructed"),true);
 						player.playSound(SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.PLAYERS, .75f, 1);
 					} else {
-						player.sendMessage(new LiteralText("Target is too healthy to open"),true);
+						player.sendMessage(Text.literal("Target is too healthy to open"),true);
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, SoundCategory.PLAYERS, .75f, 1);
 					}
 				}

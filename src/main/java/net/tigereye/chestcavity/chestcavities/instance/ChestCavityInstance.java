@@ -127,7 +127,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
                 this.inventory.readTags(NbtList);
             }
             else if(opened){
-                LOGGER.warn("[Chest Cavity] "+owner.getName().asString()+"'s Chest Cavity is mangled. It will be replaced");
+                LOGGER.warn("[Chest Cavity] "+owner.getName().getString()+"'s Chest Cavity is mangled. It will be replaced");
                 ChestCavityUtil.generateChestCavityIfOpened(this);
             }
             inventory.addListener(this);
@@ -137,7 +137,7 @@ public class ChestCavityInstance implements InventoryChangedListener {
             if(temp.contains("chestcavity:inventorycomponent")){
                 temp = tag.getCompound("chestcavity:inventorycomponent");
                 if(temp.contains("chestcavity")){
-                    LOGGER.info("[Chest Cavity] Found "+owner.getName().asString()+"'s old [Cardinal Components] Chest Cavity.");
+                    LOGGER.info("[Chest Cavity] Found "+owner.getName().getString()+"'s old [Cardinal Components] Chest Cavity.");
                     opened = true;
                     NbtList NbtList = temp.getList("Inventory", 10);
                     try {

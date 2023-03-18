@@ -1,6 +1,9 @@
 package net.tigereye.chestcavity.mixin;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -27,6 +30,7 @@ public class MixinItem {
         if(OrganManager.GeneratedOrganData.containsKey(id)){
             OrganData data = OrganManager.GeneratedOrganData.get(id);
             if(!data.pseudoOrgan){
+
                 OrganUtil.displayOrganQuality(data.organScores,tooltip);
                 OrganUtil.displayCompatibility(stack,world,tooltip,context);
             }

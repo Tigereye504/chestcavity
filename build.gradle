@@ -59,14 +59,14 @@ dependencies {
 	modApi ("com.github.tigereye504:modify-drops-api:v0.5.0") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-	modApi("me.shedaniel.cloth:cloth-config-fabric:6.2.57") {
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-	modImplementation ("com.terraformersmc:modmenu:3.1.0") {
+	modImplementation ("com.terraformersmc:modmenu:${project.mod_menus_version}"){
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	// These are optional dependencies, though best as I can tell gradlew doesn't care
-	modImplementation "io.github.ladysnake:requiem-api:${project.requiem_version}"
+	modCompileOnly "io.github.ladysnake:requiem-api:${project.requiem_version}"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
 
 
