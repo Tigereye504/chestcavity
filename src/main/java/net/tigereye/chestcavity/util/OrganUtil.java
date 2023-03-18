@@ -82,7 +82,7 @@ public class OrganUtil {
                     tier = "quality.chestcavity.greatly_reduces";
                 }
             }
-            TranslatableText text = new TranslatableText("organscore." + organ.getNamespace() + "." + organ.getPath(), new TranslatableText(tier));
+            Text text = Text.translatable("organscore." + organ.getNamespace() + "." + organ.getPath(), Text.translatable(tier));
             tooltip.add(text);
         });
     }

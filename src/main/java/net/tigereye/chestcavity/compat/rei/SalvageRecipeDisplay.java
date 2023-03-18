@@ -1,9 +1,9 @@
 package net.tigereye.chestcavity.compat.rei;
 
-import me.shedaniel.rei_common.category.CategoryIdentifier;
-import me.shedaniel.rei_common.display.Display;
-import me.shedaniel.rei_common.entry.EntryIngredient;
-import me.shedaniel.rei_common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;

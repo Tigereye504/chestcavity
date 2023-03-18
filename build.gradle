@@ -11,7 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {
+	/*maven {
 		name = 'Ladysnake Mods'
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 		content {
@@ -29,7 +29,7 @@ repositories {
 		content {
 			includeGroup 'com.jamieswhiteshirt'
 		}
-	}
+	}*/ //Requiem is no longer a fabric mod, so its maven repos are no longer needed.
 	maven {
 		url = "https://maven.modmuss50.me/"
 	}
@@ -39,8 +39,8 @@ repositories {
 		}
 	} //good 'ol jitpack
 	maven { url = 'https://maven.terraformersmc.com/releases/' } //for mod menu
-	maven { url "https://maven.shedaniel.me/" } //for cloth config
-	maven { url "https://oss.sonatype.org/service/local/repositories/snapshots/content"} //for a misbehaving requiem prereq?
+	maven { url "https://maven.shedaniel.me/" } //for cloth config and rei
+	//maven { url "https://oss.sonatype.org/service/local/repositories/snapshots/content"} //for a misbehaving requiem prereq?
 }
 
 dependencies {
@@ -66,7 +66,13 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	// These are optional dependencies, though best as I can tell gradlew doesn't care
-	modCompileOnly "io.github.ladysnake:requiem-api:${project.requiem_version}"
+
+	// Requiem is no longer supported as a fabric mod.
+	// modImplementation "io.github.ladysnake:requiem-api:${project.requiem_version}"
+	// modRuntimeOnly "io.github.ladysnake:requiem-core:${project.requiem_version}"
+	// modRuntimeOnly "io.github.ladysnake:requiem:${project.requiem_version}"
+
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
 
 

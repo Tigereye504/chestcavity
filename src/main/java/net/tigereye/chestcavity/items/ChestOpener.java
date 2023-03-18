@@ -1,6 +1,6 @@
 package net.tigereye.chestcavity.items;
 
-import ladysnake.requiem.api.v1.possession.PossessionComponent;
+//import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -34,10 +34,10 @@ public class ChestOpener extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		LivingEntity target = null;
-		if(CCRequiem.REQUIEM_ACTIVE){
+		//Requiem is no longer a fabric mod.
+		/*if(CCRequiem.REQUIEM_ACTIVE){
 			target = PossessionComponent.getHost(player);
-
-		}
+		}*/
 		if(target == null) {
 			target = player;
 		}

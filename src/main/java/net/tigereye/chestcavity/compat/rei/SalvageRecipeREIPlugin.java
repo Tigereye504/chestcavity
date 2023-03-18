@@ -1,8 +1,8 @@
 package net.tigereye.chestcavity.compat.rei;
 
-import me.shedaniel.rei_client.plugins.REIClientPlugin;
-import me.shedaniel.rei_client.registry.category.CategoryRegistry;
-import me.shedaniel.rei_client.registry.display.DisplayRegistry;
+import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
+import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
+import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
 
 public class SalvageRecipeREIPlugin implements REIClientPlugin {

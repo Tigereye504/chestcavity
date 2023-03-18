@@ -30,7 +30,7 @@
     "modmenu": [
       "net.tigereye.chestcavity.config.CCModMenuIntegration"
     ],
-    "rei": [
+    "rei_client": [
       "net.tigereye.chestcavity.compat.rei.SalvageRecipeREIPlugin"
     ]
   },
