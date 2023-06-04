@@ -1,5 +1,7 @@
 package net.tigereye.chestcavity.util;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
@@ -87,6 +89,7 @@ public class OrganUtil {
         });
     }
 
+    @Environment(EnvType.CLIENT)
     public static void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 
         NbtCompound tag = itemStack.getNbt();
