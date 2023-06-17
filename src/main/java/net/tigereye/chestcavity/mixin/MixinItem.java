@@ -29,8 +29,7 @@ public class MixinItem {
         Identifier id = Registry.ITEM.getId(((Item)(Object)this));
         if(OrganManager.GeneratedOrganData.containsKey(id)){
             OrganData data = OrganManager.GeneratedOrganData.get(id);
-            if(!data.pseudoOrgan){
-
+            if(!data.pseudoOrgan && world.isClient){
                 OrganUtil.displayOrganQuality(data.organScores,tooltip);
                 OrganUtil.displayCompatibility(stack,world,tooltip,context);
             }
