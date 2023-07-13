@@ -3,20 +3,25 @@ package net.tigereye.chestcavity.chestcavities.organs;
 import com.google.gson.Gson;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class OrganManager implements SimpleSynchronousResourceReloadListener {
     private static final String RESOURCE_LOCATION = "organs";
+    private static final String NBT_KEY = "organData";
     private final OrganSerializer SERIALIZER = new OrganSerializer();
     public static Map<Identifier, OrganData> GeneratedOrganData = new HashMap<>();
 
@@ -54,5 +59,25 @@ public class OrganManager implements SimpleSynchronousResourceReloadListener {
             return !getEntry(item).pseudoOrgan;
         }
         return false;
+    }
+
+    public static OrganData readNBTOrganData(ItemStack itemStack) {
+        NbtCompound nbt = itemStack.getSubNbt(NBT_KEY);
+        if(nbt != null) {
+            return readNBTOrganData(nbt);
+        }
+        return null;
+    }
+
+    public static OrganData readNBTOrganData(@NotNull NbtCompound nbt) {
+        OrganData organData = new OrganData();
+        organData.pseudoOrgan = nbt.getBoolean("pseudoOrgan");
+        for (String key:
+             nbt.getKeys()) {
+            if(!key.equals("pseudoOrgan")){
+                organData.organScores.put(new Identifier(key),nbt.getFloat(key));
+            }
+        }
+        return organData;
     }
 }

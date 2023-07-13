@@ -12,6 +12,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,13 +26,12 @@ public class MixinItem {
 
     @Inject(at = @At("HEAD"), method = "appendTooltip")
     public void chestCavityItemAppendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context, CallbackInfo info){
-        //((Item)(Object)this)
-        Identifier id = Registry.ITEM.getId(((Item)(Object)this));
-        if(OrganManager.GeneratedOrganData.containsKey(id)){
-            OrganData data = OrganManager.GeneratedOrganData.get(id);
-            if(!data.pseudoOrgan && world.isClient){
-                OrganUtil.displayOrganQuality(data.organScores,tooltip);
-                OrganUtil.displayCompatibility(stack,world,tooltip,context);
+        if(world != null) {
+            Identifier id = Registry.ITEM.getId(((Item) (Object) this));
+            OrganData data = ChestCavityUtil.lookupOrgan(stack, null);
+            if (data != null && !data.pseudoOrgan && world.isClient) {
+                OrganUtil.displayOrganQuality(data.organScores, tooltip);
+                OrganUtil.displayCompatibility(stack, world, tooltip, context);
             }
         }
     }

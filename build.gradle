@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.1-SNAPSHOT'
+	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -43,6 +43,12 @@ repositories {
 	//maven { url "https://oss.sonatype.org/service/local/repositories/snapshots/content"} //for a misbehaving requiem prereq?
 }
 
+configurations.all {
+	resolutionStrategy {
+		force("net.fabricmc:fabric-loader:$loader_version")
+	}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -72,9 +78,16 @@ dependencies {
 	// modRuntimeOnly "io.github.ladysnake:requiem-core:${project.requiem_version}"
 	// modRuntimeOnly "io.github.ladysnake:requiem:${project.requiem_version}"
 
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-	modRuntimeOnly "dev.architectury:architectury:${project.architectury_version}"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+	modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"){
+		exclude group: "net.fabricmc", module: "fabric-loader"
+		exclude group: "dev.architectury", module: "architectury"
+	}
+	//modRuntimeOnly("dev.architectury:architectury:${project.architectury_version}"){
+	//	exclude group: "net.fabricmc", module: "fabric-loader"
+	//}
+	modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"){
+		exclude group: "net.fabricmc", module: "fabric-loader"
+	}
 
 
 	// Jar-in-Jar dependencies

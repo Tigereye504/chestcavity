@@ -26,6 +26,7 @@ import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactor
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.compat.requiem.CCRequiem;
+import net.tigereye.chestcavity.interfaces.CCOrganItem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.*;
 import net.tigereye.chestcavity.registration.*;
@@ -491,10 +492,22 @@ public class ChestCavityUtil {
         return false;
     }
 
-    protected static OrganData lookupOrgan(ItemStack itemStack, ChestCavityType cct){
-        OrganData organData = cct.catchExceptionalOrgan(itemStack);
+    public static OrganData lookupOrgan(ItemStack itemStack, ChestCavityType cct){
+        OrganData organData = null;
+        if(cct != null) {
+            organData = cct.catchExceptionalOrgan(itemStack);
+        }
         if(organData != null){ //check for exceptional organs
             return organData;
+        }
+        else{
+            organData = OrganManager.readNBTOrganData(itemStack);
+        }
+        if(organData != null){
+            return organData;
+        }
+        else if(itemStack.getItem() instanceof CCOrganItem oItem){
+            return oItem.getOrganData();
         }
         else if(OrganManager.hasEntry(itemStack.getItem())){ //check for normal organs
             return OrganManager.getEntry(itemStack.getItem());

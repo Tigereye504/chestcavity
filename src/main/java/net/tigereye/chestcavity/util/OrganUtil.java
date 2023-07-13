@@ -92,12 +92,15 @@ public class OrganUtil {
     @Environment(EnvType.CLIENT)
     public static void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 
-        NbtCompound tag = itemStack.getNbt();
+        NbtCompound tag = itemStack.getOrCreateNbt();
         String textString;
         boolean uuidMatch = false;
         int compatLevel = 0;
         PlayerEntity serverPlayer = null;
-        net.minecraft.server.MinecraftServer server = world.getServer();
+        net.minecraft.server.MinecraftServer server = null;
+        if(world != null) {
+            server = world.getServer();
+        }
         if(server == null) {
             server = MinecraftClient.getInstance().getServer();
         }
