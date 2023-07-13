@@ -507,7 +507,7 @@ public class ChestCavityUtil {
             return organData;
         }
         else if(itemStack.getItem() instanceof CCOrganItem oItem){
-            return oItem.getOrganData();
+            return oItem.getOrganData(itemStack);
         }
         else if(OrganManager.hasEntry(itemStack.getItem())){ //check for normal organs
             return OrganManager.getEntry(itemStack.getItem());
