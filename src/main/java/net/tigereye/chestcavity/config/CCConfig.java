@@ -68,6 +68,8 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("more")
     public int PHOTOSYNTHESIS_FREQUENCY = 50; //how many ticks 8 photosynthetic organs in direct sunlight need to restore 1 hunger
     @ConfigEntry.Category("more")
+    public int GLOWING_STRENGTH = 64; //how high glowing has to be to count as 1 light level for the purposes of photosynthesis
+    @ConfigEntry.Category("more")
     public int RUMINATION_TIME = 400; //time to eat a unit of grass
     @ConfigEntry.Category("more")
     public int RUMINATION_GRASS_PER_SQUARE = 2; //number of grass units are in a square

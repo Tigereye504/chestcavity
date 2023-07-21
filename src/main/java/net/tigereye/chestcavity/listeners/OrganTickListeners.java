@@ -11,6 +11,7 @@ import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
@@ -118,7 +119,9 @@ public class OrganTickListeners {
         }
         float photosynthesis = cc.getOrganScore(CCOrganScores.PHOTOSYNTHESIS) - cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.PHOTOSYNTHESIS);
         if(photosynthesis > 0){
-            cc.photosynthesisProgress += photosynthesis*entity.getWorld().getLightLevel(entity.getBlockPos());
+            int light = entity.getWorld().getLightLevel(entity.getBlockPos());
+            light += cc.getOrganScore(CCOrganScores.GLOWING) / ChestCavity.config.GLOWING_STRENGTH;
+            cc.photosynthesisProgress += photosynthesis * light;
             if(cc.photosynthesisProgress > ChestCavity.config.PHOTOSYNTHESIS_FREQUENCY*8*15){
                 cc.photosynthesisProgress = 0;
                 if(entity instanceof PlayerEntity){
@@ -246,7 +249,7 @@ public class OrganTickListeners {
         if(glowing > 0)
         {
             if(!entity.hasStatusEffect(StatusEffects.GLOWING)){
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200,0, false, true, true));
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200,0, false, false, true));
             }
         }
     }
