@@ -1,0 +1,7 @@
+{
+  "itemID": "chestcavity:swim_bladder",
+  "organScores": [
+    {"id":"chestcavity:neutral_fluid_buoyant","value": "1"},
+    {"id":"chestcavity:swim_speed","value": "1"}
+  ]
+}
