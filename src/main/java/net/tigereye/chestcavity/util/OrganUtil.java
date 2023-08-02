@@ -81,7 +81,7 @@ public class OrganUtil {
                 } else if (score >= -.75f) {
                     tier = "quality.chestcavity.greatly_reduces";
                 } else {
-                    tier = "quality.chestcavity.greatly_reduces";
+                    tier = "quality.chestcavity.cripples";
                 }
             }
             Text text = Text.translatable("organscore." + organ.getNamespace() + "." + organ.getPath(), Text.translatable(tier));
