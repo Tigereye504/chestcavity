@@ -21,5 +21,4 @@ Also uses Onyx Studio's Cardinal Components.
 
 ![2_2_1 Sausage](https://user-images.githubusercontent.com/12503726/99456341-167be080-28de-11eb-9f44-04e412aa41dd.png)
 
-![Example Chest Cavities](https://user-images.githubusercontent.com/12503726/99141626-fc05e680-2601-11eb-8437-a07a02188096.png)
-
+![Example Chest Cavities](https://github.com/Tigereye504/chestcavity/assets/37588844/11144af2-4d17-479c-bf69-de334dc9b757)
