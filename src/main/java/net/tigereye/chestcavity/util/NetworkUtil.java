@@ -48,7 +48,7 @@ public class NetworkUtil {
         return SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
     }
     public static boolean SendS2CChestCavityUpdatePacket(ChestCavityInstance cc, PacketByteBuf buf){
-        if((!cc.owner.world.isClient()) && cc.owner instanceof ServerPlayerEntity) {
+        if((!cc.owner.getWorld().isClient()) && cc.owner instanceof ServerPlayerEntity) {
             ServerPlayerEntity spe = (ServerPlayerEntity)cc.owner;
             if(spe.networkHandler != null) try {
                 ServerPlayNetworking.send(spe, CCNetworkingPackets.UPDATE_PACKET_ID, buf);

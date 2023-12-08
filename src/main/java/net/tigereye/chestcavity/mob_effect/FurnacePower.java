@@ -5,7 +5,6 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCItems;
@@ -24,7 +23,7 @@ public class FurnacePower extends CCStatusEffect{
 
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
-            if(!(entity.world.isClient)) {
+            if(!(entity.getWorld().isClient)) {
                 Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
                 if (optional.isPresent()) {
                     ChestCavityEntity cce = optional.get();

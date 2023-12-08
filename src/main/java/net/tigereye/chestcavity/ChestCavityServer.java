@@ -1,13 +1,7 @@
 package net.tigereye.chestcavity;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.resource.ResourceType;
-import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
-import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
-import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
 import net.tigereye.chestcavity.util.NetworkUtil;

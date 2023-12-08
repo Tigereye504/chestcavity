@@ -2,38 +2,22 @@ package net.tigereye.chestcavity.listeners;
 
 import it.unimi.dsi.fastutil.ints.IntComparators;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.RaycastContext;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
-import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
 import net.tigereye.chestcavity.registration.CCTags;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
-import net.tigereye.chestcavity.util.MathUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 
 import java.util.*;
@@ -246,15 +230,15 @@ public class OrganActivationListeners {
         }
         BlockPos blockPos = entity.getBlockPos().down();
         boolean ateGrass = false;
-        if (entity.world.getBlockState(blockPos).isOf(Blocks.GRASS_BLOCK)
-        || entity.world.getBlockState(blockPos).isOf(Blocks.MYCELIUM)){
+        if (entity.getWorld().getBlockState(blockPos).isOf(Blocks.GRASS_BLOCK)
+        || entity.getWorld().getBlockState(blockPos).isOf(Blocks.MYCELIUM)){
             //entity.world.syncWorldEvent(2001, blockPos, Block.getRawIdFromState(Blocks.GRASS_BLOCK.getDefaultState()));
-            entity.world.setBlockState(blockPos, Blocks.DIRT.getDefaultState(), 2);
+            entity.getWorld().setBlockState(blockPos, Blocks.DIRT.getDefaultState(), 2);
             ateGrass = true;
         }
-        else if(entity.world.getBlockState(blockPos).isOf(Blocks.CRIMSON_NYLIUM)
-        || entity.world.getBlockState(blockPos).isOf(Blocks.WARPED_NYLIUM)){
-            entity.world.setBlockState(blockPos, Blocks.NETHERRACK.getDefaultState(), 2);
+        else if(entity.getWorld().getBlockState(blockPos).isOf(Blocks.CRIMSON_NYLIUM)
+        || entity.getWorld().getBlockState(blockPos).isOf(Blocks.WARPED_NYLIUM)){
+            entity.getWorld().setBlockState(blockPos, Blocks.NETHERRACK.getDefaultState(), 2);
             ateGrass = true;
         }
         if(ateGrass){

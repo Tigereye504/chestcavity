@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
@@ -24,20 +23,15 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.PotionUtil;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.text.TextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.CCStatusEffectInstance;
@@ -145,9 +139,9 @@ public class OrganUtil {
     }
 
     public static void explode(LivingEntity entity, float explosionYield) {
-        if (!entity.world.isClient) {
-            Explosion.DestructionType destructionType = entity.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING) ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE;
-            entity.world.createExplosion(null, entity.getX(), entity.getY(), entity.getZ(), (float)Math.sqrt(explosionYield), destructionType);
+        if (!entity.getWorld().isClient) {
+            //Explosion.DestructionType destructionType = entity.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING) ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE;
+            entity.getWorld().createExplosion(null, entity.getX(), entity.getY(), entity.getZ(), (float)Math.sqrt(explosionYield), World.ExplosionSourceType.MOB);
             spawnEffectsCloud(entity);
         }
 
@@ -272,13 +266,13 @@ public class OrganUtil {
                 if(silk > 0){
                     if(silk >= 2){
                         ItemStack stack = new ItemStack(Items.COBWEB,((int)silk)/2);
-                        ItemEntity itemEntity = new ItemEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), stack);
-                        entity.world.spawnEntity(itemEntity);
+                        ItemEntity itemEntity = new ItemEntity(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ(), stack);
+                        entity.getWorld().spawnEntity(itemEntity);
                     }
                     if(silk % 2 >= 1){
                         ItemStack stack = new ItemStack(Items.STRING);
-                        ItemEntity itemEntity = new ItemEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), stack);
-                        entity.world.spawnEntity(itemEntity);
+                        ItemEntity itemEntity = new ItemEntity(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ(), stack);
+                        entity.getWorld().spawnEntity(itemEntity);
                     }
                 }
             }
@@ -288,7 +282,7 @@ public class OrganUtil {
     public static void spawnEffectsCloud(LivingEntity entity) {
         Collection<StatusEffectInstance> collection = entity.getStatusEffects();
         if (!collection.isEmpty()) {
-            AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(entity.world, entity.getX(), entity.getY(), entity.getZ());
+            AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ());
             areaEffectCloudEntity.setRadius(2.5F);
             areaEffectCloudEntity.setRadiusOnUse(-0.5F);
             areaEffectCloudEntity.setWaitTime(10);
@@ -301,7 +295,7 @@ public class OrganUtil {
                 areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffectInstance));
             }
 
-            entity.world.spawnEntity(areaEffectCloudEntity);
+            entity.getWorld().spawnEntity(areaEffectCloudEntity);
         }
 
     }
@@ -313,24 +307,24 @@ public class OrganUtil {
     public static void spawnSpit(LivingEntity entity){
         Vec3d entityFacing = entity.getRotationVector().normalize();
 
-        LlamaEntity fakeLlama = new LlamaEntity(EntityType.LLAMA,entity.world);
+        LlamaEntity fakeLlama = new LlamaEntity(EntityType.LLAMA,entity.getWorld());
         fakeLlama.setPos(entity.getX(),entity.getY(),entity.getZ());
         fakeLlama.setPitch(entity.getPitch());
         fakeLlama.setYaw(entity.getYaw());
         fakeLlama.bodyYaw = entity.bodyYaw;
-        LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(entity.world, fakeLlama);
+        LlamaSpitEntity llamaSpitEntity = new LlamaSpitEntity(entity.getWorld(), fakeLlama);
         llamaSpitEntity.setOwner(entity);
         llamaSpitEntity.setVelocity(entityFacing.x*2,entityFacing.y*2,entityFacing.z*2);
-        entity.world.spawnEntity(llamaSpitEntity);
+        entity.getWorld().spawnEntity(llamaSpitEntity);
         entityFacing = entityFacing.multiply(-.1D);
         entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
 
     public static void spawnDragonBomb(LivingEntity entity){
         Vec3d entityFacing = entity.getRotationVector().normalize();
-        DragonFireballEntity fireballEntity = new DragonFireballEntity(entity.world, entity, entityFacing.x, entityFacing.y, entityFacing.z);
+        DragonFireballEntity fireballEntity = new DragonFireballEntity(entity.getWorld(), entity, entityFacing.x, entityFacing.y, entityFacing.z);
         fireballEntity.updatePosition(fireballEntity.getX(), entity.getBodyY(0.5D) + 0.3D, fireballEntity.getZ());
-        entity.world.spawnEntity(fireballEntity);
+        entity.getWorld().spawnEntity(fireballEntity);
         entityFacing = entityFacing.multiply(-0.2D);
         entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
@@ -350,7 +344,7 @@ public class OrganUtil {
         double y = pos.y;
         double z = pos.z;
         BlockPos.Mutable mutable = new BlockPos.Mutable(x,y,z);
-        while(entity.world.isAir(mutable)) {
+        while(entity.getWorld().isAir(mutable)) {
             --y;
             if (y < 0.0D) {
                 return;
@@ -359,30 +353,30 @@ public class OrganUtil {
             mutable.set(x,y,z);
         }
         y = (MathHelper.floor(y) + 1);
-        AreaEffectCloudEntity breathEntity = new AreaEffectCloudEntity(entity.world, x, y, z);
+        AreaEffectCloudEntity breathEntity = new AreaEffectCloudEntity(entity.getWorld(), x, y, z);
         breathEntity.setOwner(entity);
         breathEntity.setRadius((float)Math.max(range/2,Math.min(range, MathUtil.horizontalDistanceTo(breathEntity,entity))));
         breathEntity.setDuration(200);
         breathEntity.setParticleType(ParticleTypes.DRAGON_BREATH);
         breathEntity.addEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE));
-        entity.world.spawnEntity(breathEntity);
+        entity.getWorld().spawnEntity(breathEntity);
 
     }
 
     public static void spawnGhastlyFireball(LivingEntity entity){
         Vec3d entityFacing = entity.getRotationVector().normalize();
-        FireballEntity fireballEntity = new FireballEntity(entity.world, entity, entityFacing.x, entityFacing.y, entityFacing.z, 1);
+        FireballEntity fireballEntity = new FireballEntity(entity.getWorld(), entity, entityFacing.x, entityFacing.y, entityFacing.z, 1);
         fireballEntity.updatePosition(fireballEntity.getX(), entity.getBodyY(0.5D) + 0.3D, fireballEntity.getZ());
-        entity.world.spawnEntity(fireballEntity);
+        entity.getWorld().spawnEntity(fireballEntity);
         entityFacing = entityFacing.multiply(-.8D);
         entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
 
     public static void spawnPyromancyFireball(LivingEntity entity){
         Vec3d entityFacing = entity.getRotationVector().normalize();
-        SmallFireballEntity smallFireballEntity = new SmallFireballEntity(entity.world, entity, entityFacing.x + entity.getRandom().nextGaussian() * .1, entityFacing.y, entityFacing.z + entity.getRandom().nextGaussian() * .1);
+        SmallFireballEntity smallFireballEntity = new SmallFireballEntity(entity.getWorld(), entity, entityFacing.x + entity.getRandom().nextGaussian() * .1, entityFacing.y, entityFacing.z + entity.getRandom().nextGaussian() * .1);
         smallFireballEntity.updatePosition(smallFireballEntity.getX(), entity.getBodyY(0.5D) + 0.3D, smallFireballEntity.getZ());
-        entity.world.spawnEntity(smallFireballEntity);
+        entity.getWorld().spawnEntity(smallFireballEntity);
         entityFacing = entityFacing.multiply(-.2D);
         entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
@@ -391,16 +385,16 @@ public class OrganUtil {
         //Vec3d entityFacing = entity.getRotationVector().normalize();
         TargetPredicate targetPredicate = TargetPredicate.createAttackable();
         targetPredicate.setBaseMaxDistance(ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE*2);
-        LivingEntity target = entity.world.getClosestEntity(LivingEntity.class,
+        LivingEntity target = entity.getWorld().getClosestEntity(LivingEntity.class,
                 targetPredicate, entity, entity.getX(), entity.getY(),entity.getZ(),
                 new Box(entity.getX()-ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE,entity.getY()-ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE,entity.getZ()-ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE,
                         entity.getX()+ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE,entity.getY()+ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE,entity.getZ()+ChestCavity.config.SHULKER_BULLET_TARGETING_RANGE));
         if(target == null){
             return;
         }
-        ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(entity.world,entity,target, Direction.Axis.Y);
+        ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(entity.getWorld(),entity,target, Direction.Axis.Y);
         shulkerBulletEntity.updatePosition(shulkerBulletEntity.getX(), entity.getBodyY(0.5D) + 0.3D, shulkerBulletEntity.getZ());
-        entity.world.spawnEntity(shulkerBulletEntity);
+        entity.getWorld().spawnEntity(shulkerBulletEntity);
         //entityFacing = entityFacing.multiply(-.4D);
         //entity.addVelocity(entityFacing.x,entityFacing.y,entityFacing.z);
     }
@@ -442,7 +436,7 @@ public class OrganUtil {
     }
 
     public static boolean teleportRandomly(LivingEntity entity, float range) {
-        if (!entity.world.isClient() && entity.isAlive()) {
+        if (!entity.getWorld().isClient() && entity.isAlive()) {
             for(int i = 0; i < ChestCavity.config.MAX_TELEPORT_ATTEMPTS; i++) {
                 double d = entity.getX() + ((entity.getRandom().nextDouble() - 0.5D) * range);
                 double e = Math.max(1, entity.getY() + ((entity.getRandom().nextDouble() - 0.5D) * range));
@@ -460,35 +454,35 @@ public class OrganUtil {
             entity.stopRiding();
         }
         BlockPos.Mutable targetPos = new BlockPos.Mutable(x, y, z);
-        BlockState blockState = entity.world.getBlockState(targetPos);
-        while(targetPos.getY() > 0 && !(blockState.getMaterial().blocksMovement()
-                || blockState.getMaterial().isLiquid()))
+        BlockState blockState = entity.getWorld().getBlockState(targetPos);
+        while(targetPos.getY() > 0 && !(blockState.blocksMovement()//.getMaterial().blocksMovement()
+                || blockState.isLiquid()))
         {
             targetPos.move(Direction.DOWN);
-            blockState = entity.world.getBlockState(targetPos);
+            blockState = entity.getWorld().getBlockState(targetPos);
         }
         if(targetPos.getY() <= 0){
             return false;
         }
 
         targetPos.move(Direction.UP);
-        blockState = entity.world.getBlockState(targetPos);
-        BlockState blockState2 = entity.world.getBlockState(targetPos.up());
-        while(blockState.getMaterial().blocksMovement()
-                || blockState.getMaterial().isLiquid()
-                || blockState2.getMaterial().blocksMovement()
-                || blockState2.getMaterial().isLiquid()){
+        blockState = entity.getWorld().getBlockState(targetPos);
+        BlockState blockState2 = entity.getWorld().getBlockState(targetPos.up());
+        while(blockState.blocksMovement()
+                || blockState.isLiquid()
+                || blockState2.blocksMovement()
+                || blockState2.isLiquid()){
             targetPos.move(Direction.UP);
-            blockState = entity.world.getBlockState(targetPos);
-            blockState2 = entity.world.getBlockState(targetPos.up());
+            blockState = entity.getWorld().getBlockState(targetPos);
+            blockState2 = entity.getWorld().getBlockState(targetPos.up());
         }
 
-        if(entity.world.getDimension().hasCeiling() && targetPos.getY() >= entity.world.getHeight()){
+        if(entity.getWorld().getDimension().hasCeiling() && targetPos.getY() >= entity.getWorld().getHeight()){
             return false;
         }
         entity.teleport(x, targetPos.getY()+.1, z);
         if (!entity.isSilent()) {
-            entity.world.playSound(null, entity.prevX, entity.prevY, entity.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, entity.getSoundCategory(), 1.0F, 1.0F);
+            entity.getWorld().playSound(null, entity.prevX, entity.prevY, entity.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, entity.getSoundCategory(), 1.0F, 1.0F);
             entity.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
         }
 

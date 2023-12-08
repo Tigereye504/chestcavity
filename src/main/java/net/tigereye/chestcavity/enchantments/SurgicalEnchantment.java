@@ -9,7 +9,7 @@ import net.tigereye.chestcavity.registration.CCEnchantments;
 
 public class SurgicalEnchantment extends LuckEnchantment {
     public SurgicalEnchantment() {
-        super(Enchantment.Rarity.VERY_RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
+        super(Rarity.VERY_RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
     public int getMinPower(int level) {

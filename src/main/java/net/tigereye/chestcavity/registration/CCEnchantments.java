@@ -1,8 +1,9 @@
 package net.tigereye.chestcavity.registration;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.enchantments.MalpracticeCurseEnchantment;
 import net.tigereye.chestcavity.enchantments.ONegativeEnchantment;
@@ -16,9 +17,9 @@ public class CCEnchantments {
     public static final Enchantment TOMOPHOBIA = new TomophobiaEnchantment();
 
     public static void register() {
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "o_negative"), O_NEGATIVE);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "surgical"), SURGICAL);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "malpractice"), MALPRACTICE);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "tomophobia"), TOMOPHOBIA);
+        Registry.register(Registries.ENCHANTMENT, new Identifier(ChestCavity.MODID, "o_negative"), O_NEGATIVE);
+        Registry.register(Registries.ENCHANTMENT, new Identifier(ChestCavity.MODID, "surgical"), SURGICAL);
+        Registry.register(Registries.ENCHANTMENT, new Identifier(ChestCavity.MODID, "malpractice"), MALPRACTICE);
+        Registry.register(Registries.ENCHANTMENT, new Identifier(ChestCavity.MODID, "tomophobia"), TOMOPHOBIA);
     }
 }

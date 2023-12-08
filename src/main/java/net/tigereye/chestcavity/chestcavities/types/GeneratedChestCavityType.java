@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
@@ -13,7 +14,6 @@ import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
-import net.minecraft.util.math.random.Random;
 
 import java.util.*;
 

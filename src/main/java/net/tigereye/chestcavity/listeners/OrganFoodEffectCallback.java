@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface OrganFoodEffectCallback {

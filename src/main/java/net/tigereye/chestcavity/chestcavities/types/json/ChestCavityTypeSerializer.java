@@ -1,11 +1,14 @@
 package net.tigereye.chestcavity.chestcavities.types.json;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.types.GeneratedChestCavityType;
@@ -62,7 +65,7 @@ public class ChestCavityTypeSerializer {
                     ChestCavity.LOGGER.error("Missing position component in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
                 } else {
                     Identifier itemID = new Identifier(obj.get("item").getAsString());
-                    Optional<Item> itemOptional = Registry.ITEM.getOrEmpty(new Identifier(obj.get("item").getAsString()));
+                    Optional<Item> itemOptional = Registries.ITEM.getOrEmpty(new Identifier(obj.get("item").getAsString()));
                     if (itemOptional.isPresent()) {
                         Item item = itemOptional.get();
                         ItemStack stack;

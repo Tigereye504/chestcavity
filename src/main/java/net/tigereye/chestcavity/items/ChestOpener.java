@@ -1,9 +1,9 @@
 package net.tigereye.chestcavity.items;
 
 //import ladysnake.requiem.api.v1.possession.PossessionComponent;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.compat.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCItems;
 import net.tigereye.chestcavity.registration.CCOrganScores;
@@ -58,15 +57,15 @@ public class ChestOpener extends Item {
 			ChestCavityInstance cc = chestCavityEntity.getChestCavityInstance();
 			if(target == player || cc.getChestCavityType().isOpenable(cc)) {
 				if (cc.getOrganScore(CCOrganScores.EASE_OF_ACCESS) > 0) {
-					if(player.world.isClient) {
+					if(player.getWorld().isClient) {
 						player.playSound(SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, .75f, 1);
 					}
 				}
 				else{
 					if (!shouldKnockback) {
-						target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.
+						target.damage(player.getDamageSources().generic(), 4f); // this is to prevent self-knockback, as that feels weird.
 					} else {
-						target.damage(DamageSource.player(player), 4f);
+						target.damage(player.getDamageSources().playerAttack(player), 4f);
 					}
 				}
 				if (target.isAlive()) {
@@ -86,7 +85,7 @@ public class ChestOpener extends Item {
 				return true;
 			}
 			else{
-				if(player.world.isClient) {
+				if(player.getWorld().isClient) {
 					if (!target.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
 						player.sendMessage(Text.literal("Target's chest is obstructed"),true);
 						player.playSound(SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.PLAYERS, .75f, 1);

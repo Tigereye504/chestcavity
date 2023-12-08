@@ -62,7 +62,7 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	// Replace modImplementation with modApi if you expose components in your own API
-	modApi ("com.github.tigereye504:modify-drops-api:v0.5.0") {
+	modApi ("com.github.tigereye504:modify-drops-api:${project.modify_drops_api_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
@@ -91,7 +91,7 @@ dependencies {
 
 
 	// Jar-in-Jar dependencies
-	include ("com.github.tigereye504:modify-drops-api:v0.5.0") {
+	include ("com.github.tigereye504:modify-drops-api:${project.modify_drops_api_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	//include "me.shedaniel.cloth:cloth-config-fabric:5.0.38"

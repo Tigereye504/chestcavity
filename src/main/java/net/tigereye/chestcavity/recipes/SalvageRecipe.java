@@ -1,25 +1,29 @@
 package net.tigereye.chestcavity.recipes;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.recipes.json.SalvageRecipeSerializer;
 import net.tigereye.chestcavity.registration.CCRecipes;
 
 public class SalvageRecipe implements CraftingRecipe {
     private final Ingredient input;
     private int required;
-    private final ItemStack outputStack;
+    private final CraftingRecipeCategory category;
+    public final ItemStack outputStack;
     private final Identifier id;
 
-    public SalvageRecipe(Ingredient input, int required, ItemStack outputStack, Identifier id){
+    public SalvageRecipe(Ingredient input, int required, CraftingRecipeCategory category, ItemStack outputStack, Identifier id){
         this.input = input;
         this.required = required;
+        this.category = category;
         this.outputStack = outputStack;
         this.id = id;
     }
@@ -36,7 +40,7 @@ public class SalvageRecipe implements CraftingRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World world) {
+    public boolean matches(RecipeInputInventory inv, World world) {
         //ChestCavity.LOGGER.info("Attempting to match salvage recipe");
         int count = 0;
         ItemStack target;
@@ -60,7 +64,7 @@ public class SalvageRecipe implements CraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingInventory inv) {
+    public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager registryManager) {
         //ChestCavity.LOGGER.info("Attempting to craft salvage recipe");
         int count = 0;
         ItemStack target;
@@ -85,7 +89,7 @@ public class SalvageRecipe implements CraftingRecipe {
             //ChestCavity.LOGGER.info("Salvage recipe exceeded max stack size");
             return ItemStack.EMPTY;
         }
-        ItemStack out = getOutput();
+        ItemStack out = getOutput(registryManager);
         out.setCount(count);
         return out;
     }
@@ -96,7 +100,7 @@ public class SalvageRecipe implements CraftingRecipe {
     }
 
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return outputStack.copy();
     }
 
@@ -108,6 +112,11 @@ public class SalvageRecipe implements CraftingRecipe {
     @Override
     public RecipeSerializer<?> getSerializer() {
         return CCRecipes.SALVAGE_RECIPE_SERIALIZER;
+    }
+
+    @Override
+    public CraftingRecipeCategory getCategory() {
+        return category;
     }
 
     /*@Override

@@ -1,10 +1,12 @@
 package net.tigereye.chestcavity.recipes;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.chestcavity.registration.CCItems;
@@ -12,12 +14,12 @@ import net.tigereye.chestcavity.registration.CCRecipes;
 import net.tigereye.chestcavity.util.OrganUtil;
 
 public class InfuseVenomGland extends SpecialCraftingRecipe {
-    public InfuseVenomGland(Identifier id) {
-        super(id);
+    public InfuseVenomGland(Identifier id, CraftingRecipeCategory craftingRecipeCategory) {
+        super(id, craftingRecipeCategory);
     }
 
     @Override
-    public boolean matches(CraftingInventory craftingInventory, World world) {
+    public boolean matches(RecipeInputInventory craftingInventory, World world) {
         boolean foundVenomGland = false;
         boolean foundPotion = false;
         for(int i = 0; i < craftingInventory.getWidth(); ++i) {
@@ -43,7 +45,7 @@ public class InfuseVenomGland extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingInventory craftingInventory) {
+    public ItemStack craft(RecipeInputInventory craftingInventory, DynamicRegistryManager registryManager) {
         ItemStack venomGland = null;
         ItemStack potion = null;
         ItemStack output = null;

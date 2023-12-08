@@ -4,9 +4,9 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
 
@@ -29,13 +29,15 @@ public class SalvageRecipeDisplay implements Display {
     }
 
     public SalvageRecipeDisplay(SalvageRecipe recipe) {
+
         int required = recipe.getRequired();
         EntryIngredient inputIngredient = EntryIngredients.ofIngredient(recipe.getInput());
         input = new ArrayList<>();
         for (int i = 0; i < required; i++) {
             input.add(inputIngredient);
         }
-        output = Collections.singletonList(EntryIngredients.of(recipe.getOutput()));
+        World world = MinecraftClient.getInstance().world;
+        output = Collections.singletonList(EntryIngredients.of(recipe.getOutput(world != null ? world.getRegistryManager() : null)));
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.tigereye.chestcavity.config;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.tigereye.chestcavity.ChestCavity;
 
 public class CCModMenuIntegration implements ModMenuApi {
     //@Override

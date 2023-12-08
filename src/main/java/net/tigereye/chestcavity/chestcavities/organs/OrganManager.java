@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
-import net.minecraft.util.registry.Registry;
 import net.tigereye.chestcavity.ChestCavity;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class OrganManager implements SimpleSynchronousResourceReloadListener {
     private static final String RESOURCE_LOCATION = "organs";
@@ -47,11 +46,11 @@ public class OrganManager implements SimpleSynchronousResourceReloadListener {
     }
 
     public static boolean hasEntry(Item item){
-        return GeneratedOrganData.containsKey(Registry.ITEM.getId(item));
+        return GeneratedOrganData.containsKey(Registries.ITEM.getId(item));
     }
 
     public static OrganData getEntry(Item item){
-        return GeneratedOrganData.get(Registry.ITEM.getId(item));
+        return GeneratedOrganData.get(Registries.ITEM.getId(item));
     }
 
     public static boolean isTrueOrgan(Item item){

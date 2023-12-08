@@ -1,6 +1,5 @@
 package net.tigereye.chestcavity.listeners;
 
-import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -88,7 +87,7 @@ public class LootRegister {
                         Iterator<ItemStack> i = loot.iterator();
                         if (salvageRecipeList == null) {
                             salvageRecipeList = new ArrayList<>();
-                            List<CraftingRecipe> recipes = killer.world.getRecipeManager().listAllOfType(RecipeType.CRAFTING);
+                            List<CraftingRecipe> recipes = killer.getWorld().getRecipeManager().listAllOfType(RecipeType.CRAFTING);
                             for (CraftingRecipe recipe : recipes) {
                                 if (recipe instanceof SalvageRecipe) {
                                     salvageRecipeList.add((SalvageRecipe) recipe);
@@ -109,7 +108,7 @@ public class LootRegister {
                         }
                         //then, get the output of the salvage and add it to the loot
                         salvageResults.forEach((recipe, count) -> {
-                            ItemStack out = recipe.getOutput();
+                            ItemStack out = recipe.getOutput(killer.getWorld().getRegistryManager());
                             out.setCount(out.getCount() * (count / recipe.getRequired()));
                             loot.add(out);
                         });

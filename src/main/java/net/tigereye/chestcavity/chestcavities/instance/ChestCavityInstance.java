@@ -2,9 +2,9 @@ package net.tigereye.chestcavity.chestcavities.instance;
 
 
 //import ladysnake.requiem.api.v1.possession.PossessionComponent;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.nbt.NbtCompound;
@@ -14,8 +14,6 @@ import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
-import net.tigereye.chestcavity.compat.requiem.CCRequiem;
-import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.OrganOnHitContext;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import org.apache.logging.log4j.LogManager;

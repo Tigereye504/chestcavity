@@ -1,7 +1,10 @@
 package net.tigereye.chestcavity.mixin;
 
+import net.minecraft.entity.player.HungerManager;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.EffectiveFoodScores;
 import net.tigereye.chestcavity.listeners.OrganFoodCallback;
@@ -14,11 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(HungerManager.class)

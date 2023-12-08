@@ -20,7 +20,7 @@ public class Ruminating extends CCStatusEffect{
 
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
-            if(!(entity.world.isClient)) {
+            if(!(entity.getWorld().isClient)) {
                 HungerManager hungerManager = ((PlayerEntity) entity).getHungerManager();
                 hungerManager.eat(CCItems.CUD, new ItemStack(CCItems.CUD));
             }

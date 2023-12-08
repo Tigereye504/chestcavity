@@ -6,15 +6,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.util.OrganUtil;
 
 import java.util.List;
 
 public class CreeperAppendix extends Item {
 
     public CreeperAppendix() {
-        super(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+        super(new Settings().maxCount(1));
     }
 
     @Override

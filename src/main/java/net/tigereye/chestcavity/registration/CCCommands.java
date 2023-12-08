@@ -44,7 +44,7 @@ public class CCCommands {
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
             ChestCavityUtil.outputOrganScoresString((string) -> {
-                context.getSource().sendFeedback(Text.literal(string),false);
+                context.getSource().sendFeedback(() -> Text.literal(string),false);
             },optional.get().getChestCavityInstance());
             return 1;
         }
@@ -63,7 +63,7 @@ public class CCCommands {
         Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
         if(optional.isPresent()){
             ChestCavityUtil.outputOrganScoresString((string) -> {
-                context.getSource().sendFeedback(Text.literal(string),false);
+                context.getSource().sendFeedback(() -> Text.literal(string),false);
             },optional.get().getChestCavityInstance());
             return 1;
         }

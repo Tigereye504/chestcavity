@@ -1,23 +1,10 @@
 package net.tigereye.chestcavity.listeners;
 
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.decoration.EndCrystalEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.registration.CCDamageSource;
 import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.registration.CCStatusEffects;
-import net.tigereye.chestcavity.util.OrganUtil;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class OrganOnHitListeners {
 

@@ -1,8 +1,11 @@
 package net.tigereye.chestcavity.registration;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
-import net.minecraft.util.registry.Registry;
-
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.items.CreeperAppendix;
@@ -11,156 +14,156 @@ import net.tigereye.chestcavity.items.VenomGland;
 public class CCItems {
 
 
-	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ItemGroup.TOOLS);
-	public static final Item.Settings FOOD_ITEM_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD);
+	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1);
+	public static final Item.Settings FOOD_ITEM_SETTINGS = new Item.Settings().maxCount(64);
 
 	public static final Item CHEST_OPENER = new ChestOpener();
-	public static final SwordItem WOODEN_CLEAVER = new SwordItem(ToolMaterials.WOOD,6,-3.2f,new Item.Settings().group(ItemGroup.COMBAT));
-	public static final SwordItem GOLD_CLEAVER = new SwordItem(ToolMaterials.GOLD,6,-3.0f,new Item.Settings().group(ItemGroup.COMBAT));
-	public static final SwordItem STONE_CLEAVER = new SwordItem(ToolMaterials.STONE,7,-3.2f,new Item.Settings().group(ItemGroup.COMBAT));
-	public static final SwordItem IRON_CLEAVER = new SwordItem(ToolMaterials.IRON,6,-3.1f,new Item.Settings().group(ItemGroup.COMBAT));
-	public static final SwordItem DIAMOND_CLEAVER = new SwordItem(ToolMaterials.DIAMOND,5,-3.0f,new Item.Settings().group(ItemGroup.COMBAT));
-	public static final SwordItem NETHERITE_CLEAVER = new SwordItem(ToolMaterials.NETHERITE,5,-3.0f,new Item.Settings().group(ItemGroup.COMBAT).fireproof());
+	public static final SwordItem WOODEN_CLEAVER = new SwordItem(ToolMaterials.WOOD,6,-3.2f,new Item.Settings());
+	public static final SwordItem GOLD_CLEAVER = new SwordItem(ToolMaterials.GOLD,6,-3.0f,new Item.Settings());
+	public static final SwordItem STONE_CLEAVER = new SwordItem(ToolMaterials.STONE,7,-3.2f,new Item.Settings());
+	public static final SwordItem IRON_CLEAVER = new SwordItem(ToolMaterials.IRON,6,-3.1f,new Item.Settings());
+	public static final SwordItem DIAMOND_CLEAVER = new SwordItem(ToolMaterials.DIAMOND,5,-3.0f,new Item.Settings());
+	public static final SwordItem NETHERITE_CLEAVER = new SwordItem(ToolMaterials.NETHERITE,5,-3.0f,new Item.Settings().fireproof());
 
-	public static final Item HUMAN_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT));
-	public static final Item HUMAN_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item HUMAN_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item HUMAN_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HUMAN_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_KIDNEY = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_LIVER = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.HUMAN_MUSCLE_FOOD_COMPONENT));
+	public static final Item HUMAN_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item HUMAN_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item HUMAN_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HUMAN_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_HUMAN_ORGAN_MEAT_FOOD_COMPONENT));
 
-	public static final Item ROTTEN_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ROTTEN_MUSCLE_FOOD_COMPONENT));
-	public static final Item ROTTEN_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item ROTTEN_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item ROTTEN_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item ROTTEN_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(FoodComponents.ROTTEN_FLESH));
-	public static final Item WITHERED_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item WITHERED_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item WRITHING_SOULSAND = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item ROTTEN_APPENDIX = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_HEART = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_INTESTINE = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_KIDNEY = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_LIVER = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_LUNG = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ROTTEN_MUSCLE_FOOD_COMPONENT));
+	public static final Item ROTTEN_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item ROTTEN_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item ROTTEN_SPLEEN = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item ROTTEN_STOMACH = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item WITHERED_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item WITHERED_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item WRITHING_SOULSAND = new Item(new Item.Settings().maxCount(16));
 
-	public static final Item ANIMAL_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item ANIMAL_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item ANIMAL_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item ANIMAL_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ANIMAL_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item AQUATIC_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item FISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item GILLS = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item LLAMA_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item CARNIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item CARNIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HERBIVORE_RUMEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item BRUTISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SWIFT_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SPRINGY_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item ANIMAL_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_KIDNEY = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_LIVER = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item ANIMAL_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item ANIMAL_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item ANIMAL_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ANIMAL_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item AQUATIC_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item FISH_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item GILLS = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item LLAMA_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item CARNIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item CARNIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HERBIVORE_RUMEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item BRUTISH_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SWIFT_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SPRINGY_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
 
-	public static final Item FIREPROOF_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item FIREPROOF_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item FIREPROOF_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item FIREPROOF_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item FIREPROOF_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_KIDNEY = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_LIVER = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item FIREPROOF_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item FIREPROOF_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item FIREPROOF_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item FIREPROOF_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	
-	public static final Item SMALL_ANIMAL_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item SMALL_ANIMAL_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item SMALL_ANIMAL_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_ANIMAL_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item RABBIT_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_AQUATIC_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_FISH_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_SPRINGY_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_GILLS = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_CARNIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_CARNIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
-	public static final Item SMALL_HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_KIDNEY = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_LIVER = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item SMALL_ANIMAL_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item SMALL_ANIMAL_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_ANIMAL_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item RABBIT_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_AQUATIC_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_FISH_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_SPRINGY_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_GILLS = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_CARNIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_CARNIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_HERBIVORE_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
+	public static final Item SMALL_HERBIVORE_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 
-	public static final Item INSECT_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item INSECT_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item INSECT_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item INSECT_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT));
-	public static final Item INSECT_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item INSECT_CAECA = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item SILK_GLAND = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item INSECT_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item INSECT_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item INSECT_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item INSECT_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.INSECT_MUSCLE_FOOD_COMPONENT));
+	public static final Item INSECT_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item INSECT_CAECA = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item SILK_GLAND = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_TOXIC_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final VenomGland VENOM_GLAND = new VenomGland();//.setOrganQuality(CCOrganScores.VENOMOUS,1f);
 
-	public static final Item ENDER_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_INTESTINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.ALIEN_MUSCLE_FOOD_COMPONENT));
-	public static final Item ENDER_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item ENDER_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item ENDER_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item ENDER_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_INTESTINE = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_KIDNEY = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_LIVER = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.ALIEN_MUSCLE_FOOD_COMPONENT));
+	public static final Item ENDER_RIB = new Item(new Item.Settings().maxCount(4));
+	public static final Item ENDER_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item ENDER_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item ENDER_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ALIEN_ORGAN_MEAT_FOOD_COMPONENT));
 
-	public static final Item DRAGON_APPENDIX = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item DRAGON_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.DRAGON_HEART_FOOD_COMPONENT));
-	public static final Item DRAGON_KIDNEY = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item DRAGON_LIVER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item DRAGON_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item DRAGON_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.DRAGON_MUSCLE_FOOD_COMPONENT));
-	public static final Item DRAGON_RIB = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item DRAGON_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item DRAGON_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.DRAGON_HEART_FOOD_COMPONENT));
+	public static final Item DRAGON_KIDNEY = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item DRAGON_LIVER = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item DRAGON_LUNG = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item DRAGON_MUSCLE = new Item(new Item.Settings().maxCount(16).food(CCFoodComponents.DRAGON_MUSCLE_FOOD_COMPONENT));
+	public static final Item DRAGON_RIB = new Item(new Item.Settings().maxCount(4));
 	//TODO: Destructive Collisions
-	public static final Item DRAGON_SPINE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item DRAGON_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
-	public static final Item MANA_REACTOR = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item DRAGON_SPINE = new Item(new Item.Settings().maxCount(1));
+	public static final Item DRAGON_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item MANA_REACTOR = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_DRAGON_ORGAN_MEAT_FOOD_COMPONENT));
 
-	public static final Item ACTIVE_BLAZE_ROD = new Item(new Item.Settings().maxCount(3).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item BLAZE_SHELL = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item BLAZE_CORE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item ACTIVE_BLAZE_ROD = new Item(new Item.Settings().maxCount(3));
+	public static final Item BLAZE_SHELL = new Item(new Item.Settings().maxCount(4));
+	public static final Item BLAZE_CORE = new Item(new Item.Settings().maxCount(1));
 
-	public static final Item GAS_BLADDER = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item VOLATILE_STOMACH = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item GAS_BLADDER = new Item(new Item.Settings().maxCount(1));
+	public static final Item VOLATILE_STOMACH = new Item(new Item.Settings().maxCount(1));
 
-	public static final Item GOLEM_CABLE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item GOLEM_PLATING = new Item(new Item.Settings().maxCount(4).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item GOLEM_CORE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item INNER_FURNACE = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item PISTON_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item IRON_SCRAP = new Item(new Item.Settings().group(ItemGroup.MATERIALS));
+	public static final Item GOLEM_CABLE = new Item(new Item.Settings().maxCount(1));
+	public static final Item GOLEM_PLATING = new Item(new Item.Settings().maxCount(4));
+	public static final Item GOLEM_CORE = new Item(new Item.Settings().maxCount(1));
+	public static final Item INNER_FURNACE = new Item(new Item.Settings().maxCount(1));
+	public static final Item PISTON_MUSCLE = new Item(new Item.Settings().maxCount(16));
+	public static final Item IRON_SCRAP = new Item(new Item.Settings());
 
-	public static final Item SALTWATER_HEART = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item SALTWATER_LUNG = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item SALTWATER_MUSCLE = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item SALTWATER_HEART = new Item(new Item.Settings().maxCount(1));
+	public static final Item SALTWATER_LUNG = new Item(new Item.Settings().maxCount(1));
+	public static final Item SALTWATER_MUSCLE = new Item(new Item.Settings().maxCount(16));
 	public static final Item CREEPER_APPENDIX = new CreeperAppendix();
-	public static final Item SHIFTING_LEAVES = new Item(new Item.Settings().maxCount(16).group(ChestCavity.ORGAN_ITEM_GROUP));
-	public static final Item SHULKER_SPLEEN = new Item(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+	public static final Item SHIFTING_LEAVES = new Item(new Item.Settings().maxCount(16));
+	public static final Item SHULKER_SPLEEN = new Item(new Item.Settings().maxCount(1));
 
-	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64).group(ItemGroup.MISC));
+	public static final Item SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64));
 	public static final Item MINI_SAUSAGE_SKIN = new Item(new Item.Settings().maxCount(64));
 
 	public static final Item BURNT_MEAT_CHUNK = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.BURNT_MEAT_CHUNK_COMPONENT));
@@ -217,6 +220,148 @@ public class CCItems {
 
 	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
 	public static final Item FURNACE_POWER = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.FURNACE_POWER_FOOD_COMPONENT));
+
+	public static final ItemGroup ORGAN_ITEM_GROUP = FabricItemGroup.builder()
+			.icon(() -> new ItemStack(CCItems.HUMAN_STOMACH))
+			.displayName(Text.translatable("itemGroup.chestcavity.organs"))
+			.entries((context, entries) -> {
+				entries.add(HUMAN_APPENDIX);
+				entries.add(HUMAN_HEART);
+				entries.add(HUMAN_INTESTINE);
+				entries.add(HUMAN_KIDNEY);
+				entries.add(HUMAN_LIVER);
+				entries.add(HUMAN_LUNG);
+				entries.add(HUMAN_MUSCLE);
+				entries.add(HUMAN_RIB);
+				entries.add(HUMAN_SPINE);
+				entries.add(HUMAN_SPLEEN);
+				entries.add(HUMAN_STOMACH);
+
+				entries.add(ROTTEN_APPENDIX);
+				entries.add(ROTTEN_HEART);
+				entries.add(ROTTEN_INTESTINE);
+				entries.add(ROTTEN_KIDNEY);
+				entries.add(ROTTEN_LIVER);
+				entries.add(ROTTEN_LUNG);
+				entries.add(ROTTEN_MUSCLE);
+				entries.add(ROTTEN_RIB);
+				entries.add(ROTTEN_SPINE);
+				entries.add(ROTTEN_SPLEEN);
+				entries.add(ROTTEN_STOMACH);
+				entries.add(WITHERED_RIB);
+				entries.add(WITHERED_SPINE);
+				entries.add(WRITHING_SOULSAND);
+
+				entries.add(ANIMAL_APPENDIX);
+				entries.add(ANIMAL_HEART);
+				entries.add(ANIMAL_INTESTINE);
+				entries.add(ANIMAL_KIDNEY);
+				entries.add(ANIMAL_LIVER);
+				entries.add(ANIMAL_LUNG);
+				entries.add(ANIMAL_MUSCLE);
+				entries.add(ANIMAL_RIB);
+				entries.add(ANIMAL_SPINE);
+				entries.add(ANIMAL_SPLEEN);
+				entries.add(ANIMAL_STOMACH);
+				entries.add(AQUATIC_MUSCLE);
+				entries.add(FISH_MUSCLE);
+				entries.add(GILLS);
+				entries.add(LLAMA_LUNG);
+				entries.add(CARNIVORE_STOMACH);
+				entries.add(CARNIVORE_INTESTINE);
+				entries.add(HERBIVORE_RUMEN);
+				entries.add(HERBIVORE_STOMACH);
+				entries.add(HERBIVORE_INTESTINE);
+				entries.add(BRUTISH_MUSCLE);
+				entries.add(SWIFT_MUSCLE);
+				entries.add(SPRINGY_MUSCLE);
+
+				entries.add(FIREPROOF_APPENDIX);
+				entries.add(FIREPROOF_HEART);
+				entries.add(FIREPROOF_INTESTINE);
+				entries.add(FIREPROOF_KIDNEY);
+				entries.add(FIREPROOF_LIVER);
+				entries.add(FIREPROOF_LUNG);
+				entries.add(FIREPROOF_MUSCLE);
+				entries.add(FIREPROOF_RIB);
+				entries.add(FIREPROOF_SPINE);
+				entries.add(FIREPROOF_SPLEEN);
+				entries.add(FIREPROOF_STOMACH);
+
+				entries.add(SMALL_ANIMAL_APPENDIX);
+				entries.add(SMALL_ANIMAL_HEART);
+				entries.add(SMALL_ANIMAL_INTESTINE);
+				entries.add(SMALL_ANIMAL_KIDNEY);
+				entries.add(SMALL_ANIMAL_LIVER);
+				entries.add(SMALL_ANIMAL_LUNG);
+				entries.add(SMALL_ANIMAL_MUSCLE);
+				entries.add(SMALL_ANIMAL_RIB);
+				entries.add(SMALL_ANIMAL_SPINE);
+				entries.add(SMALL_ANIMAL_SPLEEN);
+				entries.add(SMALL_ANIMAL_STOMACH);
+				entries.add(RABBIT_HEART);
+				entries.add(SMALL_AQUATIC_MUSCLE);
+				entries.add(SMALL_FISH_MUSCLE);
+				entries.add(SMALL_SPRINGY_MUSCLE);
+				entries.add(SMALL_GILLS);
+				entries.add(SMALL_CARNIVORE_STOMACH);
+				entries.add(SMALL_CARNIVORE_INTESTINE);
+				entries.add(SMALL_HERBIVORE_STOMACH);
+				entries.add(SMALL_HERBIVORE_INTESTINE);
+
+				entries.add(INSECT_HEART);
+				entries.add(INSECT_INTESTINE);
+				entries.add(INSECT_LUNG);
+				entries.add(INSECT_MUSCLE);
+				entries.add(INSECT_STOMACH);
+				entries.add(INSECT_CAECA);
+				entries.add(SILK_GLAND);
+				entries.add(VENOM_GLAND);
+
+				entries.add(ENDER_APPENDIX);
+				entries.add(ENDER_HEART);
+				entries.add(ENDER_INTESTINE);
+				entries.add(ENDER_KIDNEY);
+				entries.add(ENDER_LIVER);
+				entries.add(ENDER_LUNG);
+				entries.add(ENDER_MUSCLE);
+				entries.add(ENDER_RIB);
+				entries.add(ENDER_SPINE);
+				entries.add(ENDER_SPLEEN);
+				entries.add(ENDER_STOMACH);
+
+				entries.add(DRAGON_APPENDIX);
+				entries.add(DRAGON_HEART);
+				entries.add(DRAGON_KIDNEY);
+				entries.add(DRAGON_LIVER);
+				entries.add(DRAGON_LUNG);
+				entries.add(DRAGON_MUSCLE);
+				entries.add(DRAGON_RIB);
+				entries.add(DRAGON_SPINE);
+				entries.add(DRAGON_SPLEEN);
+				entries.add(MANA_REACTOR);
+
+				entries.add(ACTIVE_BLAZE_ROD);
+				entries.add(BLAZE_SHELL);
+				entries.add(BLAZE_CORE);
+
+				entries.add(GAS_BLADDER);
+				entries.add(VOLATILE_STOMACH);
+
+				entries.add(GOLEM_CABLE);
+				entries.add(GOLEM_PLATING);
+				entries.add(GOLEM_CORE);
+				entries.add(INNER_FURNACE);
+				entries.add(PISTON_MUSCLE);
+
+				entries.add(SALTWATER_HEART);
+				entries.add(SALTWATER_LUNG);
+				entries.add(SALTWATER_MUSCLE);
+				entries.add(CREEPER_APPENDIX);
+				entries.add(SHIFTING_LEAVES);
+				entries.add(SHULKER_SPLEEN);
+			})
+			.build();
 
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);
@@ -421,9 +566,82 @@ public class CCItems {
 
 		registerItem("cud",CUD);
 		registerItem("furnace_power",FURNACE_POWER);
+
+		registerItemGroups();
 	}
 	
 	private static void registerItem(String name, Item item) {
-		Registry.register(Registry.ITEM, ChestCavity.MODID + ":" + name, item);
+		Registry.register(Registries.ITEM, ChestCavity.MODID + ":" + name, item);
     }
+
+	private static void registerItemGroups(){
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+			entries.add(CHEST_OPENER);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+			entries.add(WOODEN_CLEAVER);
+			entries.add(STONE_CLEAVER);
+			entries.add(IRON_CLEAVER);
+			entries.add(DIAMOND_CLEAVER);
+			entries.add(NETHERITE_CLEAVER);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
+			entries.add(BURNT_MEAT_CHUNK);
+			entries.add(RAW_ORGAN_MEAT);
+			entries.add(COOKED_ORGAN_MEAT);
+			entries.add(RAW_BUTCHERED_MEAT);
+			entries.add(COOKED_BUTCHERED_MEAT);
+			entries.add(RAW_SAUSAGE);
+			entries.add(COOKED_SAUSAGE);
+			entries.add(RAW_RICH_SAUSAGE);
+			entries.add(COOKED_RICH_SAUSAGE);
+			entries.add(RAW_MINI_SAUSAGE);
+			entries.add(COOKED_MINI_SAUSAGE);
+			entries.add(RAW_RICH_MINI_SAUSAGE);
+			entries.add(COOKED_RICH_MINI_SAUSAGE);
+
+			entries.add(ROTTEN_SAUSAGE);
+
+			entries.add(RAW_TOXIC_ORGAN_MEAT);
+			entries.add(COOKED_TOXIC_ORGAN_MEAT);
+			entries.add(RAW_TOXIC_MEAT);
+			entries.add(COOKED_TOXIC_MEAT);
+			entries.add(RAW_TOXIC_SAUSAGE);
+			entries.add(COOKED_TOXIC_SAUSAGE);
+			entries.add(RAW_RICH_TOXIC_SAUSAGE);
+			entries.add(COOKED_RICH_TOXIC_SAUSAGE);
+
+			entries.add(RAW_HUMAN_ORGAN_MEAT);
+			entries.add(COOKED_HUMAN_ORGAN_MEAT);
+			entries.add(RAW_MAN_MEAT);
+			entries.add(COOKED_MAN_MEAT);
+			entries.add(RAW_HUMAN_SAUSAGE);
+			entries.add(COOKED_HUMAN_SAUSAGE);
+			entries.add(RAW_RICH_HUMAN_SAUSAGE);
+			entries.add(COOKED_RICH_HUMAN_SAUSAGE);
+
+			entries.add(RAW_ALIEN_ORGAN_MEAT);
+			entries.add(COOKED_ALIEN_ORGAN_MEAT);
+			entries.add(RAW_ALIEN_MEAT);
+			entries.add(COOKED_ALIEN_MEAT);
+			entries.add(RAW_ALIEN_SAUSAGE);
+			entries.add(COOKED_ALIEN_SAUSAGE);
+			entries.add(RAW_RICH_ALIEN_SAUSAGE);
+			entries.add(COOKED_RICH_ALIEN_SAUSAGE);
+
+			entries.add(RAW_DRAGON_ORGAN_MEAT);
+			entries.add(COOKED_DRAGON_ORGAN_MEAT);
+			entries.add(RAW_DRAGON_MEAT);
+			entries.add(COOKED_DRAGON_MEAT);
+			entries.add(RAW_DRAGON_SAUSAGE);
+			entries.add(COOKED_DRAGON_SAUSAGE);
+			entries.add(RAW_RICH_DRAGON_SAUSAGE);
+			entries.add(COOKED_RICH_DRAGON_SAUSAGE);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+			entries.add(SAUSAGE_SKIN);
+			entries.add(MINI_SAUSAGE_SKIN);
+			entries.add(IRON_SCRAP);
+		});
+	}
 }

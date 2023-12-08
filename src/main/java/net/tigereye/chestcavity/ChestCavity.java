@@ -2,20 +2,17 @@ package net.tigereye.chestcavity;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
 import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager;
-import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.compat.CrossModContent;
-import net.fabricmc.api.ModInitializer;
+import net.tigereye.chestcavity.config.CCConfig;
 import net.tigereye.chestcavity.registration.*;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;
 import org.apache.logging.log4j.LogManager;
@@ -29,9 +26,7 @@ public class ChestCavity implements ModInitializer {
 	public static final ScreenHandlerType<ChestCavityScreenHandler> CHEST_CAVITY_SCREEN_HANDLER;
 	public static final Identifier CHEST_CAVITY_SCREEN_ID = new Identifier(MODID,"chest_cavity_screen");
 	public static final Identifier COMPATIBILITY_TAG = new Identifier(MODID,"organ_compatibility");
-	public static final ItemGroup ORGAN_ITEM_GROUP = FabricItemGroupBuilder.build(
-			new Identifier(MODID, "organs"),
-			() -> new ItemStack(CCItems.HUMAN_STOMACH));
+
 
 	//public static final ScreenHandlerType<ScreenHandler> CHEST_CAVITY_SCREEN_HANDLER;
 

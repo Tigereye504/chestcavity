@@ -2,8 +2,8 @@ package net.tigereye.chestcavity.registration;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;

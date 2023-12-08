@@ -17,17 +17,13 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -35,27 +31,31 @@ import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstanceFactory;
+import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.items.ChestOpener;
 import net.tigereye.chestcavity.listeners.OrganFoodEffectCallback;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.items.ChestOpener;
-import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.NetworkUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 @Mixin(value = LivingEntity.class,priority = 900)
 public class MixinLivingEntity extends Entity implements ChestCavityEntity{
+    @Unique
     private ChestCavityInstance chestCavityInstance;
 
     protected MixinLivingEntity(EntityType<? extends LivingEntity> entityType, World world) {
@@ -75,7 +75,7 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Inject(at = @At("TAIL"), method = "baseTick")
     protected void chestCavityLivingEntityBaseTickBreathAirMixin(CallbackInfo info) {
-        if(!this.isSubmergedIn(FluidTags.WATER) || this.world.getBlockState(new BlockPos(this.getX(), this.getEyeY(), this.getZ())).isOf(Blocks.BUBBLE_COLUMN)) {
+        if(!this.isSubmergedIn(FluidTags.WATER) || this.getWorld().getBlockState(this.getBlockPos()).isOf(Blocks.BUBBLE_COLUMN)) {
             this.setAir(ChestCavityUtil.applyBreathOnLand(chestCavityInstance,this.getAir(), this.getNextAirOnLand(0)));
         }
     }
@@ -284,8 +284,8 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
 
     @Mixin(ServerPlayerEntity.class)
     private static abstract class Server extends PlayerEntity {
-        public Server(World world, BlockPos pos, float yaw, GameProfile profile, PlayerPublicKey playerPublicKey) {
-            super(world, pos, yaw, profile, playerPublicKey);
+        public Server(World world, BlockPos pos, float yaw, GameProfile profile) {
+            super(world, pos, yaw, profile);
         }
 
         @Inject(method = "copyFrom", at = @At("TAIL"))
@@ -301,10 +301,10 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
             }));
         }
 
-        @Inject(at = @At("RETURN"), method = "moveToWorld", cancellable = true)
+        @Inject(at = @At("RETURN"), method = "moveToWorld")
         public void chestCavityEntityMoveToWorldMixin(ServerWorld destination, CallbackInfoReturnable<Entity> info){
             Entity entity = info.getReturnValue();
-            if(entity instanceof ChestCavityEntity && !entity.world.isClient){
+            if(entity instanceof ChestCavityEntity && !entity.getWorld().isClient){
                 NetworkUtil.SendS2CChestCavityUpdatePacket(((ChestCavityEntity)entity).getChestCavityInstance());
             }
         }
@@ -360,8 +360,6 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
     @Shadow
     protected void writeCustomDataToNbt(NbtCompound tag) {}
 
-    @Shadow
-    public Packet<?> createSpawnPacket() {return null;}
 
     @Shadow
     protected int getNextAirOnLand(int air) {

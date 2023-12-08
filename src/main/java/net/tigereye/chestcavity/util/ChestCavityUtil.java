@@ -3,7 +3,7 @@ package net.tigereye.chestcavity.util;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.ProjectileDamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,24 +12,25 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
-import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
-import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
+import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
+import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.compat.requiem.CCRequiem;
 import net.tigereye.chestcavity.interfaces.CCOrganItem;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.listeners.*;
 import net.tigereye.chestcavity.registration.*;
-import net.minecraft.util.math.random.Random;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -88,7 +89,7 @@ public class ChestCavityUtil {
         if (airResult <= -20) {
             airResult = 0;
             cc.lungRemainder = 0;
-            cc.owner.damage(DamageSource.DROWN, 2.0F);
+            cc.owner.damage(cc.owner.getDamageSources().drown(), 2.0F);
         }
         return airResult;
     }
@@ -153,7 +154,7 @@ public class ChestCavityUtil {
         if (airResult <= -20) {
             airResult = 0;
             cc.lungRemainder = 0;
-            cc.owner.damage(DamageSource.DROWN, 2.0F);
+            cc.owner.damage(cc.owner.getDamageSources().drown(), 2.0F);
         }
         return airResult;
     }
@@ -165,16 +166,16 @@ public class ChestCavityUtil {
         if(attemptArrowDodging(cc,source)){
             return 0;
         }
-        if(!source.bypassesArmor()) {
+        if(!source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
             damage = applyBoneDefense(cc,damage);
         }
-        if(source == DamageSource.FALL){
+        if(source.isIn(DamageTypeTags.IS_FALL)){
             damage = applyLeapingToFallDamage(cc,damage);
         }
-        if(source == DamageSource.FALL || source == DamageSource.FLY_INTO_WALL){
+        if(source.isIn(DamageTypeTags.IS_FALL) || source.isOf(DamageTypes.FLY_INTO_WALL)){
             damage = applyImpactResistant(cc,damage);
         }
-        if(source.isFire()){
+        if(source.isIn(DamageTypeTags.IS_FIRE)){
             damage = applyFireResistant(cc,damage);
         }
         return damage;
@@ -285,7 +286,7 @@ public class ChestCavityUtil {
         if(cc.owner.hasStatusEffect(CCStatusEffects.ARROW_DODGE_COOLDOWN)){
             return false;
         }
-        if (!(source instanceof ProjectileDamageSource)) {
+        if (source.isIn(DamageTypeTags.IS_PROJECTILE)) {
             return false;
         }
         if(!OrganUtil.teleportRandomly(cc.owner,ChestCavity.config.ARROW_DODGE_DISTANCE/dodge)){
@@ -366,7 +367,7 @@ public class ChestCavityUtil {
 
     public static void dropUnboundOrgans(ChestCavityInstance cc) {
         if(ChestCavity.config.REQUIEM_INTEGRATION){
-            if(Registry.ENTITY_TYPE.getId(cc.owner.getType()).compareTo(CCRequiem.PLAYER_SHELL_ID) == 0){
+            if(Registries.ENTITY_TYPE.getId(cc.owner.getType()).compareTo(CCRequiem.PLAYER_SHELL_ID) == 0){
                 return; //player shells shall not drop organs
             }
         }
@@ -532,7 +533,7 @@ public class ChestCavityUtil {
     public static void onDeath(ChestCavityEntity entity){
         ChestCavityInstance ccinstance = entity.getChestCavityInstance();
         ccinstance.getChestCavityType().onDeath(ccinstance);
-        if(entity instanceof PlayerEntity playerEntity){
+        if(entity instanceof PlayerEntity){
             if(!ChestCavity.config.KEEP_CHEST_CAVITY) {
                 Map<Integer,ItemStack> organsToKeep = new HashMap<>();
                 for (int i = 0; i < ccinstance.inventory.size(); i++) {
@@ -616,7 +617,7 @@ public class ChestCavityUtil {
 
     public static void splashHydrophobicWithWater(PotionEntity splash){
         Box box = splash.getBoundingBox().expand(4.0D, 2.0D, 4.0D);
-        List<LivingEntity> list = splash.world.getEntitiesByClass(LivingEntity.class, box, ChestCavityUtil::isHydroPhobicOrAllergic);
+        List<LivingEntity> list = splash.getWorld().getEntitiesByClass(LivingEntity.class, box, ChestCavityUtil::isHydroPhobicOrAllergic);
         if (!list.isEmpty()) {
             for(LivingEntity livingEntity:list) {
                 double d = splash.squaredDistanceTo(livingEntity);
@@ -627,7 +628,7 @@ public class ChestCavityUtil {
                         float allergy = cc.getOrganScore(CCOrganScores.HYDROALLERGENIC);
                         float phobia = cc.getOrganScore(CCOrganScores.HYDROPHOBIA);
                         if (allergy > 0) {
-                            livingEntity.damage(DamageSource.magic(livingEntity, splash.getOwner()), allergy/26);
+                            livingEntity.damage(livingEntity.getDamageSources().indirectMagic(splash, splash.getOwner()), allergy/26);
                         }
                         if (phobia > 0) {
                             OrganUtil.teleportRandomly(livingEntity,phobia*32);
