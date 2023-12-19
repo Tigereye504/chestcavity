@@ -1,6 +1,6 @@
 {
   "values": [
-    "chestcavity:ccHeartBleed",
-    "chestcavity:ccOrganRejection"
+    "chestcavity:cc_heartbleed",
+    "chestcavity:cc_organ_rejection"
   ]
 }

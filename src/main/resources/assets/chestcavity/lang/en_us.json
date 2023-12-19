@@ -1,8 +1,8 @@
 {
-    "death.attack.ccHeartbleed": "%1$s's sacrifice has nourished the sun",
-    "death.attack.ccHeartbleed.player": "%2$s witnessed %1$s's sacrifice",
-    "death.attack.ccOrganRejection": "%1$s died of medical complications",
-    "death.attack.ccOrganRejection.player": "%1$s died of medical complications while fighting %2$s",
+    "death.attack.cc_heartbleed": "%1$s's sacrifice has nourished the sun",
+    "death.attack.cc_heartbleed.player": "%2$s witnessed %1$s's sacrifice",
+    "death.attack.cc_organ_rejection": "%1$s died of medical complications",
+    "death.attack.cc_organ_rejection.player": "%1$s died of medical complications while fighting %2$s",
     "effect.chestcavity.organ_rejection": "Organ Rejection",
     "effect.chestcavity.arrow_dodge_cooldown": "Arrow Dodge Cooldown",
     "effect.chestcavity.dragon_breath_cooldown": "Dragon Breath Cooldown",

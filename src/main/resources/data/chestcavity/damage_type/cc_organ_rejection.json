@@ -1,5 +1,5 @@
 {
   "exhaustion": 0.0,
-  "message_id": "ccOrganRejection",
+  "message_id": "cc_organ_rejection",
   "scaling": "when_caused_by_living_non_player"
 }

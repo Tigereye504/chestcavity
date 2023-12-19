@@ -11,8 +11,8 @@ import net.tigereye.chestcavity.ChestCavity;
 import org.jetbrains.annotations.Nullable;
 
 public class CCDamageSources {
-    public static final RegistryKey<DamageType> HEARTBLEED = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(ChestCavity.MODID,"ccHeartbleed"));
-    public static final RegistryKey<DamageType> ORGAN_REJECTION = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(ChestCavity.MODID,"ccOrganRejection"));
+    public static final RegistryKey<DamageType> HEARTBLEED = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(ChestCavity.MODID,"cc_heartbleed"));
+    public static final RegistryKey<DamageType> ORGAN_REJECTION = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(ChestCavity.MODID,"cc_organ_rejection"));
 
     public static DamageSource of(World world, RegistryKey<DamageType> key) {
         return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(key));
