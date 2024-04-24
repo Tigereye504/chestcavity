@@ -62,7 +62,7 @@ public class OrganTickListeners {
                 }
             }
         }
-        if(crystalsynthesis != 0 && entity.world.getTime() % ChestCavity.config.CRYSTALSYNTHESIS_FREQUENCY == 0 && !(entity instanceof EnderDragonEntity))
+        if(crystalsynthesis > 0 && entity.world.getTime() % ChestCavity.config.CRYSTALSYNTHESIS_FREQUENCY == 0 && !(entity instanceof EnderDragonEntity))
         {
             EndCrystalEntity oldcrystal = cc.connectedCrystal;
             //attempt to bind to a crystal

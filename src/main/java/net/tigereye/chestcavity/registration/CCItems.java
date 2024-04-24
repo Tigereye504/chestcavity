@@ -13,6 +13,7 @@ public class CCItems {
 
 	public static final Item.Settings CHEST_OPENER_SETTINGS = new Item.Settings().maxCount(1).group(ItemGroup.TOOLS);
 	public static final Item.Settings FOOD_ITEM_SETTINGS = new Item.Settings().maxCount(64).group(ItemGroup.FOOD);
+	public static final Item.Settings INVISIBLE_FOOD_SETTINGS = new Item.Settings().maxCount(64);
 
 	public static final Item CHEST_OPENER = new ChestOpener();
 	public static final SwordItem WOODEN_CLEAVER = new SwordItem(ToolMaterials.WOOD,6,-3.2f,new Item.Settings().group(ItemGroup.COMBAT));
@@ -215,8 +216,8 @@ public class CCItems {
 	public static final Item RAW_RICH_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.RAW_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT));
 	public static final Item COOKED_RICH_DRAGON_SAUSAGE = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.COOKED_RICH_DRAGON_SAUSAGE_FOOD_COMPONENT));
 
-	public static final Item CUD = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
-	public static final Item FURNACE_POWER = new Item(FOOD_ITEM_SETTINGS.food(CCFoodComponents.FURNACE_POWER_FOOD_COMPONENT));
+	public static final Item CUD = new Item(INVISIBLE_FOOD_SETTINGS.food(CCFoodComponents.CUD_FOOD_COMPONENT));
+	public static final Item FURNACE_POWER = new Item(INVISIBLE_FOOD_SETTINGS.food(CCFoodComponents.FURNACE_POWER_FOOD_COMPONENT));
 
 	public static void register() {
 		registerItem("chest_opener", CHEST_OPENER);

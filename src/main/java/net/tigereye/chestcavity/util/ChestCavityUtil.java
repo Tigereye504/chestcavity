@@ -279,7 +279,7 @@ public class ChestCavityUtil {
 
     public static boolean attemptArrowDodging(ChestCavityInstance cc, DamageSource source){
         float dodge = cc.getOrganScore(CCOrganScores.ARROW_DODGING);
-        if(dodge == 0){
+        if(dodge <= 0){
             return false;
         }
         if(cc.owner.hasStatusEffect(CCStatusEffects.ARROW_DODGE_COOLDOWN)){
@@ -288,9 +288,7 @@ public class ChestCavityUtil {
         if (!(source instanceof ProjectileDamageSource)) {
             return false;
         }
-        if(!OrganUtil.teleportRandomly(cc.owner,ChestCavity.config.ARROW_DODGE_DISTANCE/dodge)){
-            return false;
-        }
+        OrganUtil.teleportRandomly(cc.owner,ChestCavity.config.ARROW_DODGE_DISTANCE/dodge);
         cc.owner.addStatusEffect(new StatusEffectInstance(CCStatusEffects.ARROW_DODGE_COOLDOWN, (int) (ChestCavity.config.ARROW_DODGE_COOLDOWN/dodge), 0, false, false, true));
         return true;
     }
