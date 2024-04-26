@@ -93,7 +93,7 @@ public class OrganUtil {
     public static void displayCompatibility(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 
         NbtCompound tag = itemStack.getOrCreateNbt();
-        String textString;
+        Text textString;
         boolean uuidMatch = false;
         int compatLevel = 0;
         PlayerEntity serverPlayer = null;
@@ -117,17 +117,17 @@ public class OrganUtil {
         }
 
         if(EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE,itemStack) > 0){
-            textString = "Unsafe to use";
+            textString = Text.translatable("lore.chestcavity.unsafe");
         }
         else if (tag != null && tag.contains(ChestCavity.COMPATIBILITY_TAG.toString())
                 && EnchantmentHelper.getLevel(CCEnchantments.O_NEGATIVE,itemStack) <= 0) {
             tag = tag.getCompound(ChestCavity.COMPATIBILITY_TAG.toString());
             String name = tag.getString("name");
             //tooltip.add(Text.literal("OrganOwnerCC: "+tag.getUuid("owner")));
-            textString = "Only Compatible With: "+name;
+            textString = Text.translatable("lore.chestcavity.only_compatible", name);
         }
         else{
-            textString = "Safe to Use";
+            textString = Text.translatable("lore.chestcavity.safe");
         }
 
         MutableText text = MutableText.of(TextContent.EMPTY);

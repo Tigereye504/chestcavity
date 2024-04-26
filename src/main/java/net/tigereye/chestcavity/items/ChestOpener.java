@@ -73,7 +73,6 @@ public class ChestOpener extends Item {
 					String name;
 					try {
 						name = target.getDisplayName().getString();
-						name = name.concat("'s ");
 					} catch (Exception e) {
 						name = "";
 					}
@@ -81,17 +80,17 @@ public class ChestOpener extends Item {
 					((ChestCavityEntity)player).getChestCavityInstance().ccBeingOpened = cc;
 					player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
 						return new ChestCavityScreenHandler(i, playerInventory, inv);
-					}, Text.translatable(name + "Chest Cavity")));
+					}, Text.translatable("container.chestcavity.chest_cavity", name)));
 				}
 				return true;
 			}
 			else{
 				if(player.world.isClient) {
 					if (!target.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
-						player.sendMessage(Text.literal("Target's chest is obstructed"),true);
+						player.sendMessage(Text.translatable("message.chestcavity.obstructed"),true);
 						player.playSound(SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.PLAYERS, .75f, 1);
 					} else {
-						player.sendMessage(Text.literal("Target is too healthy to open"),true);
+						player.sendMessage(Text.translatable("message.chestcavity.too_healthy"),true);
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, SoundCategory.PLAYERS, .75f, 1);
 					}
 				}

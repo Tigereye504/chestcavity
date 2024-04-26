@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class ChestCavityScreen extends HandledScreen<ScreenHandler> {
     //A path to the gui texture. In this example we use the texture from the dispenser
-    private static final Identifier TEXTURE = new Identifier("minecraft", "textures/gui/container/shulker_box.png");
+    private static final Identifier TEXTURE = new Identifier("chestcavity", "textures/gui/container/chest_cavity.png");
 
     public ChestCavityScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

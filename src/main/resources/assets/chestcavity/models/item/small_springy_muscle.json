@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/animal/small_animal_muscle"
+    "layer0": "chestcavity:item/animal/small_springy_muscle"
   }
 }

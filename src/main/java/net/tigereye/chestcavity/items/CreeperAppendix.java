@@ -20,7 +20,7 @@ public class CreeperAppendix extends Item {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(itemStack,world,tooltip,tooltipContext);
-        tooltip.add(Text.literal("This appears to be a fuse.").formatted(Formatting.ITALIC));
-        tooltip.add(Text.literal("It won't do much by itself.").formatted(Formatting.ITALIC));
+        tooltip.add(Text.translatable("lore.chestcavity.creeper_appendix.line_1").formatted(Formatting.ITALIC));
+        tooltip.add(Text.translatable("lore.chestcavity.creeper_appendix.line_2").formatted(Formatting.ITALIC));
     }
 }

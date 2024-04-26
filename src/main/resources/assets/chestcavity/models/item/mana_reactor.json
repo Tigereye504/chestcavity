@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestcavity:item/mana_reactor"
+    "layer0": "chestcavity:item/dragon/mana_reactor"
   }
 }
