@@ -1,6 +1,7 @@
 {
   "itemID": "chestcavity:small_animal_liver",
   "organScores": [
-    {"id":"chestcavity:detoxification","value": ".5"}
+    {"id":"chestcavity:detoxification","value": ".5"},
+    {"id":"chestcavity:lightweight","value": "1"}
   ]
 }

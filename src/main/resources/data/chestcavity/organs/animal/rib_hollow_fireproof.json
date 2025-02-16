@@ -1,0 +1,9 @@
+{
+  "itemID": "chestcavity:hollow_fireproof_rib",
+  "organScores": [
+    {"id":"chestcavity:defense","value": ".75"},
+    {"id":"chestcavity:fire_resistant","value": "1"},
+    {"id":"chestcavity:lightweight","value": "1"},
+    {"id":"chestcavity:impact_resistant","value": "-.5"}
+  ]
+}

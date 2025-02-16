@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.util;
 
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -122,11 +123,11 @@ public class ChestCavityUtil {
             breath += cc.getOrganScore(CCOrganScores.WATERBREATH)/4;
         }
         if(breath > 0){
-            airLoss += (-airGain * (breath) / 2);// + cc.lungRemainder;
+            airLoss += (-airGain * breath / 2);// + cc.lungRemainder;
         }
 
         //if you don't then unless you have the water breathing status effect you must hold your watery breath.
-        //its also possible to not have enough breath to keep up with airLoss
+        //it's also possible to not have enough breath to keep up with airLoss
         if (airLoss > 0) {
             //first, check if resperation cancels the sequence.
             int resperation = EnchantmentHelper.getRespiration(cc.owner);
@@ -211,10 +212,11 @@ public class ChestCavityUtil {
     }
 
 
+
     public static Float applyLeaping(ChestCavityInstance cc, float velocity) {
         float leaping = cc.getOrganScore(CCOrganScores.LEAPING);
         float defaultLeaping = cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.LEAPING);
-        return velocity * Math.max(0,1+((leaping-defaultLeaping)*.25f));
+        return velocity * Math.max(0,1+((leaping-defaultLeaping)*ChestCavity.config.LEAPING_POWER));
     }
 
     public static float applyLeapingToFallDamage(ChestCavityInstance cc, float damage){
@@ -223,6 +225,31 @@ public class ChestCavityUtil {
             return Math.max(0, damage - (leapingDiff*leapingDiff/4));
         }
         return damage;
+    }
+
+    public static double getBuoyancyLift(Entity entity, ChestCavityInstance chestCavity){
+        float buoyancy = chestCavity.getOrganScore(CCOrganScores.BUOYANT) - chestCavity.getChestCavityType().getDefaultOrganScore(CCOrganScores.BUOYANT);
+        float breathRatio = (float) entity.getAir() / entity.getMaxAir();
+        return buoyancy*breathRatio*ChestCavity.config.BUOYANCY_LIFT;
+    }
+
+    public static double applyLightweightToGravity(ChestCavityInstance cc, double gravity) {
+        float lightweight = cc.getOrganScore(CCOrganScores.LIGHTWEIGHT);
+        float defaultLightweight = cc.getChestCavityType().getDefaultOrganScore(CCOrganScores.LIGHTWEIGHT);
+        float diff = lightweight-defaultLightweight;
+        if(diff > 0){
+            return gravity / (1+(diff*ChestCavity.config.LIGHTWIEGHT_FACTOR));
+        }
+        else{
+            return gravity * (1-(diff*ChestCavity.config.LIGHTWIEGHT_FACTOR));
+        }
+
+    }
+
+    public static double applyOrgansToFallDistance(Entity entity, ChestCavityInstance cc, double heightDifference) {
+        double aproxEffGrav = 1;
+        aproxEffGrav = applyLightweightToGravity(cc,aproxEffGrav) - (getBuoyancyLift(entity,cc) / 0.08); //0.08 is the strength of minecraft gravity
+        return heightDifference * (((aproxEffGrav-1) * 4 / 3)+1);
     }
 
     public static float applyNutrition(ChestCavityInstance cc, float nutrition, float saturation){

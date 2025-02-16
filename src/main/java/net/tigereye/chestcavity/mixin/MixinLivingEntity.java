@@ -91,6 +91,16 @@ public class MixinLivingEntity extends Entity implements ChestCavityEntity{
         return amount;
     }
 
+    @ModifyVariable(at = @At("STORE"), ordinal = 0, method = "travel")
+    public double chestCavityLivingEntityLightweightMixin(double gravity){
+        Optional<ChestCavityEntity> cce = ChestCavityEntity.of(this);
+        if(cce.isPresent()){
+            ChestCavityInstance cci = cce.get().getChestCavityInstance();
+            gravity = ChestCavityUtil.applyLightweightToGravity(cci,gravity);
+        }
+        return gravity;
+    }
+
     @Inject(at = @At("RETURN"), method = "getNextAirUnderwater", cancellable = true)
     protected void chestCavityLivingEntityGetNextAirUnderwaterMixin(int air, CallbackInfoReturnable<Integer> info) {
         info.setReturnValue(ChestCavityUtil.applyBreathInWater(chestCavityInstance,air,info.getReturnValueI()));

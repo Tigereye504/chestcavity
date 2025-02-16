@@ -1,6 +1,7 @@
 {
   "itemID": "chestcavity:small_animal_spleen",
   "organScores": [
-    {"id":"chestcavity:metabolism","value": ".5"}
+    {"id":"chestcavity:metabolism","value": ".5"},
+    {"id":"chestcavity:lightweight","value": "1"}
   ]
 }

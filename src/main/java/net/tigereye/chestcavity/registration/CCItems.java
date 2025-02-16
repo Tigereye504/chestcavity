@@ -49,6 +49,7 @@ public class CCItems {
 	public static final Item ROTTEN_SPINE = new Item(new Item.Settings().maxCount(1));
 	public static final Item ROTTEN_SPLEEN = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
 	public static final Item ROTTEN_STOMACH = new Item(new Item.Settings().maxCount(1).food(FoodComponents.ROTTEN_FLESH));
+	public static final Item PHANTOM_RIB = new Item(new Item.Settings().maxCount(4));
 	public static final Item WITHERED_RIB = new Item(new Item.Settings().maxCount(4));
 	public static final Item WITHERED_SPINE = new Item(new Item.Settings().maxCount(1));
 	public static final Item WRITHING_SOULSAND = new Item(new Item.Settings().maxCount(16));
@@ -88,6 +89,7 @@ public class CCItems {
 	public static final Item FIREPROOF_SPINE = new Item(new Item.Settings().maxCount(1));
 	public static final Item FIREPROOF_SPLEEN = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
 	public static final Item FIREPROOF_STOMACH = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.RAW_ORGAN_MEAT_FOOD_COMPONENT));
+	public static final Item HOLLOW_FIREPROOF_RIB = new Item(new Item.Settings().maxCount(4));
 	
 	public static final Item SMALL_ANIMAL_APPENDIX = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
 	public static final Item SMALL_ANIMAL_HEART = new Item(new Item.Settings().maxCount(1).food(CCFoodComponents.SMALL_ANIMAL_MUSCLE_FOOD_COMPONENT));
@@ -249,6 +251,7 @@ public class CCItems {
 				entries.add(ROTTEN_SPINE);
 				entries.add(ROTTEN_SPLEEN);
 				entries.add(ROTTEN_STOMACH);
+				entries.add(PHANTOM_RIB);
 				entries.add(WITHERED_RIB);
 				entries.add(WITHERED_SPINE);
 				entries.add(WRITHING_SOULSAND);
@@ -288,6 +291,7 @@ public class CCItems {
 				entries.add(FIREPROOF_SPINE);
 				entries.add(FIREPROOF_SPLEEN);
 				entries.add(FIREPROOF_STOMACH);
+				entries.add(HOLLOW_FIREPROOF_RIB);
 
 				entries.add(SMALL_ANIMAL_APPENDIX);
 				entries.add(SMALL_ANIMAL_HEART);
@@ -396,6 +400,7 @@ public class CCItems {
 		registerItem("rotten_spine", ROTTEN_SPINE);
 		registerItem("rotten_spleen", ROTTEN_SPLEEN);
 		registerItem("rotten_stomach", ROTTEN_STOMACH);
+		registerItem("phantom_rib", PHANTOM_RIB);
 		registerItem("withered_rib", WITHERED_RIB);
 		registerItem("withered_spine", WITHERED_SPINE);
 		registerItem("writhing_soulsand", WRITHING_SOULSAND);
@@ -435,6 +440,7 @@ public class CCItems {
 		registerItem("fireproof_spine", FIREPROOF_SPINE);
 		registerItem("fireproof_spleen", FIREPROOF_SPLEEN);
 		registerItem("fireproof_stomach", FIREPROOF_STOMACH);
+		registerItem("hollow_fireproof_rib", HOLLOW_FIREPROOF_RIB);
 		
 		registerItem("small_animal_appendix", SMALL_ANIMAL_APPENDIX);
 		registerItem("small_animal_heart", SMALL_ANIMAL_HEART);

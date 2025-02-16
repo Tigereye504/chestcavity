@@ -12,6 +12,7 @@ import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.registration.CCDamageSources;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.registration.CCStatusEffects;
+import net.tigereye.chestcavity.util.ChestCavityUtil;
 import net.tigereye.chestcavity.util.OrganUtil;
 
 import java.util.List;
@@ -36,12 +37,11 @@ public class OrganTickListeners {
     }
 
     public static void TickBuoyant(LivingEntity entity, ChestCavityInstance chestCavity){
-        float buoyancy = chestCavity.getOrganScore(CCOrganScores.BUOYANT) - chestCavity.getChestCavityType().getDefaultOrganScore(CCOrganScores.BUOYANT);
-        if((entity instanceof PlayerEntity ent && ent.isCreative() && ent.getAbilities().flying) || entity.isOnGround() || entity.hasNoGravity() || buoyancy == 0)
+        if((entity instanceof PlayerEntity ent && ent.isCreative() && ent.getAbilities().flying) || entity.isOnGround() || entity.hasNoGravity())
         {
             return;
         }
-        entity.addVelocity(0.0D, buoyancy*0.02D, 0.0D);
+        entity.addVelocity(0.0D, ChestCavityUtil.getBuoyancyLift(entity,chestCavity), 0.0D);
     }
 
     public static void TickCrystalsynthesis(LivingEntity entity, ChestCavityInstance cc){

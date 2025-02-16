@@ -11,7 +11,7 @@ public class KeybindingClientListeners {
 
     public static void register(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.UTILITY_ABILITIES.wasPressed()) {
+            if(CCKeybindings.UTILITY_ABILITIES.isPressed()) {
                 if(client.player != null) {
                     for(Identifier i : CCKeybindings.UTILITY_ABILITY_LIST) {
                         NetworkUtil.SendC2SChestCavityHotkeyPacket(i);
@@ -20,7 +20,7 @@ public class KeybindingClientListeners {
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.ATTACK_ABILITIES.wasPressed()) {
+            if(CCKeybindings.ATTACK_ABILITIES.isPressed()) {
                 if(client.player != null) {
                     for(Identifier i : CCKeybindings.ATTACK_ABILITY_LIST) {
                         NetworkUtil.SendC2SChestCavityHotkeyPacket(i);
@@ -29,6 +29,7 @@ public class KeybindingClientListeners {
             }
         });
 
+        register(CCKeybindings.BUOYANT_EXHALE,CCOrganScores.BUOYANT);
         register(CCKeybindings.CREEPY,CCOrganScores.CREEPY);
         register(CCKeybindings.DRAGON_BREATH,CCOrganScores.DRAGON_BREATH);
         register(CCKeybindings.DRAGON_BOMBS,CCOrganScores.DRAGON_BOMBS);
@@ -45,7 +46,7 @@ public class KeybindingClientListeners {
 
     public static void register(KeyBinding keybinding, Identifier id){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (keybinding.wasPressed()) {
+            if(keybinding.isPressed()) {
                 if(client.player != null) {
                     NetworkUtil.SendC2SChestCavityHotkeyPacket(id);
                 }

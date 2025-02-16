@@ -2,6 +2,7 @@
   "itemID": "chestcavity:small_herbivore_intestine",
   "organScores": [
     {"id":"chestcavity:herbivorous_nutrition","value": ".75"},
-    {"id":"chestcavity:carnivorous_nutrition","value": ".25"}
+    {"id":"chestcavity:carnivorous_nutrition","value": ".25"},
+    {"id":"chestcavity:lightweight","value": "1"}
   ]
 }

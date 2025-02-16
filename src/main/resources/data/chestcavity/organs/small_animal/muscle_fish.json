@@ -3,6 +3,7 @@
   "organScores": [
     {"id":"chestcavity:strength","value": ".25"},
     {"id":"chestcavity:speed","value": ".25"},
-    {"id":"chestcavity:swim_speed","value": ".25"}
+    {"id":"chestcavity:swim_speed","value": ".25"},
+    {"id":"chestcavity:lightweight","value": "1"}
   ]
 }

@@ -52,7 +52,9 @@ public class CCConfig implements ConfigData {
     @ConfigEntry.Category("more")
     public float BUFF_PURGING_DURATION_FACTOR = .5f; //how much withered bones reduce wither duration
     @ConfigEntry.Category("more")
-    public int CRYSTALSYNTHESIS_RANGE = 32; //range at which you can link to a End Crystal
+    public float BUOYANCY_LIFT = 0.015f;
+    @ConfigEntry.Category("more")
+    public int CRYSTALSYNTHESIS_RANGE = 32; //range at which you can link to an End Crystal
     @ConfigEntry.Category("more")
     public int CRYSTALSYNTHESIS_FREQUENCY = 10; //how often the link to an End Crystal is updated and perks gained
     @ConfigEntry.Category("more")
@@ -63,6 +65,10 @@ public class CCConfig implements ConfigData {
     public float IRON_REPAIR_PERCENT = .25f; //damage reduction from 4 stacks of impact resistant organs
     @ConfigEntry.Category("more")
     public float LAUNCHING_POWER = .1f; //upward velocity per launching
+    @ConfigEntry.Category("more")
+    public float LEAPING_POWER = .25f;
+    @ConfigEntry.Category("more")
+    public float LIGHTWIEGHT_FACTOR = .25f;
     @ConfigEntry.Category("more")
     public int MAX_TELEPORT_ATTEMPTS = 5;
     @ConfigEntry.Category("more")

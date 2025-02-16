@@ -26,6 +26,7 @@ import java.util.function.BiConsumer;
 public class OrganActivationListeners {
     private static Map<Identifier, BiConsumer<LivingEntity,ChestCavityInstance>> abilityIDMap = new HashMap<>();
     public static void register(){
+        register(CCOrganScores.BUOYANT, OrganActivationListeners::ActivateBuoyantExhale);
         register(CCOrganScores.CREEPY, OrganActivationListeners::ActivateCreepy);
         register(CCOrganScores.DRAGON_BREATH, OrganActivationListeners::ActivateDragonBreath);
         register(CCOrganScores.DRAGON_BOMBS, OrganActivationListeners::ActivateDragonBombs);
@@ -48,6 +49,14 @@ public class OrganActivationListeners {
         }
         else{
             return false;
+        }
+    }
+
+    public static void ActivateBuoyantExhale(LivingEntity entity, ChestCavityInstance cc){
+        if(entity.getAir() > 0) {
+            float breathLoss = cc.getOrganScore(CCOrganScores.BREATH_RECOVERY) * 4.5f - cc.lungRemainder;
+            cc.lungRemainder = 1 - breathLoss % 1;
+            entity.setAir(entity.getAir() - (int) breathLoss);
         }
     }
 
