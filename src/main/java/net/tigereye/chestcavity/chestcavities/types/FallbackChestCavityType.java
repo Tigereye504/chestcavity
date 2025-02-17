@@ -19,7 +19,7 @@ import net.tigereye.chestcavity.util.ChestCavityUtil;
 import java.util.*;
 
 
-public class DefaultChestCavityType implements ChestCavityType {
+public class FallbackChestCavityType implements ChestCavityType {
 
     private Map<Identifier,Float> defaultOrganScores = null;
     private ChestCavityInventory defaultChestCavity = new ChestCavityInventory();
@@ -30,7 +30,7 @@ public class DefaultChestCavityType implements ChestCavityType {
     private boolean bossChestCavity = false;
     private boolean playerChestCavity = false;
 
-    public DefaultChestCavityType(){
+    public FallbackChestCavityType(){
         prepareDefaultChestCavity();
     }
 

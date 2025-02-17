@@ -1,6 +1,7 @@
 package net.tigereye.chestcavity.chestcavities;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;

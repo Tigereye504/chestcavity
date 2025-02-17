@@ -301,6 +301,7 @@
     "text.autoconfig.chestcavity.category.more": "More",
     "text.autoconfig.chestcavity.category.cooldown": "Cooldown",
     "text.autoconfig.chestcavity.category.integration": "Integration",
+    "text.autoconfig.chestcavity.option.DEFAULT_CHEST_CAVITY": "Default Chest Cavity",
     "text.autoconfig.chestcavity.option.UNIVERSAL_DONOR_RATE": "Universal Donor Rate",
     "text.autoconfig.chestcavity.option.ORGAN_BUNDLE_LOOTING_BOOST": "Drop Rate per Looting Level",
     "text.autoconfig.chestcavity.option.HEARTBLEED_RATE": "Heartbleed Frequency",
