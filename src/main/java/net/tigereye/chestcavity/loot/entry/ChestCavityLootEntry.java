@@ -58,7 +58,7 @@ public class ChestCavityLootEntry extends LeafEntry {
                 if(EnchantmentHelper.getEquipmentLevel(CCEnchantments.TOMOPHOBIA,killer) > 0){
                     return;
                 }
-                looting = EnchantmentHelper.getLooting(killer) + EnchantmentHelper.getEquipmentLevel(CCEnchantments.SURGICAL,killer);
+                looting = EnchantmentHelper.getLooting(killer) + (2*EnchantmentHelper.getEquipmentLevel(CCEnchantments.SURGICAL,killer));
                 if (killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL)) {
                     looting *= 10;
                     butcher = true;
@@ -67,7 +67,7 @@ public class ChestCavityLootEntry extends LeafEntry {
                     malpractice = true;
                 }
             }
-            List<ItemStack> loot = cce.getChestCavityInstance().getChestCavityType().generateLootDrops(context.getRandom(), 0);
+            List<ItemStack> loot = cce.getChestCavityInstance().getChestCavityType().generateLootDrops(context.getRandom(), looting);
             if(butcher) {
                 processButchering(context.getWorld(),loot);
             }
