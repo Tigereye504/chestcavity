@@ -49,7 +49,7 @@ public class ChestCavityLootEntry extends LeafEntry {
     }
 
     public void generateLoot(Consumer<ItemStack> lootConsumer, LootContext context) {
-        if (context.get(LootContextParameters.THIS_ENTITY) instanceof ChestCavityEntity cce) {
+        if (!context.hasParameter(LootContextParameters.BLOCK_STATE) && context.get(LootContextParameters.THIS_ENTITY) instanceof ChestCavityEntity cce) {
             int looting = 0;
             boolean butcher = false;
             boolean malpractice = false;

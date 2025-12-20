@@ -8,10 +8,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
-import net.tigereye.chestcavity.chestcavities.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
+import net.tigereye.chestcavity.chestcavities.organscores.OrganScore;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 
@@ -44,6 +44,8 @@ public class GeneratedChestCavityType implements ChestCavityType {
     }
     @Override
     public float getDefaultOrganScore(Identifier id){return getDefaultOrganScores().getOrDefault(id,0f);}
+    @Override
+    public float getDefaultOrganScore(OrganScore organScore){return getDefaultOrganScores().getOrDefault(organScore.getID(),0f);}
     @Override
     public ChestCavityInventory getDefaultChestCavity(){return defaultChestCavity;}
     public void setDefaultChestCavity(ChestCavityInventory inv){defaultChestCavity = inv;}

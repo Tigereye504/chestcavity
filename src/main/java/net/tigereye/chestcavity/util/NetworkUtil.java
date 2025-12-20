@@ -24,6 +24,7 @@ public class NetworkUtil {
     public static PacketByteBuf WriteChestCavityUpdatePacket(ChestCavityInstance cc){
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBoolean(cc.opened);
+        buf.writeUuid(cc.compatibility_id);
         buf.writeInt(cc.getOrganScores().size());
         cc.getOrganScores().forEach((id, value) -> {
             buf.writeString(id.toString());
@@ -35,6 +36,7 @@ public class NetworkUtil {
     public static void ReadChestCavityUpdatePacket(ChestCavityInstance cc, PacketByteBuf buf){
         Map<Identifier,Float> organScores = new HashMap<>();
         cc.opened = buf.readBoolean();
+        cc.compatibility_id = buf.readUuid();
         int entries = buf.readInt();
         for(int i = 0; i < entries; i++){
             organScores.put(new Identifier(buf.readString()),buf.readFloat());

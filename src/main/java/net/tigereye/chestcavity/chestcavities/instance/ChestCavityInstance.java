@@ -13,8 +13,9 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
-import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.chestcavities.types.ChestCavityType;
 import net.tigereye.chestcavity.listeners.OrganOnHitContext;
+import net.tigereye.chestcavity.chestcavities.organscores.OrganScore;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -89,8 +90,15 @@ public class ChestCavityInstance implements InventoryChangedListener {
         return organScores.getOrDefault(id, 0f);
     }
 
+    public float getOrganScore(OrganScore organScore) {
+        return organScores.getOrDefault(organScore.getID(), 0f);
+    }
+
     public float getOldOrganScore(Identifier id) {
         return oldOrganScores.getOrDefault(id, 0f);
+    }
+    public float getOldOrganScore(OrganScore organScore) {
+        return oldOrganScores.getOrDefault(organScore.getID(), 0f);
     }
 
     public void onInventoryChanged(Inventory sender) {

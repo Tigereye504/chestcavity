@@ -3,6 +3,9 @@ package net.tigereye.chestcavity.util;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,7 +26,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.GameRules;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
-import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.chestcavities.organscores.OrganScore;
+import net.tigereye.chestcavity.chestcavities.types.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
@@ -40,6 +44,9 @@ public class ChestCavityUtil {
 
     public static void addOrganScore(Identifier id, float value, Map<Identifier,Float> organScores){
         organScores.put(id,organScores.getOrDefault(id,0f)+value);
+    }
+    public static void addOrganScore(OrganScore organScore, float value, Map<Identifier,Float> organScores){
+        organScores.put(organScore.getID(),organScores.getOrDefault(organScore.getID(),0f)+value);
     }
 
     public static float applyBoneDefense(ChestCavityInstance cc, float damage){
@@ -188,9 +195,9 @@ public class ChestCavityUtil {
         }
         if(digestion < 0){
             cc.owner.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,(int)(-hunger*digestion*400)));
-            return 0;
+            return 1;
         }
-        //sadly, in order to get saturation at all we must grant at least half a haunch of food, unless we embrace incompatibility
+        //sadly, in order to get saturation at all we must grant at least half a haunch of food unless we embrace incompatibility
         return Math.max((int)(hunger*digestion),1);
         //TODO: find a use for stomachs for non-players
     }
@@ -623,7 +630,7 @@ public class ChestCavityUtil {
             if(ChestCavity.DEBUG_MODE && cc.owner instanceof PlayerEntity) {
                 ChestCavityUtil.outputOrganScoresString(System.out::println,cc);
             }
-            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(cc.owner, cc);
+            ChestCavityUpdateCallback.EVENT.invoker().onOrganUpdate(cc.owner, cc);
             cc.oldOrganScores.clear();
             cc.oldOrganScores.putAll(organScores);
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc);
@@ -664,5 +671,24 @@ public class ChestCavityUtil {
                 }
             }
         }
+    }
+
+    public static void applyChestCavityAttributeUpdate(LivingEntity entity, float oldScore, float newScore, float defaultScore, UUID uuid, String name, float scalar, EntityAttribute attribute, EntityAttributeModifier.Operation operation){
+        if(oldScore != newScore) {
+            EntityAttributeInstance att = entity.getAttributeInstance(attribute);
+            if (att != null) {
+                EntityAttributeModifier mod = new EntityAttributeModifier(uuid, name,
+                        (newScore - defaultScore)
+                                * scalar, operation);
+                ChestCavityUtil.ReplaceAttributeModifier(att, mod);
+            }
+        }
+    }
+
+    public static void ReplaceAttributeModifier(EntityAttributeInstance att, EntityAttributeModifier mod)
+    {
+        //removes any existing mod and replaces it with the updated one.
+        att.removeModifier(mod);
+        att.addPersistentModifier(mod);
     }
 }

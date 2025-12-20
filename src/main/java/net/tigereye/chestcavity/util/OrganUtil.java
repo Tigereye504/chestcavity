@@ -88,23 +88,10 @@ public class OrganUtil {
 
         NbtCompound tag = itemStack.getOrCreateNbt();
         String textString;
-        boolean uuidMatch = false;
         int compatLevel = 0;
-        PlayerEntity serverPlayer = null;
-        net.minecraft.server.MinecraftServer server = null;
-        if(world != null) {
-            server = world.getServer();
-        }
-        if(server == null) {
-            server = MinecraftClient.getInstance().getServer();
-        }
-        if(server != null) {
-            serverPlayer = server.getPlayerManager().getPlayer(MinecraftClient.getInstance().player.getEntityName());
-            if(serverPlayer instanceof ChestCavityEntity ccPlayer){
-                UUID ccID = ccPlayer.getChestCavityInstance().compatibility_id;
-                //tooltip.add(Text.literal("ServerPlayerCC: "+ccID));
-                compatLevel = ChestCavityUtil.getCompatibilityLevel(ccPlayer.getChestCavityInstance(),itemStack);
-            }
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if(player instanceof ChestCavityEntity ccPlayer) {
+            compatLevel = ChestCavityUtil.getCompatibilityLevel(ccPlayer.getChestCavityInstance(),itemStack);
         }
         else{
             compatLevel = -1;

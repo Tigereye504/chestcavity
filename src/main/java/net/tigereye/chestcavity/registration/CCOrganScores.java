@@ -1,25 +1,39 @@
 package net.tigereye.chestcavity.registration;
 
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
+import net.tigereye.chestcavity.chestcavities.organscores.IncompatibilityOrganScore;
+import net.tigereye.chestcavity.chestcavities.organscores.NervesOrganScore;
+import net.tigereye.chestcavity.chestcavities.organscores.OrganScore;
+import net.tigereye.chestcavity.chestcavities.organscores.SimpleAttributeOrganScore;
 
 public class CCOrganScores {
     //basic organ abilities
-    public static final Identifier LUCK = new Identifier(ChestCavity.MODID, "luck");
-    public static final Identifier HEALTH = new Identifier(ChestCavity.MODID, "health");
+    public static final OrganScore LUCK = new SimpleAttributeOrganScore(new Identifier(ChestCavity.MODID, "luck"),
+            "ac606ec3-4cc3-42b5-9399-7fa8ceba8722","ChestCavityAppendixLuck",
+            ChestCavity.config.APPENDIX_LUCK, EntityAttributes.GENERIC_LUCK, EntityAttributeModifier.Operation.ADDITION);
+    public static final OrganScore HEALTH = new SimpleAttributeOrganScore(new Identifier(ChestCavity.MODID, "health"),
+            "edb1e124-a951-48bd-b711-782ec1364722","ChestCavityHeartMaxHP",
+            ChestCavity.config.HEART_HP, EntityAttributes.GENERIC_MAX_HEALTH, EntityAttributeModifier.Operation.ADDITION);
     public static final Identifier NUTRITION = new Identifier(ChestCavity.MODID, "nutrition");
     public static final Identifier FILTRATION = new Identifier(ChestCavity.MODID, "filtration");
     public static final Identifier DETOXIFICATION = new Identifier(ChestCavity.MODID, "detoxification");
     public static final Identifier BREATH_RECOVERY = new Identifier(ChestCavity.MODID, "breath_recovery");
     public static final Identifier BREATH_CAPACITY = new Identifier(ChestCavity.MODID, "breath_capacity");
     public static final Identifier ENDURANCE = new Identifier(ChestCavity.MODID, "endurance");
-    public static final Identifier STRENGTH = new Identifier(ChestCavity.MODID, "strength");
-    public static final Identifier SPEED = new Identifier(ChestCavity.MODID, "speed");
+    public static final OrganScore STRENGTH = new SimpleAttributeOrganScore(new Identifier(ChestCavity.MODID, "strength"),
+            "bf560396-9855-496e-a942-99824467e1ad","ChestCavityMuscleAttackDamage",
+            ChestCavity.config.MUSCLE_STRENGTH / 8, EntityAttributes.GENERIC_ATTACK_DAMAGE, EntityAttributeModifier.Operation.MULTIPLY_BASE);
+    public static final OrganScore SPEED = new SimpleAttributeOrganScore(new Identifier(ChestCavity.MODID, "speed"),
+            "979aa156-3f01-45d3-8784-56185eeef96d", "ChestCavityMovementSpeed",
+            ChestCavity.config.MUSCLE_SPEED / 8, EntityAttributes.GENERIC_MOVEMENT_SPEED,EntityAttributeModifier.Operation.MULTIPLY_BASE);
     public static final Identifier DEFENSE = new Identifier(ChestCavity.MODID, "defense");
-    public static final Identifier NERVES = new Identifier(ChestCavity.MODID, "nerves");
+    public static final OrganScore NERVES = new NervesOrganScore(new Identifier(ChestCavity.MODID, "nerves"));
     public static final Identifier METABOLISM = new Identifier(ChestCavity.MODID, "metabolism");
     public static final Identifier DIGESTION = new Identifier(ChestCavity.MODID, "digestion");
-    public static final Identifier INCOMPATIBILITY = new Identifier(ChestCavity.MODID, "incompatibility");
+    public static final OrganScore INCOMPATIBILITY = new IncompatibilityOrganScore(new Identifier(ChestCavity.MODID,"incompatibility"));
 
     //passive abilities
     public static final Identifier ARROW_DODGING = new Identifier(ChestCavity.MODID, "arrow_dodging");
@@ -32,7 +46,9 @@ public class CCOrganScores {
     public static final Identifier HYDROALLERGENIC = new Identifier(ChestCavity.MODID, "hydroallergenic");
     public static final Identifier HYDROPHOBIA = new Identifier(ChestCavity.MODID, "hydrophobia");
     public static final Identifier IMPACT_RESISTANT = new Identifier(ChestCavity.MODID, "impact_resistant");
-    public static final Identifier KNOCKBACK_RESISTANT = new Identifier(ChestCavity.MODID, "knockback_resistant");
+    public static final OrganScore KNOCKBACK_RESISTANT = new SimpleAttributeOrganScore(new Identifier(ChestCavity.MODID, "knockback_resistant"),
+            "673566d3-5daa-40d7-955f-cbabc27a84cf", "ChestCavityKnockbackResistance",
+            .1f, EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,EntityAttributeModifier.Operation.ADDITION);
     public static final Identifier LAUNCHING = new Identifier(ChestCavity.MODID, "launching");
     public static final Identifier LEAPING = new Identifier(ChestCavity.MODID, "leaping");
     public static final Identifier LIGHTWEIGHT = new Identifier(ChestCavity.MODID, "lightweight");
@@ -67,5 +83,13 @@ public class CCOrganScores {
     //on hit abilities
     public static final Identifier VENOMOUS = new Identifier(ChestCavity.MODID, "venomous");
 
+    public static void register(){
+        LUCK.attachEventHooks();
+        HEALTH.attachEventHooks();
+        STRENGTH.attachEventHooks();
+        SPEED.attachEventHooks();
+
+        KNOCKBACK_RESISTANT.attachEventHooks();
+    }
 
 }

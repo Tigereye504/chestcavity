@@ -5,7 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.chestcavities.ChestCavityType;
+import net.tigereye.chestcavity.chestcavities.types.ChestCavityType;
 import net.tigereye.chestcavity.chestcavities.types.FallbackChestCavityType;
 import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
 
