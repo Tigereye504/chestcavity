@@ -43,6 +43,7 @@ public class ChestCavity implements ModInitializer {
 		CCEnchantments.register();
 		CCLootConditionTypes.register();
 		CCListeners.register();
+		CCOrganScores.register();
 		CCStatusEffects.register();
 		CCTagOrgans.init();
 		CCCommands.register();

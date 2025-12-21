@@ -88,6 +88,8 @@ public class CCOrganScores {
         HEALTH.attachEventHooks();
         STRENGTH.attachEventHooks();
         SPEED.attachEventHooks();
+        NERVES.attachEventHooks();
+        INCOMPATIBILITY.attachEventHooks();
 
         KNOCKBACK_RESISTANT.attachEventHooks();
     }

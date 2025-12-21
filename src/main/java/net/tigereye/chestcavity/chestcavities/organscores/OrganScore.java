@@ -8,5 +8,6 @@ public interface OrganScore {
 
     Identifier getID();
     default void onChestCavityUpdate(LivingEntity entity, ChestCavityInstance cc, float oldScore, float newScore, float defaultScore){}
+    default void onChestCavityTick(LivingEntity entity, ChestCavityInstance cc, float score, float defaultScore){}
     void attachEventHooks();
 }

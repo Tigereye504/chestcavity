@@ -22,7 +22,6 @@ import static net.tigereye.chestcavity.registration.CCDamageSources.HEARTBLEED;
 public class OrganTickListeners {
 
     public static void register(){
-        OrganTickCallback.EVENT.register(OrganTickListeners::TickIncompatibility);
         OrganTickCallback.EVENT.register(OrganTickListeners::TickProjectileQueue);
 
         OrganTickCallback.EVENT.register(OrganTickListeners::TickHealth);
@@ -221,19 +220,6 @@ public class OrganTickListeners {
         }
         if(entity.isTouchingWaterOrRain()){
             OrganUtil.teleportRandomly(entity,hydrophobia*32);
-        }
-    }
-
-    public static void TickIncompatibility(LivingEntity entity,ChestCavityInstance chestCavity){
-        if(entity.getEntityWorld().isClient() || ChestCavity.config.DISABLE_ORGAN_REJECTION){ //this is a server-side event
-            return;
-        }
-        float incompatibility = chestCavity.getOrganScore(CCOrganScores.INCOMPATIBILITY);
-        if(incompatibility > 0)
-        {
-            if(!entity.hasStatusEffect(CCStatusEffects.ORGAN_REJECTION)){
-                entity.addStatusEffect(new StatusEffectInstance(CCStatusEffects.ORGAN_REJECTION, (int)(ChestCavity.config.ORGAN_REJECTION_RATE /incompatibility),0, false, true, true));
-            }
         }
     }
 

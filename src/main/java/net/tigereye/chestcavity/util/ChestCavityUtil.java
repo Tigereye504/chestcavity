@@ -630,7 +630,7 @@ public class ChestCavityUtil {
             if(ChestCavity.DEBUG_MODE && cc.owner instanceof PlayerEntity) {
                 ChestCavityUtil.outputOrganScoresString(System.out::println,cc);
             }
-            ChestCavityUpdateCallback.EVENT.invoker().onOrganUpdate(cc.owner, cc);
+            OrganUpdateCallback.EVENT.invoker().onOrganUpdate(cc.owner, cc);
             cc.oldOrganScores.clear();
             cc.oldOrganScores.putAll(organScores);
             NetworkUtil.SendS2CChestCavityUpdatePacket(cc);

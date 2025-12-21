@@ -5,7 +5,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.listeners.ChestCavityUpdateCallback;
+import net.tigereye.chestcavity.listeners.OrganUpdateCallback;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
 
 import java.util.UUID;
@@ -40,6 +40,6 @@ public class SimpleAttributeOrganScore implements OrganScore{
 
     @Override
     public void attachEventHooks() {
-        ChestCavityUpdateCallback.registerOrganScore(this);
+        OrganUpdateCallback.registerOrganScore(this);
     }
 }
