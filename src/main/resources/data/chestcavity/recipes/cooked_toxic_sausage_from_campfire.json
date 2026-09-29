@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:campfire_cooking",
-    "ingredient": {
-      "item": "chestcavity:raw_toxic_sausage"
-    },
-    "result": "chestcavity:toxic_sausage",
-    "experience": 0.35,
-    "cookingtime": 600
-  }

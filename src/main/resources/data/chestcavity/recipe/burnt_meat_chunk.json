@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": "#chestcavity:burnable_meat",
+  "result": {
+    "id": "chestcavity:burnt_meat_chunk",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

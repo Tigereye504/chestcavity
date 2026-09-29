@@ -1,0 +1,31 @@
+{
+  "minecraft": "26.3",
+  "forge": "66.0.8",
+  "java": 25,
+  "gradle": "9.7.1",
+  "artifact": "chestcavity-2.16.6-26.3.jar",
+  "bytes": 1006200,
+  "sha256": "27facf0bc60ad49da6bb1e1bef829fb893a2f8741d7dab4234799b8751812265",
+  "content": {
+    "recipes": 123,
+    "organs": 144,
+    "cavity_types": 44,
+    "item_models": 182,
+    "enchantments": 4
+  },
+  "gametests": [
+    "chestcavity:abilities",
+    "chestcavity:content",
+    "chestcavity:effect_metabolism",
+    "chestcavity:venom_infusion",
+    "chestcavity:food_digestion",
+    "chestcavity:organ_loot",
+    "chestcavity:organ_physiology",
+    "chestcavity:organ_roundtrip",
+    "chestcavity:salvage_recipe"
+  ],
+  "gametests_passed": 9,
+  "client_smoke_passed": true,
+  "production_build_passed": true,
+  "test_classes_in_jar": false
+}

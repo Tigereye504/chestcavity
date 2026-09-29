@@ -1,11 +1,11 @@
 package net.tigereye.chestcavity.listeners;
 
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+
+import net.tigereye.chestcavity.util.Event;
+import net.tigereye.chestcavity.util.EventFactory;
+
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 
 public interface OrganFoodCallback {
@@ -17,5 +17,5 @@ public interface OrganFoodCallback {
                 return efs;
             });
 
-    EffectiveFoodScores onEatFood(Item item, FoodComponent foodComponent, ChestCavityEntity cce, EffectiveFoodScores efs);
+    EffectiveFoodScores onEatFood(Item item, FoodProperties foodComponent, ChestCavityEntity cce, EffectiveFoodScores efs);
 }

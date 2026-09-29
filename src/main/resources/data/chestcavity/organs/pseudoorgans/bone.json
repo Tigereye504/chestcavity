@@ -2,6 +2,9 @@
   "itemID": "minecraft:bone",
   "pseudoOrgan": true,
   "organScores": [
-    {"id":"chestcavity:defense","value": ".5"}
+    {
+      "id": "chestcavity:defense",
+      "value": ".5"
+    }
   ]
 }

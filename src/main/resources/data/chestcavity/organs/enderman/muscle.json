@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:ender_muscle",
   "organScores": [
-    {"id":"chestcavity:strength","value": "1.25"},
-    {"id":"chestcavity:speed","value": "1.25"},
-    {"id":"chestcavity:hydroallergenic","value": "1"}
+    {
+      "id": "chestcavity:strength",
+      "value": "1.25"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": "1.25"
+    },
+    {
+      "id": "chestcavity:hydroallergenic",
+      "value": "1"
+    }
   ]
 }

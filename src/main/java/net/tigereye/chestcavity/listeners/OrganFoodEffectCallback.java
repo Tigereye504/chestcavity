@@ -1,15 +1,15 @@
 package net.tigereye.chestcavity.listeners;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import com.mojang.datafixers.util.Pair;
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.tigereye.chestcavity.util.Event;
+import net.tigereye.chestcavity.util.EventFactory;
+
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface OrganFoodEffectCallback {
@@ -21,5 +21,5 @@ public interface OrganFoodEffectCallback {
                 return list;
             });
 
-    List<Pair<StatusEffectInstance, Float>> onApplyFoodEffects(List<Pair<StatusEffectInstance, Float>> list, ItemStack stack, World world, LivingEntity targetEntity, ChestCavityInstance cc);
+    List<Pair<MobEffectInstance, Float>> onApplyFoodEffects(List<Pair<MobEffectInstance, Float>> list, ItemStack stack, Level world, LivingEntity targetEntity, ChestCavityInstance cc);
 }

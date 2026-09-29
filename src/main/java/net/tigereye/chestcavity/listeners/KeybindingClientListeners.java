@@ -1,8 +1,9 @@
 package net.tigereye.chestcavity.listeners;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.util.Identifier;
+
+
 import net.tigereye.chestcavity.registration.CCKeybindings;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.NetworkUtil;
@@ -10,8 +11,9 @@ import net.tigereye.chestcavity.util.NetworkUtil;
 public class KeybindingClientListeners {
 
     public static void register(){
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.UTILITY_ABILITIES.wasPressed()) {
+        net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(event -> {
+            var client=net.minecraft.client.Minecraft.getInstance();
+            while (CCKeybindings.UTILITY_ABILITIES.consumeClick()) {
                 if(client.player != null) {
                     for(Identifier i : CCKeybindings.UTILITY_ABILITY_LIST) {
                         NetworkUtil.SendC2SChestCavityHotkeyPacket(i);
@@ -19,8 +21,9 @@ public class KeybindingClientListeners {
                 }
             }
         });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CCKeybindings.ATTACK_ABILITIES.wasPressed()) {
+        net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(event -> {
+            var client=net.minecraft.client.Minecraft.getInstance();
+            while (CCKeybindings.ATTACK_ABILITIES.consumeClick()) {
                 if(client.player != null) {
                     for(Identifier i : CCKeybindings.ATTACK_ABILITY_LIST) {
                         NetworkUtil.SendC2SChestCavityHotkeyPacket(i);
@@ -42,10 +45,10 @@ public class KeybindingClientListeners {
         register(CCKeybindings.SILK,CCOrganScores.SILK);
     }
 
-
-    public static void register(KeyBinding keybinding, Identifier id){
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (keybinding.wasPressed()) {
+    public static void register(KeyMapping keybinding, Identifier id){
+        net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(event -> {
+            var client=net.minecraft.client.Minecraft.getInstance();
+            while (keybinding.consumeClick()) {
                 if(client.player != null) {
                     NetworkUtil.SendC2SChestCavityHotkeyPacket(id);
                 }

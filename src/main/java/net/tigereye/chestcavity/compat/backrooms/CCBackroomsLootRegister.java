@@ -1,87 +1,27 @@
 package net.tigereye.chestcavity.compat.backrooms;
-
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.*;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.registration.CCItems;
-
-
+import java.util.List;
 public class CCBackroomsLootRegister {
-
-    public static final Identifier LEVEL0CHEST = new Identifier("backrooms", "chests/level0");
-    public static final Identifier LEVEL1CHEST = new Identifier("backrooms", "chests/level1");
-    public static final Identifier LEVEL3CHEST = new Identifier("backrooms", "chests/level3");
-
-    public static void register(){
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, supplier, setter) -> {
-            if (LEVEL0CHEST.equals(id)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(BinomialLootNumberProvider.create(ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS, ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_APPENDIX))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_HEART))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_INTESTINE))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_KIDNEY))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_LIVER))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_LUNG))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB)
-                                .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(4,.6f))).build())
-                        .with(ItemEntry.builder(CCItems.ROTTEN_SPINE))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_SPLEEN))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_STOMACH));
-                supplier.pool(poolBuilder);
-            }
-            if (LEVEL1CHEST.equals(id)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(BinomialLootNumberProvider.create(ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS,ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_APPENDIX).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_HEART).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_INTESTINE).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_KIDNEY).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_LIVER).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_LUNG).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB).weight(2)
-                                .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(4,.6f))).build())
-                        .with(ItemEntry.builder(CCItems.ROTTEN_SPINE).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_SPLEEN).weight(2))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_STOMACH).weight(2))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_APPENDIX))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_HEART))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_INTESTINE))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_KIDNEY))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_LIVER))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_LUNG))
-                        .with(ItemEntry.builder(CCItems.SMALL_GILLS))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_RIB)
-                                .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(4,.6f))).build())
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_SPINE))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_SPLEEN))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_STOMACH))
-                        .with(ItemEntry.builder(CCItems.SMALL_ANIMAL_MUSCLE)
-                                .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(4,.6f))).build());
-                supplier.pool(poolBuilder);
-            }
-            if (LEVEL3CHEST.equals(id)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(BinomialLootNumberProvider.create(ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS,ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE))
-                        .with(ItemEntry.builder(CCItems.HUMAN_MUSCLE).weight(8)
-                            .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(16,.6f))).build())
-                        .with(ItemEntry.builder(CCItems.HUMAN_APPENDIX).weight(4))
-                        .with(ItemEntry.builder(CCItems.HUMAN_KIDNEY).weight(4))
-                        .with(ItemEntry.builder(CCItems.HUMAN_LIVER).weight(4))
-                        .with(ItemEntry.builder(CCItems.HUMAN_RIB).weight(4)
-                                .apply(SetCountLootFunction.builder(BinomialLootNumberProvider.create(4,.6f))).build())
-                        .with(ItemEntry.builder(CCItems.HUMAN_SPLEEN).weight(4))
-                        .with(ItemEntry.builder(CCItems.HUMAN_LUNG).weight(2))
-                        .with(ItemEntry.builder(CCItems.HUMAN_HEART))
-                        .with(ItemEntry.builder(CCItems.HUMAN_INTESTINE))
-                        .with(ItemEntry.builder(CCItems.HUMAN_SPINE))
-                        .with(ItemEntry.builder(CCItems.HUMAN_STOMACH));
-                supplier.pool(poolBuilder);
-            }
-        });
+    private static boolean enabled;
+    private record Entry(Item item,int weight,int trials){}
+    public static void register(){enabled=true;}
+    public static void apply(Identifier id,List<ItemStack> loot,RandomSource random){
+        if(!enabled || !id.getNamespace().equals("backrooms"))return;
+        List<Entry> entries=switch(id.getPath()){
+case "chests/level0" -> List.of(new Entry(CCItems.ROTTEN_APPENDIX,1,0),new Entry(CCItems.ROTTEN_HEART,1,0),new Entry(CCItems.ROTTEN_INTESTINE,1,0),new Entry(CCItems.ROTTEN_KIDNEY,1,0),new Entry(CCItems.ROTTEN_LIVER,1,0),new Entry(CCItems.ROTTEN_LUNG,1,0),new Entry(CCItems.ROTTEN_RIB,1,4),new Entry(CCItems.ROTTEN_SPINE,1,0),new Entry(CCItems.ROTTEN_SPLEEN,1,0),new Entry(CCItems.ROTTEN_STOMACH,1,0));
+case "chests/level1" -> List.of(new Entry(CCItems.ROTTEN_APPENDIX,2,0),new Entry(CCItems.ROTTEN_HEART,2,0),new Entry(CCItems.ROTTEN_INTESTINE,2,0),new Entry(CCItems.ROTTEN_KIDNEY,2,0),new Entry(CCItems.ROTTEN_LIVER,2,0),new Entry(CCItems.ROTTEN_LUNG,2,0),new Entry(CCItems.ROTTEN_RIB,2,4),new Entry(CCItems.ROTTEN_SPINE,2,0),new Entry(CCItems.ROTTEN_SPLEEN,2,0),new Entry(CCItems.ROTTEN_STOMACH,2,0),new Entry(CCItems.SMALL_ANIMAL_APPENDIX,1,0),new Entry(CCItems.SMALL_ANIMAL_HEART,1,0),new Entry(CCItems.SMALL_ANIMAL_INTESTINE,1,0),new Entry(CCItems.SMALL_ANIMAL_KIDNEY,1,0),new Entry(CCItems.SMALL_ANIMAL_LIVER,1,0),new Entry(CCItems.SMALL_ANIMAL_LUNG,1,0),new Entry(CCItems.SMALL_GILLS,1,0),new Entry(CCItems.SMALL_ANIMAL_RIB,1,4),new Entry(CCItems.SMALL_ANIMAL_SPINE,1,0),new Entry(CCItems.SMALL_ANIMAL_SPLEEN,1,0),new Entry(CCItems.SMALL_ANIMAL_STOMACH,1,0),new Entry(CCItems.SMALL_ANIMAL_MUSCLE,1,4));
+case "chests/level3" -> List.of(new Entry(CCItems.HUMAN_MUSCLE,8,16),new Entry(CCItems.HUMAN_APPENDIX,4,0),new Entry(CCItems.HUMAN_KIDNEY,4,0),new Entry(CCItems.HUMAN_LIVER,4,0),new Entry(CCItems.HUMAN_RIB,4,4),new Entry(CCItems.HUMAN_SPLEEN,4,0),new Entry(CCItems.HUMAN_LUNG,2,0),new Entry(CCItems.HUMAN_HEART,1,0),new Entry(CCItems.HUMAN_INTESTINE,1,0),new Entry(CCItems.HUMAN_SPINE,1,0),new Entry(CCItems.HUMAN_STOMACH,1,0));
+            default -> List.of();
+        };
+        if(entries.isEmpty())return;
+        int weight=entries.stream().mapToInt(Entry::weight).sum();
+        for(int i=0;i<ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_ATTEMPTS;i++)if(random.nextFloat()<ChestCavity.config.BACKROOMS_CHEST_ORGAN_LOOT_CHANCE){
+            int choice=random.nextInt(weight);
+            for(var entry:entries){choice-=entry.weight();if(choice<0){int count=entry.trials()==0?1:0;for(int j=0;j<entry.trials();j++)if(random.nextFloat()<.6f)count++;if(count>0)loot.add(new ItemStack(entry.item(),count));break;}}
+        }
     }
 }

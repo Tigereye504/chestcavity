@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": "chestcavity:raw_alien_sausage",
+  "result": {
+    "id": "chestcavity:alien_sausage",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

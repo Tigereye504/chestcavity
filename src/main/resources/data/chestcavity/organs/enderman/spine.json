@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:ender_spine",
   "organScores": [
-    {"id":"chestcavity:defense","value": ".625"},
-    {"id":"chestcavity:nerves","value": "1.25"},
-    {"id":"chestcavity:hydroallergenic","value": "1"}
+    {
+      "id": "chestcavity:defense",
+      "value": ".625"
+    },
+    {
+      "id": "chestcavity:nerves",
+      "value": "1.25"
+    },
+    {
+      "id": "chestcavity:hydroallergenic",
+      "value": "1"
+    }
   ]
 }

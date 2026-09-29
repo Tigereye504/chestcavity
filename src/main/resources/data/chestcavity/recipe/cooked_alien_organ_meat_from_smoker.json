@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": "chestcavity:raw_alien_organ_meat",
+  "result": {
+    "id": "chestcavity:cooked_alien_organ_meat",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

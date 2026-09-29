@@ -1,0 +1,8 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": "#chestcavity:salvageable_rotten_flesh",
+  "result": {
+    "id": "minecraft:rotten_flesh",
+    "count": 1
+  }
+}

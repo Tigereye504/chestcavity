@@ -1,86 +1,23 @@
 package net.tigereye.chestcavity.recipes;
-
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
 import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCRecipes;
 import net.tigereye.chestcavity.util.OrganUtil;
-
-public class InfuseVenomGland extends SpecialCraftingRecipe {
-    public InfuseVenomGland(Identifier id) {
-        super(id);
-    }
-
-    @Override
-    public boolean matches(CraftingInventory craftingInventory, World world) {
-        boolean foundVenomGland = false;
-        boolean foundPotion = false;
-        for(int i = 0; i < craftingInventory.getWidth(); ++i) {
-            for(int j = 0; j < craftingInventory.getHeight(); ++j) {
-                ItemStack itemStack = craftingInventory.getStack(i + j * craftingInventory.getWidth());
-                if (itemStack.getItem() == CCItems.VENOM_GLAND) {
-                    if(foundVenomGland){
-                        return false;
-                    }
-                    foundVenomGland = true;
-                }
-                else if(itemStack.getItem() == Items.POTION ||
-                        itemStack.getItem() == Items.SPLASH_POTION ||
-                        itemStack.getItem() == Items.LINGERING_POTION){
-                    if(foundPotion){
-                        return false;
-                    }
-                    foundPotion = true;
-                }
-            }
+public final class InfuseVenomGland extends CustomRecipe {
+    public static final RecipeSerializer<InfuseVenomGland> SERIALIZER=new RecipeSerializer<>(com.mojang.serialization.MapCodec.unit(InfuseVenomGland::new),net.minecraft.network.codec.StreamCodec.unit(new InfuseVenomGland()));
+    @Override public boolean matches(CraftingInput input,Level level){return !assemble(input).isEmpty();}
+    @Override public ItemStack assemble(CraftingInput input){
+        ItemStack gland=ItemStack.EMPTY,potion=ItemStack.EMPTY;
+        for(ItemStack item:input.items()) {
+            if(item.isEmpty())continue;
+            if(item.is(CCItems.VENOM_GLAND)&&gland.isEmpty())gland=item;
+            else if((item.is(Items.POTION)||item.is(Items.SPLASH_POTION)||item.is(Items.LINGERING_POTION))&&potion.isEmpty())potion=item;
+            else return ItemStack.EMPTY;
         }
-        return foundVenomGland&&foundPotion;
+        if(gland.isEmpty()||potion.isEmpty())return ItemStack.EMPTY;
+        ItemStack result=gland.copyWithCount(1);OrganUtil.setStatusEffects(result,potion);return result;
     }
-
-    @Override
-    public ItemStack craft(CraftingInventory craftingInventory) {
-        ItemStack venomGland = null;
-        ItemStack potion = null;
-        ItemStack output = null;
-        for(int i = 0; i < craftingInventory.getWidth(); ++i) {
-            for(int j = 0; j < craftingInventory.getHeight(); ++j) {
-                ItemStack itemStack = craftingInventory.getStack(i + j * craftingInventory.getWidth());
-                if (itemStack.getItem() == CCItems.VENOM_GLAND) {
-                    if(venomGland != null){
-                        return ItemStack.EMPTY;
-                    }
-                    venomGland = itemStack;
-                }
-                else if(itemStack.getItem() == Items.POTION ||
-                        itemStack.getItem() == Items.SPLASH_POTION ||
-                        itemStack.getItem() == Items.LINGERING_POTION){
-                    if(potion != null){
-                        return ItemStack.EMPTY;
-                    }
-                    potion = itemStack;
-                }
-            }
-        }
-        if(venomGland != null && potion != null){
-            output = venomGland.copy();
-            OrganUtil.setStatusEffects(output, potion);
-            return output;
-        }
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return (width * height >= 2);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return CCRecipes.INFUSE_VENOM_GLAND;
-    }
+    @Override public RecipeSerializer<InfuseVenomGland> getSerializer(){return SERIALIZER;}
 }

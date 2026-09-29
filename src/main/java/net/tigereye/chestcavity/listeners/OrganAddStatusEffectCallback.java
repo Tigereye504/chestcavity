@@ -1,9 +1,10 @@
 package net.tigereye.chestcavity.listeners;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.tigereye.chestcavity.util.Event;
+import net.tigereye.chestcavity.util.EventFactory;
+
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 public interface OrganAddStatusEffectCallback {
@@ -15,5 +16,5 @@ public interface OrganAddStatusEffectCallback {
                 return statusEffectInstance;
             });
 
-    StatusEffectInstance onAddStatusEffect(LivingEntity player, ChestCavityInstance chestCavity, StatusEffectInstance statusEffectInstance);
+    MobEffectInstance onAddStatusEffect(LivingEntity player, ChestCavityInstance chestCavity, MobEffectInstance statusEffectInstance);
 }

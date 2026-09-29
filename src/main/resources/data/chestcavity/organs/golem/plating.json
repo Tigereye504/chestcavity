@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:golem_plating",
   "organScores": [
-    {"id":"chestcavity:defense","value": "1.25"},
-    {"id":"chestcavity:iron_repair","value": "1"},
-    {"id":"chestcavity:metabolism","value": "-.5"}
+    {
+      "id": "chestcavity:defense",
+      "value": "1.25"
+    },
+    {
+      "id": "chestcavity:iron_repair",
+      "value": "1"
+    },
+    {
+      "id": "chestcavity:metabolism",
+      "value": "-.5"
+    }
   ]
 }

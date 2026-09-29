@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[66,67)"
+license="CC0-1.0"
+[[mods]]
+modId="chestcavity"
+version="2.16.6-26.3"
+displayName="Chest Cavity"
+authors="David Troyer"
+description="Perfectly Safe Extra Storage"
+[[dependencies.chestcavity]]
+modId="forge"
+mandatory=true
+versionRange="[66.0.8,67)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.chestcavity]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"

@@ -1,8 +1,0 @@
-{
-  "type": "chestcavity:crafting_salvage",
-  "ingredient": {
-    "tag": "chestcavity:salvageable_human_organ_meat"
-  },
-  "result": "chestcavity:raw_human_organ_meat",
-  "count": 1
-}

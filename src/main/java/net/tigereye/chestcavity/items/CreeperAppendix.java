@@ -1,26 +1,25 @@
 package net.tigereye.chestcavity.items;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
 import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.util.OrganUtil;
 
 import java.util.List;
 
 public class CreeperAppendix extends Item {
 
-    public CreeperAppendix() {
-        super(new Item.Settings().maxCount(1).group(ChestCavity.ORGAN_ITEM_GROUP));
+    public CreeperAppendix(Item.Properties properties) {
+        super(properties.stacksTo(1));
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        super.appendTooltip(itemStack,world,tooltip,tooltipContext);
-        tooltip.add(Text.literal("This appears to be a fuse.").formatted(Formatting.ITALIC));
-        tooltip.add(Text.literal("It won't do much by itself.").formatted(Formatting.ITALIC));
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> tooltip, TooltipFlag tooltipContext) {
+        super.appendHoverText(itemStack,context,display,tooltip,tooltipContext);
+        tooltip.accept(Component.literal("This appears to be a fuse.").withStyle(ChatFormatting.ITALIC));
+        tooltip.accept(Component.literal("It won't do much by itself.").withStyle(ChatFormatting.ITALIC));
     }
 }

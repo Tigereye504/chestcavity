@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:campfire_cooking",
-    "ingredient": {
-      "tag": "chestcavity:burnable_meat"
-    },
-    "result": "chestcavity:burnt_meat_chunk",
-    "experience": 0.35,
-    "cookingtime": 600
-  }

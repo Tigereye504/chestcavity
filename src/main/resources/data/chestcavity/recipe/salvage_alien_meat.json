@@ -1,0 +1,9 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": "#chestcavity:salvageable_alien_meat",
+  "required": 4,
+  "result": {
+    "id": "chestcavity:raw_alien_meat",
+    "count": 1
+  }
+}

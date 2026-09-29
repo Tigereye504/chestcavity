@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:rotten_lung",
   "organScores": [
-    {"id":"chestcavity:breath_recovery","value": ".5"},
-    {"id":"chestcavity:breath_capacity","value": ".5"},
-    {"id":"chestcavity:endurance","value": ".5"}
+    {
+      "id": "chestcavity:breath_recovery",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:breath_capacity",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:endurance",
+      "value": ".5"
+    }
   ]
 }

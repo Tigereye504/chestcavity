@@ -1,9 +1,0 @@
-{
-  "type": "chestcavity:crafting_salvage",
-  "ingredient": {
-    "tag": "chestcavity:salvageable_small_animal_organ_meat"
-  },
-  "required": 2,
-  "result": "chestcavity:raw_organ_meat",
-  "count": 1
-}

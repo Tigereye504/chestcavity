@@ -1,0 +1,21 @@
+{
+  "weight": 2,
+  "max_level": 2,
+  "min_cost": {
+    "base": 50,
+    "per_level_above_first": 50
+  },
+  "max_cost": {
+    "base": 100,
+    "per_level_above_first": 100
+  },
+  "anvil_cost": 4,
+  "supported_items": "#chestcavity:all_enchantable",
+  "slots": [
+    "any"
+  ],
+  "description": {
+    "translate": "enchantment.chestcavity.o_negative"
+  },
+  "effects": {}
+}

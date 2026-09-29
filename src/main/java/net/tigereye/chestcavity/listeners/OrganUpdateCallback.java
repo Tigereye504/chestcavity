@@ -1,8 +1,9 @@
 package net.tigereye.chestcavity.listeners;
+import net.minecraft.world.entity.LivingEntity;
 
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
+import net.tigereye.chestcavity.util.Event;
+import net.tigereye.chestcavity.util.EventFactory;
+
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 public interface OrganUpdateCallback {

@@ -1,7 +1,13 @@
 {
   "itemID": "chestcavity:animal_muscle",
   "organScores": [
-    {"id":"chestcavity:strength","value": ".75"},
-    {"id":"chestcavity:speed","value": ".75"}
+    {
+      "id": "chestcavity:strength",
+      "value": ".75"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": ".75"
+    }
   ]
 }

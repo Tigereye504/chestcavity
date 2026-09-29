@@ -1,8 +1,9 @@
 package net.tigereye.chestcavity.chestcavities.types.json;
+import net.minecraft.resources.Identifier;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.util.Identifier;
+
 import net.tigereye.chestcavity.ChestCavity;
 
 import java.util.HashMap;
@@ -22,13 +23,13 @@ public class ChestCavityAssignmentSerializer {
         //playerChestCavity should default to false
 
         Map<Identifier, Identifier> assignments = new HashMap<>();
-        Identifier chestcavitytype = new Identifier(ccaJson.chestcavity);
+        Identifier chestcavitytype = Identifier.parse(ccaJson.chestcavity);
         int i = 0;
         for (JsonElement entry :
                 ccaJson.entities) {
             ++i;
             try {
-                assignments.put(new Identifier(entry.getAsString()),chestcavitytype);
+                assignments.put(Identifier.parse(entry.getAsString()),chestcavitytype);
             } catch (Exception e) {
                 ChestCavity.LOGGER.error("Error parsing entry no. " + i + " in " + id.toString() + "'s entity list");
             }

@@ -1,8 +1,0 @@
-{
-  "type": "chestcavity:crafting_salvage",
-  "ingredient": {
-    "tag": "chestcavity:salvageable_bone_meal"
-  },
-  "result": "minecraft:bone_meal",
-  "count": 1
-}

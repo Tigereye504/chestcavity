@@ -1,7 +1,13 @@
 {
   "itemID": "chestcavity:spine",
   "organScores": [
-    {"id":"chestcavity:defense","value": ".5"},
-    {"id":"chestcavity:nerves","value": "1"}
+    {
+      "id": "chestcavity:defense",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:nerves",
+      "value": "1"
+    }
   ]
 }

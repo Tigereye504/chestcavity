@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:withered_spine",
   "organScores": [
-    {"id":"chestcavity:defense","value": ".25"},
-    {"id":"chestcavity:nerves","value": ".5"},
-    {"id":"chestcavity:withered","value": ".5"}
+    {
+      "id": "chestcavity:defense",
+      "value": ".25"
+    },
+    {
+      "id": "chestcavity:nerves",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:withered",
+      "value": ".5"
+    }
   ]
 }

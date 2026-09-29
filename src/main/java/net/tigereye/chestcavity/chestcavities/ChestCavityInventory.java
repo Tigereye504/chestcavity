@@ -1,73 +1,40 @@
 package net.tigereye.chestcavity.chestcavities;
-
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.*;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class ChestCavityInventory extends SimpleInventory {
-
-    ChestCavityInstance instance;
-    boolean test;
-
-    public ChestCavityInstance getInstance() {
-        return instance;
+public class ChestCavityInventory extends SimpleContainer {
+    private ChestCavityInstance instance;
+    private final java.util.Set<ChestCavityInstance> listeners = new java.util.HashSet<>();
+    private boolean notifying;
+    public void addListener(ChestCavityInstance listener){listeners.add(listener);}
+    public void removeListener(ChestCavityInstance listener){listeners.remove(listener);}
+    @Override public void setChanged(){
+        if(notifying || listeners==null)return;
+        notifying=true;
+        try { for(var listener:java.util.List.copyOf(listeners))listener.containerChanged(this); }
+        finally {notifying=false;}
     }
-
-    public void setInstance(ChestCavityInstance instance) {
-        this.instance = instance;
-    }
-
-    public ChestCavityInventory() {
-        super(27);
-    }
-
-    public ChestCavityInventory(int size,ChestCavityInstance instance) {
-        super(size);
-        this.instance = instance;
-    }
-
-    public void readTags(NbtList tags) {
-        clear();
-        for(int j = 0; j < tags.size(); ++j) {
-            NbtCompound NbtCompound = tags.getCompound(j);
-            int k = NbtCompound.getByte("Slot") & 255;
-            boolean f = NbtCompound.getBoolean("Forbidden");
-            if (k >= 0 && k < this.size()) {
-                this.setStack(k, ItemStack.fromNbt(NbtCompound));
-            }
+    public ChestCavityInventory() { super(27); }
+    public ChestCavityInventory(int size,ChestCavityInstance instance) { super(size);this.instance=instance; }
+    public ChestCavityInstance getInstance() { return instance; }
+    public void setInstance(ChestCavityInstance instance) { this.instance=instance; }
+    private RegistryOps<Tag> ops() { return RegistryOps.create(NbtOps.INSTANCE,instance.owner.registryAccess()); }
+    public void readTags(ListTag tags) {
+        clearContent();
+        for(int i=0;i<tags.size();i++) {
+            CompoundTag entry=tags.getCompoundOrEmpty(i);int slot=entry.getByteOr("Slot",(byte)0)&255;
+            if(slot<getContainerSize()) setItem(slot,ItemStack.CODEC.parse(ops(),entry).getOrThrow());
         }
-
     }
-
-    public NbtList getTags() {
-        NbtList list = new NbtList();
-
-        for(int i = 0; i < this.size(); ++i) {
-            ItemStack itemStack = this.getStack(i);
-            if (!itemStack.isEmpty()) {
-                NbtCompound NbtCompound = new NbtCompound();
-                NbtCompound.putByte("Slot", (byte)i);
-                itemStack.writeNbt(NbtCompound);
-                list.add(NbtCompound);
-            }
+    public ListTag getTags() {
+        ListTag tags=new ListTag();
+        for(int slot=0;slot<getContainerSize();slot++) if(!getItem(slot).isEmpty()) {
+            CompoundTag entry=(CompoundTag)ItemStack.CODEC.encodeStart(ops(),getItem(slot)).getOrThrow();entry.putByte("Slot",(byte)slot);tags.add(entry);
         }
-
-        return list;
+        return tags;
     }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-
-        if(instance == null) {
-            return true;
-        } //this is for if something goes wrong with that first moment before things sync
-        if(instance.owner.isDead()){return false;}
-        return (player.distanceTo(instance.owner) < 8);
-    }
+    @Override public boolean stillValid(Player player) { return instance==null || (!instance.owner.isDeadOrDying() && player.distanceTo(instance.owner)<8); }
 }

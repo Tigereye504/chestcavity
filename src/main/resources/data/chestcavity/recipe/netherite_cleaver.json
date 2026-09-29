@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "base": "chestcavity:diamond_cleaver",
+  "addition": "minecraft:netherite_ingot",
+  "result": {
+    "id": "chestcavity:netherite_cleaver"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}
