@@ -2,6 +2,9 @@
   "itemID": "minecraft:glowstone",
   "pseudoOrgan": true,
   "organScores": [
-    {"id":"chestcavity:glowing","value": "128"}
+    {
+      "id": "chestcavity:glowing",
+      "value": "128"
+    }
   ]
 }

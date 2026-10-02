@@ -1,11 +1,12 @@
 package net.tigereye.chestcavity.chestcavities.types.json;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import com.google.gson.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.types.GeneratedChestCavityType;
@@ -29,7 +30,7 @@ public class ChestCavityTypeSerializer {
 
         GeneratedChestCavityType cct = new GeneratedChestCavityType();
         cct.setForbiddenSlots(readForbiddenSlotsFromJson(id,cctJson));
-        cct.setDefaultChestCavity(readDefaultChestCavityFromJson(id,cctJson,cct.getForbiddenSlots()));
+        cct.setDefaultChestCavityFactory(() -> readDefaultChestCavityFromJson(id,cctJson,cct.getForbiddenSlots()));
         cct.setBaseOrganScores(readBaseOrganScoresFromJson(id,cctJson));
         cct.setExceptionalOrganList(readExceptionalOrgansFromJson(id,cctJson));
         cct.setDropRateMultiplier(cctJson.dropRateMultiplier);
@@ -37,13 +38,12 @@ public class ChestCavityTypeSerializer {
         cct.setBossChestCavity(cctJson.bossChestCavity);
 
         /*
-        Ingredient input = Ingredient.fromJson(recipeJson.ingredient);
-        Item outputItem = Registry.ITEM.getOrEmpty(new Identifier(recipeJson.result))
+        Ingredient input = net.tigereye.chestcavity.util.IngredientUtil.parse(recipeJson.ingredient);
+        Item outputItem = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(Identifier.parse(recipeJson.result))
                 // Validate the inputted item actually exists
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.result));
         ItemStack output = new ItemStack(outputItem, recipeJson.count);
         */
-
 
         return cct;
     }
@@ -61,8 +61,8 @@ public class ChestCavityTypeSerializer {
                 } else if (!obj.has("position")) {
                     ChestCavity.LOGGER.error("Missing position component in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
                 } else {
-                    Identifier itemID = new Identifier(obj.get("item").getAsString());
-                    Optional<Item> itemOptional = Registry.ITEM.getOrEmpty(new Identifier(obj.get("item").getAsString()));
+                    Identifier itemID = Identifier.parse(obj.get("item").getAsString());
+                    Optional<Item> itemOptional = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(Identifier.parse(obj.get("item").getAsString()));
                     if (itemOptional.isPresent()) {
                         Item item = itemOptional.get();
                         ItemStack stack;
@@ -70,17 +70,17 @@ public class ChestCavityTypeSerializer {
                             int count = obj.get("count").getAsInt();
                             stack = new ItemStack(item, count);
                         } else {
-                            stack = new ItemStack(item, item.getMaxCount());
+                            stack = new ItemStack(item, item.getDefaultInstance().getMaxStackSize());
                         }
                         int pos = obj.get("position").getAsInt();
-                        if(pos >= inv.size()) {
+                        if(pos >= inv.getContainerSize()) {
                             ChestCavity.LOGGER.error("Position component is out of bounds in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
                         }
                         else if(forbiddenSlots.contains(pos)){
                             ChestCavity.LOGGER.error("Position component is forbidden in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
                         }
                         else{
-                            inv.setStack(pos, stack);
+                            inv.setItem(pos, stack);
                         }
                     } else {
                         ChestCavity.LOGGER.error("Unknown "+itemID.toString()+" in entry no. " + i + " in " + id.toString() + "'s default chest cavity");
@@ -113,7 +113,7 @@ public class ChestCavityTypeSerializer {
                 } else if (!obj.has("value")) {
                     ChestCavity.LOGGER.error("Missing value component in entry no. " + i + " in " + id.toString() + "'s exceptional organs");
                 } else {
-                    Ingredient ingredient = Ingredient.fromJson(obj.get("ingredient"));
+                    Ingredient ingredient = net.tigereye.chestcavity.util.IngredientUtil.parse(obj.get("ingredient"));
                     exceptionalOrgans.put(ingredient,readOrganScoresFromJson(id,obj.get("value").getAsJsonArray()));
                 }
             }
@@ -136,7 +136,7 @@ public class ChestCavityTypeSerializer {
                 } else if (!obj.has("value")) {
                     ChestCavity.LOGGER.error("Missing value component in " + id.toString() + "'s organ scores");
                 } else {
-                    Identifier ability = new Identifier(obj.get("id").getAsString());
+                    Identifier ability = Identifier.parse(obj.get("id").getAsString());
                     organScores.put(ability,obj.get("value").getAsFloat());
                 }
             }

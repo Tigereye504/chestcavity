@@ -1,3 +1,6 @@
+## This project is forked, adapted and converted to MC version 26.3 with Forge.
+All credits to the Original creator
+
 # Chest Cavity
 Chest Cavity lets you use a 'chest opener' to access a secondary inventory. There are some items already in it, but those probably aren't important so you can take them out to make room for other stuff\*. 
 

@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:aquatic_muscle",
   "organScores": [
-    {"id":"chestcavity:strength","value": "1"},
-    {"id":"chestcavity:speed","value": ".5"},
-    {"id":"chestcavity:swim_speed","value": "1"}
+    {
+      "id": "chestcavity:strength",
+      "value": "1"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:swim_speed",
+      "value": "1"
+    }
   ]
 }

@@ -1,127 +1,49 @@
 package net.tigereye.chestcavity.util;
-
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerLoginNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.listeners.OrganActivationListeners;
 import net.tigereye.chestcavity.registration.CCNetworkingPackets;
-
 import java.util.HashMap;
-import java.util.Map;
-
-public class NetworkUtil {
-    public static PacketByteBuf WriteChestCavityUpdatePacket(ChestCavityInstance cc){
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBoolean(cc.opened);
-        buf.writeInt(cc.getOrganScores().size());
-        cc.getOrganScores().forEach((id, value) -> {
-            buf.writeString(id.toString());
-            buf.writeFloat(value);
-        });
-        return buf;
+public final class NetworkUtil {
+    private static byte[] encode(java.util.function.Consumer<FriendlyByteBuf> writer) {
+        var buffer=new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+        try { writer.accept(buffer); byte[] data=new byte[buffer.readableBytes()]; buffer.readBytes(data); return data; }
+        finally { buffer.release(); }
     }
-
-    public static void ReadChestCavityUpdatePacket(ChestCavityInstance cc, PacketByteBuf buf){
-        Map<Identifier,Float> organScores = new HashMap<>();
-        cc.opened = buf.readBoolean();
-        int entries = buf.readInt();
-        for(int i = 0; i < entries; i++){
-            organScores.put(new Identifier(buf.readString()),buf.readFloat());
-        }
-        cc.setOrganScores(organScores);
-        SendC2SChestCavityReceivedUpdatePacket(cc);
+    private static int count(FriendlyByteBuf buffer,int max) { int n=buffer.readVarInt(); if(n<0||n>max) throw new IllegalArgumentException("Invalid chest cavity entry count"); return n; }
+    public static void ReadChestCavityUpdatePacket(ChestCavityInstance cc,FriendlyByteBuf buffer) {
+        boolean opened=buffer.readBoolean(); cc.compatibility_id=buffer.readUUID();
+        var defaults=new HashMap<Identifier,Float>();int d=count(buffer,1024);
+        for(int i=0;i<d;i++){var id=buffer.readIdentifier();float value=buffer.readFloat();if(!Float.isFinite(value))throw new IllegalArgumentException("Invalid baseline score");defaults.put(id,value);}
+        cc.setClientDefaultScores(defaults);var scores=new HashMap<Identifier,Float>();
+        int n=count(buffer,1024); for(int i=0;i<n;i++) { var id=buffer.readIdentifier(); float score=buffer.readFloat(); if(!Float.isFinite(score)) throw new IllegalArgumentException("Invalid organ score"); scores.put(id,score); }
+        cc.opened=opened; cc.setOrganScores(scores); SendC2SChestCavityReceivedUpdatePacket(cc);
     }
-
-    public static boolean SendS2CChestCavityUpdatePacket(ChestCavityInstance cc){
-        cc.updatePacket = NetworkUtil.WriteChestCavityUpdatePacket(cc);
+    public static boolean SendS2CChestCavityUpdatePacket(ChestCavityInstance cc) {
+        if(!(cc.owner instanceof ServerPlayer)) return false;
+        cc.updatePacket=encode(buffer -> { buffer.writeBoolean(cc.opened); buffer.writeUUID(cc.compatibility_id); var defaults=cc.getChestCavityType().getDefaultOrganScores();buffer.writeVarInt(defaults.size());defaults.forEach((id,value)->{buffer.writeIdentifier(id);buffer.writeFloat(value);}); buffer.writeVarInt(cc.getOrganScores().size()); cc.getOrganScores().forEach((id,value)->{buffer.writeIdentifier(id);buffer.writeFloat(value);}); });
         return SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
     }
-    public static boolean SendS2CChestCavityUpdatePacket(ChestCavityInstance cc, PacketByteBuf buf){
-        if((!cc.owner.world.isClient()) && cc.owner instanceof ServerPlayerEntity) {
-            ServerPlayerEntity spe = (ServerPlayerEntity)cc.owner;
-            if(spe.networkHandler != null) try {
-                ServerPlayNetworking.send(spe, CCNetworkingPackets.UPDATE_PACKET_ID, buf);
-                return true;
-            }
-            catch(Exception e){
-                return false;
-            }
-            else{
-                return false;
-            }
-        }
-        return false;
+    public static boolean SendS2CChestCavityUpdatePacket(ChestCavityInstance cc,byte[] data) {
+        if(cc.owner instanceof ServerPlayer player && player.connection!=null && data!=null) { CCNetworkingPackets.sendToPlayer(player,CCNetworkingPackets.UPDATE,data); return true; } return false;
     }
-
-    public static void ReadChestCavityReceivedUpdatePacket(ChestCavityInstance cc) {
-        cc.updatePacket = null;
+    public static void ReadChestCavityReceivedUpdatePacket(ChestCavityInstance cc) { cc.updatePacket=null; }
+    public static boolean SendC2SChestCavityReceivedUpdatePacket(ChestCavityInstance cc) { CCNetworkingPackets.sendToServer(CCNetworkingPackets.ACK,new byte[0]); return true; }
+    public static void ReadChestCavityHotkeyPacket(ChestCavityInstance cc,FriendlyByteBuf buffer) { OrganActivationListeners.activate(buffer.readIdentifier(),cc); }
+    public static void SendC2SChestCavityHotkeyPacket(Identifier id) { CCNetworkingPackets.sendToServer(CCNetworkingPackets.HOTKEY,encode(buffer -> buffer.writeIdentifier(id))); }
+    public static void sendOrganDataPacket(ServerPlayer player) {
+        CCNetworkingPackets.sendToPlayer(player,CCNetworkingPackets.ORGAN_DATA,encode(buffer -> {
+            buffer.writeVarInt(OrganManager.GeneratedOrganData.size());
+            OrganManager.GeneratedOrganData.forEach((id,data)->{ buffer.writeIdentifier(id);buffer.writeBoolean(data.pseudoOrgan);buffer.writeVarInt(data.organScores.size());data.organScores.forEach((ability,score)->{buffer.writeIdentifier(ability);buffer.writeFloat(score);}); });
+        }));
     }
-
-    public static boolean SendC2SChestCavityReceivedUpdatePacket(ChestCavityInstance cc){
-        ClientPlayNetworking.send(CCNetworkingPackets.RECEIVED_UPDATE_PACKET_ID, PacketByteBufs.empty());
-        return SendS2CChestCavityUpdatePacket(cc,cc.updatePacket);
-    }
-
-    public static PacketByteBuf WriteChestCavityHotkeyPacket(Identifier organScore) {
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeIdentifier(organScore);
-        return buf;
-    }
-
-    public static void ReadChestCavityHotkeyPacket(ChestCavityInstance cc, PacketByteBuf buf) {
-        Identifier id = buf.readIdentifier();
-        OrganActivationListeners.activate(id,cc);
-    }
-
-    public static void SendC2SChestCavityHotkeyPacket(Identifier organScore){
-        ClientPlayNetworking.send(CCNetworkingPackets.HOTKEY_PACKET_ID, NetworkUtil.WriteChestCavityHotkeyPacket(organScore));
-    }
-
-    public static void sendOrganDataPacket(ServerLoginNetworkHandler serverLoginNetworkHandler, MinecraftServer minecraftServer, PacketSender packetSender, ServerLoginNetworking.LoginSynchronizer loginSynchronizer) {
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(OrganManager.GeneratedOrganData.size());
-        OrganManager.GeneratedOrganData.forEach((id,data) -> {
-            buf.writeIdentifier(id);
-            buf.writeBoolean(data.pseudoOrgan);
-            buf.writeInt(data.organScores.size());
-            data.organScores.forEach((ability,score) -> {
-                buf.writeIdentifier(ability);
-                buf.writeFloat(score);
-            });
-        });
-        packetSender.sendPacket(CCNetworkingPackets.ORGAN_DATA_PACKET_ID,buf);
-    }
-
-    public static boolean readOrganDataPacket(PacketByteBuf buf){
-        OrganManager.GeneratedOrganData.clear();
-        try {
-            int organCount = buf.readInt();
-            for (int i = 0; i < organCount; i++) {
-                Identifier organID = buf.readIdentifier();
-                OrganData organData = new OrganData();
-                organData.pseudoOrgan = buf.readBoolean();
-                int organAbilityCount = buf.readInt();
-                for (int j = 0; j < organAbilityCount; j++) {
-                    organData.organScores.put(buf.readIdentifier(), buf.readFloat());
-                }
-                OrganManager.GeneratedOrganData.put(organID, organData);
-            }
-            ChestCavity.LOGGER.info("loaded "+organCount+" organs from server");
-        }
-        catch(Exception e){
-            return false;
-        }
-        return true;
+    public static boolean readOrganDataPacket(FriendlyByteBuf buffer) {
+        var data=new HashMap<Identifier,OrganData>(); int n=count(buffer,10000);
+        for(int i=0;i<n;i++) { var id=buffer.readIdentifier(); var organ=new OrganData(); organ.pseudoOrgan=buffer.readBoolean(); int m=count(buffer,1024);for(int j=0;j<m;j++) organ.organScores.put(buffer.readIdentifier(),buffer.readFloat()); data.put(id,organ); }
+        OrganManager.GeneratedOrganData=data; return true;
     }
 }

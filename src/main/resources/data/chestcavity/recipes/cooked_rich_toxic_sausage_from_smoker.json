@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:smoking",
-    "ingredient": {
-      "item": "chestcavity:raw_rich_toxic_sausage"
-    },
-    "result": "chestcavity:rich_toxic_sausage",
-    "experience": 0.35,
-    "cookingtime": 100
-  }

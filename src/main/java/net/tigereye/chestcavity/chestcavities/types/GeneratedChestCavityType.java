@@ -1,10 +1,11 @@
 package net.tigereye.chestcavity.chestcavities.types;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
 import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.ChestCavityType;
@@ -13,7 +14,6 @@ import net.tigereye.chestcavity.chestcavities.organs.OrganData;
 import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.registration.CCOrganScores;
 import net.tigereye.chestcavity.util.ChestCavityUtil;
-import net.minecraft.util.math.random.Random;
 
 import java.util.*;
 
@@ -21,6 +21,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
 
     private Map<Identifier,Float> defaultOrganScores = null;
     private ChestCavityInventory defaultChestCavity = null;
+    private java.util.function.Supplier<ChestCavityInventory> defaultFactory;
     private Map<Identifier,Float> baseOrganScores = null;
     private Map<Ingredient,Map<Identifier,Float>> exceptionalOrganList = null;
     private List<ItemStack> droppableOrgans = null;
@@ -45,7 +46,8 @@ public class GeneratedChestCavityType implements ChestCavityType {
     @Override
     public float getDefaultOrganScore(Identifier id){return getDefaultOrganScores().getOrDefault(id,0f);}
     @Override
-    public ChestCavityInventory getDefaultChestCavity(){return defaultChestCavity;}
+    public ChestCavityInventory getDefaultChestCavity(){if(defaultChestCavity==null)defaultChestCavity=defaultFactory.get();return defaultChestCavity;}
+    public void setDefaultChestCavityFactory(java.util.function.Supplier<ChestCavityInventory> factory){defaultFactory=factory;}
     public void setDefaultChestCavity(ChestCavityInventory inv){defaultChestCavity = inv;}
 
     public Map<Identifier,Float> getBaseOrganScores(){return baseOrganScores;}
@@ -74,8 +76,8 @@ public class GeneratedChestCavityType implements ChestCavityType {
     public void setDroppableOrgans(List<ItemStack> list){droppableOrgans = list;}
     private void deriveDroppableOrgans() {
         droppableOrgans = new LinkedList<>();
-        for(int i = 0; i < defaultChestCavity.size(); i++){
-            ItemStack stack = defaultChestCavity.getStack(i);
+        for(int i = 0; i < getDefaultChestCavity().getContainerSize(); i++){
+            ItemStack stack = getDefaultChestCavity().getItem(i);
             if(OrganManager.isTrueOrgan(stack.getItem())){
                 droppableOrgans.add(stack);
             }
@@ -105,9 +107,9 @@ public class GeneratedChestCavityType implements ChestCavityType {
 
     @Override
     public void fillChestCavityInventory(ChestCavityInventory chestCavity) {
-        chestCavity.clear();
-        for(int i = 0; i < chestCavity.size(); i++){
-            chestCavity.setStack(i,defaultChestCavity.getStack(i));
+        chestCavity.clearContent();
+        for(int i = 0; i < chestCavity.getContainerSize(); i++){
+            chestCavity.setItem(i,getDefaultChestCavity().getItem(i).copy());
         }
     }
 
@@ -137,7 +139,7 @@ public class GeneratedChestCavityType implements ChestCavityType {
     }
 
     @Override
-    public List<ItemStack> generateLootDrops(Random random, int looting) {
+    public List<ItemStack> generateLootDrops(RandomSource random, int looting) {
         List<ItemStack> loot = new ArrayList<>();
         if(playerChestCavity){
             return loot;
@@ -151,13 +153,13 @@ public class GeneratedChestCavityType implements ChestCavityType {
         }
         return loot;
     }
-    public void generateRareOrganDrops(Random random, int looting, List<ItemStack> loot){
+    public void generateRareOrganDrops(RandomSource random, int looting, List<ItemStack> loot){
         LinkedList<ItemStack> organPile = new LinkedList<>(getDroppableOrgans());
         int rolls = 1 + random.nextInt(3) + random.nextInt(3);
         ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
 
     }
-    public void generateGuaranteedOrganDrops(Random random, int looting, List<ItemStack> loot){
+    public void generateGuaranteedOrganDrops(RandomSource random, int looting, List<ItemStack> loot){
         LinkedList<ItemStack> organPile = new LinkedList<>(getDroppableOrgans());
         int rolls = 3 + random.nextInt(2+looting) + random.nextInt(2+looting);
         ChestCavityUtil.drawOrgansFromPile(organPile,rolls,random,loot);
@@ -167,18 +169,18 @@ public class GeneratedChestCavityType implements ChestCavityType {
     public void setOrganCompatibility(ChestCavityInstance instance){
         ChestCavityInventory chestCavity = instance.inventory;
         //first, make all organs personal
-        for(int i = 0; i < chestCavity.size();i++){
-            ItemStack itemStack = chestCavity.getStack(i);
+        for(int i = 0; i < chestCavity.getContainerSize();i++){
+            ItemStack itemStack = chestCavity.getItem(i);
             if(itemStack != null && itemStack != itemStack.EMPTY){
-                NbtCompound tag = new NbtCompound();
-                tag.putUuid("owner",instance.compatibility_id);
+                CompoundTag tag = new CompoundTag();
+                tag.store("owner", net.minecraft.core.UUIDUtil.CODEC,instance.compatibility_id);
                 tag.putString("name",instance.owner.getDisplayName().getString());
-                itemStack.setSubNbt(ChestCavity.COMPATIBILITY_TAG.toString(),tag);
+                net.tigereye.chestcavity.util.ItemData.put(itemStack,ChestCavity.COMPATIBILITY_TAG.toString(),tag);
             }
         }
         if(!playerChestCavity) {
             int universalOrgans = 0;
-            Random random = instance.owner.getRandom();
+            RandomSource random = instance.owner.getRandom();
             if (bossChestCavity){
                 universalOrgans = 3+random.nextInt(2)+random.nextInt(2);
             }
@@ -187,10 +189,10 @@ public class GeneratedChestCavityType implements ChestCavityType {
             }
             //each attempt, roll a random slot in the chestcavity and turn that organ, if any, compatible
             while(universalOrgans > 0){
-                int i = random.nextInt(chestCavity.size());
-                ItemStack itemStack = chestCavity.getStack(i);
+                int i = random.nextInt(chestCavity.getContainerSize());
+                ItemStack itemStack = chestCavity.getItem(i);
                 if(itemStack != null && itemStack != ItemStack.EMPTY && OrganManager.isTrueOrgan(itemStack.getItem())){
-                    itemStack.removeSubNbt(ChestCavity.COMPATIBILITY_TAG.toString());
+                    net.tigereye.chestcavity.util.ItemData.remove(itemStack,ChestCavity.COMPATIBILITY_TAG.toString());
                 }
                 universalOrgans--;
             }
@@ -202,14 +204,14 @@ public class GeneratedChestCavityType implements ChestCavityType {
         if(bossChestCavity){
             return 5;
         }
-        return Float.MAX_VALUE;
+        return Float.POSITIVE_INFINITY;
     }
 
     @Override
     public boolean isOpenable(ChestCavityInstance instance){
         boolean weakEnough = instance.owner.getHealth() <= ChestCavity.config.CHEST_OPENER_ABSOLUTE_HEALTH_THRESHOLD
                 || instance.owner.getHealth() <= instance.owner.getMaxHealth()*ChestCavity.config.CHEST_OPENER_FRACTIONAL_HEALTH_THRESHOLD;
-        boolean chestVulnerable = instance.owner.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+        boolean chestVulnerable = instance.owner.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
         boolean easeOfAccess = instance.getOrganScore(CCOrganScores.EASE_OF_ACCESS) > 0;
         return chestVulnerable && (easeOfAccess || weakEnough);
     }
@@ -228,6 +230,5 @@ public class GeneratedChestCavityType implements ChestCavityType {
         //    ChestCavityUtil.insertWelfareOrgans(cc);
         //}
     }
-
 
 }

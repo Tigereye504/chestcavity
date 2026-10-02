@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:springy_muscle",
   "organScores": [
-    {"id":"chestcavity:strength","value": ".75"},
-    {"id":"chestcavity:speed","value": ".75"},
-    {"id":"chestcavity:leaping","value": "1"}
+    {
+      "id": "chestcavity:strength",
+      "value": ".75"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": ".75"
+    },
+    {
+      "id": "chestcavity:leaping",
+      "value": "1"
+    }
   ]
 }

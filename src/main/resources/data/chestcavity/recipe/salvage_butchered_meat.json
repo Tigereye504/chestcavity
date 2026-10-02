@@ -1,0 +1,9 @@
+{
+  "type": "chestcavity:crafting_salvage",
+  "ingredient": "#chestcavity:salvageable_butchered_meat",
+  "required": 4,
+  "result": {
+    "id": "chestcavity:raw_butchered_meat",
+    "count": 1
+  }
+}

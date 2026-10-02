@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:piston_muscle",
   "organScores": [
-    {"id":"chestcavity:strength","value": "1"},
-    {"id":"chestcavity:speed","value": ".5"},
-    {"id":"chestcavity:launching","value": "1"}
+    {
+      "id": "chestcavity:strength",
+      "value": "1"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:launching",
+      "value": "1"
+    }
   ]
 }

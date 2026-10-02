@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:creeper_appendix",
   "organScores": [
-    {"id":"chestcavity:luck","value": ".75"},
-    {"id":"chestcavity:creepy","value": "1"},
-    {"id":"chestcavity:explosive","value": "1"}
+    {
+      "id": "chestcavity:luck",
+      "value": ".75"
+    },
+    {
+      "id": "chestcavity:creepy",
+      "value": "1"
+    },
+    {
+      "id": "chestcavity:explosive",
+      "value": "1"
+    }
   ]
 }

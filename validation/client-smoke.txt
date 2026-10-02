@@ -1,0 +1,5 @@
+[17:23:45] [Render thread/INFO] [ne.ti.ch.ChestCavity/]: CHESTCAVITY_CLIENT_SCREEN: GenericMessageScreen
+[17:23:53] [Server thread/INFO] [ne.ti.ch.ChestCavity/]: CHESTCAVITY_CLIENT_CAVITY_OPENED
+[17:23:57] [Render thread/INFO] [ne.ti.ch.ChestCavity/]: CHESTCAVITY_CLIENT_SCREEN: ChestCavityScreen
+[17:23:59] [IO-Worker-2/INFO] [ne.ti.ch.ChestCavity/]: CHESTCAVITY_CLIENT_SCREENSHOT: Saved screenshot as chestcavity-migration-smoke.png
+[17:24:01] [Render thread/INFO] [ne.ti.ch.ChestCavity/]: CHESTCAVITY_CLIENT_SMOKE_PASSED: self surgery, 27 slots, organ replacement, network and donor UUID

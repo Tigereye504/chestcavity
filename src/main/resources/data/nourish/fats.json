@@ -1,22 +1,22 @@
 {
-	"values": [
-		"chestcavity:raw_organ_meat",
-		"chestcavity:cooked_organ_meat",
-		"chestcavity:raw_rich_sausage",
-		"chestcavity:rich_sausage",
-		"chestcavity:raw_rich_mini_sausage",
-		"chestcavity:rich_mini_sausage",
-		"chestcavity:raw_toxic_organ_meat",
-		"chestcavity:cooked_toxic_organ_meat",
-		"chestcavity:raw_rich_toxic_sausage",
-		"chestcavity:rich_toxic_sausage",
-		"chestcavity:raw_human_organ_meat",
-		"chestcavity:cooked_human_organ_meat",
-		"chestcavity:raw_rich_human_sausage",
-		"chestcavity:rich_human_sausage",
-		"chestcavity:raw_alien_organ_meat",
-		"chestcavity:cooked_alien_organ_meat",
-		"chestcavity:raw_rich_alien_sausage",
-		"chestcavity:rich_alien_sausage"
-	]
+  "values": [
+    "chestcavity:raw_organ_meat",
+    "chestcavity:cooked_organ_meat",
+    "chestcavity:raw_rich_sausage",
+    "chestcavity:rich_sausage",
+    "chestcavity:raw_rich_mini_sausage",
+    "chestcavity:rich_mini_sausage",
+    "chestcavity:raw_toxic_organ_meat",
+    "chestcavity:cooked_toxic_organ_meat",
+    "chestcavity:raw_rich_toxic_sausage",
+    "chestcavity:rich_toxic_sausage",
+    "chestcavity:raw_human_organ_meat",
+    "chestcavity:cooked_human_organ_meat",
+    "chestcavity:raw_rich_human_sausage",
+    "chestcavity:rich_human_sausage",
+    "chestcavity:raw_alien_organ_meat",
+    "chestcavity:cooked_alien_organ_meat",
+    "chestcavity:raw_rich_alien_sausage",
+    "chestcavity:rich_alien_sausage"
+  ]
 }

@@ -1,7 +1,13 @@
 {
   "itemID": "chestcavity:small_carnivore_stomach",
   "organScores": [
-    {"id":"chestcavity:carnivorous_digestion","value": ".75"},
-    {"id":"chestcavity:herbivorous_digestion","value": ".25"}
+    {
+      "id": "chestcavity:carnivorous_digestion",
+      "value": ".75"
+    },
+    {
+      "id": "chestcavity:herbivorous_digestion",
+      "value": ".25"
+    }
   ]
 }

@@ -1,7 +1,13 @@
 {
   "itemID": "chestcavity:insect_muscle",
   "organScores": [
-    {"id":"chestcavity:strength","value": ".5"},
-    {"id":"chestcavity:speed","value": "1.25"}
+    {
+      "id": "chestcavity:strength",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": "1.25"
+    }
   ]
 }

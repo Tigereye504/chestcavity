@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:campfire_cooking",
-    "ingredient": {
-      "item": "chestcavity:raw_dragon_sausage"
-    },
-    "result": "chestcavity:dragon_sausage",
-    "experience": 8.0,
-    "cookingtime": 1200
-  }

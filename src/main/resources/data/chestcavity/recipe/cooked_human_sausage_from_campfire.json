@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": "chestcavity:raw_human_sausage",
+  "result": {
+    "id": "chestcavity:human_sausage",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 600
+}

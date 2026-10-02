@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "function": "chestcavity:effect_metabolism",
+  "environment": "minecraft:default",
+  "structure": "forge:empty3x3x3",
+  "max_ticks": 100
+}

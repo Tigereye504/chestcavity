@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  P",
+    " R ",
+    "P  "
+  ],
+  "key": {
+    "P": "minecraft:piston",
+    "R": "minecraft:redstone"
+  },
+  "result": {
+    "count": 4,
+    "id": "chestcavity:piston_muscle"
+  }
+}

@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:smoking",
-    "ingredient": {
-      "item": "chestcavity:raw_rich_mini_sausage"
-    },
-    "result": "chestcavity:rich_mini_sausage",
-    "experience": 0.35,
-    "cookingtime": 100
-  }

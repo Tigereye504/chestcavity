@@ -1,60 +1,50 @@
 package net.tigereye.chestcavity;
-
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
-import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
-import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
 import net.tigereye.chestcavity.config.CCConfig;
-import net.tigereye.chestcavity.compat.CrossModContent;
-import net.fabricmc.api.ModInitializer;
 import net.tigereye.chestcavity.registration.*;
 import net.tigereye.chestcavity.ui.ChestCavityScreenHandler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.registries.RegisterEvent;
 
-public class ChestCavity implements ModInitializer {
-	public static final String MODID = "chestcavity";
-    public static final boolean DEBUG_MODE = false;
-	public static final Logger LOGGER = LogManager.getLogger();
-	public static CCConfig config;
-	public static final ScreenHandlerType<ChestCavityScreenHandler> CHEST_CAVITY_SCREEN_HANDLER;
-	public static final Identifier CHEST_CAVITY_SCREEN_ID = new Identifier(MODID,"chest_cavity_screen");
-	public static final Identifier COMPATIBILITY_TAG = new Identifier(MODID,"organ_compatibility");
-	public static final ItemGroup ORGAN_ITEM_GROUP = FabricItemGroupBuilder.build(
-			new Identifier(MODID, "organs"),
-			() -> new ItemStack(CCItems.HUMAN_STOMACH));
-
-	//public static final ScreenHandlerType<ScreenHandler> CHEST_CAVITY_SCREEN_HANDLER;
-
-	static{
-		CHEST_CAVITY_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(CHEST_CAVITY_SCREEN_ID, ChestCavityScreenHandler::new);
-	}
-	@Override
-	public void onInitialize() {
-		//Register mod resources
-		AutoConfig.register(CCConfig.class, GsonConfigSerializer::new);
-		config = AutoConfig.getConfigHolder(CCConfig.class).getConfig();
-		CCItems.register();
-		CCRecipes.register();
-		CCEnchantments.register();
-		CCListeners.register();
-		CCStatusEffects.register();
-		CCTagOrgans.init();
-		CCCommands.register();
-		CCNetworkingPackets.register();
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new OrganManager());
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityTypeManager());
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GeneratedChestCavityAssignmentManager());
-		CrossModContent.register();
-
-	}
+@Mod("chestcavity")
+@Mod.EventBusSubscriber(modid="chestcavity")
+public final class ChestCavity {
+    public static final String MODID="chestcavity";
+    public static final boolean DEBUG_MODE=false;
+    public static final org.apache.logging.log4j.Logger LOGGER=org.apache.logging.log4j.LogManager.getLogger();
+    public static CCConfig config = new CCConfig();
+    public static final Identifier CHEST_CAVITY_SCREEN_ID=Identifier.fromNamespaceAndPath(MODID,"chest_cavity_screen");
+    public static final Identifier COMPATIBILITY_TAG=Identifier.fromNamespaceAndPath(MODID,"organ_compatibility");
+    public static final MenuType<ChestCavityScreenHandler> CHEST_CAVITY_SCREEN_HANDLER=new MenuType<>(ChestCavityScreenHandler::new,FeatureFlags.DEFAULT_FLAGS);
+    public ChestCavity(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context) {
+        config=CCConfig.load();
+        CCListeners.register();
+        CCCommands.register();
+        CCNetworkingPackets.register();
+        net.tigereye.chestcavity.compat.CrossModContent.register();
+    }
+    @SubscribeEvent public static void register(RegisterEvent event) {
+        event.register(net.minecraftforge.registries.ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, helper -> helper.register(Identifier.fromNamespaceAndPath(MODID,"organs"),net.tigereye.chestcavity.listeners.LootRegister.CODEC));
+        if (event.getRegistryKey().equals(Registries.MOB_EFFECT)) CCStatusEffects.register();
+        if (event.getRegistryKey().equals(Registries.ITEM)) CCItems.register(event);
+        if (event.getRegistryKey().equals(Registries.RECIPE_SERIALIZER)) CCRecipes.register();
+        event.register(Registries.MENU, helper -> helper.register(CHEST_CAVITY_SCREEN_ID,CHEST_CAVITY_SCREEN_HANDLER));
+        event.register(Registries.CREATIVE_MODE_TAB, helper -> helper.register(Identifier.fromNamespaceAndPath(MODID,"organs"),CreativeModeTab.builder().title(Component.translatable("itemGroup.chestcavity.organs")).icon(() -> new ItemStack(CCItems.HUMAN_STOMACH)).displayItems((params,output) -> CCItems.ALL.values().forEach(output::accept)).build()));
+    }
+    @SubscribeEvent public static void reload(net.minecraftforge.event.AddReloadListenerEvent event) {
+        net.tigereye.chestcavity.util.IngredientUtil.registries=event.getRegistries();
+        event.addListener((net.minecraft.server.packs.resources.ResourceManagerReloadListener) manager -> {
+            CCTagOrgans.init();
+            new net.tigereye.chestcavity.chestcavities.organs.OrganManager().onResourceManagerReload(manager);
+            new net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager().onResourceManagerReload(manager);
+            new net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager().onResourceManagerReload(manager);
+        });
+    }
 }

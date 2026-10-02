@@ -1,0 +1,24 @@
+{
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "anvil_cost": 8,
+  "supported_items": "#chestcavity:all_enchantable",
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": [
+    "chestcavity:tomophobia"
+  ],
+  "description": {
+    "translate": "enchantment.chestcavity.malpractice"
+  },
+  "effects": {}
+}

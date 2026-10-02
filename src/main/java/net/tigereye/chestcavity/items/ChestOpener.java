@@ -1,19 +1,20 @@
 package net.tigereye.chestcavity.items;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 //import ladysnake.requiem.api.v1.possession.PossessionComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+
 import net.tigereye.chestcavity.chestcavities.ChestCavityInventory;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.compat.requiem.CCRequiem;
@@ -27,12 +28,12 @@ import java.util.Optional;
 
 public class ChestOpener extends Item {
 	
-	public ChestOpener() {
-		super(CCItems.CHEST_OPENER_SETTINGS);
+	public ChestOpener(Item.Properties properties) {
+		super(properties.stacksTo(1));
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+	public InteractionResult use(Level world, Player player, InteractionHand hand) {
 		LivingEntity target = null;
 		//Requiem is no longer a fabric mod.
 		/*if(CCRequiem.REQUIEM_ACTIVE){
@@ -42,64 +43,31 @@ public class ChestOpener extends Item {
 			target = player;
 		}
 		if (openChestCavity(player, target,false)) {
-			return TypedActionResult.success(player.getStackInHand(hand), false);
+			return InteractionResult.SUCCESS;
 		} else {
-			return TypedActionResult.pass(player.getStackInHand(hand));
+			return InteractionResult.PASS;
 		}
 	}
 
-	public boolean openChestCavity(PlayerEntity player, LivingEntity target){
+	public boolean openChestCavity(Player player, LivingEntity target){
 		return openChestCavity(player,target,true);
 	}
-	public boolean openChestCavity(PlayerEntity player, LivingEntity target, boolean shouldKnockback){
-		Optional<ChestCavityEntity> optional = ChestCavityEntity.of(target);
-		if(optional.isPresent()){
-			ChestCavityEntity chestCavityEntity = optional.get();
-			ChestCavityInstance cc = chestCavityEntity.getChestCavityInstance();
-			if(target == player || cc.getChestCavityType().isOpenable(cc)) {
-				if (cc.getOrganScore(CCOrganScores.EASE_OF_ACCESS) > 0) {
-					if(player.world.isClient) {
-						player.playSound(SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, .75f, 1);
-					}
-				}
-				else{
-					if (!shouldKnockback) {
-						target.damage(DamageSource.GENERIC, 4f); // this is to prevent self-knockback, as that feels weird.
-					} else {
-						target.damage(DamageSource.player(player), 4f);
-					}
-				}
-				if (target.isAlive()) {
-					String name;
-					try {
-						name = target.getDisplayName().getString();
-						name = name.concat("'s ");
-					} catch (Exception e) {
-						name = "";
-					}
-					ChestCavityInventory inv = ChestCavityUtil.openChestCavity(cc);
-					((ChestCavityEntity)player).getChestCavityInstance().ccBeingOpened = cc;
-					player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
-						return new ChestCavityScreenHandler(i, playerInventory, inv);
-					}, Text.translatable(name + "Chest Cavity")));
-				}
-				return true;
-			}
-			else{
-				if(player.world.isClient) {
-					if (!target.getEquippedStack(EquipmentSlot.CHEST).isEmpty()) {
-						player.sendMessage(Text.literal("Target's chest is obstructed"),true);
-						player.playSound(SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.PLAYERS, .75f, 1);
-					} else {
-						player.sendMessage(Text.literal("Target is too healthy to open"),true);
-						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, SoundCategory.PLAYERS, .75f, 1);
-					}
-				}
-			}
-			return false;
-		}
-		else{
-			return false;
-		}
-	}
+	public boolean openChestCavity(Player player, LivingEntity target, boolean shouldKnockback){
+        var optional=ChestCavityEntity.of(target);
+        if(optional.isEmpty())return false;
+        var cc=optional.get().getChestCavityInstance();
+        if(target!=player && !cc.getChestCavityType().isOpenable(cc)){
+            if(player instanceof net.minecraft.server.level.ServerPlayer sp)sp.sendSystemMessage(Component.translatable(target.getItemBySlot(EquipmentSlot.CHEST).isEmpty()?"message.chestcavity.too_healthy":"message.chestcavity.obstructed"),true);
+            return false;
+        }
+        if(!(player instanceof net.minecraft.server.level.ServerPlayer serverPlayer))return true;
+        if(cc.getOrganScore(CCOrganScores.EASE_OF_ACCESS)>0)player.level().playSound(null,target.blockPosition(),SoundEvents.CHEST_OPEN,SoundSource.PLAYERS,.75f,1);
+        else target.hurt(shouldKnockback?target.damageSources().playerAttack(player):target.damageSources().generic(),4f);
+        if(target.isAlive()){
+            var inv=ChestCavityUtil.openChestCavity(cc);
+            ((ChestCavityEntity)player).getChestCavityInstance().ccBeingOpened=cc;
+            serverPlayer.openMenu(new SimpleMenuProvider((id,inventory,viewer)->new ChestCavityScreenHandler(id,inventory,inv),Component.translatable("container.chestcavity",target.getDisplayName())));
+        }
+        return true;
+    }
 }

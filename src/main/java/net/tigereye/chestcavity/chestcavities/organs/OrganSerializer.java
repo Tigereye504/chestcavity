@@ -1,11 +1,12 @@
 package net.tigereye.chestcavity.chestcavities.organs;
+import net.minecraft.resources.Identifier;
+import com.mojang.datafixers.util.Pair;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
+
 import net.tigereye.chestcavity.ChestCavity;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class OrganSerializer {
             throw new JsonSyntaxException("Organ " + id + " must have organScores");
         }
         OrganData organData = new OrganData();
-        Identifier itemID = new Identifier(organJson.itemID);
+        Identifier itemID = Identifier.parse(organJson.itemID);
         organData.pseudoOrgan = organJson.pseudoOrgan;
         organData.organScores = readOrganScoresFromJson(id, organJson.organScores);
         return new Pair<>(itemID,organData);
@@ -40,7 +41,7 @@ public class OrganSerializer {
                 } else if (!obj.has("value")) {
                     ChestCavity.LOGGER.error("Missing value component in " + id.toString() + "'s organ scores");
                 } else {
-                    Identifier ability = new Identifier(obj.get("id").getAsString());
+                    Identifier ability = Identifier.parse(obj.get("id").getAsString());
                     organScores.put(ability,obj.get("value").getAsFloat());
                 }
             }

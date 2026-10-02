@@ -1,6 +1,9 @@
 {
   "itemID": "chestcavity:venom_gland",
   "organScores": [
-    {"id":"chestcavity:venomous","value": "1"}
+    {
+      "id": "chestcavity:venomous",
+      "value": "1"
+    }
   ]
 }

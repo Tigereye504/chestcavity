@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": "chestcavity:raw_toxic_meat",
+  "result": {
+    "id": "chestcavity:cooked_toxic_meat",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 600
+}

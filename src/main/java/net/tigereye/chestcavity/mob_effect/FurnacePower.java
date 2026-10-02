@@ -1,11 +1,10 @@
 package net.tigereye.chestcavity.mob_effect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
+import net.minecraft.world.item.ItemStack;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.tigereye.chestcavity.ChestCavity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.registration.CCItems;
@@ -15,16 +14,16 @@ import java.util.Optional;
 public class FurnacePower extends CCStatusEffect{
 
     public FurnacePower(){
-        super(StatusEffectCategory.BENEFICIAL, 0xC8FF00);
+        super(MobEffectCategory.BENEFICIAL, 0xC8FF00);
     }
 
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    @Override public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        if(entity instanceof PlayerEntity){
-            if(!(entity.world.isClient)) {
+    @Override public boolean applyEffectTick(net.minecraft.server.level.ServerLevel level, LivingEntity entity, int amplifier) {
+        if(entity instanceof Player){
+            if(!(entity.level().isClientSide())) {
                 Optional<ChestCavityEntity> optional = ChestCavityEntity.of(entity);
                 if (optional.isPresent()) {
                     ChestCavityEntity cce = optional.get();
@@ -32,14 +31,15 @@ public class FurnacePower extends CCStatusEffect{
                     cc.furnaceProgress++;
                     if (cc.furnaceProgress >= 200) {
                         cc.furnaceProgress = 0;
-                        HungerManager hungerManager = ((PlayerEntity) entity).getHungerManager();
+                        FoodData hungerManager = ((Player) entity).getFoodData();
                         ItemStack furnaceFuel = new ItemStack(CCItems.FURNACE_POWER);
                         for (int i = 0; i <= amplifier; i++) {
-                            hungerManager.eat(CCItems.FURNACE_POWER, furnaceFuel);
+                            furnaceFuel.get(net.minecraft.core.component.DataComponents.FOOD).onConsume(level,entity,furnaceFuel,net.minecraft.world.item.component.Consumables.DEFAULT_FOOD);
                         }
                     }
                 }
             }
         }
+        return true;
     }
 }

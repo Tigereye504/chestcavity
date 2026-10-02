@@ -1,8 +1,17 @@
 {
   "itemID": "chestcavity:insect_stomach",
   "organScores": [
-    {"id":"chestcavity:digestion","value": ".5"},
-    {"id":"chestcavity:nutrition","value": ".25"},
-    {"id":"chestcavity:metabolism","value": ".25"}
+    {
+      "id": "chestcavity:digestion",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:nutrition",
+      "value": ".25"
+    },
+    {
+      "id": "chestcavity:metabolism",
+      "value": ".25"
+    }
   ]
 }

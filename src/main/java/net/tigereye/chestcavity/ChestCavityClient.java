@@ -1,29 +1,21 @@
 package net.tigereye.chestcavity;
-
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.resource.ResourceType;
-import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
-import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityAssignmentManager;
-import net.tigereye.chestcavity.chestcavities.types.json.GeneratedChestCavityTypeManager;
-import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.listeners.KeybindingClientListeners;
-import net.tigereye.chestcavity.registration.CCKeybindings;
-import net.tigereye.chestcavity.util.NetworkUtil;
-import net.tigereye.chestcavity.registration.CCNetworkingPackets;
-import net.tigereye.chestcavity.ui.ChestCavityScreen;
-
-import java.util.Optional;
-
-public class ChestCavityClient implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
-        ScreenRegistry.register(ChestCavity.CHEST_CAVITY_SCREEN_HANDLER, ChestCavityScreen::new);
-
-        CCNetworkingPackets.registerClient();
-        CCKeybindings.register();
-        KeybindingClientListeners.register();
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+@EventBusSubscriber(modid="chestcavity", value=Dist.CLIENT)
+public final class ChestCavityClient {
+    @SubscribeEvent public static void setup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
+        event.enqueueWork(() -> net.minecraft.client.gui.screens.MenuScreens.register(ChestCavity.CHEST_CAVITY_SCREEN_HANDLER,net.tigereye.chestcavity.ui.ChestCavityScreen::new));
+    }
+    @SubscribeEvent public static void tooltip(net.minecraftforge.event.entity.player.ItemTooltipEvent event) {
+        var data=net.tigereye.chestcavity.util.ChestCavityUtil.lookupOrgan(event.getItemStack(),null);
+        if(data!=null && !data.pseudoOrgan && event.getEntity()!=null){
+            net.tigereye.chestcavity.util.OrganUtil.displayOrganQuality(data.organScores,event.getToolTip());
+            net.tigereye.chestcavity.util.OrganTooltips.displayCompatibility(event.getItemStack(),event.getEntity().level(),event.getToolTip(),event.getFlags());
+        }
+    }
+    @SubscribeEvent public static void keys(net.minecraftforge.client.event.RegisterKeyMappingsEvent event) {
+        net.tigereye.chestcavity.registration.CCKeybindings.register(event);
+        net.tigereye.chestcavity.listeners.KeybindingClientListeners.register();
     }
 }

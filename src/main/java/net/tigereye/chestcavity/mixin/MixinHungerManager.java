@@ -1,99 +1,25 @@
 package net.tigereye.chestcavity.mixin;
-
-import net.minecraft.item.ItemStack;
-import net.tigereye.chestcavity.ChestCavity;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
+import net.minecraft.world.entity.*;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
-import net.tigereye.chestcavity.listeners.EffectiveFoodScores;
-import net.tigereye.chestcavity.listeners.OrganFoodCallback;
-import net.tigereye.chestcavity.registration.CCOrganScores;
-import net.tigereye.chestcavity.util.ChestCavityUtil;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.tigereye.chestcavity.chestcavities.instance.*;
+import net.tigereye.chestcavity.util.*;
 
-import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
-
-@Mixin(HungerManager.class)
-public class MixinHungerManager {
-
-        @Shadow
-        private int foodTickTimer;
-        @Shadow
-        private int foodLevel;
-        @Shadow
-        private float saturationLevel;
-        @Shadow
-        private float exhaustion;
-
-        private ChestCavityEntity CC_player = null;
-
-        @Inject(at = @At("HEAD"), method = "update", cancellable = true)
-        public void chestCavityUpdateMixin(PlayerEntity player, CallbackInfo info) {
-                if(CC_player == null){
-                        ChestCavityEntity.of(player).ifPresent(ccPlayerEntityInterface -> {
-                                CC_player = ccPlayerEntityInterface;
-                        });
-                }
-                foodTickTimer = ChestCavityUtil.applySpleenMetabolism(CC_player.getChestCavityInstance(),this.foodTickTimer);
-        }
-
-
-        @ModifyArgs(method = "eat", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/HungerManager;add(IF)V"))
-        public void chestCavityEatMixin(Args args, Item item, ItemStack stack) {
-                if(item.isFood() && CC_player != null){
-                        //saturation gains are equal to hungerValue*saturationModifier*2
-                        //this is kinda stupid, if I half the hunger gains from food I don't want to also half saturation gains
-                        //so before hunger changes, calculate the saturation gain I intend
-                        FoodComponent itemFoodComponent = item.getFoodComponent();
-                        if(itemFoodComponent != null) {
-                                EffectiveFoodScores efs = new EffectiveFoodScores(
-                                        CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.DIGESTION),
-                                        CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.NUTRITION));
-                                efs = OrganFoodCallback.EVENT.invoker().onEatFood(item,itemFoodComponent,CC_player,efs);
-                                float saturationGain = ChestCavityUtil.applyNutrition(CC_player.getChestCavityInstance(),efs.nutrition,item.getFoodComponent().getSaturationModifier())
-                                         * item.getFoodComponent().getHunger() * 2.0F;
-                                //now find the modified hunger gains
-                                int hungerGain = ChestCavityUtil.applyDigestion(CC_player.getChestCavityInstance(),efs.digestion,item.getFoodComponent().getHunger());
-                                //now calculate the saturation modifier that gives me what I want
-                                float newSaturation = saturationGain / (hungerGain * 2);
-                                args.set(0,hungerGain);
-                                args.set(1,newSaturation);
-                                //now make a dummy food item with the modified stats and feed it to HungerManager.eat();
-                                //FoodComponent dummyFood = new FoodComponent.Builder().hunger(hungerGain).saturationModifier(newSaturation).build();
-                                //Item.Settings dummySettings = new Item.Settings().food(dummyFood);
-                                //return new Item(dummySettings);
-                        }
-                }
-        }
-
-        @ModifyVariable(at = @At("HEAD"), ordinal = 0, method = "addExhaustion")
-        public float chestCavityAddExhaustionMixin(float exhaustion) {
-                if(CC_player != null){
-                        if(this.exhaustion != this.exhaustion){
-                                //NaN check. Not sure what keep causing it...
-                                this.exhaustion = 0;
-                        }
-                        float enduranceDif = CC_player.getChestCavityInstance().getOrganScore(CCOrganScores.ENDURANCE)-CC_player.getChestCavityInstance().getChestCavityType().getDefaultOrganScore(CCOrganScores.ENDURANCE);
-                        //ChestCavity.LOGGER.info("In: "+exhaustion);
-                        float out;
-                        if(enduranceDif > 0) {
-                                out = exhaustion/(1+(enduranceDif/2));
-                        }
-                        else{
-                                out = exhaustion*(1-(enduranceDif/2));
-                        }
-                        //float out = exhaustion*(float)Math.pow(ChestCavity.config.LUNG_ENDURANCE,enduranceDif/2);
-                        //ChestCavity.LOGGER.info("Out: "+out);
-                        return out;
-                }
-                return exhaustion;
-        }
+@Mixin(net.minecraft.world.food.FoodData.class)
+public abstract class MixinHungerManager {
+    @Shadow private int tickTimer;
+    @Shadow private float exhaustionLevel;
+    @Unique private ChestCavityEntity chestcavity$player;
+    @Inject(method="tick",at=@At("HEAD")) private void chestcavity$tick(net.minecraft.server.level.ServerPlayer player,CallbackInfo ci){
+        chestcavity$player=(ChestCavityEntity)player;tickTimer=ChestCavityUtil.applySpleenMetabolism(chestcavity$player.getChestCavityInstance(),tickTimer);
+    }
+    @ModifyVariable(method="addExhaustion",at=@At("HEAD"),argsOnly=true,ordinal=0) private float chestcavity$endurance(float amount){
+        if(chestcavity$player==null)return amount;
+        if(!Float.isFinite(exhaustionLevel))exhaustionLevel=0;
+        var cc=chestcavity$player.getChestCavityInstance();var id=net.tigereye.chestcavity.registration.CCOrganScores.ENDURANCE;
+        float delta=cc.getOrganScore(id)-cc.getChestCavityType().getDefaultOrganScore(id);
+        return delta>0?amount/(1+delta/2):amount*(1-delta/2);
+    }
 }

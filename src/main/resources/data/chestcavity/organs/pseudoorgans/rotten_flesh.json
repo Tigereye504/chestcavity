@@ -2,7 +2,13 @@
   "itemID": "minecraft:rotten_flesh",
   "pseudoOrgan": true,
   "organScores": [
-    {"id":"chestcavity:strength","value": ".5"},
-    {"id":"chestcavity:speed","value": ".5"}
+    {
+      "id": "chestcavity:strength",
+      "value": ".5"
+    },
+    {
+      "id": "chestcavity:speed",
+      "value": ".5"
+    }
   ]
 }

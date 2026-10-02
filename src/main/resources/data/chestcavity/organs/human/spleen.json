@@ -1,6 +1,9 @@
 {
   "itemID": "chestcavity:spleen",
   "organScores": [
-    {"id":"chestcavity:metabolism","value": "1"}
+    {
+      "id": "chestcavity:metabolism",
+      "value": "1"
+    }
   ]
 }

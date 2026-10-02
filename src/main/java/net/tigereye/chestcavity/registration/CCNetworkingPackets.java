@@ -1,50 +1,47 @@
 package net.tigereye.chestcavity.registration;
-
-import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.Identifier;
-import net.tigereye.chestcavity.ChestCavity;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.Identifier;
+import net.minecraftforge.network.ChannelBuilder;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
 import net.tigereye.chestcavity.util.NetworkUtil;
-
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-public class CCNetworkingPackets {
-    public static final Identifier ORGAN_DATA_PACKET_ID = new Identifier(ChestCavity.MODID,"organ_data");
-    public static final Identifier UPDATE_PACKET_ID = new Identifier(ChestCavity.MODID,"update");
-    public static final Identifier RECEIVED_UPDATE_PACKET_ID = new Identifier(ChestCavity.MODID,"received_update");
-
-    public static final Identifier HOTKEY_PACKET_ID = new Identifier(ChestCavity.MODID, "hotkey");
-
-    public static void register(){
-        ServerLoginConnectionEvents.QUERY_START.register(NetworkUtil::sendOrganDataPacket);
-        ServerPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.RECEIVED_UPDATE_PACKET_ID, (server, player, handler, buf, sender) -> {
-            Optional<ChestCavityEntity> optional = ChestCavityEntity.of(player);
-            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityReceivedUpdatePacket(chestCavityEntity.getChestCavityInstance()));
-        });
-
-        ServerPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.HOTKEY_PACKET_ID, (server, player, handler, buf, sender) -> {
-            Optional<ChestCavityEntity> optional = ChestCavityEntity.of(player);
-            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityHotkeyPacket(chestCavityEntity.getChestCavityInstance(),buf));
-        });
-        ServerLoginNetworking.registerGlobalReceiver(CCNetworkingPackets.ORGAN_DATA_PACKET_ID,(server, handler, understood, buf, synchronizer, sender) -> {
-        });
+@EventBusSubscriber(modid="chestcavity")
+public final class CCNetworkingPackets {
+    public static final int ORGAN_DATA=0, UPDATE=1, ACK=2, HOTKEY=3;
+    private static final net.minecraftforge.network.SimpleChannel CHANNEL=ChannelBuilder.named(Identifier.fromNamespaceAndPath("chestcavity","main")).networkProtocolVersion(1).simpleChannel();
+    public record Packet(int kind, byte[] data) {}
+    public static void register() {
+        CHANNEL.messageBuilder(Packet.class,0)
+            .encoder((packet,buffer) -> { buffer.writeVarInt(packet.kind()); buffer.writeByteArray(packet.data()); })
+            .decoder(buffer -> new Packet(buffer.readVarInt(),buffer.readByteArray(1048576)))
+            .consumer(CCNetworkingPackets::handle).add();
     }
-
-    public static void registerClient(){
-        ClientPlayNetworking.registerGlobalReceiver(CCNetworkingPackets.UPDATE_PACKET_ID, (client, handler, buf, responseSender) -> {
-            Optional<ChestCavityEntity> optional = ChestCavityEntity.of(client.cameraEntity);
-            optional.ifPresent(chestCavityEntity -> NetworkUtil.ReadChestCavityUpdatePacket(chestCavityEntity.getChestCavityInstance(), buf));
+    private static void handle(Packet packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
+            FriendlyByteBuf buffer=new FriendlyByteBuf(io.netty.buffer.Unpooled.wrappedBuffer(packet.data()));
+            try {
+                if (context.isClientSide()) {
+                    net.tigereye.chestcavity.ClientNetworking.handle(packet.kind(),buffer);
+                } else if(context.getSender()!=null) {
+                    ChestCavityEntity.of(context.getSender()).ifPresent(entity -> {
+                        if(packet.kind()==ACK) NetworkUtil.ReadChestCavityReceivedUpdatePacket(entity.getChestCavityInstance());
+                        else if(packet.kind()==HOTKEY) NetworkUtil.ReadChestCavityHotkeyPacket(entity.getChestCavityInstance(),buffer);
+                        else throw new IllegalArgumentException("Invalid serverbound chest cavity packet");
+                    });
+                }
+            } finally { buffer.release(); }
         });
-        ClientLoginNetworking.registerGlobalReceiver(CCNetworkingPackets.ORGAN_DATA_PACKET_ID, (client, handler, buf, responseSender) -> {
-            NetworkUtil.readOrganDataPacket(buf);
-            return CompletableFuture.completedFuture(PacketByteBufs.empty());
-        });
+        context.setPacketHandled(true);
+    }
+    public static void sendToPlayer(net.minecraft.server.level.ServerPlayer player,int kind,byte[] data) { CHANNEL.send(new Packet(kind,data),PacketDistributor.PLAYER.with(player)); }
+    public static void sendToServer(int kind,byte[] data) { CHANNEL.send(new Packet(kind,data),PacketDistributor.SERVER.noArg()); }
+    @SubscribeEvent public static void sync(net.minecraftforge.event.OnDatapackSyncEvent event) {
+        for(var player:event.getPlayers()) {
+            NetworkUtil.sendOrganDataPacket(player);
+            ChestCavityEntity.of(player).ifPresent(c -> NetworkUtil.SendS2CChestCavityUpdatePacket(c.getChestCavityInstance()));
+        }
     }
 }

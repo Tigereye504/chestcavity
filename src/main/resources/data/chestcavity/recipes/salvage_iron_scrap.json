@@ -1,8 +1,0 @@
-{
-  "type": "chestcavity:crafting_salvage",
-  "ingredient": {
-    "tag": "chestcavity:salvageable_iron_scrap"
-  },
-  "result": "chestcavity:iron_scrap",
-  "count": 1
-}

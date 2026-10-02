@@ -1,6 +1,9 @@
 {
   "itemID": "chestcavity:animal_appendix",
   "organScores": [
-    {"id":"chestcavity:luck","value": ".75"}
+    {
+      "id": "chestcavity:luck",
+      "value": ".75"
+    }
   ]
 }

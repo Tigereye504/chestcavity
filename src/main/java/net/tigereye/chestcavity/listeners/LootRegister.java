@@ -1,144 +1,57 @@
 package net.tigereye.chestcavity.listeners;
-
-import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
-import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
-import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraftforge.common.loot.*;
+import net.tigereye.chestcavity.registration.*;
 import net.tigereye.chestcavity.interfaces.ChestCavityEntity;
+import net.tigereye.chestcavity.chestcavities.organs.OrganManager;
 import net.tigereye.chestcavity.recipes.SalvageRecipe;
-import net.tigereye.chestcavity.registration.CCEnchantments;
-import net.tigereye.chestcavity.registration.CCItems;
-import net.tigereye.chestcavity.registration.CCTags;
-import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackAddLoot;
-import net.tigereye.modifydropsapi.api.GenerateEntityLootCallbackModifyLoot;
-
 import java.util.*;
-
-
-public class LootRegister {
-    
-
-    private static final Identifier DESERT_PYRAMID_LOOT_TABLE_ID = new Identifier("minecraft", "chests/desert_pyramid");
-
-    private static List<SalvageRecipe> salvageRecipeList;
-
-    public static void register(){
-        GenerateEntityLootCallbackAddLoot.EVENT.register((type, lootContext) -> {
-            List<ItemStack> loot = new ArrayList<>();
-            if (lootContext.hasParameter(LootContextParameters.LAST_DAMAGE_PLAYER)) {
-                int lootingLevel;
-                Random random;
-                Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
-                Optional<ChestCavityEntity> chestCavityEntity = ChestCavityEntity.of(entity);
-                //check that the entity does have a chest cavity
-                if(!chestCavityEntity.isPresent()){
-                    return loot;
-                }
-                ChestCavityInstance cc = chestCavityEntity.get().getChestCavityInstance();
-                //check if loot is already generated due to having opened the target's chest cavity
-                if(cc.opened){
-                    return loot;
-                }
-                //get looting level and random
-                Entity killer_ = lootContext.get(LootContextParameters.KILLER_ENTITY);
-                if(killer_ instanceof LivingEntity killer){
-                    //check if loot is forbidden due to malpractice
-                    if(EnchantmentHelper.getEquipmentLevel(CCEnchantments.TOMOPHOBIA, killer) > 0){
-                        return loot;
-                    }
-                    lootingLevel = EnchantmentHelper.getEquipmentLevel(Enchantments.LOOTING, killer);
-                    lootingLevel += EnchantmentHelper.getEquipmentLevel(CCEnchantments.SURGICAL, killer)*2;
-                    if(killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL))
-                    {
-                        lootingLevel = 10 + 10*lootingLevel;
-                    }
-                    random = lootContext.getRandom();
-                }
-                else{
-                    lootingLevel = 0;
-                    random = Random.create();
-                }
-                //with all this passed, finally we ask the chest cavity manager what the loot will actually be.
-                loot.addAll(cc.getChestCavityType().generateLootDrops(random,lootingLevel));
-            }
-
-            return loot;
-        });
-
-        GenerateEntityLootCallbackModifyLoot.EVENT.register((type,lootContext,loot) -> {
-            if (lootContext.hasParameter(LootContextParameters.KILLER_ENTITY)) {
-                Entity killer_ = lootContext.get(LootContextParameters.KILLER_ENTITY);
-                if(killer_ instanceof LivingEntity killer){
-                    if (killer.getStackInHand(killer.getActiveHand()).isIn(CCTags.BUTCHERING_TOOL)) {
-                        //first, remove everything that can be salvaged from the loot and count them up
-                        Map<SalvageRecipe, Integer> salvageResults = new HashMap<>();
-                        Iterator<ItemStack> i = loot.iterator();
-                        if (salvageRecipeList == null) {
-                            salvageRecipeList = new ArrayList<>();
-                            List<CraftingRecipe> recipes = killer.world.getRecipeManager().listAllOfType(RecipeType.CRAFTING);
-                            for (CraftingRecipe recipe : recipes) {
-                                if (recipe instanceof SalvageRecipe) {
-                                    salvageRecipeList.add((SalvageRecipe) recipe);
-                                }
-                            }
-                        }
-                        while (i.hasNext()) {
-                            ItemStack stack = i.next();
-                            if (stack.isIn(CCTags.SALVAGEABLE)) {
-                                for (SalvageRecipe recipe : salvageRecipeList) {
-                                    if (recipe.getInput().test(stack)) {
-                                        salvageResults.put(recipe, salvageResults.getOrDefault(recipe, 0) + stack.getCount());
-                                        i.remove();
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        //then, get the output of the salvage and add it to the loot
-                        salvageResults.forEach((recipe, count) -> {
-                            ItemStack out = recipe.getOutput();
-                            out.setCount(out.getCount() * (count / recipe.getRequired()));
-                            loot.add(out);
-                        });
-                    }
-
-                    //organs gain malpractice
-                    if (EnchantmentHelper.getLevel(CCEnchantments.MALPRACTICE, killer.getStackInHand(killer.getActiveHand())) > 0) {
-                        for (ItemStack stack : loot) {
-                            if (OrganManager.isTrueOrgan(stack.getItem())) {
-                                stack.addEnchantment(CCEnchantments.MALPRACTICE, 1);
-                            }
-                        }
-                    }
-                }
-            }
-            return loot;
-        });
-
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, supplier, setter) -> {
-            if (DESERT_PYRAMID_LOOT_TABLE_ID.equals(id)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(BinomialLootNumberProvider.create(4,.25f))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
-                supplier.pool(poolBuilder);
-                poolBuilder = LootPool.builder()
-                        .rolls(BinomialLootNumberProvider.create(1,.3f))
-                        .with(ItemEntry.builder(CCItems.ROTTEN_RIB));
-                supplier.pool(poolBuilder);
-            }
-        });
+public class LootRegister extends LootModifier {
+    public static final MapCodec<LootRegister> CODEC=RecordCodecBuilder.mapCodec(i->codecStart(i).apply(i,LootRegister::new));
+    public LootRegister(LootItemCondition[] conditions){super(conditions);}
+    public static void register() {}
+    @Override public MapCodec<? extends IGlobalLootModifier> codec(){return CODEC;}
+    @Override protected ObjectArrayList<ItemStack> doApply(LootTable table,ObjectArrayList<ItemStack> loot,LootContext context){
+        var id=context.getQueriedLootTableId();
+        var random=context.getRandom();
+        if(id.toString().equals("minecraft:chests/desert_pyramid")){
+            for(int i=0;i<4;i++)if(random.nextFloat()<.25f)loot.add(new ItemStack(CCItems.ROTTEN_RIB));
+            if(random.nextFloat()<.3f)loot.add(new ItemStack(CCItems.ROTTEN_RIB));
+        }
+        net.tigereye.chestcavity.compat.backrooms.CCBackroomsLootRegister.apply(id,loot,random);
+        // Nested/block/container loot must never generate a creature's organs.
+        if(!id.getPath().startsWith("entities/") || !context.hasParameter(LootContextParams.DAMAGE_SOURCE))return loot;
+        var attacker=context.getOptional(LootContextParams.ATTACKING_ENTITY);
+        LivingEntity killer=attacker instanceof LivingEntity living?living:null;
+        boolean butcher=killer!=null && killer.getMainHandItem().is(CCTags.BUTCHERING_TOOL);
+        if(context.hasParameter(LootContextParams.LAST_DAMAGE_PLAYER)){
+            ChestCavityEntity.of(context.getOptional(LootContextParams.THIS_ENTITY)).ifPresent(cce->{
+                var cc=cce.getChestCavityInstance();
+                if(cc.opened || killer!=null && CCEnchantments.getEnchantmentLevel(CCEnchantments.TOMOPHOBIA,killer)>0)return;
+                int level=killer==null?0:CCEnchantments.getEnchantmentLevel(Enchantments.LOOTING,killer)+2*CCEnchantments.getEnchantmentLevel(CCEnchantments.SURGICAL,killer);
+                if(butcher)level=10+10*level;
+                loot.addAll(cc.getChestCavityType().generateLootDrops(random,level));
+            });
+        }
+        if(butcher){
+            var recipes=context.getLevel().getServer().getRecipeManager().getRecipes().stream().map(h->h.value()).filter(SalvageRecipe.class::isInstance).map(SalvageRecipe.class::cast).toList();
+            Map<SalvageRecipe,Integer> counts=new HashMap<>();
+            for(var it=loot.iterator();it.hasNext();){var stack=it.next();if(stack.is(CCTags.SALVAGEABLE))for(var recipe:recipes)if(recipe.input().test(stack)){counts.merge(recipe,stack.getCount(),Integer::sum);it.remove();break;}}
+            counts.forEach((recipe,count)->{ItemStack result=recipe.getOutput();int amount=result.getCount()*(count/recipe.required());while(amount>0){int n=Math.min(amount,result.getMaxStackSize());loot.add(result.copyWithCount(n));amount-=n;}});
+        }
+        if(killer!=null && CCEnchantments.getLevel(CCEnchantments.MALPRACTICE,killer.getMainHandItem())>0){
+            var enchantment=context.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(CCEnchantments.MALPRACTICE);
+            for(var stack:loot)if(OrganManager.isTrueOrgan(stack.getItem()))stack.enchant(enchantment,1);
+        }
+        return loot;
     }
 }

@@ -1,24 +1,17 @@
 package net.tigereye.chestcavity.registration;
-
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.tigereye.chestcavity.ChestCavity;
-import net.tigereye.chestcavity.enchantments.MalpracticeCurseEnchantment;
-import net.tigereye.chestcavity.enchantments.ONegativeEnchantment;
-import net.tigereye.chestcavity.enchantments.SurgicalEnchantment;
-import net.tigereye.chestcavity.enchantments.TomophobiaEnchantment;
-
-public class CCEnchantments {
-    public static final Enchantment O_NEGATIVE = new ONegativeEnchantment();
-    public static final Enchantment SURGICAL = new SurgicalEnchantment();
-    public static final Enchantment MALPRACTICE = new MalpracticeCurseEnchantment();
-    public static final Enchantment TOMOPHOBIA = new TomophobiaEnchantment();
-
-    public static void register() {
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "o_negative"), O_NEGATIVE);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "surgical"), SURGICAL);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "malpractice"), MALPRACTICE);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(ChestCavity.MODID, "tomophobia"), TOMOPHOBIA);
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.entity.LivingEntity;
+public final class CCEnchantments {
+    public static final ResourceKey<Enchantment> O_NEGATIVE=key("o_negative"), SURGICAL=key("surgical"), MALPRACTICE=key("malpractice"), TOMOPHOBIA=key("tomophobia");
+    private static ResourceKey<Enchantment> key(String id) { return ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath("chestcavity",id)); }
+    public static int getLevel(ResourceKey<Enchantment> key, ItemStack stack) {
+        return stack.getEnchantments().entrySet().stream().filter(e -> e.getKey().is(key)).mapToInt(e -> e.getIntValue()).max().orElse(0);
+    }
+    public static int getEnchantmentLevel(ResourceKey<Enchantment> key, LivingEntity entity) {
+        return net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentLevel(entity.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),entity);
     }
 }

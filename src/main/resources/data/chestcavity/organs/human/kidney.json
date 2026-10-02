@@ -1,6 +1,9 @@
 {
   "itemID": "chestcavity:kidney",
   "organScores": [
-    {"id":"chestcavity:filtration","value": "1"}
+    {
+      "id": "chestcavity:filtration",
+      "value": "1"
+    }
   ]
 }

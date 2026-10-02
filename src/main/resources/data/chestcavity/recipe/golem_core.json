@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "IBI",
+    " I "
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "B": "minecraft:iron_block",
+    "P": "minecraft:carved_pumpkin"
+  },
+  "result": {
+    "id": "chestcavity:golem_core"
+  }
+}

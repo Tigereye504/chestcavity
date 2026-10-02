@@ -1,6 +1,6 @@
 package net.tigereye.chestcavity.interfaces;
+import net.minecraft.world.entity.Entity;
 
-import net.minecraft.entity.Entity;
 import net.tigereye.chestcavity.chestcavities.instance.ChestCavityInstance;
 
 import java.util.Optional;
